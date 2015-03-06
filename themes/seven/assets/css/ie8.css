@@ -1,0 +1,17 @@
+/* IE8 Template Styles & Fixes */
+.pace {
+	display: none
+}
+
+span.number {
+	font-style: normal;
+}
+
+/* Polyfill for full-scale background images in IE */
+.hero,
+.element-img,
+.header {
+  background-size: cover;
+  -ms-behavior: url(includes/backgroundsize.min.htc);
+  behavior: url(includes/backgroundsize.min.htc);
+}

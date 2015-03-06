@@ -1,0 +1,87 @@
+@charset "utf-8";
+/*
+ * Columbia Theme
+ * Custom Theme Styles
+ * File: css/custom.css
+ *
+ */
+
+/* Begin custom styles */
+
+@media (min-width: 768px){
+    .navbar-nav > li > a {
+        padding-bottom: 10px;
+    }    
+} 
+.small-font-size {
+    font-size: 14px;
+}
+.medium-font-size {
+    font-size: 17px;
+}
+.medium-font-size .help-block,.medium-font-size .help-inline{
+    font-size: 14px;
+}
+.dropdown-menu > li.user-header > a{
+    padding: 5px;
+    color: rgba(255, 255, 255, 0.8);
+}
+/*
+    Original version: http://www.bootply.com/128062
+    
+    This version adds support for IE 10+ and Firefox.
+*/
+ 
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -ms-animation: spin .7s infinite linear;
+    -webkit-animation: spinw .7s infinite linear;
+    -moz-animation: spinm .7s infinite linear;
+}
+
+.top-buffer{
+    margin-top: 25px;
+}
+
+.othermedia > a{
+    padding-left: 9px;
+    font-size: 18px;
+}
+
+.graf--blockquote{
+    border-right: 3px solid rgba(0, 0, 0, 0.8);
+    border-left: 0px !important;
+    font-family: "B koodak", "jaf-bernino-sans", "Open Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif !important;
+}
+.graf--p{
+    
+}
+
+span.transparent-input{
+   background-color:transparent !important;
+   border:none !important;
+   padding-right: 0px;
+}
+input.transparent-input:focus{
+   border:none !important;     
+   padding-left: 0px;
+}
+input.transparent-input:not(:focus){
+   background-color:transparent !important;
+   border:none !important;    
+   padding-left: 0px;
+}
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+  
+@-webkit-keyframes spinw {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+ 
+@-moz-keyframes spinm {
+    from { -moz-transform: rotate(0deg);}
+    to { -moz-transform: rotate(360deg);}
+}
