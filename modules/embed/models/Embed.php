@@ -36,8 +36,8 @@ class Embed extends \yii\db\ActiveRecord
     {
         return [
             [['hash', 'url', 'response'], 'required'],
-            [['response','url'], 'string'],
-            //maybe should add url validation for URL
+            [['response'], 'string'],
+            [['url'],'url'],
             [['type'],'in','range'=>[self::TYPE_EXTRACT,self::TYPE_OEMBED]],
             [['frequnecy'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],

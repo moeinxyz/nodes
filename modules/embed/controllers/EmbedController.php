@@ -5,6 +5,8 @@ namespace app\modules\embed\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Response;
+use yii\validators\UrlValidator;
+use yii\validators\RangeValidator;
 use Embedly\Embedly;
 
 
@@ -33,6 +35,7 @@ class EmbedController extends \yii\web\Controller
                             if (array_key_exists('host', $parse) && $parse['host'] == $serverName){
                                 return TRUE;
                             }
+                            return TRUE;
                             return FALSE;
                         },
                         'allow'         =>  TRUE
@@ -44,7 +47,10 @@ class EmbedController extends \yii\web\Controller
     
     public function actionEmbed($url,$type = 'video')
     {
-        $url    = strrev($url);
+        Yii::$app->response->format =   Response::FORMAT_JSON;
+        $url                        =   $this->reassembleUrl($url);
+        $this->validateUrl($url);
+        
         if ($type === 'video'){
             $type = Embed::TYPE_OEMBED;
         } else {
@@ -72,19 +78,66 @@ class EmbedController extends \yii\web\Controller
         }                
     }
 
-    private function isAparatDotComUrl($url)
+    private function isCustomEmbedUrl($url)
     {
+        $parse          =   parse_url($url);
+        $rangeValidator =   new RangeValidator(['range'=>Yii::$app->controller->module->customEmbedRange]);
         
+        if (array_key_exists('host', $parse) AND $rangeValidator->validate(strtolower($parse['host']))){
+            return TRUE;
+        }
+        return FALSE;
     }
 
 
-    private function simulateAparatEmbedly($url)
+    private function simulateCustomEmbedly($url,$type)
     {
+        $response   =   NULL;
+        $parse      =   parse_url($url);
+        $host       =   $parse['host'];
+        if ($type === Embed::TYPE_OEMBED){
+            $response   = $this->embedlyOembed($url);
+            if (in_array($host, Yii::$app->controller->module->aparatEmbedRange)){
+                $response = $this->simulateAparat($response);
+            }
+        } else {
+            $response = $this->embedlyExtract($url);
+        }
         
+        return $response;
     }
 
+    private function simulateAparat($data)
+    {
+        if (isset($data->url)){
+            $result                 =   $data;            
+            $parse                  =   parse_url($result->url);
+            $params                 =   split("/", $parse['path']);
+            $videoHash              =   $params[2];
+            $result->type           =   'video';
+            $result->width          =   $result->thumbnail_width;
+            $result->height         =   $result->thumbnail_height;
+            $result->author_url     =   '';
+            $result->author_name    =   '';
+            $result->html           =   "<iframe src=\"http://www.aparat.com/video/video/embed/videohash/{$videoHash}/vt/frame\" allowFullScreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" height=\"360\" width=\"640\" ></iframe>";
+            return $result;
+        }
+        return NULL;
+    }
 
+    
     private function getEmbedResponse($url,$type = Embed::TYPE_OEMBED)
+    {
+        if ($this->isCustomEmbedUrl($url)){
+             return $this->simulateCustomEmbedly($url, $type);
+        } else if ($type === Embed::TYPE_OEMBED){
+            return $this->embedlyOembed($url);
+        } else {
+            return $this->embedlyExtract($url);
+        }
+    }
+
+    private function getEmbedlyApiObject()
     {
         $keys       =   Yii::$app->params['embedlyKeys'];
         $key        =   $keys[array_rand($keys)];
@@ -92,10 +145,40 @@ class EmbedController extends \yii\web\Controller
                             'key'       =>  $key,
                             'user_agent'=>  Yii::$app->request->userAgent
                         ]);
-        if ($type === Embed::TYPE_OEMBED){
-            return $api->oembed($url);
-        }
+        return $api;
+    }
+
+
+    private function embedlyOembed($url)
+    {
+        $api    =   $this->getEmbedlyApiObject();
+        return $api->oembed($url);
+    }
+
+    private function embedlyExtract($url)
+    {
+        $api    =   $this->getEmbedlyApiObject();
         return $api->extract($url);
+    }
+    
+    
+    private function validateUrl($url)
+    {
+        $validator  =   new UrlValidator();
+        if (!$validator->validate($url)){
+            throw new \yii\web\BadRequestHttpException;
+        }
+    }
+    
+    private function reassembleUrl($url)
+    {
+        $result = strrev($url);
+        $result = trim($result);
+        $parse  = parse_url($result);
+        if (!array_key_exists('scheme', $parse)){
+            $result = 'http://'.$result;
+        }
+        return $result;
     }
 
     /**
