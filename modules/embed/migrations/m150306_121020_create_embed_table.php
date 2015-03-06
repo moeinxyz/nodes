@@ -14,7 +14,7 @@ class m150306_121020_create_embed_table extends Migration
             'url'       =>  'TEXT NOT NULL',
             'type'      =>  'ENUM("OEMBED","EXTRACT") NOT NULL DEFAULT "OEMBED"',
             'frequnecy' =>  'BIGINT UNSIGNED NOT NULL DEFAULT 1',
-            'RESPONSE'  =>  'TEXT NOT NULL',
+            'response'  =>  'TEXT NOT NULL',
             'created_at'=>  'timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP',
             'updated_at'=>  'timestamp NOT NULL',
             'PRIMARY KEY(`id`)',
@@ -24,7 +24,7 @@ class m150306_121020_create_embed_table extends Migration
 
     public function down()
     {
-        $table  =   Yii::$app->getModule('user')->userTable;
+        $table  =   Yii::$app->getModule('embed')->embedTable;
         $this->dropTable($table);
     }
 }
