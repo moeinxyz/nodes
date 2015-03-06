@@ -52,52 +52,75 @@ $id                 =   base_convert($model->id, 10, 36);
 $autoSave           =   Yii::$app->urlManager->createUrl(["post/autosave/{$id}"]);
 $uploadUrl          =   Yii::$app->urlManager->createUrl(["post/upload/{$id}"]);   
 $urlSuggestionUrl   =   Yii::$app->urlManager->createUrl(["post/post/suggesturl",'id'=>$id]);
+$oembedUrl          =   Yii::$app->urlManager->createUrl(["embed/embed/embed",'type'=>'oembed']).'&url=';
+$extractUrl         =   Yii::$app->urlManager->createUrl(["embed/embed/embed",'type'=>'extract']).'&url=';
 $js=<<<JS
-$(document).ready(function(){
-    Dante.Editor.Tooltip.prototype.move = function(coords) {
-        var control_spacing, control_width, coord_right, coord_top, pull_size, tooltip;
-        tooltip = $(this.el);
-        control_width   = tooltip.find(".control").css("width");
-        control_spacing = tooltip.find(".inlineTooltip-menu").css("padding-right");
-        pull_size = parseInt(control_width.replace(/px/, "")) + parseInt(control_spacing.replace(/px/, ""));
-        coord_right = coords.right - pull_size;
-        coord_top = coords.top;
-        return $(this.el).offset({
-          top: coord_top,
-          right: coord_right
-        });
+Dante.Editor.Tooltip.prototype.move = function(coords) {
+    var control_spacing, control_width, coord_right, coord_top, pull_size, tooltip;
+    tooltip = $(this.el);
+    control_width   = tooltip.find(".control").css("width");
+    control_spacing = tooltip.find(".inlineTooltip-menu").css("padding-right");
+    pull_size = parseInt(control_width.replace(/px/, "")) + parseInt(control_spacing.replace(/px/, ""));
+    coord_right = coords.right - pull_size;
+    coord_top = coords.top;
+    return $(this.el).offset({
+      top: coord_top,
+      right: coord_right
+    });
+};
+Dante.Editor.Tooltip.prototype.getEmbedFromNode = function(node) {
+  this.node = $(node);
+  this.node_name = this.node.attr("name");
+  this.node.addClass("spinner");
+  return $.getJSON("" + this.current_editor.oembed_url + ($(this.node).text().split("").reverse().join(""))).success((function(_this) {
+    return function(data) {
+      var iframe_src, replaced_node, tmpl, url;
+      _this.node = $("[name=" + _this.node_name + "]");
+      iframe_src = $(data.html).prop("src");
+      tmpl = $(_this.embedTemplate());
+      tmpl.attr("name", _this.node.attr("name"));
+      $(_this.node).replaceWith(tmpl);
+      replaced_node = $(".graf--iframe[name=" + (_this.node.attr("name")) + "]");
+      replaced_node.find("iframe").attr("src", iframe_src);
+      url = data.url || data.author_url;
+      utils.log("URL IS " + url);
+      replaced_node.find(".markup--anchor").attr("href", url).text(url);
+      return _this.hide();
     };
-    var editor=new Dante.Editor(
-      {
-        el: "#editor",
-        upload_url: "{$uploadUrl}",
-        store_url:  "{$autoSave}",
-        disable_title:true
-      }
-    );
-    editor.start();
-    $('#editor').bind("DOMSubtreeModified",function(){
-      $("input#post-content").val(editor.getContent());
-    });
-    $("input#post-url").on('blur',function(){
-        $(this).val(encodeURIComponent($(this).val().trim().replace(/\s+/g, "-")));
-    });
+  })(this));
+};        
+var editor=new Dante.Editor(
+  {
+    el: "#editor",
+    upload_url: "{$uploadUrl}",
+    store_url:  "{$autoSave}",
+    oembed_url: "{$oembedUrl}",
+    extract_url: "{$extractUrl}",
+    disable_title:true
+  }
+);
+editor.start();
+$('#editor').bind("DOMSubtreeModified",function(){
+  $("input#post-content").val(editor.getContent());
+});
+$("input#post-url").on('blur',function(){
+    $(this).val(encodeURIComponent($(this).val().trim().replace(/\s+/g, "-")));
+});
 
-    $("input#post-title").on('blur',function(){
-        if ($("input#post-url").val() == ""){
-            $.post("{$urlSuggestionUrl}",{'title':$(this).val()})
-            .done(function(data){
-                if ($("input#post-url").val() == ""){
-                    $("input#post-url").val(data);
-                    $("div#url-block").css("display","");
-                }
-            });
-        }
-    });
-            
-    if ($("input#post-url").val() != ""){
-        $("div#url-block").css("display","");
+$("input#post-title").on('blur',function(){
+    if ($("input#post-url").val() == ""){
+        $.post("{$urlSuggestionUrl}",{'title':$(this).val()})
+        .done(function(data){
+            if ($("input#post-url").val() == ""){
+                $("input#post-url").val(data);
+                $("div#url-block").css("display","");
+            }
+        });
     }
 });
+
+if ($("input#post-url").val() != ""){
+    $("div#url-block").css("display","");
+}
 JS;
 $this->registerJs($js);
