@@ -45,13 +45,13 @@ class EmbedController extends \yii\web\Controller
         ];
     }
     
-    public function actionEmbed($url,$type = 'video')
+    public function actionEmbed($url,$type = 'oembed')
     {
         Yii::$app->response->format =   Response::FORMAT_JSON;
         $url                        =   $this->reassembleUrl($url);
         $this->validateUrl($url);
         
-        if ($type === 'video'){
+        if ($type === 'oembed'){
             $type = Embed::TYPE_OEMBED;
         } else {
             $type = Embed::TYPE_EXTRACT;

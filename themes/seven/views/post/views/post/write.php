@@ -89,6 +89,32 @@ Dante.Editor.Tooltip.prototype.getEmbedFromNode = function(node) {
     };
   })(this));
 };        
+Dante.Editor.Tooltip.prototype.getExtractFromNode = function(node) {
+  this.node = $(node);
+  this.node_name = this.node.attr("name");
+  this.node.addClass("spinner");
+  return $.getJSON("" + this.current_editor.extract_url + ($(this.node).text().split("").reverse().join(""))).success((function(_this) {
+    return function(data) {
+      var iframe_src, image_node, replaced_node, tmpl;
+      _this.node = $("[name=" + _this.node_name + "]");
+      iframe_src = $(data.html).prop("src");
+      tmpl = $(_this.extractTemplate());
+      tmpl.attr("name", _this.node.attr("name"));
+      $(_this.node).replaceWith(tmpl);
+      replaced_node = $(".graf--mixtapeEmbed[name=" + (_this.node.attr("name")) + "]");
+      replaced_node.find("strong").text(data.title);
+      replaced_node.find("em").text(data.description);
+      replaced_node.append(data.provider_url);
+      replaced_node.find(".markup--anchor").attr("href", data.url);
+      if (!_.isEmpty(data.images)) {
+        image_node = replaced_node.find(".mixtapeImage");
+        image_node.css("background-image", "url(" + data.images[0].url + ")");
+        image_node.removeClass("mixtapeImage--empty u-ignoreBlock");
+      }
+      return _this.hide();
+    };
+  })(this));
+};        
 var editor=new Dante.Editor(
   {
     el: "#editor",
