@@ -4,7 +4,7 @@ use yii\bootstrap\ActiveForm;
 use app\modules\post\Module;
 /* @var $this \yii\web\View */
 /* @var $model app\modules\post\models\Post */
-$this->registerAssetBundle('dante');
+$this->registerAssetBundle('custom-editor');
 ?>
 <div class="top-buffer"></div>
 
@@ -55,76 +55,14 @@ $urlSuggestionUrl   =   Yii::$app->urlManager->createUrl(["post/post/suggesturl"
 $oembedUrl          =   Yii::$app->urlManager->createUrl(["embed/embed/embed",'type'=>'oembed']).'&url=';
 $extractUrl         =   Yii::$app->urlManager->createUrl(["embed/embed/embed",'type'=>'extract']).'&url=';
 $js=<<<JS
-Dante.Editor.Tooltip.prototype.move = function(coords) {
-    var control_spacing, control_width, coord_right, coord_top, pull_size, tooltip;
-    tooltip = $(this.el);
-    control_width   = tooltip.find(".control").css("width");
-    control_spacing = tooltip.find(".inlineTooltip-menu").css("padding-right");
-    pull_size = parseInt(control_width.replace(/px/, "")) + parseInt(control_spacing.replace(/px/, ""));
-    coord_right = coords.right - pull_size;
-    coord_top = coords.top;
-    return $(this.el).offset({
-      top: coord_top,
-      right: coord_right
-    });
-};
-Dante.Editor.Tooltip.prototype.getEmbedFromNode = function(node) {
-  this.node = $(node);
-  this.node_name = this.node.attr("name");
-  this.node.addClass("spinner");
-  return $.getJSON("" + this.current_editor.oembed_url + ($(this.node).text().split("").reverse().join(""))).success((function(_this) {
-    return function(data) {
-      var iframe_src, replaced_node, tmpl, url;
-      _this.node = $("[name=" + _this.node_name + "]");
-      iframe_src = $(data.html).prop("src");
-      tmpl = $(_this.embedTemplate());
-      tmpl.attr("name", _this.node.attr("name"));
-      $(_this.node).replaceWith(tmpl);
-      replaced_node = $(".graf--iframe[name=" + (_this.node.attr("name")) + "]");
-      replaced_node.find("iframe").attr("src", iframe_src);
-      url = data.url || data.author_url;
-      utils.log("URL IS " + url);
-      replaced_node.find(".markup--anchor").attr("href", url).text(url);
-      return _this.hide();
-    };
-  })(this));
-};        
-Dante.Editor.Tooltip.prototype.getExtractFromNode = function(node) {
-  this.node = $(node);
-  this.node_name = this.node.attr("name");
-  this.node.addClass("spinner");
-  return $.getJSON("" + this.current_editor.extract_url + ($(this.node).text().split("").reverse().join(""))).success((function(_this) {
-    return function(data) {
-      var iframe_src, image_node, replaced_node, tmpl;
-      _this.node = $("[name=" + _this.node_name + "]");
-      iframe_src = $(data.html).prop("src");
-      tmpl = $(_this.extractTemplate());
-      tmpl.attr("name", _this.node.attr("name"));
-      $(_this.node).replaceWith(tmpl);
-      replaced_node = $(".graf--mixtapeEmbed[name=" + (_this.node.attr("name")) + "]");
-      replaced_node.find("strong").text(data.title);
-      replaced_node.find("em").text(data.description);
-      replaced_node.append(data.provider_url);
-      replaced_node.find(".markup--anchor").attr("href", data.url);
-      if (!_.isEmpty(data.images)) {
-        image_node = replaced_node.find(".mixtapeImage");
-        image_node.css("background-image", "url(" + data.images[0].url + ")");
-        image_node.removeClass("mixtapeImage--empty u-ignoreBlock");
-      }
-      return _this.hide();
-    };
-  })(this));
-};        
-var editor=new Dante.Editor(
-  {
+var editor=new Dante.Editor({
     el: "#editor",
     upload_url: "{$uploadUrl}",
     store_url:  "{$autoSave}",
     oembed_url: "{$oembedUrl}",
     extract_url: "{$extractUrl}",
     disable_title:true
-  }
-);
+});
 editor.start();
 $('#editor').bind("DOMSubtreeModified",function(){
   $("input#post-content").val(editor.getContent());
@@ -144,7 +82,6 @@ $("input#post-title").on('blur',function(){
         });
     }
 });
-
 if ($("input#post-url").val() != ""){
     $("div#url-block").css("display","");
 }

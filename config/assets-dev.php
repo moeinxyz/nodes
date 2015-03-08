@@ -72,11 +72,10 @@ return [
         'js'            =>  ['js/dante-editor.js'],
         'depends'       =>  ['yii\web\JqueryAsset','underscore','sanitize']
     ],
-    'editor'            =>  [
+    'custom-editor'     =>  [
         'class'         =>  'yii\web\AssetBundle',
         'sourcePath'    =>  '@app/themes/seven/assets/editor',
-        'js'            =>  [],
-        'css'           =>  [],
+        'js'            =>  ['js/editor.js'],
         'depends'       =>  ['Main','dante']
     ],
     'Main2' => [

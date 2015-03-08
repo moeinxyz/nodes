@@ -94,7 +94,7 @@ class Post extends \yii\db\ActiveRecord
                             ->limit(1)->one();
     }
 
-    public static function draftAllWrttingPost()
+    public static function draftAllWrittingPost()
     {
         return self::updateAll(['status'=>self::STATUS_DRAFT],'user_id=:user_id AND status=:status',[':user_id'=>Yii::$app->user->id,':status'=>self::STATUS_WRITTING]);
     }

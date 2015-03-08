@@ -127,6 +127,7 @@ $config = [
             'enablePrettyUrl'   => true,
                 'rules' => [
                     '@<username:\w+>'               =>  'post/post/user',
+                    '@<username:\w+>/rss'           =>  'post/post/rss',                    
                     '@<username:\w+>/<post:\w+>'    =>  'post/post/post',
                     'post/write'                    =>  'post/post/write',
                     'post/autosave/<id:\w+>'        =>  'post/post/autosave',

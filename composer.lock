@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d66c8fba938afd26c41dfd58c5066dba",
+    "hash": "3420bf3fc548832757e87b04eda3d9c9",
     "packages": [
         {
             "name": "2amigos/yii2-switch-widget",
@@ -668,6 +668,51 @@
                 "yii2"
             ],
             "time": "2015-02-26 01:38:59"
+        },
+        {
+            "name": "embedly/embedly-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/embedly/embedly-php.git",
+                "reference": "a2cbf6dc45c1a8d82063ef099216f74007c8ad1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/embedly/embedly-php/zipball/a2cbf6dc45c1a8d82063ef099216f74007c8ad1a",
+                "reference": "a2cbf6dc45c1a8d82063ef099216f74007c8ad1a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "behat/behat": "2.4.*@stable",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Embedly": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bob Corsaro",
+                    "email": "rcorsaro@gmail.com",
+                    "homepage": "http://bit.ly/rcorsaro"
+                }
+            ],
+            "description": "Embedly library for PHP",
+            "homepage": "https://github.com/embedly",
+            "keywords": [
+                "embedly"
+            ],
+            "time": "2015-02-05 15:06:38"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -1732,6 +1777,95 @@
                 "yii2"
             ],
             "time": "2015-03-01 06:22:44"
+        },
+        {
+            "name": "zelenin/rss-generator",
+            "version": "2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zelenin/RSS-Generator.git",
+                "reference": "c32e22a61e529fdb0363ea6c3d98d1071f082eee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zelenin/RSS-Generator/zipball/c32e22a61e529fdb0363ea6c3d98d1071f082eee",
+                "reference": "c32e22a61e529fdb0363ea6c3d98d1071f082eee",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Zelenin\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aleksandr Zelenin",
+                    "email": "aleksandr@zelenin.me",
+                    "homepage": "http://zelenin.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP class for generating of RSS feeds. Full support of [RSSboard specification](http://www.rssboard.org/rss-specification)",
+            "homepage": "https://github.com/zelenin/RSS-Generator",
+            "keywords": [
+                "feed",
+                "generator",
+                "rss"
+            ],
+            "time": "2014-11-15 00:00:00"
+        },
+        {
+            "name": "zelenin/yii2-rss",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zelenin/yii2-rss.git",
+                "reference": "0e78c95e4665eaaf5a5b4ac7315e8c0111451a17"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zelenin/yii2-rss/zipball/0e78c95e4665eaaf5a5b4ac7315e8c0111451a17",
+                "reference": "0e78c95e4665eaaf5a5b4ac7315e8c0111451a17",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "~2",
+                "zelenin/rss-generator": "~2.1@stable"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "Zelenin\\yii\\extensions\\Rss\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Aleksandr Zelenin",
+                    "email": "aleksandr@zelenin.me",
+                    "homepage": "http://zelenin.me",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Yii2 RSS extension adds RSS-feed to your site",
+            "homepage": "https://github.com/zelenin/yii2-rss",
+            "keywords": [
+                "feed",
+                "rss",
+                "yii2"
+            ],
+            "time": "2014-12-07 12:09:30"
         }
     ],
     "packages-dev": [
@@ -2038,7 +2172,9 @@
     "stability-flags": {
         "filsh/yii2-gearman": 20,
         "creocoder/yii2-flysystem": 20,
-        "league/flysystem-sftp": 20
+        "league/flysystem-sftp": 20,
+        "embedly/embedly-php": 20,
+        "zelenin/yii2-rss": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

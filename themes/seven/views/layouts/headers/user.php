@@ -1,6 +1,4 @@
-<?php use yii\helpers\Html; ?>
-
-
+<?php  use yii\helpers\Html; ?>
 <div class="navbar-custom-menu pull-right">
     <ul class="nav navbar-nav flaty-nav pull-right">
         <li class="hidden-xs">
@@ -10,20 +8,20 @@
             </a> 
         </li>          
     </ul>
+    <ul class="nav navbar-nav flaty-nav pull-right">
+        <li class="hidden-xs">
+            <a href="<?= Yii::$app->urlManager->createUrl(['search']) ?>">
+                <i class="glyphicon glyphicon-search"></i>                
+            </a> 
+        </li>
+    </ul>       
 </div>
-<ul class="nav flaty-nav pull-right">
-    <li class="hidden-xs">
-        <a href="<?= Yii::$app->urlManager->createUrl(['search']) ?>">
-            <i class="glyphicon glyphicon-search"></i>                
-        </a> 
-    </li>
-</ul>   
 <div class="navbar-custom-menu pull-left">
     <ul class="nav navbar-nav flaty-nav pull-left">
         <li class="dropdown user user-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">               
+                <i class="glyphicon"><?= Yii::$app->user->getIdentity()->getName();?></i>                
                 <img src="<?= Yii::$app->user->getIdentity()->getProfilePicture();?>" class="user-image" alt="<?= Yii::$app->user->getIdentity()->getName();?>"/>
-                <span class="hidden-xs"><?= Yii::$app->user->getIdentity()->getName();?> </span>
             </a>
             <ul class="dropdown-menu">
                 <li class="user-footer">      
@@ -46,7 +44,7 @@
                     <?= Html::a(Yii::t('app','header.user.setting').'<i class="glyphicon glyphicon-wrench"></i>', Yii::$app->urlManager->createUrl(['user/user/setting'])); ?>
                     <?= Html::a(Yii::t('app','header.user.logout').'<i class="glyphicon glyphicon-log-out"></i>', Yii::$app->urlManager->createUrl(['user/user/logout'])); ?>                                    
                 </li>
-            </ul>
-        </li>                
+            </ul>            
+        </li>
     </ul>
 </div>

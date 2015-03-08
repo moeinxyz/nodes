@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use app\modules\user\models\User;
 use yii\web\Response;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\StringHelper;
 /**
  * PostController implements the CRUD actions for Post model.
  */
@@ -122,48 +123,78 @@ class PostController extends Controller
 
     public function actionWrite($type = 'writting')
     {
-        if ($type === 'new'){
-            Post::draftAllWrttingPost();
-        } else {
+        $model = NULL;
+        if ($type == 'writting'){
             $model = Post::getLastUserWrittingPost();
-            if (!$model){
-                $model = new Post;
-                $model->save();
-            }
+        } else {
+            Post::draftAllWrittingPost();
         }
         
-        if ($type === 'writting'){
-            
+        if (!$model){
+            $model = new Post;
+            var_dump($model->validate());
+            var_dump($model->getErrors());
+            $model->save();
+            var_dump($model->id);die;
         }
-        
         return $this->redirect(['edit', 'id' => base_convert($model->id, 10, 36)]);
-        $model = new Post();
-        
-        $model->save();   
-        return $this->redirect(['edit', 'id' => base_convert($model->id, 10, 36)]);
-//        if ($type === 'new'){
-//            $model = new Post();
-//            $model->save();
-//        } else {
-//            $model = Post::getLastUserWrittingPost();
-//            
-//        }
-////        var_dump(Post::getLastUserWrittingPost());die;
-////        
-//        if ($model = Post::getLastUserWrittingPost()){
-//            
-//        }
-//        Post::findOne([''])
-//        Post;
-//        $model = new Post();
-//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-//            return $this->redirect(['view', 'id' => $model->id]);
-//        } else {
-//            return $this->render('write', [
-//                'model' => $model,
-//            ]);
-//        }
     }
+    
+    
+    public function actionRss($username)
+    {
+        $user           = $this->findUser($username);
+        if (isset($user->tagline)){
+            $description = $user->tagline;
+        } else if (isset ($user->name)) {
+            $description = $user->name . ' ('.$user->username.')';
+        } else {
+            $description = $user->username;
+        }
+        $dataProvider = new ActiveDataProvider([
+            'query'         => Post::find(),//->where('user_id=:user_id AND status=:status', [':user_id'=>$user->id,':status'=>  Post::STATUS_PUBLISH]),//->orderBy(['id']),
+            'pagination'    => [
+                'pageSize' => 15
+            ],
+        ]);
+
+        $response   = Yii::$app->getResponse();
+        $headers    = $response->getHeaders();
+
+        $headers->set('Content-Type', 'application/rss+xml; charset=utf-8');
+
+        $response->content = \Zelenin\yii\extensions\Rss\RssView::widget([
+            'dataProvider' => $dataProvider,
+            'channel' => [
+                'title'         =>  ($user->name==NULL)?$user->username:$user->name,
+                'link'          =>  Yii::$app->urlManager->createAbsoluteUrl(["@{$user->username}"]),
+                'description'   =>  $description,
+                'language'      =>  Yii::$app->language
+            ],
+            'items' => [
+                'title' => function ($model, $widget) {
+                        return $model->title;
+                    },
+                'description' => function ($model, $widget) {
+                        return StringHelper::truncateWords(strip_tags($model->content), 50);
+                    },
+                'link' => function ($model, $widget) use ($user) {
+                        return Yii::$app->urlManager->createAbsoluteUrl(["@{$user->username}/{$model->url}"]);
+                    },
+                'author' => function ($model, $widget) use ($user) {
+                        if (isset($user->name)){
+                            return $user->name . ' ('.$user->username.')';
+                        } else {
+                            return $user->username;
+                        }
+                    },
+                'pubDate' => function ($model, $widget) {
+                        $date = \DateTime::createFromFormat('Y-m-d H:i:s', $model->updated_at);
+                        return $date->format(DATE_RSS);
+                    }
+            ]
+        ]);
+    }    
 
 
     /**
@@ -183,9 +214,16 @@ class PostController extends Controller
         }
     }
     
+    
+    /**
+     * 
+     * @param string $username
+     * @return User
+     * @throws NotFoundHttpException
+     */
     protected function findUser($username)
     {
-        if (($user = User::findOne(['username'=>$username])) != NULL){
+        if (($user = User::findOne(['username'=>$username])) != NULL && $user->status != User::STATUS_BLOCK){
             return $user;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

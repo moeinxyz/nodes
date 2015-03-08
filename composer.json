@@ -32,7 +32,9 @@
         "bower-asset/components-font-awesome":"*",
         "bower-asset/bootstrap-switch":"*",
         "2amigos/yii2-switch-widget": "*",
-        "bower-asset/dante":"*"
+        "bower-asset/dante":"*",
+        "embedly/embedly-php": "dev-master",
+        "zelenin/yii2-rss": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
