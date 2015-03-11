@@ -132,10 +132,7 @@ class PostController extends Controller
         
         if (!$model){
             $model = new Post;
-            var_dump($model->validate());
-            var_dump($model->getErrors());
             $model->save();
-            var_dump($model->id);die;
         }
         return $this->redirect(['edit', 'id' => base_convert($model->id, 10, 36)]);
     }

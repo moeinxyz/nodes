@@ -30,7 +30,7 @@ $this->registerJs($js);
     <body class="skin-blue">
         <?php $this->beginBody() ?>
             <div class="loadstack">
-                <div class="spinner"></div>
+                <div class="spinner-loading"></div>
             </div>        
             <?= $this->render('header') ?>   
             <div id="wrapper" class="page-content">

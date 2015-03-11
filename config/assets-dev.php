@@ -19,7 +19,7 @@ return [
                                 'css/animate.css',
                                 'css/icomoon.css',
                                 'css/style.css',
-                                'css/custom.css',
+//                                'css/custom.css',
                                 'dist/css/AdminLTE.css',
                                 'dist/css/skins/skin-blue.css',
                             ],

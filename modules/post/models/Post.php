@@ -46,13 +46,14 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['url', 'title', 'content', 'user_id'], 'required'],
+            [['user_id'], 'required'],
+            [['url', 'title', 'content'], 'required','on'=>'save'],
             [['content','autosave_content'], 'string'],
             [['comments_count', 'user_id'], 'integer'],
             [['url', 'title'], 'string', 'max' => 256],
             [['status'],'in','range'=>[self::STATUS_DELETE,self::STATUS_DRAFT,self::STATUS_PUBLISH,self::STATUS_TRASH,self::STATUS_WRITTING]],
             [['pin'],'in','range'   =>[self::PIN_ON,self::PIN_OFF]],            
-            [['url'],'validateUniqueUrl']
+            [['url'],'validateUniqueUrl','on'=>'save']
         ];
     }
 
@@ -78,10 +79,8 @@ class Post extends \yii\db\ActiveRecord
         if (parent::beforeValidate()){
             if ($this->isNewRecord){
                 $this->user_id  =   Yii::$app->user->id;
-                $this->url      =   " asdasd";
-                $this->title    =   " asdsad";
-                $this->content  =   " asdasd";
             }
+            $this->updated_at = new \yii\db\Expression('NOW()');
             return TRUE;
         }
         return FALSE;

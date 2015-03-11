@@ -7,9 +7,12 @@ use app\modules\post\Module;
 $this->registerAssetBundle('custom-editor');
 ?>
 <div class="top-buffer"></div>
-
+<div class="top-buffer"></div>
+        <div class="top-buffer"></div>
+        <div class="top-buffer"></div>
+        <div class="top-buffer"></div>
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-8 col-md-offset-2">    
         <?php
             $form = ActiveForm::begin([
                 'id' => 'post-form',
@@ -25,22 +28,29 @@ $this->registerAssetBundle('custom-editor');
             <div class="col-md-12">
                 <div class="form-group">
                     <div class="controls">
-                        <div class="col-md-5 controls">
-                            <?= $form->field($model,'url',[
-                                'template'  =>  '<div id="url-block" class="input-group" style="direction: ltr; display: none;"><span class="input-group-addon transparent-input">http://nodes.ir/@moein7tl/</span>{input}{error}</div>'
-                            ])->textInput(['class'=>'input-sm form-control transparent-input']); ?>
-                        </div>                                                
-                        <div class="col-md-7 controls">
-                            <?= $form->field($model,'title')->textInput(['class'=>'input-lg form-control transparent-input','placeholder'=> Module::t('post','post.write.title.placeholder')]); ?>
-                        </div>
+                        <?= $form->errorSummary($model); ?>
                     </div>
                 </div>
-                <?= $form->field($model, 'content')->hiddenInput(); ?>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
+                <br>
                 <div id="editor"></div>
+            </div>
+        </div>            
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="controls">
+<!--                        <div class="col-md-12 controls">
+                            <?= $form->field($model,'url',[
+                                'template'  =>  '<div id="url-block" class="input-group" style="direction: ltr; display: none;"><span class="input-group-addon transparent-input">http://nodes.ir/@moein7tl/</span>{input}{error}</div>'
+                            ])->textInput(['class'=>'input-sm form-control transparent-input']); ?>
+                        </div>                                                -->
+                    </div>
+                </div>
+                <?= $form->field($model, 'content')->hiddenInput(); ?>
             </div>
         </div>        
         <?php ActiveForm::end();?>
@@ -54,14 +64,22 @@ $uploadUrl          =   Yii::$app->urlManager->createUrl(["post/upload/{$id}"]);
 $urlSuggestionUrl   =   Yii::$app->urlManager->createUrl(["post/post/suggesturl",'id'=>$id]);
 $oembedUrl          =   Yii::$app->urlManager->createUrl(["embed/embed/embed",'type'=>'oembed']).'&url=';
 $extractUrl         =   Yii::$app->urlManager->createUrl(["embed/embed/embed",'type'=>'extract']).'&url=';
+$titlePlaceholder   =   Module::t('post','write.title.placeholder');
+$bodyPlaceholder    =   Module::t('post','write.body.placeholder');
+$embedPlaceholder   =   Module::t('post','write.embed.placeholder');
+$extractPlaceholder =   Module::t('post','write.extract.placeholder');
 $js=<<<JS
 var editor=new Dante.Editor({
     el: "#editor",
-    upload_url: "{$uploadUrl}",
-    store_url:  "{$autoSave}",
-    oembed_url: "{$oembedUrl}",
-    extract_url: "{$extractUrl}",
-    disable_title:true
+    upload_url:                 "{$uploadUrl}",
+    store_url:                  "{$autoSave}",
+    oembed_url:                 "{$oembedUrl}",
+    extract_url:                "{$extractUrl}",
+    store_interval:             5000,
+    title_placeholder:          "{$titlePlaceholder}",
+    body_placeholder:           "{$bodyPlaceholder}",
+    embed_placeholder:          "{$embedPlaceholder}",
+    extract_placeholder:        "{$extractPlaceholder}"
 });
 editor.start();
 $('#editor').bind("DOMSubtreeModified",function(){

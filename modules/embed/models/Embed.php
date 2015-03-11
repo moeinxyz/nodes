@@ -35,14 +35,14 @@ class Embed extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['hash', 'url', 'response'], 'required'],
-            [['response'], 'string'],
-            [['url'],'url'],
-            [['type'],'in','range'=>[self::TYPE_EXTRACT,self::TYPE_OEMBED]],
-            [['frequnecy'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['hash'], 'string', 'max' => 32],
-            [['hash'], 'unique']
+//            [['hash', 'url', 'response'], 'required'],
+//            [['response'], 'string'],
+//            [['url'],'url'],
+//            [['type'],'in','range'=>[self::TYPE_EXTRACT,self::TYPE_OEMBED]],
+//            [['frequnecy'], 'integer'],
+//            [['created_at', 'updated_at'], 'safe'],
+//            [['hash'], 'string', 'max' => 32],
+//            [['hash'], 'unique']
         ];
     }
 

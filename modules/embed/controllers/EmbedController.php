@@ -71,6 +71,8 @@ class EmbedController extends \yii\web\Controller
                 $model->response=   $response;
                 $model->save();
             }
+            var_dump($model->getErrors());die;
+            Yii::error($model->getErrors(),'MOEINMOEINMOEIN');
             return $response;
         } else {
             $model->updateCounters(['frequency'=>1]);

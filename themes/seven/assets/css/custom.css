@@ -71,6 +71,9 @@ input.transparent-input:not(:focus){
    border:none !important;    
    padding-left: 0px;
 }
+.dante-menu-input{
+    direction: ltr;
+}
 @keyframes spin {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
