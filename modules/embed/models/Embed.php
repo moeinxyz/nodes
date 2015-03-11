@@ -11,7 +11,7 @@ use Yii;
  * @property string $hash
  * @property string $url
  * @property string $type
- * @property string $frequnecy
+ * @property string $frequency
  * @property string $response
  * @property string $created_at
  * @property string $updated_at
@@ -35,14 +35,13 @@ class Embed extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-//            [['hash', 'url', 'response'], 'required'],
-//            [['response'], 'string'],
-//            [['url'],'url'],
-//            [['type'],'in','range'=>[self::TYPE_EXTRACT,self::TYPE_OEMBED]],
-//            [['frequnecy'], 'integer'],
-//            [['created_at', 'updated_at'], 'safe'],
-//            [['hash'], 'string', 'max' => 32],
-//            [['hash'], 'unique']
+            [['hash', 'url', 'response'], 'required'],
+            [['response'], 'string'],
+////            [['url'],'url'],
+            [['type'],'in','range'=>[self::TYPE_EXTRACT,self::TYPE_OEMBED]],
+            [['frequency'], 'integer'],
+////            [['created_at', 'updated_at'], 'safe'],
+            [['hash'], 'string', 'max' => 32],
         ];
     }
 
@@ -56,7 +55,7 @@ class Embed extends \yii\db\ActiveRecord
             'hash'          => 'Hash',
             'url'           => 'Url',
             'type'          => 'Type',
-            'frequnecy'     => 'Frequency',
+            'frequency'     => 'Frequency',
             'reponse'       => 'Response',
             'created_at'    => 'Created At',
             'updated_at'    => 'Updated At',
@@ -69,15 +68,9 @@ class Embed extends \yii\db\ActiveRecord
             $this->updated_at       =   new \yii\db\Expression('NOW()');
             if ($this->isNewRecord){
                 $this->created_at   =   new \yii\db\Expression('NOW()');    
-                $this->frequnecy    =   1;
+                $this->frequency    =   1;
             }
-        }
-        return FALSE;
-    }
-    
-    public function beforeSave($insert) {
-        if (parent::beforeSave($insert)){
-            
+            return TRUE;
         }
         return FALSE;
     }
