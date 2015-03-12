@@ -9,7 +9,7 @@
     </ul>
     <ul class="nav flaty-nav pull-right">
         <li class="hidden-xs">
-            <a href="<?= Yii::$app->urlManager->createUrl(['post/write']) ?>">
+            <a href="<?= Yii::$app->urlManager->createUrl(['/post/write']) ?>">
                 <?php echo Yii::t('app','header.write'); ?>
                 <i class="glyphicon glyphicon-pencil"></i>                
             </a> 

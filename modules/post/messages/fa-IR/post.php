@@ -5,6 +5,7 @@ return [
     'user._user.recommended'    =>  'توصیه ها',
     'user._user.followers'      =>  'دنبال کنندگان',
     'user._user.following'      =>  'دنبال شوندگان',
-    '_follow.unfollow'  =>  'دنبال شده',
-    '_follow.follow'    =>  'دنبال کن',
+    '_follow.unfollow'          =>  'دنبال شده',
+    '_follow.follow'            =>  'دنبال کن',
+    '_follow.editMyProfile'     =>  'بروزرسانی پروفایل',
 ];

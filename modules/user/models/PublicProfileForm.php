@@ -30,8 +30,8 @@ class PublicProfileForm extends Model{
         return [
             [['name'], 'string', 'max' => 128],
             [['tagline'], 'string', 'max' => 256],
-            [['profilePicture'],'image','skipOnEmpty'=>TRUE,'extensions'=>['jpg','png','jpeg','gif'],'mimeTypes'=>['image/png','image/gif','image/jpeg','image/jpg','image/pjpeg'],'maxSize'=>1048576],
-            [['coverPicture'],'image','skipOnEmpty'=>TRUE,'extensions'=>['jpg','png','jpeg','gif'],'mimeTypes'=>['image/png','image/gif','image/jpeg','image/jpg','image/pjpeg'],'maxSize'=>1536000],
+            [['profilePicture'],'image','skipOnEmpty'=>TRUE,'extensions'=>['jpg','png','jpeg','gif'],'mimeTypes'=>['image/png','image/gif','image/jpeg','image/jpg','image/pjpeg'],'maxSize'=>1048576,'minWidth'=>100,'minHeight'=>100],
+            [['coverPicture'],'image','skipOnEmpty'=>TRUE,'extensions'=>['jpg','png','jpeg','gif'],'mimeTypes'=>['image/png','image/gif','image/jpeg','image/jpg','image/pjpeg'],'maxSize'=>1536000,'minWidth'=>300,'minHeight'=>100],
         ];
     }
 

@@ -21,7 +21,7 @@ $form = ActiveForm::begin([
             <div class="controls">
                 <div class="col-md-12 controls">
                     <?= $form->field($model,'name')->textInput(['placeholder'=> Module::t('user', 'user.attr.name')]); ?>
-                    <span class="glyphicon glyphicon-envelope form-control-feedback" style="right: 5px;"></span>                        
+                    <span class="glyphicon glyphicon-user form-control-feedback" style="right: 5px;"></span>                        
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@ $form = ActiveForm::begin([
             <div class="controls">
                 <div class="col-md-12 controls">
                     <?= $form->field($model,'tagline')->textInput(['placeholder'=> Module::t('user', 'user.attr.tagline')]); ?>
-                    <span class="glyphicon glyphicon-envelope form-control-feedback" style="right: 5px;"></span>                        
+                    <span class="glyphicon glyphicon-align-justify form-control-feedback" style="right: 5px;"></span>                        
                 </div>
             </div>
         </div>        
