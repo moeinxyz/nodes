@@ -123,7 +123,7 @@ $config = [
         ],
         'db' => require(__DIR__ . '/db.php'),
         'urlManager' => [
-//            'showScriptName'    => false,
+            'showScriptName'    => false,
             'enablePrettyUrl'   => true,
                 'rules' => [
                     '@<username:\w+>'               =>  'post/post/user',
@@ -179,13 +179,16 @@ $config = [
         ],
     ],    
     'aliases' => [
-        '@temp'         =>  '@app/temp',
+        '@temp'         =>  '@app/web/t',
+        '@tempFolder'   =>  't',
         '@pictures'     =>  '@temp/pictures',
         '@covers'       =>  '@temp/covers',        
         '@ftp'          =>  '/assets',
         '@ppicBaseUrl'  =>  'http://cdn.nodes.ir/assets/p',
+        '@cpicBaseUrl'  =>  'http://cdn.nodes.ir/assets/c',
         '@gravatar'     =>  'http://www.gravatar.com/avatar',
-        'profile'       =>  'http://nodes.ir'
+        '@placeHold'    =>  'http://www.placehold.it',
+        '@profile'       =>  'http://nodes.ir'
     ],    
     'params' => $params,
 ];

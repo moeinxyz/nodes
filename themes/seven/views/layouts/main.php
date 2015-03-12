@@ -15,7 +15,6 @@ var RecaptchaOptions = {
 };                
 JS;
 $this->registerJs($js);
-
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -31,11 +30,15 @@ $this->registerJs($js);
         <?php $this->beginBody() ?>
             <div class="loadstack">
                 <div class="spinner-loading"></div>
-            </div>        
-            <?= $this->render('header') ?>   
-            <div id="wrapper" class="page-content">
-                <?= $content ?>
             </div>
+            <?php if (Yii::$app->controller->action->getUniqueId() != 'post/post/edit'): ?>
+                <?= $this->render('header') ?>   
+                <div id="wrapper" class="page-content">
+                    <?= $content ?>
+                </div>
+            <?php else: ?>
+                <?= $content ?>
+            <?php endif; ?>
             <?= $this->render('footer') ?>
             
             <?= (Yii::$app->user->isGuest)?$this->render('headers/login'):NULL; ?>

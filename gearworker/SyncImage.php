@@ -13,13 +13,14 @@ class SyncImage extends JobBase
     public function execute(\GearmanJob $job = null)
     {
         $params     =   unserialize($job->workload())->getParams();
-        $this->uploadImage($params['userId'], $params['image'],$params['type']);
+        $this->uploadImage($params['userId'], $params['image'],$params['type']);    
     }
-    
+
+
     private function uploadImage($userId,$url,$type = self::TYPE_PROFILE)
     {    
         $stream     =   imagecreatefromstring(file_get_contents($url));
-        $fileName   =   md5($userId).base_convert($userId, 10, 32);
+        $fileName   =   md5($userId).base_convert($userId, 10, 36);
         if ($type === self::TYPE_PROFILE){
             $localFile  =   Yii::getAlias("@pictures/{$fileName}.jpg");
             $remoteFile =   Yii::getAlias("@ftp/p/{$fileName}.jpg");
@@ -31,7 +32,7 @@ class SyncImage extends JobBase
         imagedestroy($stream);
         $this->setStandardImageSize($localFile,$type);
         $content = file_get_contents($localFile);
-        unlink($localFile);   
+        unlink($localFile);
         Yii::$app->ftpFs->put($remoteFile, $content);
     }    
     

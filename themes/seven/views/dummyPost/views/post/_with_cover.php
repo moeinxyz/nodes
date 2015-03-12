@@ -9,7 +9,7 @@ use app\modules\user\models\Url;
 ?>
 <section class="container-fluid">
     <div class="row">
-        <div class="col-xs-12 element-img postfade center-block centertext central" style="background-image: url(<?= Yii::$app->user->getIdentity()->getCoverPicture(); ?>);">
+        <div class="col-xs-12 element-img postfade center-block centertext central" style="background-image: url(http://nodes.ir/nodesdotir/web/img/20141101_025202.jpg);">
             <img src="<?= $user->getProfilePicture(); ?>" class="img-circle" width="200">    
             <div class="follow">
                 <?= $this->render('_follow',['user'=>$user]);?>

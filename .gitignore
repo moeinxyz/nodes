@@ -1,3 +1,4 @@
+/temp
 # phpstorm project files
 .idea
 
@@ -25,3 +26,5 @@ composer.phar
 phpunit.phar
 # local phpunit config
 /phpunit.xml
+/web/t/pictures/
+/web/t/covers/

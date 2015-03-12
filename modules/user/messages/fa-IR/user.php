@@ -76,8 +76,15 @@ return [
     'setting.setting.successful.header' =>  'تنظیمات دریافت ایمیل با موفقیت بروزرسانی شد.',
     
     // profile
-    'setting.profile.header'            =>  'تغییر اطلاعات عمومی',
-
+    'profile.public.header'                 =>  'تغییر اطلاعات عمومی',
+    'publicProfileForm.attr.profilePicture' =>  'تصویر پروفایل',
+    'publicProfileForm.attr.coverPicture'   =>  'تصویر کاور',
+    'profile._public.image.select'          =>  'انتخاب',
+    'profile._public.image.remove'          =>  'پاک کردن',
+    'profile._public.image.change'          =>  'تغییر',
+    'profile._public.saveBtn'               =>  'بروزرسانی پروفایل',
+    'profile._public.successful.header'     =>  'پروفایل شما با موفقیت بروزرسانی شد.',
+    
     // password
     'password.changePasswordBtn'        =>  'تغییر کلمه عبور',
     'chgPwd.attr.password'              =>  'کلمه عبور فعلی',

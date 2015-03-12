@@ -102,7 +102,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 //            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className(), 'secret' => Yii::$app->reCaptcha->secret,'on'=>'join'],
             [['content_activity','publisher_activity','social_activity'],'in','range'=>[self::ACTIVITY_SETTING_DIGEST,self::ACTIVITY_SETTING_FULL,self::ACTIVITY_SETTING_OFF]],
             [['reading_list'],'in','range'=>[self::READING_LIST_DAILY,self::READING_LIST_OFF,self::READING_LIST_WEEKLY]],
-            [['type'],'in','range'=>[self::TYPE_ADMIN,self::TYPE_USER]]
+            [['type'],'in','range'=>[self::TYPE_ADMIN,self::TYPE_USER]],
+            [['profile_pic'],'in',  'range'=>[self::PIC_GRAVATAR,self::PIC_UPLOADED]],
+            [['profile_cover'],'in','range'=>[self::COVER_NOCOVER,self::COVER_UPLOADED]],
         ];
     }
 
@@ -165,6 +167,16 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         $hash      =   md5( strtolower( trim( $this->email ) ) );
         return Yii::getAlias("@gravatar/{$hash}/?&s={$size}");
     }    
+
+    public function getCoverPicture($size = '800x350')
+    {
+        if ($this->profile_cover === self::COVER_UPLOADED){
+            $userId     =   $this->getPrimaryKey();
+            $image      =   md5($userId).base_convert($userId, 10, 36);
+            return Yii::getAlias("@cpicBaseUrl/{$image}.jpg");
+        }
+        return Yii::getAlias("@placeHold/{$size}/EFEEEF/AAAAAA&text=No+Cover+Photo");
+    }        
     
     public function validateAuthKey($authKey) {
         return $this->getAuthKey() === $authKey;
@@ -306,7 +318,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         $connection         =   Yii::$app->db;
         if ($this->pictureUrl != NULL){
             try {
-                Yii::$app->gearman->getDispatcher()->background('syncImage', new JobWorkload([
+                Yii::$app->gearman->getDispatcher()->background('syncImageByOAuth', new JobWorkload([
                     'params' => [
                         'userId'    =>  $this->getPrimaryKey(),
                         'type'      =>  SyncImage::TYPE_PROFILE,
@@ -328,7 +340,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         
         if ($this->coverUrl != NULL){
             try {
-                Yii::$app->gearman->getDispatcher()->background('syncImage', new JobWorkload([
+                Yii::$app->gearman->getDispatcher()->background('syncImageByOAuth', new JobWorkload([
                     'params' => [
                         'userId'    =>  $this->getPrimaryKey(),
                         'type'      =>  SyncImage::TYPE_COVER,

@@ -19,7 +19,7 @@ return [
                                 'css/animate.css',
                                 'css/icomoon.css',
                                 'css/style.css',
-//                                'css/custom.css',
+                                'css/custom.css',
                                 'dist/css/AdminLTE.css',
                                 'dist/css/skins/skin-blue.css',
                             ],
@@ -70,13 +70,25 @@ return [
         'sourcePath'    =>  '@bower/dante/dist/0.0.10',        
         'css'           =>  ['css/dante-editor.css'],
         'js'            =>  ['js/dante-editor.js'],
-        'depends'       =>  ['yii\web\JqueryAsset','underscore','sanitize']
+        'depends'       =>  ['yii\web\JqueryAsset','underscore','sanitize','Main']
     ],
     'custom-editor'     =>  [
         'class'         =>  'yii\web\AssetBundle',
         'sourcePath'    =>  '@app/themes/seven/assets/editor',
         'js'            =>  ['js/editor.js'],
         'depends'       =>  ['Main','dante']
+    ],
+    'show-post'         =>  [
+        'class'         =>  'yii\web\AssetBundle',
+        'sourcePath'    =>  '@bower/dante/dist/0.0.10',        
+        'css'           =>  ['css/dante-editor.css']        
+    ],
+    'jasny-bootstrap'   =>  [
+        'class'         =>  'yii\web\AssetBundle',
+        'sourcePath'    =>  '@bower/jasny-bootstrap/dist',
+        'js'            =>  ['js/jasny-bootstrap.min.js'],
+        'css'           =>  ['css/jasny-bootstrap.min.css'],
+        'depends'       =>  ['Main']
     ],
     'Main2' => [
         'class'         =>  'yii\web\AssetBundle',

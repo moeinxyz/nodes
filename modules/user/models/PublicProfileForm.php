@@ -2,7 +2,18 @@
 namespace app\modules\user\models;
 
 use yii\base\Model;
-
+use app\modules\user\models\User;
+use Yii;
+use app\modules\user\Module;
+use yii\web\UploadedFile;
+use app\gearworker\SyncImage;
+use filsh\yii2\gearman\JobWorkload;
+/**
+ * @property string $name
+ * @property string $tagline
+ * @property UploadedFile $profilePicture
+ * @property UploadedFile $coverPicture
+ */
 class PublicProfileForm extends Model{
     public $name;
     public $tagline;
@@ -10,11 +21,7 @@ class PublicProfileForm extends Model{
     // to upload file
     public $profilePicture;
     public $coverPicture;
-    
-    // free,gravatar or uploaded
-    public $profilePic;
-    public $coverPic;
-    
+
     public $_user;
 
 
@@ -22,7 +29,22 @@ class PublicProfileForm extends Model{
     {
         return [
             [['name'], 'string', 'max' => 128],
-            [['tagline'], 'string', 'max' => 256]
+            [['tagline'], 'string', 'max' => 256],
+            [['profilePicture'],'image','skipOnEmpty'=>TRUE,'extensions'=>['jpg','png','jpeg','gif'],'mimeTypes'=>['image/png','image/gif','image/jpeg','image/jpg','image/pjpeg'],'maxSize'=>1048576],
+            [['coverPicture'],'image','skipOnEmpty'=>TRUE,'extensions'=>['jpg','png','jpeg','gif'],'mimeTypes'=>['image/png','image/gif','image/jpeg','image/jpg','image/pjpeg'],'maxSize'=>1536000],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'name'              =>  Module::t('user', 'user.attr.name'),
+            'tagline'           =>  Module::t('user', 'user.attr.tagline'),
+            'profilePicture'    =>  Module::t('user', 'publicProfileForm.attr.profilePicture'),
+            'coverPicture'      =>  Module::t('user', 'publicProfileForm.attr.coverPicture'),
         ];
     }
     
@@ -36,13 +58,50 @@ class PublicProfileForm extends Model{
     
     public function update()
     {
-        if ($this->validate()){
-            $user = $this->getUser();
-            $user->name     = $this->name;
-            $user->tagline  = $this->tagline;
-            return $user->save();
-        }
+        $user           =   $this->getUser();
+        $user->name     =   $this->name;
+        $user->tagline  =   $this->tagline;
+        $user = $this->syncPhotos($user);
+        return $user->save();
     }
     
     
+    private function syncPhotos(User $user)
+    {
+        $id = md5(Yii::$app->user->id).base_convert(Yii::$app->user->id, 10, 36);
+        if ($this->profilePicture instanceof UploadedFile){
+            try {
+                Yii::$app->gearman->getDispatcher()->background('SyncImage', new JobWorkload([
+                    'params' => [
+                        'userId'    =>  $this->getPrimaryKey(),
+                        'type'      =>  SyncImage::TYPE_PROFILE,
+                        'image'     =>  Yii::$app->urlManager->createAbsoluteUrl(Yii::getAlias("@tempFolder/pictures/{$id}.{$this->profilePicture->getExtension()}"))
+                    ]
+                ]));
+                $user->profile_pic  =   User::PIC_UPLOADED;
+            } catch (\Sinergi\Gearman\Exception $ex) {
+                $user->profile_pic  = $user->getOldAttribute('profile_pic');
+            } catch (\Exception $ex){
+                $user->profile_pic  = $user->getOldAttribute('profile_pic');
+            }            
+        }
+
+        if ($this->coverPicture instanceof UploadedFile){
+            try {
+                Yii::$app->gearman->getDispatcher()->background('SyncImage', new JobWorkload([
+                    'params' => [
+                        'userId'    =>  $this->getPrimaryKey(),
+                        'type'      =>  SyncImage::TYPE_COVER,
+                        'image'     =>  Yii::$app->urlManager->createAbsoluteUrl(Yii::getAlias("@tempFolder/covers/{$id}.{$this->coverPicture->getExtension()}"))
+                    ]
+                ]));
+                $user->profile_cover    = User::COVER_UPLOADED;
+            } catch (\Sinergi\Gearman\Exception $ex) {
+                $user->profile_cover  = $user->getOldAttribute('profile_cover');
+            } catch (\Exception $ex){
+                $user->profile_cover  = $user->getOldAttribute('profile_cover');
+            }            
+        }        
+        return $user;
+    }
 }

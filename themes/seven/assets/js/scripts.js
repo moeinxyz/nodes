@@ -168,5 +168,4 @@ $(document).ready(function($) {
         );
         document.querySelector('head').appendChild(msViewportStyle);
     }
-
 }(jQuery));

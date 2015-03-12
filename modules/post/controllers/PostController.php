@@ -12,6 +12,7 @@ use app\modules\user\models\User;
 use yii\web\Response;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\StringHelper;
+use app\components\Helper\Extract;
 /**
  * PostController implements the CRUD actions for Post model.
  */
@@ -80,17 +81,20 @@ class PostController extends Controller
      * @return mixed
      */
     
-    public function actionEdit($id)
+    public function actionEdit($id,$type='content')
     {
         $id     = base_convert($id, 36, 10);
         $model  = $this->findModel($id);
-        if (Yii::$app->request->isAjax) {
-            Yii::$app->response->format =   Response::FORMAT_JSON;
-            $model->load(Yii::$app->request->post());
-            return ActiveForm::validate($model);
+        if (Yii::$app->request->isPost){
+            $content = Yii::$app->request->post('content');
+            $model->title               =   Extract::extractTitle($content);
+            $model->content             =   Extract::extractContent($content);
+            $model->last_update_type    =   Post::LAST_UPDATE_TYPE_MANUAL;
+            $model->save();
         }
         return $this->render('write', [
             'model' => $model,
+            'type'  =>  $type
         ]);        
     }
     
@@ -101,25 +105,25 @@ class PostController extends Controller
             $id                         =   base_convert($id, 36, 10);
             $model                      =   $this->findModel($id);
             $model->autosave_content    =   \Yii::$app->request->getRawBody();
-
+            $model->last_update_type    =   Post::LAST_UPDATE_TYPE_AUTOSAVE;
             $model->save();
             return ActiveForm::validate($model);
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
+    }   
 
-    public function actionSuggesturl($id)
-    {
-        if (Yii::$app->request->isAjax){
-            Yii::$app->response->format =   Response::FORMAT_JSON;
-            $title =    Yii::$app->request->post('title');
-            $url   =    Post::suggestUniqueUrl($title, $id);
-            return $url;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
+//    public function actionSuggesturl($id)
+//    {
+//        if (Yii::$app->request->isAjax){
+//            Yii::$app->response->format =   Response::FORMAT_JSON;
+//            $title =    Yii::$app->request->post('title');
+//            $url   =    Post::suggestUniqueUrl($title, $id);
+//            return $url;
+//        } else {
+//            throw new NotFoundHttpException('The requested page does not exist.');
+//        }
+//    }
 
     public function actionWrite($type = 'writting')
     {
@@ -137,7 +141,12 @@ class PostController extends Controller
         return $this->redirect(['edit', 'id' => base_convert($model->id, 10, 36)]);
     }
     
-    
+    public function actionPreview($id){
+        $id     =   base_convert($id, 36, 10);
+        $model  =   $this->findModel($id);
+        return $this->render('preview',['model'=>$model]);
+    }
+
     public function actionRss($username)
     {
         $user           = $this->findUser($username);
@@ -193,7 +202,6 @@ class PostController extends Controller
         ]);
     }    
 
-
     /**
      * Finds the Post model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -204,7 +212,7 @@ class PostController extends Controller
     protected function findModel($id)
     {
         $model = Post::findOne($id);
-        if ($model !== null && $model->user_id === Yii::$app->user->getId()) {
+        if ($model !== null && $model->status != Post::STATUS_DELETE && $model->user_id === Yii::$app->user->getId()) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

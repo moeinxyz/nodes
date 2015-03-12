@@ -9,8 +9,10 @@ use app\modules\user\models\Url;
 ?>
 <section class="container-fluid">
     <div class="row">
-        <div class="col-xs-12 element-img postfade center-block centertext central" style="background-image: url(<?= Yii::$app->user->getIdentity()->getCoverPicture(); ?>);">
-            <img src="<?= $user->getProfilePicture(); ?>" class="img-circle" width="200">    
+        <div class="col-xs-12 center-block centertext central">
+            <img src="<?= $user->getProfilePicture(); ?>" class="img-circle" width="200" style="margin-top: 15px;">    
+            <h1><?= HtmlPurifier::process($user->name); ?></h1>
+            <p><?= HtmlPurifier::process($user->tagline); ?></p>            
             <div class="follow">
                 <?= $this->render('_follow',['user'=>$user]);?>
             </div>
@@ -22,8 +24,6 @@ use app\modules\user\models\Url;
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
             <div class=" center-block centertext text-center">
-                <h1><?= HtmlPurifier::process($user->name); ?></h1>
-                <p><?= HtmlPurifier::process($user->tagline); ?></p>
                 <div class="top-buffer"></div>
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-12 othermedia">

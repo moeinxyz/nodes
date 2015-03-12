@@ -20,7 +20,7 @@
     <ul class="nav navbar-nav flaty-nav pull-left">
         <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">               
-                <i class="glyphicon"><?= Yii::$app->user->getIdentity()->getName();?></i>                
+                <i class="glyphicon"><?= Yii::$app->user->getIdentity()->getUsername();?></i>                
                 <img src="<?= Yii::$app->user->getIdentity()->getProfilePicture();?>" class="user-image" alt="<?= Yii::$app->user->getIdentity()->getName();?>"/>
             </a>
             <ul class="dropdown-menu">

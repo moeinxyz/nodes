@@ -15,6 +15,7 @@ use app\modules\user\models\ChangePasswordForm;
 use app\modules\user\models\ChangeSettingForm;
 use app\modules\user\models\ChangeUsernameForm;
 use app\modules\user\models\PublicProfileForm;
+use yii\web\UploadedFile;
 
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -237,17 +238,39 @@ class UserController extends Controller
     
     public function actionProfile($type = 'public')
     {
-        $public =   new PublicProfileForm();
+        $user   =   User::findOne(Yii::$app->user->id);
+        $public =   new PublicProfileForm([
+            'name'      =>  $user->name,
+            'tagline'   =>  $user->tagline
+        ]);
         $urls   =   Url::find()->where('user_id=:user_id',['user_id'=>Yii::$app->user->id])->all();
         
-//        Model::loadMultiple($urls, Yii::$app->request->post());
-//        $public->load(Yii::$app->request->post());
-//        if (Yii::$app->request->isAjax){
-//            Yii::$app->response->format = Response::FORMAT_JSON;
-//            return ActiveForm::validateMultiple($urls);
-//        }
-//        $url    =   new Url();
-//        return $this->render('profile',['url'=>$url]);
+        if (Yii::$app->request->isAjax){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $public->load(Yii::$app->request->post());
+            return ActiveForm::validate($public);
+        } else if(Yii::$app->request->isPost){
+            if (Yii::$app->request->post('public-button') !== NULL){
+                $public->profilePicture     =  UploadedFile::getInstance($public, 'profilePicture');
+                $public->coverPicture       =  UploadedFile::getInstance($public, 'coverPicture');
+                $public->load(Yii::$app->request->post());
+                if ($public->validate()){
+                    $id = md5(Yii::$app->user->id).base_convert(Yii::$app->user->id, 10, 36);
+                    if ($public->profilePicture instanceof UploadedFile){
+                        $file = Yii::getAlias("@pictures/{$id}.{$public->profilePicture->getExtension()}");
+                        $public->profilePicture->saveAs($file);
+                    }
+                    if ($public->coverPicture instanceof UploadedFile){
+                        $file = Yii::getAlias("@covers/{$id}.{$public->coverPicture->getExtension()}");
+                        $public->coverPicture->saveAs($file);
+                    }
+                    if ($public->update()){
+                        Yii::$app->session->setFlash('user.profile.public.successful');
+                    }
+                }
+            }
+        }
+        
         return $this->render('profile',['urls'=>$urls,'public'=>$public]);
     }
 
@@ -258,11 +281,11 @@ class UserController extends Controller
         throw new \yii\web\HttpException(404);
     }
 
-        private function notifyPasswordChanged($email)
+    private function notifyPasswordChanged($email)
     {
         \Yii::$app->mailer
-            ->compose('@mail/changePassword')
-            ->setTags(['changePassword',  Yii::$app->name])
+            ->compose('@mail/passwordChanged')
+            ->setTags(['passwordChanged',  Yii::$app->name])
             ->setTo($email)
             ->send();                                
             Yii::$app->session->setFlash('user.setting.password.successful');        

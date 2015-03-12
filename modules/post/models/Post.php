@@ -17,6 +17,7 @@ use app\modules\post\Module;
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
+ * @property string $last_update_type
  * @property integer $user_id
  *
  * @property User $user
@@ -32,6 +33,8 @@ class Post extends \yii\db\ActiveRecord
     const PIN_ON            =   'ON';
     const PIN_OFF           =   'OFF';
     
+    const LAST_UPDATE_TYPE_MANUAL   =   'MANUAL';
+    const LAST_UPDATE_TYPE_AUTOSAVE =   'AUTOSAVE';
     /**
      * @inheritdoc
      */
@@ -53,6 +56,7 @@ class Post extends \yii\db\ActiveRecord
             [['url', 'title'], 'string', 'max' => 256],
             [['status'],'in','range'=>[self::STATUS_DELETE,self::STATUS_DRAFT,self::STATUS_PUBLISH,self::STATUS_TRASH,self::STATUS_WRITTING]],
             [['pin'],'in','range'   =>[self::PIN_ON,self::PIN_OFF]],            
+            [['last_update_type'],'in','range'   =>[self::LAST_UPDATE_TYPE_AUTOSAVE,self::LAST_UPDATE_TYPE_MANUAL]],            
             [['url'],'validateUniqueUrl','on'=>'save']
         ];
     }
@@ -78,7 +82,8 @@ class Post extends \yii\db\ActiveRecord
     public function beforeValidate() {
         if (parent::beforeValidate()){
             if ($this->isNewRecord){
-                $this->user_id  =   Yii::$app->user->id;
+                $this->user_id          =   Yii::$app->user->id;
+                $this->last_update_type =   self::LAST_UPDATE_TYPE_MANUAL;   
             }
             $this->updated_at = new \yii\db\Expression('NOW()');
             return TRUE;

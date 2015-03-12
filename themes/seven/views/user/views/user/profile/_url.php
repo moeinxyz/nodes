@@ -49,7 +49,6 @@ $form = ActiveForm::begin([
 
 <?php 
 ActiveForm::end();
-var_dump($index);
 $onText  = Module::t('user','profile._url.status.on');
 $offText = Module::t('user','profile._url.status.off');
 $js= <<<JS

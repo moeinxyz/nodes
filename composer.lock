@@ -4,51 +4,8 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3420bf3fc548832757e87b04eda3d9c9",
+    "hash": "c1b5b67f4998fd8bd70f0710fd9a5474",
     "packages": [
-        {
-            "name": "2amigos/yii2-switch-widget",
-            "version": "0.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/2amigos/yii2-switch-widget.git",
-                "reference": "1434cb429d853f4ff38f76c7f9c3cdfae9ffe11e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/2amigos/yii2-switch-widget/zipball/1434cb429d853f4ff38f76c7f9c3cdfae9ffe11e",
-                "reference": "1434cb429d853f4ff38f76c7f9c3cdfae9ffe11e",
-                "shasum": ""
-            },
-            "require": {
-                "yiisoft/yii2": "*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "dosamigos\\switchinput\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Antonio Ramirez",
-                    "email": "ramirez.cobos@gmail.com",
-                    "homepage": "http://www.ramirezcobos.com"
-                }
-            ],
-            "description": "Bootstrap Switch widget for Yii2.",
-            "keywords": [
-                "extension",
-                "switch",
-                "widget",
-                "yii"
-            ],
-            "time": "2014-05-15 13:51:59"
-        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.3.2",
@@ -283,6 +240,41 @@
             ]
         },
         {
+            "name": "bower-asset/jasny-bootstrap",
+            "version": "v3.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jasny/bootstrap.git",
+                "reference": "f4705f17fcae6eff441f8b582d6eb72ce9109fc6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jasny/bootstrap/zipball/f4705f17fcae6eff441f8b582d6eb72ce9109fc6",
+                "reference": "f4705f17fcae6eff441f8b582d6eb72ce9109fc6",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/bootstrap": ">=3.1.0",
+                "bower-asset/jquery": ">=1.9.0"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "./dist/css/jasny-bootstrap.css",
+                    "./dist/js/jasny-bootstrap.js"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "_config.yml",
+                    "CNAME",
+                    "composer.json",
+                    "CONTRIBUTING.md",
+                    "docs",
+                    "js/tests"
+                ]
+            }
+        },
+        {
             "name": "bower-asset/jquery",
             "version": "2.1.3",
             "source": {
@@ -515,16 +507,16 @@
         },
         {
             "name": "bower-asset/yii2-pjax",
-            "version": "v2.0.2",
+            "version": "v2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/jquery-pjax.git",
-                "reference": "fb92be865c0fd6583714475cb7d629020749d73f"
+                "reference": "3f20897307cca046fca5323b318475ae9dac0ca0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/fb92be865c0fd6583714475cb7d629020749d73f",
-                "reference": "fb92be865c0fd6583714475cb7d629020749d73f",
+                "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/3f20897307cca046fca5323b318475ae9dac0ca0",
+                "reference": "3f20897307cca046fca5323b318475ae9dac0ca0",
                 "shasum": ""
             },
             "require": {
@@ -541,20 +533,23 @@
                     "script/",
                     "test/"
                 ]
-            }
+            },
+            "license": [
+                "MIT"
+            ]
         },
         {
             "name": "cebe/markdown",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cebe/markdown.git",
-                "reference": "9d6c36d6623497523ed421a31d940bc1d7435578"
+                "reference": "f681fee8303310415b746f3758eeda0a7ad08bda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cebe/markdown/zipball/9d6c36d6623497523ed421a31d940bc1d7435578",
-                "reference": "9d6c36d6623497523ed421a31d940bc1d7435578",
+                "url": "https://api.github.com/repos/cebe/markdown/zipball/f681fee8303310415b746f3758eeda0a7ad08bda",
+                "reference": "f681fee8303310415b746f3758eeda0a7ad08bda",
                 "shasum": ""
             },
             "require": {
@@ -601,7 +596,7 @@
                 "markdown",
                 "markdown-extra"
             ],
-            "time": "2014-10-25 16:16:49"
+            "time": "2015-03-06 05:21:16"
         },
         {
             "name": "creocoder/yii2-flysystem",
@@ -845,16 +840,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "efa1d394bb45b0984a863854c608c607b9c2a9a4"
+                "reference": "51cd7cd7ee0defbaafc6ec0d3620110a5d71e11a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/efa1d394bb45b0984a863854c608c607b9c2a9a4",
-                "reference": "efa1d394bb45b0984a863854c608c607b9c2a9a4",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/51cd7cd7ee0defbaafc6ec0d3620110a5d71e11a",
+                "reference": "51cd7cd7ee0defbaafc6ec0d3620110a5d71e11a",
                 "shasum": ""
             },
             "require": {
@@ -866,21 +861,21 @@
                 "mockery/mockery": "~0.9",
                 "phpspec/phpspec": "~2.0.0",
                 "phpspec/prophecy-phpunit": "~1.0",
-                "phpunit/phpunit": "~4.0",
+                "phpunit/phpunit": "~4.1",
                 "predis/predis": "~1.0",
                 "tedivm/stash": "~0.12.0"
             },
             "suggest": {
                 "ext-fileinfo": "Required for MimeType",
-                "league/flysystem-aws-s3-v2": "Use S3 storage with AWS SDK v2",
-                "league/flysystem-aws-s3-v3": "Use S3 storage with AWS SDK v3",
+                "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
+                "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
                 "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
                 "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
                 "league/flysystem-copy": "Allows you to use Copy.com storage",
-                "league/flysystem-dropbox": "Use Dropbox storage",
+                "league/flysystem-dropbox": "Allows you to use Dropbox storage",
                 "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
                 "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
-                "league/flysystem-sftp": "Allows SFTP server storage via phpseclib",
+                "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
                 "league/flysystem-webdav": "Allows you to use WebDAV storage",
                 "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter",
                 "predis/predis": "Allows you to use Predis for caching"
@@ -924,20 +919,20 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2015-01-23 09:43:34"
+            "time": "2015-03-10 11:04:14"
         },
         {
             "name": "league/flysystem-sftp",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem-sftp.git",
-                "reference": "df8f5453d7ecee5dff35572d84510387e8e8cf12"
+                "reference": "ddd4c2cfe9be7482667a596f916479622ed2ae2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem-sftp/zipball/df8f5453d7ecee5dff35572d84510387e8e8cf12",
-                "reference": "df8f5453d7ecee5dff35572d84510387e8e8cf12",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-sftp/zipball/ddd4c2cfe9be7482667a596f916479622ed2ae2e",
+                "reference": "ddd4c2cfe9be7482667a596f916479622ed2ae2e",
                 "shasum": ""
             },
             "require": {
@@ -971,7 +966,7 @@
                 }
             ],
             "description": "Flysystem adapter for SFTP",
-            "time": "2015-02-23 20:04:22"
+            "time": "2015-03-10 15:16:27"
         },
         {
             "name": "mandrill/mandrill",
@@ -1245,12 +1240,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sinergi/gearman.git",
-                "reference": "43a4e8cfa53515e50b93f0e515760a03b87c8f10"
+                "reference": "c31d21cd940241c6702bd4b924670e8678956ec5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sinergi/gearman/zipball/43a4e8cfa53515e50b93f0e515760a03b87c8f10",
-                "reference": "43a4e8cfa53515e50b93f0e515760a03b87c8f10",
+                "url": "https://api.github.com/repos/sinergi/gearman/zipball/c31d21cd940241c6702bd4b924670e8678956ec5",
+                "reference": "c31d21cd940241c6702bd4b924670e8678956ec5",
                 "shasum": ""
             },
             "require": {
@@ -1294,7 +1289,7 @@
                 "jobs",
                 "workers"
             ],
-            "time": "2015-02-28 02:21:19"
+            "time": "2015-03-06 02:27:31"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1404,6 +1399,114 @@
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
             "time": "2015-01-25 04:39:26"
+        },
+        {
+            "name": "symfony/css-selector",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/CssSelector",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/CssSelector.git",
+                "reference": "53a8f2a8629a60e4e69b8bdf369126ec31aa7299"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/53a8f2a8629a60e4e69b8bdf369126ec31aa7299",
+                "reference": "53a8f2a8629a60e4e69b8bdf369126ec31aa7299",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7|~3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\CssSelector\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Jean-François Simon",
+                    "email": "jeanfrancois.simon@sensiolabs.com"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony CssSelector Component",
+            "homepage": "http://symfony.com",
+            "time": "2015-02-21 13:23:59"
+        },
+        {
+            "name": "symfony/dom-crawler",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/DomCrawler",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/DomCrawler.git",
+                "reference": "0e444fc344a589002d0e2087f10d388d62c5c94c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/0e444fc344a589002d0e2087f10d388d62c5c94c",
+                "reference": "0e444fc344a589002d0e2087f10d388d62c5c94c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "symfony/css-selector": "~2.7|~3.0",
+                "symfony/phpunit-bridge": "~2.7|~3.0"
+            },
+            "suggest": {
+                "symfony/css-selector": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\DomCrawler\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Symfony DomCrawler Component",
+            "homepage": "http://symfony.com",
+            "time": "2015-03-07 07:44:26"
         },
         {
             "name": "yiisoft/yii2",
@@ -2174,7 +2277,9 @@
         "creocoder/yii2-flysystem": 20,
         "league/flysystem-sftp": 20,
         "embedly/embedly-php": 20,
-        "zelenin/yii2-rss": 20
+        "zelenin/yii2-rss": 20,
+        "symfony/dom-crawler": 20,
+        "symfony/css-selector": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

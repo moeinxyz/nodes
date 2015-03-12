@@ -26,7 +26,6 @@ Dante.Editor.Tooltip.prototype.getEmbedFromNode = function(node) {
       replaced_node = $(".graf--iframe[name=" + (_this.node.attr("name")) + "]");
       replaced_node.find("iframe").attr("src", iframe_src);
       url = data.url || data.author_url;
-      utils.log("URL IS " + url);
       replaced_node.find(".markup--anchor").attr("href", url).text(url);
       return _this.hide();
     };
