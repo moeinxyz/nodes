@@ -85,6 +85,16 @@ return [
     'profile._public.saveBtn'               =>  'بروزرسانی پروفایل',
     'profile._public.successful.header'     =>  'پروفایل شما با موفقیت بروزرسانی شد.',
     
+    // url
+    'profile.urls.header'                   =>  'دیگر رسانه ها',
+    'profile.updateUrls'                    =>  'بروزرسانی لینک ها',
+    'profile._url.status.on'                =>  'فعال',
+    'profile._url.status.off'               =>  'غیر فعال',
+    'profile.url.help.body'                 =>  'فعال یا غیر فعال نمودن یک لینک به معنی نمایش ویا عدم نمایش در صفحه پروفایل شما می باشد،در صورتی که قصد پاک کردن لینکی بصورت کامل را دارید فیلد مربوط به لینک را پاک نمایید.',
+    'profile.addUrl'                        =>  'افزودن یک رسانه جدید',
+    'url.vld.unUniqueUrl'                   =>  'شما {url} را قبلا در میان آدرس دیگر رسانه های خود ثبت نموده اید.',
+    'profile._url.add.successful.header'    =>  'رسانه جدید با موفقیت به لیست رسانه های شما اضافه گردید.',
+    
     // password
     'password.changePasswordBtn'        =>  'تغییر کلمه عبور',
     'chgPwd.attr.password'              =>  'کلمه عبور فعلی',

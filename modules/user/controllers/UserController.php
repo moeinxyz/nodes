@@ -108,6 +108,10 @@ class UserController extends Controller
 //        return $this->goBack(Yii::$app->request->referrer);
     }
  
+    /**
+     * 
+     * @return type
+     */
     public function actionLogin()
     {
         if (!Yii::$app->request->isAjax){
@@ -122,12 +126,21 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * 
+     * @return type
+     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
         return $this->goBack(Yii::$app->request->referrer);
     }    
 
+    
+    /**
+     * 
+     * @return type
+     */
     public function actionJoin()
     {
         $model  =   new User(['scenario'=>'join']);
@@ -149,7 +162,10 @@ class UserController extends Controller
         return $this->render('join',['model'=>$model]);
     }
 
-    
+    /**
+     * 
+     * @return type
+     */
     public function actionReset()
     {
         $model  =   new ResetForm();
@@ -169,7 +185,10 @@ class UserController extends Controller
         return $this->render('reset',['model'=>$model]);
     }
     
-    
+    /**
+     * 
+     * @return type
+     */
     public function actionActivation()
     {
         $model  =   new ActivationForm();
@@ -188,6 +207,9 @@ class UserController extends Controller
         return $this->render('activation',['model'=>$model]);
     }
     
+    /**
+     * 
+     */
     public function actionSetting()
     {
         $user           =   User::findOne(Yii::$app->user->id);
@@ -236,6 +258,11 @@ class UserController extends Controller
         ]);
     }
     
+    /**
+     * 
+     * @param type $type
+     * @return type
+     */
     public function actionProfile($type = 'public')
     {
         $user   =   User::findOne(Yii::$app->user->id);
@@ -243,37 +270,99 @@ class UserController extends Controller
             'name'      =>  $user->name,
             'tagline'   =>  $user->tagline
         ]);
-        $urls   =   Url::find()->where('user_id=:user_id',['user_id'=>Yii::$app->user->id])->all();
-        
-        if (Yii::$app->request->isAjax){
+        $urls       =   Url::find()->where('user_id=:user_id',['user_id'=>Yii::$app->user->id])->all();
+        $newUrl     =   new Url;
+        foreach ($urls as $url) $url->setScenario('update');
+        // Ajax Validation
+        if (Yii::$app->request->post('ajax') === 'urls-form'){
             Yii::$app->response->format = Response::FORMAT_JSON;
-            $public->load(Yii::$app->request->post());
+            Model::loadMultiple($urls, Yii::$app->request->post());
+            return ActiveForm::validateMultiple($urls);
+        } else if (Yii::$app->request->post('ajax') === 'public-form') {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $public->load(Yii::$app->request->post());    
             return ActiveForm::validate($public);
-        } else if(Yii::$app->request->isPost){
-            if (Yii::$app->request->post('public-button') !== NULL){
-                $public->profilePicture     =  UploadedFile::getInstance($public, 'profilePicture');
-                $public->coverPicture       =  UploadedFile::getInstance($public, 'coverPicture');
-                $public->load(Yii::$app->request->post());
-                if ($public->validate()){
-                    $id = md5(Yii::$app->user->id).base_convert(Yii::$app->user->id, 10, 36);
-                    if ($public->profilePicture instanceof UploadedFile){
-                        $file = Yii::getAlias("@pictures/{$id}.{$public->profilePicture->getExtension()}");
-                        $public->profilePicture->saveAs($file);
-                    }
-                    if ($public->coverPicture instanceof UploadedFile){
-                        $file = Yii::getAlias("@covers/{$id}.{$public->coverPicture->getExtension()}");
-                        $public->coverPicture->saveAs($file);
-                    }
-                    if ($public->update()){
-                        Yii::$app->session->setFlash('user.profile.public.successful');
-                    }
-                }
-            }
-        }
-        
-        return $this->render('profile',['urls'=>$urls,'public'=>$public]);
+        } else if (Yii::$app->request->post('ajax') === 'url-form') {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $newUrl->load(Yii::$app->request->post());
+            return ActiveForm::validate($newUrl);
+        // Post Submit or Pjax Request
+        } else if (Yii::$app->request->post('public-button') !== NULL){ //Poest Request
+            $public = $this->updateProfile($public);
+        } else if (Yii::$app->request->post('urls-update') !== NULL){ //Post Request
+            $urls  = $this->updateUrls($urls);
+        } else if (Yii::$app->request->post('url-add') !== NULL) {// Pjax Request
+            return $this->addUrl($newUrl);
+        }        
+        return $this->render('profile',['urls'=>$urls,'public'=>$public,'newUrl'=>$newUrl]);
     }
 
+    /**
+     * 
+     * @param Url $newUrl
+     * @return type
+     */
+    private function addUrl(Url $newUrl){
+        $newUrl->load(Yii::$app->request->post());
+        if ($newUrl->save()){
+            $newUrl = new Url;
+            Yii::$app->session->setFlash('user.url.add.successful');
+        }
+        $urls   =   Url::find()->where('user_id=:user_id',['user_id'=>Yii::$app->user->id])->all();
+        foreach ($urls as $url) $url->setScenario('update');                
+        return $this->renderAjax('profile/_inner_url',['urls'=>$urls,'newUrl'=>$newUrl]);        
+    }
+
+    /**
+     * 
+     * @param PublicProfileForm $profile
+     * @return PublicProfileForm
+     */
+    private function updateProfile(PublicProfileForm $profile){
+        $profile->profilePicture     =  UploadedFile::getInstance($profile, 'profilePicture');
+        $profile->coverPicture       =  UploadedFile::getInstance($profile, 'coverPicture');
+        $profile->load(Yii::$app->request->post());
+        if ($profile->validate()){
+            $id = md5(Yii::$app->user->id).base_convert(Yii::$app->user->id, 10, 36);
+            if ($profile->profilePicture instanceof UploadedFile){
+                $file = Yii::getAlias("@pictures/{$id}.{$profile->profilePicture->getExtension()}");
+                $profile->profilePicture->saveAs($file);
+            }
+            if ($profile->coverPicture instanceof UploadedFile){
+                $file = Yii::getAlias("@covers/{$id}.{$profile->coverPicture->getExtension()}");
+                $profile->coverPicture->saveAs($file);
+            }
+            if ($profile->update()){
+                Yii::$app->session->setFlash('user.profile.public.successful');
+            }
+        }
+        return $profile;
+    }
+
+    /**
+     * 
+     * @param type $urls
+     * @return type
+     */
+    private function updateUrls($urls){
+        Url::loadMultiple($urls, Yii::$app->request->post());
+        foreach ($urls as $index=>$url){
+            if ($url->url != ''){
+                $url->save();
+            } else {
+                $url->delete();
+                unset($url);
+                unset($urls[$index]);
+            }
+        }        
+        return $urls;
+    }
+
+    /**
+     * 
+     * @return type
+     * @throws \yii\web\HttpException
+     */
     public function actionTrigger()
     {
         if (Yii::$app->request->isAjax || Yii::$app->request->isPjax)
@@ -281,6 +370,10 @@ class UserController extends Controller
         throw new \yii\web\HttpException(404);
     }
 
+    /**
+     * 
+     * @param type $email
+     */
     private function notifyPasswordChanged($email)
     {
         \Yii::$app->mailer
@@ -291,6 +384,11 @@ class UserController extends Controller
             Yii::$app->session->setFlash('user.setting.password.successful');        
     }
     
+    /**
+     * 
+     * @param type $userid
+     * @param type $email
+     */
     private function requestEmailChange($userid,$email)
     {
         $token  =   Token::getNewMailChangeToken($userid);
@@ -318,9 +416,6 @@ class UserController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
-    
-    
     
     
     /**

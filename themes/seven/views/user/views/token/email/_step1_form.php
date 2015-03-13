@@ -41,14 +41,12 @@ $form = ActiveForm::begin([
 ActiveForm::end();
 Pjax::end();
 $js         =   <<<JS
-$(document).ready(function(){
-    var pjaxDiv =   $("#{$pjax->getId()}");
-    pjaxDiv.on('pjax:send',function(){
-        pjaxDiv.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
-    });
-    pjaxDiv.on('pjax:complete',function(){
-        pjaxDiv.find('.overlay').remove();
-    });
+var pjaxDiv =   $("#{$pjax->getId()}");
+pjaxDiv.on('pjax:send',function(){
+    pjaxDiv.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+});
+pjaxDiv.on('pjax:complete',function(){
+    pjaxDiv.find('.overlay').remove();
 });
 JS;
 $this->registerJs($js);

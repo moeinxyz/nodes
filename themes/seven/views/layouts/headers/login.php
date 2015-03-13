@@ -59,22 +59,20 @@
 $action = Yii::$app->urlManager->createAbsoluteUrl(['user/user/login']);
 
 $js = <<<JS
- 
-$(document).ready(function(){
-    var pjaxDiv =   $("#{$pjax->getId()}");
-    pjaxDiv.on('pjax:send',function(){
-        pjaxDiv.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
-    });
-    pjaxDiv.on('pjax:complete',function(){
-        pjaxDiv.find('.overlay').remove();
-    });        
-    $.get("{$action}").done(function(data){
-        $("#login-box").html(data);
-    });
-    $.fn.modal.Constructor.prototype.checkScrollbar = function () {}
-    $.fn.modal.Constructor.prototype.setScrollbar = function () {}
-    $.fn.modal.Constructor.prototype.resetScrollbar = function(){}
+        
+var pjaxDiv =   $("#{$pjax->getId()}");
+pjaxDiv.on('pjax:send',function(){
+    pjaxDiv.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
 });
+pjaxDiv.on('pjax:complete',function(){
+    pjaxDiv.find('.overlay').remove();
+});        
+$.get("{$action}").done(function(data){
+    $("#login-box").html(data);
+});
+$.fn.modal.Constructor.prototype.checkScrollbar = function () {}
+$.fn.modal.Constructor.prototype.setScrollbar = function () {}
+$.fn.modal.Constructor.prototype.resetScrollbar = function(){}
 JS;
 $this->registerJs($js);
 ?>

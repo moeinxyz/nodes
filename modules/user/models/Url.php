@@ -53,14 +53,36 @@ class Url extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    
     public function rules()
     {
         return [
-            [['user_id', 'url'], 'required'],
+            [['user_id'], 'required'],
+            [['url'],'required','except'=>'update'],
             [['user_id'], 'integer'],
             [['type', 'status'], 'string'],
+            [['type'],'in','range'  =>  [
+                self::TYPE_ASKFM,
+                self::TYPE_BITBUCKET,
+                self::TYPE_FACEBOOK,
+                self::TYPE_FLICKR,
+                self::TYPE_GITHUB,
+                self::TYPE_GOOGLE_PLUS,
+                self::TYPE_GOOGLE_PLUS,
+                self::TYPE_INSTAGRAM,
+                self::TYPE_LINKEDIN,
+                self::TYPE_PNTEREST,
+                self::TYPE_SITE,
+                self::TYPE_STACKOVERFLOW,
+                self::TYPE_TUMBLER,
+                self::TYPE_TWITTER,
+                self::TYPE_VK,
+                self::TYPE_YOUTUBE
+            ]],
+            [['status'],'in','range'    =>  [self::STATUS_ACTIVE,  self::STATUS_DEACTIVE]],
             [['url'], 'string', 'max' => 255],
-            [['url'],'url']
+            [['url'],'url'],
+            [['url'],'validateUniqueUrl'],
         ];
     }
 
@@ -79,6 +101,15 @@ class Url extends \yii\db\ActiveRecord
         ];
     }
 
+    public function validateUniqueUrl($attribute,$params)
+    {
+        if (!$this->hasErrors()){
+            if (Url::findOne(['url'=>$this->url,'user_id'=>Yii::$app->user->id]) != NULL){
+                $this->addError($attribute, Module::t('user','url.vld.unUniqueUrl',['url'=>  $this->url]));
+            }
+        }
+    }    
+    
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -91,32 +122,33 @@ class Url extends \yii\db\ActiveRecord
         if (parent::beforeValidate()){
             if ($this->isNewRecord){
                 $this->created_at   =   new Expression('NOW()');
-                $this->status       =   self::STATUS_ACTIVE;
+                if ($this->status === NULL){
+                    $this->status       =   self::STATUS_ACTIVE;    
+                }
+                if ($this->user_id === NULL){
+                    $this->user_id      =   Yii::$app->user->getId();
+                }
             }
             return TRUE;
         }
         return FALSE;
     }
-    
-    	public function search()
-	{
-            $query = Url::find()->where('user_id=:user_id',[':user_id'=>Yii::$app->user->id]);
-            
-            return new \yii\data\ActiveDataProvider([
-                'query' =>  $query
-            ]);
-//            
-//            $criteria=new CDbCriteria;
-//            $criteria->compare('users_id',  Yii::$app->user->id);
-//
-//            return new CActiveDataProvider($this,[
-//                    'criteria'      =>  $criteria,
-//                    'pagination'    =>  FALSE,
-//                    'sort'          =>  [
-//                      'defaultOrder'=>'created_at DESC',
-//                    ]
-//            ]);
-	}
+    public function beforeSave($insert) {
+        if (parent::beforeSave($insert)){
+            $this->type = $this->getServiceByUrl($this->url);
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+        public function search()
+    {
+        $query = Url::find()->where('user_id=:user_id',[':user_id'=>Yii::$app->user->id]);
+
+        return new \yii\data\ActiveDataProvider([
+            'query' =>  $query
+        ]);
+    }
 
 
     public static function getServiceByUrl($url){

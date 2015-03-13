@@ -128,7 +128,7 @@
                 <?= Module::t('user', 'setting.email.header'); ?>
             </div>
             <div class="box-body">
-                <div class="box box-solid bg-light-blue small-font-size">
+                <div class="box box-solid bg-teal small-font-size">
                     <div class="box-body">
                       <?= Module::t('user', 'setting.email.help.body'); ?>
                     </div>

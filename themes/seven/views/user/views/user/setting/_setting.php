@@ -50,17 +50,15 @@ $form = ActiveForm::begin([
 
 <?php
 $js=<<<JS
-$(document).ready(function(){
-    $('.ichecked input[type="radio"]').each(function(){
-        var labelDom = $(($(this).parent())[0])[0];
-        var labelTxt = (labelDom.childNodes[1]);
-        labelDom.childNodes[1].remove();
-        $(this).iCheck({
-            radioClass: 'iradio_line-blue',
-            insert: '<div class="icheck_line-icon"></div>' + labelTxt.data                 
-        });        
+$('.ichecked input[type="radio"]').each(function(){
+    var labelDom = $(($(this).parent())[0])[0];
+    var labelTxt = (labelDom.childNodes[1]);
+    labelDom.childNodes[1].remove();
+    $(this).iCheck({
+        radioClass: 'iradio_line-blue',
+        insert: '<div class="icheck_line-icon"></div>' + labelTxt.data                 
     });        
-});
+});        
 JS;
 $this->registerJs($js);
 ?>

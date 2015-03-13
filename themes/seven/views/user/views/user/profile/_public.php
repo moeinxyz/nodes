@@ -5,7 +5,6 @@ use app\modules\user\Module;
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\modules\user\models\PublicProfileForm */
-
 $this->registerAssetBundle('jasny-bootstrap');
 $form = ActiveForm::begin([
     'id' => 'public-form',
