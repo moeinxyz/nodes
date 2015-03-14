@@ -104,7 +104,8 @@ class Url extends \yii\db\ActiveRecord
     public function validateUniqueUrl($attribute,$params)
     {
         if (!$this->hasErrors()){
-            if (Url::findOne(['url'=>$this->url,'user_id'=>Yii::$app->user->id]) != NULL){
+            $url = Url::findOne(['url'=>$this->url,'user_id'=>Yii::$app->user->id]);
+            if ($url && $this->id != $url->id){
                 $this->addError($attribute, Module::t('user','url.vld.unUniqueUrl',['url'=>  $this->url]));
             }
         }
