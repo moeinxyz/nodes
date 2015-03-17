@@ -67,12 +67,16 @@ return [
             'class'             => 'filsh\yii2\gearman\GearmanController',
             'gearmanComponent'  => 'gearman'
         ],
+        'fixture' => [
+            'class' => 'yii\faker\FixtureController',
+        ],        
     ],    
     'aliases' => [
         '@temp'         =>  '@app/temp',
         '@pictures'     =>  '@temp/pictures',
         '@covers'       =>  '@temp/covers',        
         '@ftp'          =>  '/assets',
+        'tests'         =>   __DIR__ . '/../tests',
     ], 
     'params' => $params,
 ];
