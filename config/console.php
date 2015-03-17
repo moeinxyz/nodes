@@ -1,7 +1,7 @@
 <?php
 
 Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
-
+Yii::setAlias('tests', __DIR__ . '/../tests');
 $params = require(__DIR__ . '/params.php');
 $db = require(__DIR__ . '/db.php');
 
@@ -69,6 +69,7 @@ return [
         ],
         'fixture' => [
             'class' => 'yii\faker\FixtureController',
+            'templatePath' => 'tests/unit/fixtures',
         ],        
     ],    
     'aliases' => [
@@ -76,7 +77,7 @@ return [
         '@pictures'     =>  '@temp/pictures',
         '@covers'       =>  '@temp/covers',        
         '@ftp'          =>  '/assets',
-        'tests'         =>   __DIR__ . '/../tests',
+//        '@tests'        =>   __DIR__ . '/../tests',
     ], 
     'params' => $params,
 ];
