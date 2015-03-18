@@ -58,7 +58,9 @@
                 {
                     "runtime": "0777",
                     "web/assets": "0777",
-                    "yii": "0755"
+                    "yii": "0755",
+                    "web/t":"0777",
+                    "uploaded":"0777"
                 }
             ],
             "generateCookieValidationKey": [

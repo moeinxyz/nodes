@@ -179,6 +179,7 @@ $config = [
         ],
     ],    
     'aliases' => [
+        '@uploaded'     =>  '@app/uploaded',
         '@temp'         =>  '@app/web/t',
         '@tempFolder'   =>  't',
         '@pictures'     =>  '@temp/pictures',
@@ -186,9 +187,10 @@ $config = [
         '@ftp'          =>  '/assets',
         '@ppicBaseUrl'  =>  'http://cdn.nodes.ir/assets/p',
         '@cpicBaseUrl'  =>  'http://cdn.nodes.ir/assets/c',
+        '@upBaseUrl'    =>  'http://cdn.nodes.ir/assets/images',
         '@gravatar'     =>  'http://www.gravatar.com/avatar',
         '@placeHold'    =>  'http://www.placehold.it',
-        '@profile'       =>  'http://nodes.ir'
+        '@profile'      =>  'http://nodes.ir'
     ],    
     'params' => $params,
 ];

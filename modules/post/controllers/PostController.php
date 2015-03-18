@@ -1,5 +1,4 @@
 <?php
-
 namespace app\modules\post\controllers;
 
 use Yii;
@@ -35,39 +34,6 @@ class PostController extends Controller
     {
         $user   = $this->findUser($username);
         return $this->render('user',['user'=>$user]);
-    }
-
-    public function actionPost($username,$post = NULL)
-    {
-        var_dump($username."SALAM");
-    }
-
-        /**
-     * Lists all Post models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        var_dump("SALAM");die;
-        $dataProvider = new ActiveDataProvider([
-            'query' => Post::find(),
-        ]);
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single Post model.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
     }
 
     /**

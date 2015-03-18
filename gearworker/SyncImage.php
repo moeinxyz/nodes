@@ -8,7 +8,6 @@ class SyncImage extends JobBase
 {
     const TYPE_COVER    =   'COVER';
     const TYPE_PROFILE  =   'PROFILE';
-//    const TYPE_CONTENT  =   'CONTENT';
     
     public function execute(\GearmanJob $job = null)
     {
