@@ -36,7 +36,8 @@
         "embedly/embedly-php": "dev-master",
         "zelenin/yii2-rss": "dev-master",
         "symfony/dom-crawler": "~3.0@dev",
-        "symfony/css-selector": "~3.0@dev"
+        "symfony/css-selector": "~3.0@dev",
+        "mohammad-mahdy/yii2-jdate": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

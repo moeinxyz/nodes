@@ -53,7 +53,7 @@ class Image extends \yii\db\ActiveRecord
 
     private function generateUniqueUrl(){
         do {
-            $url = Yii::$app->getSecurity()->generateRandomString(250).".".$this->file->getExtension();
+            $url = Yii::$app->getSecurity()->generateRandomString(90).".".$this->file->getExtension();
         } while(Image::findOne(['url'=>  $url]));
         return $url;
     }

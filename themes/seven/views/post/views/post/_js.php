@@ -4,6 +4,7 @@
 use app\modules\post\Module;
 $id                 =   base_convert($model->id, 10, 36);
 $saveUrl            =   Yii::$app->urlManager->createUrl(["post/post/edit","id"=>  base_convert($model->id, 10, 36)]);
+$publishUrl         =   Yii::$app->urlManager->createUrl(["post/post/publish","id"=>  base_convert($model->id, 10, 36)]);
 $autoSave           =   Yii::$app->urlManager->createUrl(["post/autosave/{$id}"]);
 $uploadUrl          =   Yii::$app->urlManager->createUrl(["post/image/upload","id"=>$id]);   
 $oembedUrl          =   Yii::$app->urlManager->createUrl(["embed/embed/embed",'type'=>'oembed']).'&url=';
@@ -57,6 +58,9 @@ $("a#save").on('click',function(){
             });
         });
     }
+});
+$("a#publish").on('click',function(){
+    jQuery.post("{$publishUrl}");
 });
 //        
 //$(function() {

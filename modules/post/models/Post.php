@@ -13,6 +13,8 @@ use app\modules\user\models\User;
  * @property string $title
  * @property string $content
  * @property string $autosave_content
+ * @property string $cover
+ * @property string $pure_text
  * @property string $pin
  * @property string $comments_count
  * @property string $status
@@ -34,6 +36,9 @@ class Post extends \yii\db\ActiveRecord
     const PIN_ON            =   'ON';
     const PIN_OFF           =   'OFF';
     
+    const COVER_NOCOVER     =   'NOCOVER';
+    const COVER_BYCOVER     =   'BYCOVER';
+    
     const LAST_UPDATE_TYPE_MANUAL   =   'MANUAL';
     const LAST_UPDATE_TYPE_AUTOSAVE =   'AUTOSAVE';
     /**
@@ -52,7 +57,8 @@ class Post extends \yii\db\ActiveRecord
         return [
             [['user_id'], 'required'],
             [['url', 'title', 'content'], 'required','on'=>'save'],
-            [['content','autosave_content'], 'string'],
+            [['content','autosave_content','pure_text'], 'string'],
+            [['cover'],'in','range'=>[self::COVER_BYCOVER,self::COVER_NOCOVER]],
             [['comments_count', 'user_id'], 'integer'],
             [['url', 'title'], 'string', 'max' => 256],
             [['status'],'in','range'=>[self::STATUS_DELETE,self::STATUS_DRAFT,self::STATUS_PUBLISH,self::STATUS_TRASH,self::STATUS_WRITTING]],
@@ -84,7 +90,8 @@ class Post extends \yii\db\ActiveRecord
         if (parent::beforeValidate()){
             if ($this->isNewRecord){
                 $this->user_id          =   Yii::$app->user->id;
-                $this->last_update_type =   self::LAST_UPDATE_TYPE_MANUAL;   
+                $this->last_update_type =   self::LAST_UPDATE_TYPE_MANUAL;
+                $this->cover            =   self::COVER_NOCOVER;
             }
             $this->updated_at = new \yii\db\Expression('NOW()');
             return TRUE;
@@ -110,6 +117,7 @@ class Post extends \yii\db\ActiveRecord
      * @param string $id ID is base36 number
      * @return string
      */
+    //@todo fix empty title url
     public static function suggestUniqueUrl($title,$id)
     {
         $title      =   strtolower($title);

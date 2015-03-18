@@ -1,23 +1,16 @@
 <?php 
 use yii\helpers\HtmlPurifier;
 use app\components\Helper\Extract;
+use app\modules\post\models\Post;
 $this->registerAssetBundle('show-post');
 $title      =   Extract::extractTitle($model->autosave_content);
 $content    =   Extract::extractContent($model->autosave_content);
+if ($model->cover === Post::COVER_BYCOVER){
+    echo $this->render('post/_by_cover',['title'=>$title,'model'=>$model]);
+} else {
+    echo $this->render('post/_no_cover',['title'=>$title,'model'=>$model]);
+}
 ?>
-<section id="start" class="herofade hero cover element-img" style="opacity: 1; height: 302px; background-image: url(http://pixabay.com/get/34d83a3ef7abe78d2524/1426629548/25026f409649eb72bba49266_640.jpg);">
-    <div class="tagline">
-        <a href="<?= Yii::$app->urlManager->createUrl(["@{$model->getUser()->one()->username}"]) ?>">
-            <img src="<?= Yii::$app->user->getIdentity()->getProfilePicture();?>" class="img-circle wow fadeInUp animated" alt="Columbia Logo" data-wow-delay="0.3s" style="visibility: visible; -webkit-animation-delay: 0.3s;">    
-        </a>
-        <hr class="mini white central">
-        <h1 class="wow fadeInUp animated post-header" data-wow-delay="0.5s" style="visibility: visible; -webkit-animation-delay: 0.5s;">
-            <?= HtmlPurifier::process($title); ?>
-        </h1>
-        <a class="scrollto" href="#content"><span class="icon-arrow-down2"></span></a>
-    </div>
-</section>      
-
 <div class="row" id="content">
     <div class="col-md-8 col-md-offset-2">    
         <div class="row">
@@ -39,6 +32,21 @@ $content    =   Extract::extractContent($model->autosave_content);
                         </div>
                     </div>
                 </article>
+                <ul class="messages">
+                    <li>
+                        <img src="img/demo/avatar/avatar2.jpg" alt="">
+                        <div>
+                            <div>
+                                <span class="time"><i class="icon-time"></i> 26 minutes ago</span>
+                                <h5>David</h5>
+                            </div>
+                            <p>
+                                خیلی خوب بود
+                                
+                            </p>
+                        </div>
+                    </li>
+                </ul>                
             </div>
         </div>
     </div>

@@ -35,6 +35,13 @@ class PostController extends Controller
         $user   = $this->findUser($username);
         return $this->render('user',['user'=>$user]);
     }
+ 
+    public function actionView($username,$post)
+    {
+        $user = $this->findUser($username);
+        $model = Post::findOne(['user_id'=>$user->id,'url'=>urlencode($post)]);
+        return $this->render('preview',['model'=>$model]);
+    }
 
     /**
      * Creates a new Post model.
@@ -50,7 +57,7 @@ class PostController extends Controller
             Yii::$app->response->format =   Response::FORMAT_JSON;
             $model->title               =   Extract::extractTitle($model->autosave_content);
             $model->content             =   Extract::extractContent($model->autosave_content);
-            
+            $model->pure_text           =   strip_tags($model->autosave_content);
             $model->last_update_type    =   Post::LAST_UPDATE_TYPE_MANUAL;
             return $model->save();
         }
@@ -74,6 +81,23 @@ class PostController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }   
+    
+    public function actionPublish($id)
+    {
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format =   Response::FORMAT_JSON;
+            $id                         =   base_convert($id, 36, 10);
+            $model                      =   $this->findModel($id);
+            $model->status              =   Post::STATUS_PUBLISH;
+            if ($model->url === NULL){
+                $model->url = Post::suggestUniqueUrl($model->title, $model->id);
+            }
+            $model->save();
+            return $this->redirect(Yii::$app->urlManager->createUrl(["@{$model->getUser()->one()->username}/{$model->url}"]));
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }        
+    }
 
 //    public function actionSuggesturl($id)
 //    {

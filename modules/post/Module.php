@@ -9,6 +9,7 @@ class Module extends \yii\base\Module
     public $controllerNamespace =   'app\modules\post\controllers';
     public $postTable           =   '{{%post}}';
     public $imageTable          =   '{{%image}}';
+    public $commentTable        =   '{{%comment}}';
     public function init()
     {
         parent::init();

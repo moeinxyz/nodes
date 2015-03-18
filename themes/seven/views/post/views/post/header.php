@@ -12,13 +12,13 @@ use app\modules\post\models\Post;
                 <li class="hidden-xs">
                     <a href="#" id="save">
                         <?php echo Module::t('post','header.save'); ?>
-                        <i class="glyphicon glyphicon-floppy-save"></i>                
+                        <i class="glyphicon glyphicon-floppy-save" id="status"></i>                
                     </a>
                 </li>          
             </ul>
             <ul class="nav navbar-nav flaty-nav pull-right">
                 <li class="hidden-xs">
-                    <a href="<?= Yii::$app->urlManager->createUrl(['/post/post/preview','id'=>  base_convert($model->id, 10, 36)]) ?>" target="_black">
+                    <a href="<?= Yii::$app->urlManager->createUrl(['/post/post/preview','id'=>  base_convert($model->id, 10, 36)]) ?>" target="_blank">
                         <?php echo Module::t('post','header.preview'); ?>
                         <i class="glyphicon glyphicon-eye-open"></i>                
                     </a>
@@ -28,20 +28,13 @@ use app\modules\post\models\Post;
             <?php if ($model->status != Post::STATUS_PUBLISH): ?>
                 <ul class="nav navbar-nav flaty-nav pull-right">
                     <li class="hidden-xs">
-                        <a href="<?= Yii::$app->urlManager->createUrl(['/post/post/preview','id'=>  base_convert($model->id, 10, 36)]) ?>" target="_black">
-                            <?php echo Module::t('post','header.preview'); ?>
-                            <i class="glyphicon glyphicon-eye-open"></i>                
+                        <a href="#" id="publish">
+                            <?php echo Module::t('post','header.publish'); ?>
+                            <i class="glyphicon glyphicon-bullhorn"></i>                
                         </a>
                     </li>          
                 </ul>            
-            <?php endif; ?>
-            <ul class="nav navbar-nav flaty-nav pull-right">
-                <li class="hidden-xs">
-                    <a href="#">
-                        <i id="status" class="glyphicon glyphicon-floppy-saved"></i>
-                    </a>
-                </li>          
-            </ul>            
+            <?php endif; ?>  
         </div>
         <div class="navbar-custom-menu pull-right">
             <ul class="nav navbar-nav flaty-nav pull-right">

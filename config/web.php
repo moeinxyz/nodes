@@ -9,6 +9,9 @@ $config = [
     'language'          =>  'fa-IR',
     'sourceLanguage'    =>  'en-US',
     'components' => [
+        'jdate' => [
+            'class' => 'jDate\DateTime'
+        ],        
         'ftpFs' => [
             'class' => 'creocoder\flysystem\FtpFilesystem',
             'host'  => 'b101054.parspack.org',
@@ -126,11 +129,11 @@ $config = [
             'showScriptName'    => false,
             'enablePrettyUrl'   => true,
                 'rules' => [
-                    '@<username:\w+>'               =>  'post/post/user',
-                    '@<username:\w+>/rss'           =>  'post/post/rss',                    
-                    '@<username:\w+>/<post:\w+>'    =>  'post/post/post',
-                    'post/write'                    =>  'post/post/write',
-                    'post/autosave/<id:\w+>'        =>  'post/post/autosave',
+                    '@<username:[\w\-]+>/<post:[\w\-]+>'    =>  'post/post/view',
+                    '@<username:[\w\-]+>'                   =>  'post/post/user',
+                    '@<username:[\w\-]+>/rss'               =>  'post/post/rss',                    
+                    'post/write'                            =>  'post/post/write',
+                    'post/autosave/<id:\w+>'                =>  'post/post/autosave',
                 ],
         ],      
         'reCaptcha' => [

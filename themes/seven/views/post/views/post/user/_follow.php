@@ -36,5 +36,7 @@ pjaxDiv.on('pjax:complete',function(){
 });
 JS;
 $this->registerJs($js);    
+} else {
+    echo Html::a(Module::t('post','_follow.editMyProfile'), ['/user/user/profile'], ['class' => 'btn btn-default bg-olive margin']);
 }
 ?>

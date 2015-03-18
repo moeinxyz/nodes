@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c1b5b67f4998fd8bd70f0710fd9a5474",
+    "hash": "91444dbaa7d0651f88e0e26181801745",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1011,6 +1011,48 @@
                 "email"
             ],
             "time": "2014-10-16 21:08:20"
+        },
+        {
+            "name": "mohammad-mahdy/yii2-jdate",
+            "version": "0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mohammad-mahdy/yii2-jdate.git",
+                "reference": "179f28ecc32b458c095750dac80f8578cf64f61e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mohammad-mahdy/yii2-jdate/zipball/179f28ecc32b458c095750dac80f8578cf64f61e",
+                "reference": "179f28ecc32b458c095750dac80f8578cf64f61e",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "jDate\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Mohammad Mahdi Gholamian",
+                    "email": "mm.gholamian@yahoo.com"
+                }
+            ],
+            "description": "Jalali date & time.",
+            "keywords": [
+                "Jalali Data Time",
+                "extension",
+                "jDate",
+                "yii2"
+            ],
+            "time": "2014-07-25 10:33:45"
         },
         {
             "name": "nickcv/yii2-mandrill",
