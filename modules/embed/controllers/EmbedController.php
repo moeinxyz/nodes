@@ -61,7 +61,7 @@ class EmbedController extends \yii\web\Controller
         if ($model === NULL || strtotime($model->updated_at) < (time() - Yii::$app->controller->module->timeLimit)){
             $response   = $this->getEmbedResponse($url,  $type);
             if ($model != NULL){
-                $model->response    =   $response;
+                $model->response    = serialize($response);
                 $model->frequency++;
                 $model->save();
             } else {
