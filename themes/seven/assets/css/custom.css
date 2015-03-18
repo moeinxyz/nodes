@@ -74,6 +74,20 @@ input.transparent-input:not(:focus){
 .dante-menu-input{
     direction: ltr;
 }
+
+h1.post-header{
+    font-size: 60px;
+}
+h2.post-header{
+    font-size: 35px;
+}
+.imageCaption{
+    text-align: justify;
+    word-break:break-all;
+    left:-75px !important;
+    width: 65px !important;
+    font-family: inherit !important;
+}
 @keyframes spin {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}

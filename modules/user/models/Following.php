@@ -7,7 +7,6 @@ use \app\modules\user\models\User;
 /**
  * This is the model class for table "{{%following}}".
  *
- * @property string $id
  * @property integer $user_id
  * @property integer $followed_user_id
  * @property string $status
@@ -45,12 +44,7 @@ class Following extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
-        return [
-            'id' => Yii::t('app', 'ID'),
-            'user_id' => Yii::t('app', 'User ID'),
-            'followed_user_id' => Yii::t('app', 'Followed User ID'),
-            'status' => Yii::t('app', 'Status'),
-        ];
+        return [];
     }
 
     public static function getModelIfNotExist($followerId,$followedId)

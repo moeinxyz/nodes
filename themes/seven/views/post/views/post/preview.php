@@ -1,7 +1,6 @@
 <?php 
 use yii\helpers\HtmlPurifier;
 use app\components\Helper\Extract;
-use app\modules\user\models\User;
 $this->registerAssetBundle('show-post');
 $title      =   Extract::extractTitle($model->autosave_content);
 $content    =   Extract::extractContent($model->autosave_content);
@@ -31,10 +30,7 @@ $content    =   Extract::extractContent($model->autosave_content);
                                     <div class="section-content"> 
                                         <div class="section-inner layoutSingleColumn" style="padding-top: 35px;"> 
                                             <?php
-                                                $config = HTMLPurifier_Config::createDefault();
-                                                $config->set('HTML.SafeIframe', true);
-                                                $config->set('URI.SafeIframeRegexp', '%^(https?:)?//(www\.aparat\.com/video/video/embed/videohash/|www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/)%');
-                                                echo HtmlPurifier::process($content, $config); 
+                                                echo HtmlPurifier::process($content, app\components\Helper\Purifier::getConfig()); 
                                             ?>
                                         </div>
                                     </div>

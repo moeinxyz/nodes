@@ -10,6 +10,7 @@ class Module extends \yii\base\Module
     public $urlTable            =   '{{%url}}';
     public $tokenTable          =   '{{%token}}';
     public $followingTable      =   '{{%following}}';
+    public $unwantToFollowTable =   '{{%unwanted}}';
     
     public $defaultRoute        =   'user';
     

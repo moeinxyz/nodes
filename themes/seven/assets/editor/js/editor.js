@@ -25,8 +25,9 @@ Dante.Editor.Tooltip.prototype.getEmbedFromNode = function(node) {
       $(_this.node).replaceWith(tmpl);
       replaced_node = $(".graf--iframe[name=" + (_this.node.attr("name")) + "]");
       replaced_node.find("iframe").attr("src", iframe_src);
-      url = data.url || data.author_url;
-      replaced_node.find(".markup--anchor").attr("href", url).text(url);
+//      url = data.url || data.author_url;
+//      replaced_node.find(".markup--anchor").attr("href", url).text(url);
+      // dont show url
       return _this.hide();
     };
   })(this));

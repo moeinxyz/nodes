@@ -3,6 +3,7 @@
 /* @var $model app\modules\post\models\Post */
 use app\modules\post\Module;
 $id                 =   base_convert($model->id, 10, 36);
+$saveUrl            =   Yii::$app->urlManager->createUrl(["post/post/edit","id"=>  base_convert($model->id, 10, 36)]);
 $autoSave           =   Yii::$app->urlManager->createUrl(["post/autosave/{$id}"]);
 $uploadUrl          =   Yii::$app->urlManager->createUrl(["post/upload","id"=>$id]);   
 $oembedUrl          =   Yii::$app->urlManager->createUrl(["embed/embed/embed",'type'=>'oembed']).'&url=';
@@ -13,8 +14,9 @@ $embedPlaceholder   =   Module::t('post','write.embed.placeholder');
 $extractPlaceholder =   Module::t('post','write.extract.placeholder');
 
 $js=<<<JS
-var status  = $("i#status");
-var setting = $("#setting");
+var status      =   $("i#status");
+var setting     =   $("#setting");
+var editorElm   =   $("#editor");
 var editor=new Dante.Editor({
     el: "#editor",
     upload_url:                 "{$uploadUrl}",
@@ -41,8 +43,20 @@ $(document).ajaxError(function(){
     status.attr('class','glyphicon glyphicon-floppy-remove');
 });  
 $("a#save").on('click',function(){
-    $("input[name=content]").val(editor.getContent());
-    $("form#post-form").submit();
+    editorElm.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+    var store = editor.checkforStore();
+    if ((typeof store) === "number"){
+        editorElm.find('.overlay').remove();
+        jQuery.post("{$saveUrl}",function(){
+            editorElm.find('.overlay').remove();
+        });    
+    } else if ((typeof store) === "object"){
+        store.success(function(){
+            jQuery.post("{$saveUrl}",function(){
+                editorElm.find('.overlay').remove();        
+            });
+        });
+    }
 });
 //        
 //$(function() {

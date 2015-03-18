@@ -4,6 +4,7 @@ namespace app\modules\post\models;
 
 use Yii;
 use app\modules\post\Module;
+use app\modules\user\models\User;
 /**
  * This is the model class for table "{{%post}}".
  *

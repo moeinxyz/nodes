@@ -4,7 +4,9 @@ namespace app\modules\user\controllers;
 
 use Yii;
 use app\modules\user\models\Following;
+use app\modules\user\models\Unwanted;
 use app\modules\user\models\User;
+
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -15,16 +17,6 @@ use yii\filters\AccessControl;
  */
 class FollowingController extends Controller
 {
-    public function behaviors()
-    {
-        return [];
-    }
-
-    public function actionTest()
-    {
-        return "1";
-    }
-
     public function actionFollow()
     {
         $username = Yii::$app->request->post('username');
@@ -41,22 +33,12 @@ class FollowingController extends Controller
         }            
     }
 
-    /**
-     * Finds the Following model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Following the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Following::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
     
+    public function actionSuggest()
+    {
+        
+    }
+
     protected function findUser($username)
     {
         if ($username == NULL){

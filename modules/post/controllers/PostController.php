@@ -34,11 +34,6 @@ class PostController extends Controller
     public function actionUser($username)
     {
         $user   = $this->findUser($username);
-        
-        if (Yii::$app->request->isAjax){
-//            return $this->render
-        }
-        
         return $this->render('user',['user'=>$user]);
     }
 
@@ -85,12 +80,13 @@ class PostController extends Controller
     {
         $id     = base_convert($id, 36, 10);
         $model  = $this->findModel($id);
-        if (Yii::$app->request->isPost){
-            $content = Yii::$app->request->post('content');
-            $model->title               =   Extract::extractTitle($content);
-            $model->content             =   Extract::extractContent($content);
+        if (Yii::$app->request->isAjax){
+            Yii::$app->response->format =   Response::FORMAT_JSON;
+            $model->title               =   Extract::extractTitle($model->autosave_content);
+            $model->content             =   Extract::extractContent($model->autosave_content);
+            
             $model->last_update_type    =   Post::LAST_UPDATE_TYPE_MANUAL;
-            $model->save();
+            return $model->save();
         }
         return $this->render('write', [
             'model' => $model,
