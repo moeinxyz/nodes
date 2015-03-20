@@ -67,9 +67,9 @@ $form = ActiveForm::begin([
         </div>
         <hr class="mini central">
         <p class="small-font-size">
-            <?= Html::a(Module::t('user','join.activation'),  Yii::$app->urlManager->createUrl(['user/user/activation']));?>
+            <?= Html::a(Module::t('user','join.activation'),  Yii::$app->urlManager->createUrl(['user/activation']));?>
             <br>
-            <?= Html::a(Module::t('user','join.reset'),  Yii::$app->urlManager->createUrl(['user/user/reset']));?>
+            <?= Html::a(Module::t('user','join.reset'),  Yii::$app->urlManager->createUrl(['user/reset']));?>
         </p>
     </div>
 </div>

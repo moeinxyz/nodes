@@ -10,7 +10,7 @@
         /* @var $newComment \app\modules\post\models\Comment*/
         /* @var $timestamp integer */
         $form = ActiveForm::begin([
-            'action'=>Yii::$app->urlManager->createUrl(["comment/write/@{$username}/{$url}/{$timestamp}"]),
+            'action'=>Yii::$app->urlManager->createUrl(["@{$username}/{$url}/comment/{$timestamp}"]),
             'id' => 'comment-form',
             'enableClientValidation'=>true,
             'options' => ['class'   =>  'form-horizontal','data-pjax'=>TRUE],

@@ -58,7 +58,7 @@ $form = ActiveForm::begin([
     'id'                    => 'urls-form',
     'enableAjaxValidation'  => true,
     'enableClientValidation'=> true,
-    'action'                =>  Yii::$app->urlManager->createUrl(['user/user/profile#urls-form']),
+    'action'                =>  Yii::$app->urlManager->createUrl(['user/profile#urls-form']),
     'options'               => ['class'   =>  'form-horizontal'],
     'fieldConfig' => [
         'template'  =>  '{input}{error}'

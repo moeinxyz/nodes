@@ -136,7 +136,7 @@ class TokenController extends Controller
         $newToken = Token::getNewMailConfirmToken($token, $token->user_id, $email);
         
         if ($newToken){
-            $url    =   Yii::$app->urlManager->createAbsoluteUrl(['user/token/change',
+            $url    =   Yii::$app->urlManager->createAbsoluteUrl(['token/change',
                                                                 'id'=>$newToken->id,
                                                                 'code'=>urlencode($newToken->token),
                                                                 'email'=>urlencode($email)]);

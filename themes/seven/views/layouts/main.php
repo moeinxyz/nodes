@@ -31,7 +31,7 @@ $this->registerJs($js);
             <div class="loadstack">
                 <div class="spinner-loading"></div>
             </div>
-            <?php if (Yii::$app->controller->action->getUniqueId() != 'post/post/edit'): ?>
+            <?php if (Yii::$app->controller->action->getUniqueId() != 'post/edit'): ?>
                 <?= $this->render('header') ?>   
                 <div id="wrapper" class="page-content">
                     <?= $content ?>

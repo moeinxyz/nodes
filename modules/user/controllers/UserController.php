@@ -150,7 +150,7 @@ class UserController extends Controller
             return ActiveForm::validate($model);
         } else if (Yii::$app->request->isPost && $model->save()){
             $token  =   Token::getNewActivationToken($model->id);
-            $url    =   Yii::$app->urlManager->createAbsoluteUrl(['user/token/activation','id'=>$token->id,'code'=>urlencode($token->token)]);
+            $url    =   Yii::$app->urlManager->createAbsoluteUrl(['token/activation','id'=>$token->id,'code'=>urlencode($token->token)]);
             
             \Yii::$app->mailer
                 ->compose('@mail/activation', ['url' => $url,'email'=>$model->email])
@@ -171,7 +171,7 @@ class UserController extends Controller
         $model  =   new ResetForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()){
             $token  =   Token::getNewResetToken($model->getUser()->id);
-            $url    =   Yii::$app->urlManager->createAbsoluteUrl(['user/token/reset','id'=>$token->id,'code'=>urlencode($token->token)]);
+            $url    =   Yii::$app->urlManager->createAbsoluteUrl(['token/reset','id'=>$token->id,'code'=>urlencode($token->token)]);
 
             \Yii::$app->mailer
                 ->compose('@mail/reset', ['url' => $url,'email'=>$model->email])
@@ -194,7 +194,7 @@ class UserController extends Controller
         $model  =   new ActivationForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()){
             $token  =   Token::getNewActivationToken($model->getUser()->id);
-            $url    =   Yii::$app->urlManager->createAbsoluteUrl(['user/token/activation','id'=>$token->id,'code'=>urlencode($token->token)]);
+            $url    =   Yii::$app->urlManager->createAbsoluteUrl(['token/activation','id'=>$token->id,'code'=>urlencode($token->token)]);
 
             \Yii::$app->mailer
                 ->compose('@mail/activation', ['url' => $url,'email'=>$model->email])
@@ -392,7 +392,7 @@ class UserController extends Controller
     private function requestEmailChange($userid,$email)
     {
         $token  =   Token::getNewMailChangeToken($userid);
-        $url    =   Yii::$app->urlManager->createAbsoluteUrl(['user/token/change','id'=>$token->id,'code'=>urlencode($token->token)]);
+        $url    =   Yii::$app->urlManager->createAbsoluteUrl(['token/change','id'=>$token->id,'code'=>urlencode($token->token)]);
         \Yii::$app->mailer
             ->compose('@mail/confirmEmailChangeStep1',['email'=>$email,'url'=>$url])
             ->setTags(['emailchange','step1',  Yii::$app->name])

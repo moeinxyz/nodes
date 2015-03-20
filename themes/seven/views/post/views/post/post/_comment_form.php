@@ -7,7 +7,7 @@ use app\modules\post\Module;
 /* @var $newComment \app\modules\post\models\Comment*/
 /* @var $timestamp integer */
 $form = ActiveForm::begin([
-    'action'=>Yii::$app->urlManager->createUrl(["comment/write/@{$post->getUser()->one()->username}/{$post->url}/{$timestamp}"]),
+    'action'=>Yii::$app->urlManager->createUrl(["@{$post->getUser()->one()->username}/{$post->url}/comment/{$timestamp}"]),
     'id' => 'comment-form',
     'enableClientValidation'=>true,
     'options' => ['class'   =>  'form-horizontal','data-pjax'=>TRUE],

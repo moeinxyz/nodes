@@ -11,7 +11,7 @@ if(Yii::$app->user->id != $user->id){
     $pjax = Pjax::begin(['enablePushState'=>FALSE]);
     $form = ActiveForm::begin([
         'id'                    => 'follow-form',
-        'action'                =>  Yii::$app->urlManager->createUrl(['user/following/follow']),
+        'action'                =>  Yii::$app->urlManager->createUrl(['user/follow']),
         'options'               => ['class'   =>  'form-horizontal','data-pjax'=>true],
         'fieldConfig' => [
             'template'  =>  '{input}'
@@ -37,6 +37,6 @@ pjaxDiv.on('pjax:complete',function(){
 JS;
 $this->registerJs($js);    
 } else {
-    echo Html::a(Module::t('post','_follow.editMyProfile'), ['/user/user/profile'], ['class' => 'btn btn-default bg-olive margin']);
+    echo Html::a(Module::t('post','_follow.editMyProfile'), ['/user/profile'], ['class' => 'btn btn-default bg-olive margin']);
 }
 ?>

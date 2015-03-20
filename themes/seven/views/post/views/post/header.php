@@ -18,7 +18,7 @@ use app\modules\post\models\Post;
             </ul>
             <ul class="nav navbar-nav flaty-nav pull-right">
                 <li class="hidden-xs">
-                    <a href="<?= Yii::$app->urlManager->createUrl(['/post/post/preview','id'=>  base_convert($model->id, 10, 36)]) ?>" target="_blank">
+                    <a href="<?= Yii::$app->urlManager->createUrl(['/post/preview','id'=>  base_convert($model->id, 10, 36)]) ?>" target="_blank">
                         <?php echo Module::t('post','header.preview'); ?>
                         <i class="glyphicon glyphicon-eye-open"></i>                
                     </a>
@@ -69,12 +69,12 @@ use app\modules\post\models\Post;
                             <?= Html::a(Yii::t('app','header.user.socials').'<i class="glyphicon glyphicon-share"></i>',
                                         Yii::$app->urlManager->createUrl(['/social/admin']));?>                                        
                             <?php if (!Yii::$app->user->getIdentity()->isNameAndTaglineSet()): ?>    
-                                <?= Html::a(Yii::t('app','header.user.completeYourProfile').'<i class="glyphicon glyphicon-user"></i>', Yii::$app->urlManager->createUrl(['/user/user/profile'])); ?>  
+                                <?= Html::a(Yii::t('app','header.user.completeYourProfile').'<i class="glyphicon glyphicon-user"></i>', Yii::$app->urlManager->createUrl(['/user/profile'])); ?>  
                             <?php else: ?>
                                 <?= Html::a(Yii::t('app','header.user.profile').'<i class="glyphicon glyphicon-user"></i>', Yii::$app->urlManager->createUrl(['/'.Yii::$app->user->getIdentity()->getUsername()])); ?>
                             <?php endif; ?>            
-                            <?= Html::a(Yii::t('app','header.user.setting').'<i class="glyphicon glyphicon-wrench"></i>', Yii::$app->urlManager->createUrl(['/user/user/setting'])); ?>
-                            <?= Html::a(Yii::t('app','header.user.logout').'<i class="glyphicon glyphicon-log-out"></i>', Yii::$app->urlManager->createUrl(['/user/user/logout'])); ?>                                    
+                            <?= Html::a(Yii::t('app','header.user.setting').'<i class="glyphicon glyphicon-wrench"></i>', Yii::$app->urlManager->createUrl(['/user/setting'])); ?>
+                            <?= Html::a(Yii::t('app','header.user.logout').'<i class="glyphicon glyphicon-log-out"></i>', Yii::$app->urlManager->createUrl(['/user/logout'])); ?>                                    
                         </li>
                     </ul>            
                 </li>

@@ -6,7 +6,7 @@ use app\modules\user\Module;
 use app\modules\user\models\Following;
 $form = ActiveForm::begin([
     'id'                    => 'follow-form',
-    'action'                =>  Yii::$app->urlManager->createUrl(['user/following/follow']),
+    'action'                =>  Yii::$app->urlManager->createUrl(['user/follow']),
     'options'               => ['class'   =>  'form-horizontal','data-pjax'=>true],
     'fieldConfig' => [
         'template'  =>  '{input}'

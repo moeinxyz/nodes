@@ -3,12 +3,12 @@
 /* @var $model app\modules\post\models\Post */
 use app\modules\post\Module;
 $id                 =   base_convert($model->id, 10, 36);
-$saveUrl            =   Yii::$app->urlManager->createUrl(["post/post/edit","id"=>  base_convert($model->id, 10, 36)]);
-$publishUrl         =   Yii::$app->urlManager->createUrl(["post/post/publish","id"=>  base_convert($model->id, 10, 36)]);
+$saveUrl            =   Yii::$app->urlManager->createUrl(["post/edit","id"=>  base_convert($model->id, 10, 36)]);
+$publishUrl         =   Yii::$app->urlManager->createUrl(["post/publish","id"=>  base_convert($model->id, 10, 36)]);
 $autoSave           =   Yii::$app->urlManager->createUrl(["post/autosave/{$id}"]);
-$uploadUrl          =   Yii::$app->urlManager->createUrl(["post/image/upload","id"=>$id]);   
-$oembedUrl          =   Yii::$app->urlManager->createUrl(["embed/embed/embed",'type'=>'oembed']).'&url=';
-$extractUrl         =   Yii::$app->urlManager->createUrl(["embed/embed/embed",'type'=>'extract']).'&url=';
+$uploadUrl          =   Yii::$app->urlManager->createUrl(["post/upload","id"=>$id]);   
+$oembedUrl          =   Yii::$app->urlManager->createUrl(["embed",'type'=>'oembed']).'&url=';
+$extractUrl         =   Yii::$app->urlManager->createUrl(["embed",'type'=>'extract']).'&url=';
 $titlePlaceholder   =   Module::t('post','write.title.placeholder');
 $bodyPlaceholder    =   Module::t('post','write.body.placeholder');
 $embedPlaceholder   =   Module::t('post','write.embed.placeholder');
