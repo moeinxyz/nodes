@@ -9,7 +9,7 @@
             <?= HtmlPurifier::process($title); ?>
         </h1>        
         <a href="<?= Yii::$app->urlManager->createUrl(["@{$model->getUser()->one()->username}"]) ?>"  class="wow fadeInUp animated post-header" data-wow-delay="0.5s" style="visibility: visible; -webkit-animation-delay: 0.5s;">
-            <?= Module::t('post','post.written_by',['author'=>$model->getUser()->one()->getName(),'time'=>Yii::$app->jdate->date("Y/m/d",strtotime($model->created_at))]);?>
+            <?= Module::t('post','post.written_by',['author'=>$model->getUser()->one()->getName(),'time'=>Yii::$app->jdate->date("l Y/m/d",strtotime($model->created_at))]);?>
         </a>                
         <a class="scrollto" href="#content"><span class="icon-arrow-down2"></span></a>
     </div>

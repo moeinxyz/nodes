@@ -32,21 +32,7 @@ if ($model->cover === Post::COVER_BYCOVER){
                         </div>
                     </div>
                 </article>
-                <ul class="messages">
-                    <li>
-                        <img src="img/demo/avatar/avatar2.jpg" alt="">
-                        <div>
-                            <div>
-                                <span class="time"><i class="icon-time"></i> 26 minutes ago</span>
-                                <h5>David</h5>
-                            </div>
-                            <p>
-                                خیلی خوب بود
-                                
-                            </p>
-                        </div>
-                    </li>
-                </ul>                
+                <?= ($view == TRUE)?($this->render('post/_comment',['post'=>$model,'comment'=>$comment,'comments'=>$comments])):NULL;?>
             </div>
         </div>
     </div>

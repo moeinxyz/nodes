@@ -12,6 +12,7 @@ use yii\web\Response;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\StringHelper;
 use app\components\Helper\Extract;
+use app\modules\post\models\Comment;
 /**
  * PostController implements the CRUD actions for Post model.
  */
@@ -36,11 +37,14 @@ class PostController extends Controller
         return $this->render('user',['user'=>$user]);
     }
  
-    public function actionView($username,$post)
+    public function actionView($username,$url)
     {
-        $user = $this->findUser($username);
-        $model = Post::findOne(['user_id'=>$user->id,'url'=>urlencode($post)]);
-        return $this->render('preview',['model'=>$model]);
+        $user               =   $this->findUser($username);
+        $post               =   $this->findPost($user->id, $url);
+        $comment            =   new Comment;
+        $comment->post_id   =   $post->id;
+        $comments           =   Comment::getCommentsOfPost($post->id);
+        return $this->render('view',['model'=>$post,'comments'=>$comments,'comment'=>$comment,'view'=>TRUE]);
     }
 
     /**
@@ -99,18 +103,6 @@ class PostController extends Controller
         }        
     }
 
-//    public function actionSuggesturl($id)
-//    {
-//        if (Yii::$app->request->isAjax){
-//            Yii::$app->response->format =   Response::FORMAT_JSON;
-//            $title =    Yii::$app->request->post('title');
-//            $url   =    Post::suggestUniqueUrl($title, $id);
-//            return $url;
-//        } else {
-//            throw new NotFoundHttpException('The requested page does not exist.');
-//        }
-//    }
-
     public function actionWrite($type = 'writting')
     {
         $model = NULL;
@@ -130,7 +122,7 @@ class PostController extends Controller
     public function actionPreview($id){
         $id     =   base_convert($id, 36, 10);
         $model  =   $this->findModel($id);
-        return $this->render('preview',['model'=>$model]);
+        return $this->render('view',['model'=>$model,'view'=>false]);
     }
 
     public function actionRss($username)
@@ -219,5 +211,15 @@ class PostController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    
+    protected function findPost($userId,$url)
+    {
+        if (($post = Post::findOne(['user_id'=>$userId,'url'=>  urlencode($url)])) != NULL && $post->status === Post::STATUS_PUBLISH){
+            return $post;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }        
     }
 }

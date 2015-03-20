@@ -97,42 +97,45 @@ h2.post-header{
     padding: 10px;
     padding-bottom: 0;
     list-style: none;
+    word-break: break-word;
 }
-.messages > li {
+.messages > li,.messages > div > li {
     margin-bottom: 15px;
 }
-.messages > li > img {
-    float: left;
+.messages > li > img,.messages> div > li > img {
+    float: right;
     width: 60px;
     height: 60px;
     border-radius: 100%;
 }
-.messages > li > div {
+.messages > li > div,.messages > div > li > div {
     background-color: #f7f8f9;
     padding: 10px;
     padding-top: 1px;
-    margin-left: 80px;
+    margin-right: 80px;
     position: relative;
+    font-size: 20px;
 }
-.messages > li > div:before {
+.messages > li > div:before,.messages > div > li > div:before {
     content: "";
     position: absolute;
     width: 0;
     height: 0;
-    left: -10px;
+    right: -10px;
     top: 19px;
-    border-right: 10px solid #f7f8f9;
+    border-left: 10px solid #f7f8f9;
     border-top: 8px solid transparent;
     border-bottom: 8px solid transparent;
 }
-.messages > li > div h5 {
+.messages > li > div h5,.messages > div > li > div h5 {
     font-weight: bold;
     display: inline-block;
 }
-.messages > li > div .time {
+.messages > li > div .time, .messages > div > li > div .time {
     margin-top: 5px;
     color: #999;
-    float: right;
+    float: left;
+    font-size: 14px;
 }
 .messages.messages-stripped > li:nth-child(odd) > div        {background-color: #eef1f4;}
 .messages.messages-stripped > li:nth-child(odd) > div:before {border-right-color: #eef1f4;}
@@ -176,42 +179,6 @@ h2.post-header{
 .messages li .messages-actions a {
     font-size: 16px;
     margin: 0 3px;
-}
-.messages-input-form {
-    position:relative;
-    border:1px solid #ddd;
-    margin-top: 10px;
-}
-.messages-input-form .input {
-    margin-right: 90px;
-}
-.messages-input-form .input input[type="text"] {
-    border:0;
-    margin-bottom:0;
-    display:block;
-    padding: 4px 6px;
-    height: 30px;
-}
-.messages-input-form .buttons {
-    position:absolute;
-    right:0;
-    top:0;
-}
-.messages-input-form .buttons a {
-    color: #ccc;
-    margin: 4px;
-    line-height: 32px;
-}
-.messages-input-form .buttons a > i {
-    font-size: 16px;
-}
-.messages-input-form .buttons a:hover {
-    color: #555;
-}
-.messages-input-form .buttons .btn {
-    margin-top: -5px;
-    margin-right: 1px;
-    height: 28px;
 }
 @keyframes spin {
     from { transform: scale(1) rotate(0deg);}

@@ -8,7 +8,8 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use app\modules\user\models\User;
+use app\modules\post\models\Post;
 /**
  * CommentController implements the CRUD actions for Comment model.
  */
@@ -26,7 +27,27 @@ class CommentController extends Controller
         ];
     }
 
-    /**
+    
+    public function actionWrite($username,$url)
+    {
+        $user               =   $this->findUser($username);
+        $post               =   $this->findPost($user->id, $url);
+        $comment = new Comment();
+        $comment->load(Yii::$app->request->post());
+        $comment->user_id   =   Yii::$app->user->getId();
+        $comment->post_id   =   $post->id;
+        $comment->text      =   nl2br($comment->text);
+        $comment->text      =   strip_tags($comment->text, '<br><br\>');
+        if ($comment->save()){
+            $model          =   new Comment;
+            $model->post_id =   $post->id;
+            return $this->renderPartial('_comment_and_form',['comment'=>$comment,'model'=>$model,'username'=>$user->username,'url'=>$post->url]);    
+        } else {
+            return $this->renderPartial('_form',['model'=>$comment,'username'=>$user->username,'url'=>$post->url]);
+        }
+    }
+
+        /**
      * Lists all Comment models.
      * @return mixed
      */
@@ -118,4 +139,29 @@ class CommentController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    /**
+     * 
+     * @param string $username
+     * @return User
+     * @throws NotFoundHttpException
+     */
+    protected function findUser($username)
+    {
+        if (($user = User::findOne(['username'=>$username])) != NULL && $user->status != User::STATUS_BLOCK){
+            return $user;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
+    
+    protected function findPost($userId,$url)
+    {
+        if (($post = Post::findOne(['user_id'=>$userId,'url'=>  urlencode($url)])) != NULL && $post->status === Post::STATUS_PUBLISH){
+            return $post;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }        
+    }    
 }

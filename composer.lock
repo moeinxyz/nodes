@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "91444dbaa7d0651f88e0e26181801745",
+    "hash": "7a4523354d2503d4d685dff857cb044d",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -100,6 +100,23 @@
                 ]
             },
             "description": "Turn checkboxes and radio buttons in toggle switches."
+        },
+        {
+            "name": "bower-asset/bootstrap-wysihtml5",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jhollingworth/bootstrap-wysihtml5.git",
+                "reference": "1b2506a98f481afd511ddee7803c9495108e0e0d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jhollingworth/bootstrap-wysihtml5/zipball/1b2506a98f481afd511ddee7803c9495108e0e0d",
+                "reference": "1b2506a98f481afd511ddee7803c9495108e0e0d",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "time": "2014-11-21 14:30:32"
         },
         {
             "name": "bower-asset/components-font-awesome",
@@ -2323,7 +2340,8 @@
         "embedly/embedly-php": 20,
         "zelenin/yii2-rss": 20,
         "symfony/dom-crawler": 20,
-        "symfony/css-selector": 20
+        "symfony/css-selector": 20,
+        "bower-asset/bootstrap-wysihtml5": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

@@ -5,6 +5,7 @@ namespace app\modules\post\models;
 use Yii;
 use app\modules\post\Module;
 use app\modules\user\models\User;
+use app\components\Helper\Stopwords;
 /**
  * This is the model class for table "{{%post}}".
  *
@@ -111,6 +112,11 @@ class Post extends \yii\db\ActiveRecord
         return self::updateAll(['status'=>self::STATUS_DRAFT],'user_id=:user_id AND status=:status',[':user_id'=>Yii::$app->user->id,':status'=>self::STATUS_WRITTING]);
     }
 
+    public static function temp($title,$id)
+    {
+        
+    }
+
     /**
      * 
      * @param string $title
@@ -122,9 +128,28 @@ class Post extends \yii\db\ActiveRecord
     {
         $title      =   strtolower($title);
         $postfix    =   strtolower($id);
-        $url        =   NULL;
-        $baseUrl    =   substr(preg_replace('/[[:space:]]+/', '-', $title),0,1500);
-        $counter    =   0;
+        $base       =   substr('/[[:space:]]+/', 0);
+        $words      =   Stopwords::purifierText(explode('-', $title));
+        $count      =   count($words);
+//        $len        =   3;
+//        do {
+//            
+//        }while(!self::isUniueUrl($url) && $len <= $count && strlen($url) <= 40);
+//        $url = implode($url, $pieces)
+        
+//        foreach ($words as $index=>$word){
+//            $url    .=  $word;
+//        }
+        
+        
+        // first attempt to get by title
+        
+//        $url        =   NULL;
+//        $baseUrl    =   substr(preg_replace('/[[:space:]]+/', '-', $title),0,1500);
+//        $counter    =   0;
+        
+        
+        // second attempt to get by postfix
         do {
             if ($postfix === $id){
                 $url        =   urlencode($baseUrl);    
@@ -149,7 +174,7 @@ class Post extends \yii\db\ActiveRecord
     
     public static function isUniueUrl($url)
     {
-        $model = Post::findOne(['user_id'=>Yii::$app->user->id,'url'=>  $url]);
+        $model = Post::findOne(['user_id'=>Yii::$app->user->getId(),'url'=>  $url]);
         if ($model) {
             return false;
         }

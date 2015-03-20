@@ -23,6 +23,7 @@ class Module extends \yii\base\Module
             'basePath' => '@app/modules/post/messages',
             'fileMap' => [
                 'modules/post/post'     => 'post.php',
+                'modules/post/comment'  => 'comment.php',
             ],
         ];
     }

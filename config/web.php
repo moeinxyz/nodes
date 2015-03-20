@@ -129,11 +129,12 @@ $config = [
             'showScriptName'    => false,
             'enablePrettyUrl'   => true,
                 'rules' => [
-                    '@<username:[\w\-]+>/<post:[\w\-]+>'    =>  'post/post/view',
-                    '@<username:[\w\-]+>'                   =>  'post/post/user',
-                    '@<username:[\w\-]+>/rss'               =>  'post/post/rss',                    
-                    'post/write'                            =>  'post/post/write',
-                    'post/autosave/<id:\w+>'                =>  'post/post/autosave',
+                    '@<username:[\w\-]+>/<url:[\w\-]+>'                     =>  'post/post/view',
+                    'comment/write/@<username:[\w\-]+>/<url:[\w\-]+>'       =>  'post/comment/write',
+                    '@<username:[\w\-]+>'                                   =>  'post/post/user',
+                    '@<username:[\w\-]+>/rss'                               =>  'post/post/rss',                    
+                    'post/write'                                            =>  'post/post/write',
+                    'post/autosave/<id:\w+>'                                =>  'post/post/autosave',
                 ],
         ],      
         'reCaptcha' => [
