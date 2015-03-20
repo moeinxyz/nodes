@@ -13,6 +13,7 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\StringHelper;
 use app\components\Helper\Extract;
 use app\modules\post\models\Comment;
+
 /**
  * PostController implements the CRUD actions for Post model.
  */
@@ -41,12 +42,19 @@ class PostController extends Controller
     {
         $user               =   $this->findUser($username);
         $post               =   $this->findPost($user->id, $url);
-        $comment            =   new Comment;
-        $comment->post_id   =   $post->id;
+        $newComment         =   new Comment;
+        $newComment->post_id=   $post->id;
         $comments           =   Comment::getCommentsOfPost($post->id);
-        return $this->render('view',['model'=>$post,'comments'=>$comments,'comment'=>$comment,'view'=>TRUE]);
+        
+        return $this->render('view',['post'=>$post,'comments'=>$comments,'newComment'=>$newComment]);
     }
 
+    public function actionPreview($id){
+        $id     =   base_convert($id, 36, 10);
+        $post   =   $this->findModel($id);
+        return $this->render('preview',['post'=>$post]);
+    }    
+    
     /**
      * Creates a new Post model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -117,12 +125,6 @@ class PostController extends Controller
             $model->save();
         }
         return $this->redirect(['edit', 'id' => base_convert($model->id, 10, 36)]);
-    }
-    
-    public function actionPreview($id){
-        $id     =   base_convert($id, 36, 10);
-        $model  =   $this->findModel($id);
-        return $this->render('view',['model'=>$model,'view'=>false]);
     }
 
     public function actionRss($username)

@@ -4,9 +4,10 @@ use yii\bootstrap\ActiveForm;
 use app\modules\post\Module;
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model app\models\User */
+/* @var $newComment \app\modules\post\models\Comment*/
+/* @var $timestamp integer */
 $form = ActiveForm::begin([
-    'action'=>Yii::$app->urlManager->createUrl(["comment/write/@{$post->getUser()->one()->username}/{$post->url}"]),
+    'action'=>Yii::$app->urlManager->createUrl(["comment/write/@{$post->getUser()->one()->username}/{$post->url}/{$timestamp}"]),
     'id' => 'comment-form',
     'enableClientValidation'=>true,
     'options' => ['class'   =>  'form-horizontal','data-pjax'=>TRUE],
@@ -21,14 +22,14 @@ $form = ActiveForm::begin([
         <div class="form-group">
             <div class="controls">
                 <div class="col-md-12 controls">
-                    <?= $form->field($comment, 'text')->textarea();?>
+                    <?= $form->field($newComment, 'text')->textarea();?>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <div class="controls">
                 <div class="col-md-12 controls">
-                    <?= Html::submitButton(Module::t('post','post.comment'), ['class' => 'btn btn-primary btn-block', 'name' => 'comment-button']) ?>
+                    <?= Html::submitButton(Module::t('post','comment.submitBtn'), ['class' => 'btn btn-primary btn-block', 'name' => 'comment-button']) ?>
                 </div>
             </div>            
         </div>

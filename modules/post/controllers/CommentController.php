@@ -7,7 +7,7 @@ use app\modules\post\models\Comment;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use app\modules\user\models\User;
 use app\modules\post\models\Post;
 /**
@@ -18,17 +18,27 @@ class CommentController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
+            'access'    =>  [
+                'class' =>  AccessControl::className(),
+                'only'  =>  ['write'],
+                'rules' =>  [
+                    [
+                        'actions'   =>  ['write'],
+                        'roles'     =>  ['@'],
+                        'verbs'     =>  ['POST'],       
+                        'allow'     =>  true
+                    ],
                 ],
-            ],
+                'denyCallback'  =>  function($rule, $action){
+                    return $this->redirect(Yii::$app->request->getReferrer());
+                }
+                
+            ]
         ];
     }
 
     
-    public function actionWrite($username,$url)
+    public function actionWrite($username,$url,$timestamp)
     {
         $user               =   $this->findUser($username);
         $post               =   $this->findPost($user->id, $url);
@@ -39,11 +49,17 @@ class CommentController extends Controller
         $comment->text      =   nl2br($comment->text);
         $comment->text      =   strip_tags($comment->text, '<br><br\>');
         if ($comment->save()){
-            $model          =   new Comment;
-            $model->post_id =   $post->id;
-            return $this->renderPartial('_comment_and_form',['comment'=>$comment,'model'=>$model,'username'=>$user->username,'url'=>$post->url]);    
+            $newComment =   new Comment;
+            $comments   =   Comment::getCommentsOfPost($post->id,$timestamp);
+            return $this->renderPartial('_comments',[
+                'newComment'    =>  $newComment,
+                'comments'      =>  $comments,
+                'username'      =>  $username,
+                'url'           =>  $url,
+                'timestamp'     =>  $timestamp
+            ]);            
         } else {
-            return $this->renderPartial('_form',['model'=>$comment,'username'=>$user->username,'url'=>$post->url]);
+            throw new \yii\web\HttpException;
         }
     }
 

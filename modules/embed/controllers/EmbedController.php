@@ -35,6 +35,7 @@ class EmbedController extends \yii\web\Controller
                             if (array_key_exists('host', $parse) && $parse['host'] == $serverName){
                                 return TRUE;
                             }
+                            //@todo fix it
                             return TRUE;
                             return FALSE;
                         },

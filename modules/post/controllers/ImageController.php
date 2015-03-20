@@ -24,7 +24,7 @@ class ImageController extends \yii\web\Controller
                 
             ]
         ];
-    }    
+    }
     
     public function actionUpload($id)
     {

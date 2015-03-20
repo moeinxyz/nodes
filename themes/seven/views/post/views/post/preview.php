@@ -1,15 +1,16 @@
 <?php 
 /* @var $this \yii\web\View */
 /* @var $post app\modules\post\models\Post */
-/* @var $newComment \app\modules\post\models\Comment*/
-/* @var $comments array */
 use app\modules\post\models\Post;
+use app\components\Helper\Extract;
 use yii\helpers\HtmlPurifier;
 $this->registerAssetBundle('show-post');
+$title      =   Extract::extractTitle($post->autosave_content);
+$content    =   Extract::extractContent($post->autosave_content);
 if ($post->cover === Post::COVER_BYCOVER){
-    echo $this->render('post/_by_cover',['title'=>$post->title,'post'=>$post]);
+    echo $this->render('post/_by_cover',['title'=>$title,'post'=>$post]);
 } else {
-    echo $this->render('post/_no_cover',['title'=>$post->title,'post'=>$post]);
+    echo $this->render('post/_no_cover',['title'=>$title,'post'=>$post]);
 }
 ?>
 <div class="row" id="content">
@@ -23,7 +24,7 @@ if ($post->cover === Post::COVER_BYCOVER){
                                 <section class="section--first section--last">
                                     <div class="section-content"> 
                                         <div class="section-inner layoutSingleColumn" style="padding-top: 35px;"> 
-                                            <?= HtmlPurifier::process($post->content,app\components\Helper\Purifier::getConfig());?>
+                                            <?= HtmlPurifier::process($content,app\components\Helper\Purifier::getConfig());?>
                                         </div>
                                     </div>
                                 </section>
@@ -31,7 +32,6 @@ if ($post->cover === Post::COVER_BYCOVER){
                         </div>
                     </div>
                 </article>
-                <?= $this->render('post/_comments',['post'=>$post,'newComment'=>$newComment,'comments'=>$comments]);?>
             </div>
         </div>
     </div>

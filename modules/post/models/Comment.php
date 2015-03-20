@@ -75,12 +75,18 @@ class Comment extends \yii\db\ActiveRecord
      * @param integer $postId
      * @return array
      */
-    public static function getCommentsOfPost($postId)
+    public static function getCommentsOfPost($postId,$timestamp = null)
     {
-        return Comment::find()->where('post_id=:post_id AND status=:status',[
+        $statement  =   'post_id=:post_id AND status=:status';
+        $params     =   [
             ':post_id'  =>  $postId,
-            ':status'   =>  self::STATUS_PUBLISH
-        ])->orderBy("created_at ASC")->all();
+            ':status'   =>  self::STATUS_PUBLISH            
+        ];
+        if ($timestamp != NULL){
+            $statement              .=  ' AND created_at > :timestamp';
+            $params[':timestamp']   =   date('Y-m-d H:i:s',$timestamp);
+        }
+        return Comment::find()->where($statement,$params)->orderBy("created_at ASC")->all();
     }
 
         /**
