@@ -13,7 +13,7 @@ $user = $post->getUser()->one();
                     <?= HtmlPurifier::process($title); ?>
                 </h1>
                 <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}"]) ?>"  class="wow fadeInUp animated post-header" data-wow-delay="0.5s" style="visibility: visible; -webkit-animation-delay: 0.5s;">
-                    <?= Module::t('post','post.written_by',['author'=>$user->getName(),'time'=>Yii::$app->jdate->date("l Y/m/d",strtotime($post->created_at))]);?>                     
+                    <?= Module::t('post','post.written_by',['author'=>$user->getName(),'time'=>Yii::$app->jdate->date("l jS F Y",strtotime($post->created_at))]);?>                     
                 </a>
              </div>
         </div>

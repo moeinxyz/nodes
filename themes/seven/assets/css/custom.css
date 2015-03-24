@@ -91,7 +91,12 @@ h2.post-header{
 .hero h1{
     color: #222;
 }
-
+.table > thead > tr > th{
+    text-align: center !important;
+}
+div.grid-view > .summary{
+    padding-right: 15px;
+}
 .messages {
     margin: 0;
     padding: 10px;

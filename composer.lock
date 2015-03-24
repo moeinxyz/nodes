@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7a4523354d2503d4d685dff857cb044d",
+    "hash": "bcbb2f6b91d73a2f299143338a33aa88",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -100,23 +100,6 @@
                 ]
             },
             "description": "Turn checkboxes and radio buttons in toggle switches."
-        },
-        {
-            "name": "bower-asset/bootstrap-wysihtml5",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jhollingworth/bootstrap-wysihtml5.git",
-                "reference": "1b2506a98f481afd511ddee7803c9495108e0e0d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jhollingworth/bootstrap-wysihtml5/zipball/1b2506a98f481afd511ddee7803c9495108e0e0d",
-                "reference": "1b2506a98f481afd511ddee7803c9495108e0e0d",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "time": "2014-11-21 14:30:32"
         },
         {
             "name": "bower-asset/components-font-awesome",
@@ -855,6 +838,96 @@
                 "yii2"
             ],
             "time": "2015-02-15 15:55:23"
+        },
+        {
+            "name": "kartik-v/yii2-grid",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-grid.git",
+                "reference": "012786dff5db8a68c006d5097505e72069d8b99e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/012786dff5db8a68c006d5097505e72069d8b99e",
+                "reference": "012786dff5db8a68c006d5097505e72069d8b99e",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-krajee-base": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\grid\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Yii 2 GridView on steroids. Various enhancements and utilities for the Yii 2.0 GridView widget.",
+            "homepage": "https://github.com/kartik-v/yii2-grid",
+            "keywords": [
+                "extension",
+                "grid",
+                "widget",
+                "yii2"
+            ],
+            "time": "2015-03-19 13:07:27"
+        },
+        {
+            "name": "kartik-v/yii2-krajee-base",
+            "version": "v1.7.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-krajee-base.git",
+                "reference": "01e9fa8c19970070d0aba5b16a7bfd8c241bc7f9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/01e9fa8c19970070d0aba5b16a7bfd8c241bc7f9",
+                "reference": "01e9fa8c19970070d0aba5b16a7bfd8c241bc7f9",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2-bootstrap": "@dev"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\base\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Base library and foundation components for all Yii2 Krajee extensions.",
+            "homepage": "https://github.com/kartik-v/yii2-krajee-base",
+            "keywords": [
+                "base",
+                "extension",
+                "foundation",
+                "krajee",
+                "widget",
+                "yii2"
+            ],
+            "time": "2015-02-13 03:36:35"
         },
         {
             "name": "league/flysystem",
@@ -2034,6 +2107,23 @@
     ],
     "packages-dev": [
         {
+            "name": "bower-asset/bootstrap-wysihtml5",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jhollingworth/bootstrap-wysihtml5.git",
+                "reference": "1b2506a98f481afd511ddee7803c9495108e0e0d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jhollingworth/bootstrap-wysihtml5/zipball/1b2506a98f481afd511ddee7803c9495108e0e0d",
+                "reference": "1b2506a98f481afd511ddee7803c9495108e0e0d",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "time": "2014-11-21 14:30:32"
+        },
+        {
             "name": "bower-asset/typeahead.js",
             "version": "v0.10.5",
             "source": {
@@ -2341,7 +2431,7 @@
         "zelenin/yii2-rss": 20,
         "symfony/dom-crawler": 20,
         "symfony/css-selector": 20,
-        "bower-asset/bootstrap-wysihtml5": 20
+        "kartik-v/yii2-grid": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

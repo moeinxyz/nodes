@@ -75,15 +75,14 @@ class Post extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'url' => Yii::t('app', 'Url'),
-            'title' => Yii::t('app', 'Title'),
-            'content' => Yii::t('app', 'Content'),
-            'pin' => Yii::t('app', 'Pin'),
-            'comments_count' => Yii::t('app', 'Comments Count'),
-            'status' => Yii::t('app', 'Status'),
-            'created_at' => Yii::t('app', 'Created At'),
-            'updated_at' => Yii::t('app', 'Updated At'),
-            'user_id' => Yii::t('app', 'User ID'),
+            'url'               => Module::t('post', 'post.attr.url'),
+            'title'             => Module::t('post', 'post.attr.title'),
+            'content'           => Module::t('post', 'post.attr.content'),
+            'pin'               => Module::t('post', 'post.attr.pin'),
+            'comments_count'    => Module::t('post', 'post.attr.comments_count'),
+            'status'            => Module::t('post', 'post.attr.status'),
+            'created_at'        => Module::t('post', 'post.attr.created_at'),
+            'updated_at'        => Module::t('post', 'post.attr.updated_at'),
         ];
     }
 
@@ -95,6 +94,7 @@ class Post extends \yii\db\ActiveRecord
                 $this->cover            =   self::COVER_NOCOVER;
             }
             $this->updated_at = new \yii\db\Expression('NOW()');
+            $this->title      = substr($this->title, 0,256);
             return TRUE;
         }
         return FALSE;
@@ -195,5 +195,23 @@ class Post extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+    
+    public function togglePin()
+    {
+        if ($this->pin === self::PIN_OFF){
+            $this->pin  =   self::PIN_ON;
+        } else {
+            $this->pin  =   self::PIN_OFF;
+        }
+    }
+    
+    public function toggleTrash()
+    {
+        if ($this->status === self::STATUS_TRASH){
+            $this->status   =   self::STATUS_DRAFT;
+        } else {
+            $this->status   =   self::STATUS_TRASH;
+        }
     }
 }

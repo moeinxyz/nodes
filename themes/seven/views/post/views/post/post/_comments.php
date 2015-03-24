@@ -24,7 +24,7 @@ use yii\widgets\Pjax;
                     </a>
                     <span class="time"><i class="fa fa-clock-o"></i>
                         <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}/{$post->url}#comment-{$uid}"]) ?>">
-                            <?= Yii::$app->jdate->date("l Y/m/d H:i",$lastComment)?>
+                            <?= Yii::$app->jdate->date("l jS F Y H:i",$lastComment)?>
                         </a>
                     </span>
                 </div>

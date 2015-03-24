@@ -54,7 +54,21 @@ class PostController extends Controller
         $post   =   $this->findModel($id);
         return $this->render('preview',['post'=>$post]);
     }    
-    
+   
+    public function actionAdmin($status = 'draft')
+    {
+        $status = $this->normilizeStatus($status);
+        $query  = $this->getDataProviderQuery($status);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query
+        ]);
+
+        return $this->render('admin', [
+            'dataProvider'  =>  $dataProvider,
+            'status'        =>  $status
+        ]);
+    }
+
     /**
      * Creates a new Post model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -127,6 +141,60 @@ class PostController extends Controller
         return $this->redirect(['edit', 'id' => base_convert($model->id, 10, 36)]);
     }
 
+    public function actionPin($status = 'draft',$id)
+    {
+        if (Yii::$app->request->isAjax){
+            $id     =   base_convert($id, 36, 10);
+            $post   =   $this->findModel($id);   
+            $post->togglePin();
+            $post->save();
+            $status = $this->normilizeStatus($status);
+            $query  = $this->getDataProviderQuery($status);
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query
+            ]);            
+            return $this->renderAjax('_admin',[
+                'dataProvider'  =>  $dataProvider,
+                'status'        =>  $status                
+            ]);    
+        } else {
+            return $this->redirect('admin');
+        }
+    }
+    
+    public function actionTrash($status = 'draft',$id)
+    {
+        if (Yii::$app->request->isAjax){
+            $id     =   base_convert($id, 36, 10);
+            $post   =   $this->findModel($id);   
+            $post->toggleTrash();
+            $post->save();
+            $status = $this->normilizeStatus($status);
+            $query  = $this->getDataProviderQuery($status);
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query
+            ]);            
+            return $this->renderAjax('_admin',[
+                'dataProvider'  =>  $dataProvider,
+                'status'        =>  $status                
+            ]);    
+        } else {
+            return $this->redirect('admin');
+        }        
+    }
+
+    public function actionDelete($status = 'draft',$id)
+    {
+        $id             =   base_convert($id, 36, 10);
+        $post           =   $this->findModel($id);   
+        $status         =   $this->normilizeStatus($status);
+        if ($status === Post::STATUS_TRASH){
+            $post->status   =   Post::STATUS_DELETE;
+            $post->save();            
+        }           
+        return $this->redirect(Yii::$app->urlManager->createUrl(['post/admin','status'=>$status]));
+    }
+    
     public function actionRss($username)
     {
         $user           = $this->findUser($username);
@@ -223,5 +291,25 @@ class PostController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }        
+    }
+    
+    protected function normilizeStatus($status)
+    {
+        $status = strtoupper($status);
+        if ($status != Post::STATUS_TRASH && $status != Post::STATUS_PUBLISH){
+            $status = Post::STATUS_DRAFT;
+        }
+        return $status;
+    }
+    
+    protected function getDataProviderQuery($status)
+    {
+        $query = Post::find();
+        if ($status === Post::STATUS_DRAFT){
+            $query = $query->where('(status=:draft OR status=:writting) AND user_id=:user_id',[':draft'=>Post::STATUS_DRAFT,':writting'=>Post::STATUS_WRITTING,'user_id'=>Yii::$app->user->getId()]);
+        } else {
+            $query = $query->where('status=:status AND user_id=:user_id',[':status'=>$status,'user_id'=>Yii::$app->user->getId()]);
+        }
+        return $query;
     }
 }

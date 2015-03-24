@@ -14,6 +14,9 @@ class Extract {
         $titleDom   =   $crawler->filter('.graf--first');
         if ($titleDom->count() >= 1) 
             return $titleDom->text ();
+        $firstDom   =   $crawler->filter('.graf');
+        if ($firstDom->count() > 1)
+            return $firstDom->first()->text();
         return '';
     }
     
@@ -27,7 +30,9 @@ class Extract {
         $expression                 =   (new CssSelector())->toXPath('.graf--first');
         $xpath                      =   new DOMXPath($dom);
         $node                       =   $xpath->query($expression)->item(0);
-        $node->parentNode->removeChild($node);
+        if ($node){
+            $node->parentNode->removeChild($node);    
+        }
         $node                       =   $dom->getElementsByTagName('body')->item(0);
         $code                       =   $dom->saveHTML($node);
         if (strpos($code, '<body>') === 0){
@@ -35,7 +40,7 @@ class Extract {
         }
         if (($pos = strpos($code, '</body>')) && $pos != NULL){
             $code = substr($code, 0,$pos);
-        } 
+        }
         return $code;
-    }    
+    }
 }

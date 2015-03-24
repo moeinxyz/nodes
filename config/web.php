@@ -141,7 +141,11 @@ $config = [
                     'post/publish'                                                          =>  'post/post/publish',
                     'post/upload'                                                           =>  'post/image/upload',
                     'post/preview'                                                          =>  'post/post/preview',
-                    
+                    'post/admin'                                                            =>  'post/post/admin',
+                    'post/comment'                                                          =>  'post/post/comment',
+                    'post/stat'                                                             =>  'post/stat/stat',
+                    'post/trash'                                                            =>  'post/post/trash',
+                    'post/delete'                                                           =>  'post/post/delete',
                     // user module
                     'user/login'                                                            =>  'user/user/login',
                     'user/join'                                                             =>  'user/user/join',
