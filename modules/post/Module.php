@@ -10,6 +10,7 @@ class Module extends \yii\base\Module
     public $postTable           =   '{{%post}}';
     public $imageTable          =   '{{%image}}';
     public $commentTable        =   '{{%comment}}';
+    public $abuseTable          =   '{{%abuse}}';
     public function init()
     {
         parent::init();
