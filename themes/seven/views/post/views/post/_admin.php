@@ -8,7 +8,7 @@ use yii\helpers\StringHelper;
 use app\components\Helper\PersianNumber;
 
 $username   =   Yii::$app->user->getIdentity()->getUsername();
-$pjax       =   Pjax::begin();
+$pjax       =   Pjax::begin(['enablePushState'=>FALSE]);
 echo GridView::widget([
     'tableOptions' => [
         'class' => 'table table-striped table-hover fill-head'
@@ -23,10 +23,10 @@ echo GridView::widget([
         ]
     ],
     'dataProvider' => $dataProvider,
-    'filterPosition' => GridView::FILTER_POS_HEADER,
     'columns' => [
         [
-            'attribute' => 'title',
+            'attribute'     => 'title',
+//            'enableSorting' =>  false,
             'content' => function ($model, $key, $index, $column) {
                 $content = Html::a($model->title, ['edit', 'id' => base_convert($model->id, 10, 36)], ['target' => '_blank', 'data-pjax' => 0]);
                 $content .= '<br><span class="small-font-size">';
@@ -36,17 +36,19 @@ echo GridView::widget([
             }
                 ],
                 [
-                    'attribute' => 'updated_at',
-                    'content' => function ($model, $key, $index, $column) {
-                        return '<span class="small-font-size">' . Yii::$app->jdate->date("l jS F Y h:i A", strtotime($model->created_at)) . '</span>';
+                    'attribute'     => 'updated_at',
+//                    'enableSorting' =>  false,
+                    'content'       => function ($model, $key, $index, $column) {
+                        return '<span class="small-font-size">' . Yii::$app->jdate->date("l jS F Y h:i A", strtotime($model->updated_at)) . '</span>';
                     }
                 ],
                 [
                     'class' => 'yii\grid\ActionColumn',
-                    'template' => '{comment}{stat}{view}{edit}{pin}{trash}{delete}',
+//                    'template' => '{comment}{stat}{view}{edit}{pin}{trash}{delete}',
+                    'template' => '{comment}{view}{edit}{pin}{trash}{delete}',
                     'buttons' => [
                         'comment'   => function ($url, $model) use($pjax, $username) {
-                            return Html::a('<span class="glyphicon glyphicon-comment"></span>', ['comment', 'id' => base_convert($model->id, 10, 36)], [
+                            return Html::a('<span class="glyphicon glyphicon-comment"></span>', ['/post/comments', 'id' => base_convert($model->id, 10, 36)], [
                                         'title' => Module::t('post', '_admin.btn.comment.title',['count'=>  PersianNumber::convertNumberToPersian($model->comments_count)]),
                                         'data-pjax' => 0,
                                         'style' => 'font-size:22px;padding-right:10px;'
@@ -130,4 +132,14 @@ echo GridView::widget([
                     ],
                 ]);
 Pjax::end();
+$js         =   <<<JS
+var pjaxDiv =   $("#{$pjax->getId()}");
+pjaxDiv.on('pjax:send',function(){
+    pjaxDiv.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+});
+pjaxDiv.on('pjax:complete',function(){
+    pjaxDiv.find('.overlay').remove();
+});
+JS;
+$this->registerJs($js);
 ?>            

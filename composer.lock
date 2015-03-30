@@ -4,8 +4,62 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bcbb2f6b91d73a2f299143338a33aa88",
+    "hash": "a1cc6eee4d9d053d53fbb360a30484d3",
     "packages": [
+        {
+            "name": "abraham/twitteroauth",
+            "version": "0.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/abraham/twitteroauth.git",
+                "reference": "040a2ebe76dc836e5edab83e7f036897a8715785"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/abraham/twitteroauth/zipball/040a2ebe76dc836e5edab83e7f036897a8715785",
+                "reference": "040a2ebe76dc836e5edab83e7f036897a8715785",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpmd/phpmd": "2.*",
+                "phpunit/phpunit": "4.*",
+                "squizlabs/php_codesniffer": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Abraham\\TwitterOAuth\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Abraham Williams",
+                    "email": "abraham@abrah.am",
+                    "homepage": "https://abrah.am",
+                    "role": "Developer"
+                }
+            ],
+            "description": "The most popular PHP library for use with the Twitter OAuth REST API.",
+            "homepage": "https://twitteroauth.com",
+            "keywords": [
+                "Twitter API",
+                "Twitter oAuth",
+                "api",
+                "oauth",
+                "rest",
+                "social",
+                "twitter"
+            ],
+            "time": "2015-03-19 05:51:18"
+        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.3.4",
@@ -845,12 +899,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
-                "reference": "012786dff5db8a68c006d5097505e72069d8b99e"
+                "reference": "d80540ec05931f819bd0dea16a76f989776ce09c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/012786dff5db8a68c006d5097505e72069d8b99e",
-                "reference": "012786dff5db8a68c006d5097505e72069d8b99e",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/d80540ec05931f819bd0dea16a76f989776ce09c",
+                "reference": "d80540ec05931f819bd0dea16a76f989776ce09c",
                 "shasum": ""
             },
             "require": {
@@ -881,7 +935,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-03-19 13:07:27"
+            "time": "2015-03-25 08:14:18"
         },
         {
             "name": "kartik-v/yii2-krajee-base",
@@ -1541,12 +1595,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
-                "reference": "53a8f2a8629a60e4e69b8bdf369126ec31aa7299"
+                "reference": "37a78249e7b013459d05c836d4cc9011f15d20d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/53a8f2a8629a60e4e69b8bdf369126ec31aa7299",
-                "reference": "53a8f2a8629a60e4e69b8bdf369126ec31aa7299",
+                "url": "https://api.github.com/repos/symfony/CssSelector/zipball/37a78249e7b013459d05c836d4cc9011f15d20d5",
+                "reference": "37a78249e7b013459d05c836d4cc9011f15d20d5",
                 "shasum": ""
             },
             "require": {
@@ -1586,7 +1640,7 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "http://symfony.com",
-            "time": "2015-02-21 13:23:59"
+            "time": "2015-03-24 17:09:17"
         },
         {
             "name": "symfony/dom-crawler",
@@ -1595,12 +1649,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "0f4321599faaaab0159b5a24055c347903a0e3b8"
+                "reference": "1d357922e805ab5320cc83084055b28481e073ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/0f4321599faaaab0159b5a24055c347903a0e3b8",
-                "reference": "0f4321599faaaab0159b5a24055c347903a0e3b8",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/1d357922e805ab5320cc83084055b28481e073ce",
+                "reference": "1d357922e805ab5320cc83084055b28481e073ce",
                 "shasum": ""
             },
             "require": {
@@ -1640,7 +1694,7 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-13 10:36:02"
+            "time": "2015-03-24 17:09:17"
         },
         {
             "name": "yiisoft/yii2",
@@ -2106,23 +2160,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "bower-asset/bootstrap-wysihtml5",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jhollingworth/bootstrap-wysihtml5.git",
-                "reference": "1b2506a98f481afd511ddee7803c9495108e0e0d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jhollingworth/bootstrap-wysihtml5/zipball/1b2506a98f481afd511ddee7803c9495108e0e0d",
-                "reference": "1b2506a98f481afd511ddee7803c9495108e0e0d",
-                "shasum": ""
-            },
-            "type": "bower-asset-library",
-            "time": "2014-11-21 14:30:32"
-        },
         {
             "name": "bower-asset/typeahead.js",
             "version": "v0.10.5",

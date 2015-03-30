@@ -13,6 +13,7 @@ class m150324_210828_add_abuse_table extends Migration
             'user_id'   =>  'INT UNSIGNED NOT NULL',
             'post_id'   =>  'BIGINT UNSIGNED NULL',
             'comment_id'=>  'BIGINT UNSIGNED NULL',
+            'status'    =>  'ENUM("NEW","RESOLVED") NOT NULL DEFAULT "NEW"',
             'created_at'=>  'timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP',
             'PRIMARY KEY(`id`)'            
         ], 'ENGINE=InnoDB  DEFAULT CHARSET=utf8');

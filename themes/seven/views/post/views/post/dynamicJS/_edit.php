@@ -58,9 +58,11 @@ $("a#save").on('click',function(){
             });
         });
     }
+    return false;
 });
 $("a#publish").on('click',function(){
     jQuery.post("{$publishUrl}");
+    return false;
 });
 //        
 //$(function() {

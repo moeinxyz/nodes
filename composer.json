@@ -38,7 +38,8 @@
         "symfony/dom-crawler": "~3.0@dev",
         "symfony/css-selector": "~3.0@dev",
         "mohammad-mahdy/yii2-jdate": "*",
-        "kartik-v/yii2-grid": "dev-master"
+        "kartik-v/yii2-grid": "dev-master",
+	"abraham/twitteroauth": "0.5.2"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

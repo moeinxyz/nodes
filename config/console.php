@@ -20,7 +20,10 @@ return [
         ],
         'embed' =>  [
             'class' => 'app\modules\embed\Module',
-        ]
+        ],
+        'social' => [
+            'class' => 'app\modules\social\Module',
+        ],        
     ],
     'components' => [
         'ftpFs' => [

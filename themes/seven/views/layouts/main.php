@@ -31,14 +31,15 @@ $this->registerJs($js);
             <div class="loadstack">
                 <div class="spinner-loading"></div>
             </div>
-            <?php if (Yii::$app->controller->action->getUniqueId() != 'post/edit'): ?>
-                <?= $this->render('header') ?>   
-                <div id="wrapper" class="page-content">
-                    <?= $content ?>
-                </div>
-            <?php else: ?>
-                <?= $content ?>
-            <?php endif; ?>
+            <?php   
+                $actionId   =   Yii::$app->controller->action->getUniqueId();
+                if ($actionId === 'post/post/edit' || $actionId === 'post/post/view'){
+                    echo $content;
+                } else {
+                    echo $this->render('header');
+                    echo '<div id="wrapper" class="page-content">'.$content.'</div>';
+                }
+            ?>
             <?= $this->render('footer') ?>
             
             <?= (Yii::$app->user->isGuest)?$this->render('headers/login'):NULL; ?>

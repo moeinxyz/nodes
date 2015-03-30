@@ -13,7 +13,7 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\StringHelper;
 use app\components\Helper\Extract;
 use app\modules\post\models\Comment;
-
+use app\modules\post\models\Userrecommend;
 /**
  * PostController implements the CRUD actions for Post model.
  */
@@ -62,7 +62,7 @@ class PostController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => $query
         ]);
-
+        $dataProvider->sort->route = 'post/admin';
         return $this->render('admin', [
             'dataProvider'  =>  $dataProvider,
             'status'        =>  $status
@@ -141,7 +141,7 @@ class PostController extends Controller
         return $this->redirect(['edit', 'id' => base_convert($model->id, 10, 36)]);
     }
 
-    public function actionPin($status = 'draft',$id)
+    public function actionPin($status,$id)
     {
         if (Yii::$app->request->isAjax){
             $id     =   base_convert($id, 36, 10);
@@ -153,6 +153,7 @@ class PostController extends Controller
             $dataProvider = new ActiveDataProvider([
                 'query' => $query
             ]);            
+            $dataProvider->sort->route = 'post/admin';            
             return $this->renderAjax('_admin',[
                 'dataProvider'  =>  $dataProvider,
                 'status'        =>  $status                
@@ -162,7 +163,7 @@ class PostController extends Controller
         }
     }
     
-    public function actionTrash($status = 'draft',$id)
+    public function actionTrash($status,$id)
     {
         if (Yii::$app->request->isAjax){
             $id     =   base_convert($id, 36, 10);
@@ -174,6 +175,7 @@ class PostController extends Controller
             $dataProvider = new ActiveDataProvider([
                 'query' => $query
             ]);            
+            $dataProvider->sort->route = 'post/admin';
             return $this->renderAjax('_admin',[
                 'dataProvider'  =>  $dataProvider,
                 'status'        =>  $status                
@@ -183,7 +185,7 @@ class PostController extends Controller
         }        
     }
 
-    public function actionDelete($status = 'draft',$id)
+    public function actionDelete($status,$id)
     {
         $id             =   base_convert($id, 36, 10);
         $post           =   $this->findModel($id);   
@@ -195,6 +197,29 @@ class PostController extends Controller
         return $this->redirect(Yii::$app->urlManager->createUrl(['post/admin','status'=>$status]));
     }
     
+
+    public function actionRecommend($username,$url)
+    {
+        $user               =   $this->findUser($username);
+        $post               =   $this->findPost($user->id, $url);
+        if (Yii::$app->request->isAjax){// &&  $post->user_id != Yii::$app->user->getId()){
+            Yii::$app->response->format =   Response::FORMAT_JSON;
+            $recommend = Userrecommend::getPostRecommended($post->id);
+            if ($recommend === NULL){
+                $recommend              =   new Userrecommend();
+                $recommend->post_id     =   $post->id;
+                $recommend->save();
+                $result = ['status'    =>  'RECOMMENDED'];
+            } else {
+                $recommend->delete();
+                $result = ['status'    =>  'NOTRECOMMENDED'];
+            }
+            return $result;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
     public function actionRss($username)
     {
         $user           = $this->findUser($username);

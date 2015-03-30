@@ -1,9 +1,7 @@
 <?php
-
 use yii\helpers\Html;
 use app\modules\post\Module;
 use app\modules\post\models\Post;
-$username   =   Yii::$app->user->getIdentity()->getUsername();
 ?>
 <div class="row">
     <div class="col-md-10 col-md-offset-1 col-xs-12">

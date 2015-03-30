@@ -35,4 +35,4 @@ $this->registerAssetBundle('custom-editor');
         ?>
     </div>
 </div>
-<?= $this->render('_js',['model'=>$model]);
+<?= $this->render('dynamicJS/_edit',['model'=>$model]);

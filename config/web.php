@@ -48,6 +48,19 @@ $config = [
             'identityClass'     => 'app\modules\user\models\User',
             'enableAutoLogin'   => true,
         ],
+        'socialClientCollection'    =>  [
+            'class' => 'yii\authclient\Collection',
+            'clients'   =>  [
+                'linkedin' => [
+                    'class'         => 'yii\authclient\clients\LinkedIn',
+                    'clientId'      => '78wy3unfyzmzd3',
+                    'clientSecret'  => 'JUCwxoA39IygIk4L',
+                    'scope'         =>  implode(' ', ['w_share'])
+                    //93410b54-3f08-4313-9785-4018fc4c5a65 OAuth User Token:
+                    //6f6c4d5f-3d2e-4c34-91eb-4745f56c1bb4 OAuth User Secret:
+                ],                  
+            ] 
+        ],
         'authClientCollection' => [
             'class' => 'yii\authclient\Collection',
             'clients' => [
@@ -132,7 +145,6 @@ $config = [
                     // post module
                     '@<username:[\w\-]+>/<url:[\w\-]+>'                                     =>  'post/post/view',
                     '@<username:[\w\-]+>/<url:[\w\-]+>/comment/<timestamp:\d+>'             =>  'post/comment/write',
-//                    'post/comment/@<username:[\w\-]+>/<url:[\w\-]+>/<timestamp:\d+>'        =>  'post/comment/write',
                     '@<username:[\w\-]+>'                                                   =>  'post/post/user',
                     '@<username:[\w\-]+>/rss'                                               =>  'post/post/rss',                    
                     'post/write'                                                            =>  'post/post/write',
@@ -142,10 +154,12 @@ $config = [
                     'post/upload'                                                           =>  'post/image/upload',
                     'post/preview'                                                          =>  'post/post/preview',
                     'post/admin'                                                            =>  'post/post/admin',
-                    'post/comment'                                                          =>  'post/post/comment',
+                    'post/comments'                                                         =>  'post/comment/comments',
                     'post/stat'                                                             =>  'post/stat/stat',
                     'post/trash'                                                            =>  'post/post/trash',
                     'post/delete'                                                           =>  'post/post/delete',
+                    '@<username:[\w\-]+>/<url:[\w\-]+>/recommend'                           =>  'post/post/recommend',
+
                     // user module
                     'user/login'                                                            =>  'user/user/login',
                     'user/join'                                                             =>  'user/user/join',
@@ -164,8 +178,9 @@ $config = [
                     // embed module
                     'embed'                                                                 =>  'embed/embed/embed',
                     
-                    
-                    
+                    // social module
+                    'social/admin'                                                          =>  'social/social/admin',
+                    'social/auth'                                                           =>  'social/social/auth',
                 ],
         ],      
         'reCaptcha' => [
@@ -212,6 +227,9 @@ $config = [
         'embed' =>  [
             'class' => 'app\modules\embed\Module',
         ],
+        'social' => [
+            'class' => 'app\modules\social\Module',
+        ],        
     ],    
     'aliases' => [
         '@uploaded'     =>  '@app/uploaded',

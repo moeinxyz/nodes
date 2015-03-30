@@ -11,6 +11,7 @@ class Module extends \yii\base\Module
     public $imageTable          =   '{{%image}}';
     public $commentTable        =   '{{%comment}}';
     public $abuseTable          =   '{{%abuse}}';
+    public $userRecommendTable  =   '{{%userrecommend}}';
     public function init()
     {
         parent::init();

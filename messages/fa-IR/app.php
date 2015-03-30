@@ -12,6 +12,7 @@ return [
     'header.user.publications'          =>  'مدیریت نشریه ها',
     'header.user.stats'                 =>  'آمار',
     'header.user.socials'               =>  'اتصال به شبکه های اجتماعی',
+    'header.user.comments'              =>  'نظرات',
     'link.join'                         =>  'ثبت نام',
     'link.reset'                        =>  'فراموشی کلمه عبور',
         

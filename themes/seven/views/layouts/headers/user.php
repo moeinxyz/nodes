@@ -30,9 +30,11 @@
                     <hr class="mini central">
                     <?= Html::a(Yii::t('app','header.user.posts').'<i class="glyphicon glyphicon-list"></i>',
                                 Yii::$app->urlManager->createUrl(['/post/admin']));?>
-                    <?= Html::a(Yii::t('app','header.user.stats').'<i class="glyphicon glyphicon-stats"></i>',
+                    <?= Html::a(Yii::t('app','header.user.comments').'<i class="glyphicon glyphicon-comment"></i>',
+                                Yii::$app->urlManager->createUrl(['/post/comments']));?>                                                
+                    <!--<?= Html::a(Yii::t('app','header.user.stats').'<i class="glyphicon glyphicon-stats"></i>',
                                 Yii::$app->urlManager->createUrl(['/post/stats']));?>                    
-<!--                    <?= Html::a(Yii::t('app','header.user.publications').'<i class="glyphicon glyphicon-leaf"></i>',
+                    <?= Html::a(Yii::t('app','header.user.publications').'<i class="glyphicon glyphicon-leaf"></i>',
                                 Yii::$app->urlManager->createUrl(['post/publication']));?>                                        -->
                     <?= Html::a(Yii::t('app','header.user.socials').'<i class="glyphicon glyphicon-share"></i>',
                                 Yii::$app->urlManager->createUrl(['/social/admin']));?>                                        

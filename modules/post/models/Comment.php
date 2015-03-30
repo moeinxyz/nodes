@@ -5,6 +5,7 @@ namespace app\modules\post\models;
 use Yii;
 use app\modules\post\models\Post;
 use app\modules\user\models\User;
+use app\modules\post\Module;
 
 /**
  * This is the model class for table "{{%comment}}".
@@ -24,7 +25,6 @@ class Comment extends \yii\db\ActiveRecord
     
     const STATUS_PUBLISH    =   'PUBLISH';
     const STATUS_TRASH      =   'TRASH';
-    const STATUS_ABUSE      =   'ABUSE';
     /**
      * @inheritdoc
      */
@@ -53,17 +53,19 @@ class Comment extends \yii\db\ActiveRecord
     {
         return [
 //            'id' => Yii::t('comment', 'ID'),
-//            'user_id' => Yii::t('comment', 'User ID'),
-//            'post_id' => Yii::t('comment', 'Post ID'),
-//            'text' => Yii::t('comment', 'Text'),
+            'user_id'   => Module::t('comment', 'comment.attr.user_id'),
+            'post_id'   => Module::t('comment', 'comment.attr.post_id'),
+            'text'      => Module::t('comment', 'comment.attr.text'),
 //            'status' => Yii::t('comment', 'Status'),
-//            'created_at' => Yii::t('comment', 'Created At'),
+            'created_at' => Module::t('comment', 'comment.attr.created_at'),
         ];
     }
 
     public function beforeValidate() {
         if (parent::beforeValidate()){
-            $this->status       =   self::STATUS_PUBLISH;
+            if ($this->status === NULL){
+                $this->status       =   self::STATUS_PUBLISH;
+            }
             $this->created_at   =   new \yii\db\Expression('NOW()');
             return TRUE;
         }
@@ -103,5 +105,14 @@ class Comment extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+    
+    public function toggleTash()
+    {
+        if ($this->status === self::STATUS_PUBLISH){
+            $this->status = self::STATUS_TRASH;
+        } else {
+            $this->status = self::STATUS_PUBLISH;
+        }
     }
 }

@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
 use app\modules\user\models\User;
 use app\modules\post\models\Post;
+use app\modules\post\models\Abuse;
 /**
  * CommentController implements the CRUD actions for Comment model.
  */
@@ -62,8 +63,69 @@ class CommentController extends Controller
             throw new \yii\web\HttpException;
         }
     }
+    
+    public function actionComments($id = NULL)
+    {
+        if ($id != NULL){
+            $id     =   base_convert($id, 36, 10);
+            $post   =   $this->findPostById($id);
+            $dataProvider = new ActiveDataProvider([
+                'query' => Comment::find()->where('post_id=:post_id',['post_id'=>$post->id]),
+            ]);            
+        } else {
+            $dataProvider = new ActiveDataProvider([
+                'query' => Comment::find()->join('JOIN',  Post::tableName(),  Comment::tableName().'.post_id = '.Post::tableName().'.id')
+                    ->where(Post::tableName().'.user_id=:user_id',['user_id'=>Yii::$app->user->getId()]),
+            ]);            
+        }
+        $dataProvider->sort->route = 'post/comments';
+        return $this->render('admin', [
+            'dataProvider' => $dataProvider,
+        ]);        
+    }
 
-        /**
+    public function actionTrash($id)
+    {
+        if (Yii::$app->request->isAjax){
+            $id     =   base_convert($id, 36, 10);
+            $comment= $this->findComment($id);   
+            $comment->toggleTash();
+            $comment->save();
+            $dataProvider = new ActiveDataProvider([
+                'query' => Comment::find()->where('post_id=:post_id',['post_id'=>$comment->post->id]),
+            ]);
+            $dataProvider->sort->route = 'post/comments';            
+            return $this->renderAjax('_admin',[
+                'dataProvider'  =>  $dataProvider,
+            ]);    
+        } else {
+            return $this->redirect('post/comments');
+        }        
+    }    
+    
+
+    public function actionAbuse($id)
+    {
+        if (Yii::$app->request->isAjax){
+            $id     =   base_convert($id, 36, 10);
+            $comment= $this->findComment($id);   
+            if (!Abuse::isCommentAbuseExist($comment->id)){
+                $abuse = new Abuse();
+                $abuse->comment_id  =  $comment->id;
+                $abuse->save();
+            }
+            $dataProvider = new ActiveDataProvider([
+                'query' => Comment::find()->where('post_id=:post_id',['post_id'=>$comment->post->id]),
+            ]);
+            $dataProvider->sort->route = 'post/comments';
+            return $this->renderAjax('_admin',[
+                'dataProvider'  =>  $dataProvider,
+            ]);    
+        } else {
+            return $this->redirect('post/comments');
+        }        
+    }        
+    /**
      * Lists all Comment models.
      * @return mixed
      */
@@ -180,4 +242,22 @@ class CommentController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }        
     }    
+    
+    protected function findPostById($id)
+    {
+        if (($post = Post::findOne($id)) && $post != NULL && $post->status != Post::STATUS_DELETE && $post->user_id === Yii::$app->user->getId()){
+            return $post;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        } 
+    }
+    
+    protected function findComment($id)
+    {
+        if (($comment = Comment::findOne($id)) && $comment != NULL && $comment->post->user_id === Yii::$app->user->getId()){
+            return $comment;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 }
