@@ -24,6 +24,9 @@ return [
         'social' => [
             'class' => 'app\modules\social\Module',
         ],        
+        'daemon' => [
+            'class' => 'app\modules\daemon\Module',
+        ],        
     ],
     'components' => [
         'ftpFs' => [
@@ -44,13 +47,24 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
         'log' => [
+            'traceLevel' => YII_DEBUG ? 30 : 0,
             'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'class'         => 'yii\log\FileTarget',
+                    'logFile'       => '@app/runtime/logs/app.log',                    
+                    'levels'        => 0,//0 means all
+                    'categories'    => [],                    
                 ],
             ],
         ],
+        'urlManager'                =>  [
+//            'showScriptName'    => false,
+//            'enablePrettyUrl'   => true,
+                'rules' => [
+                    'social-daemon/index'   =>  'daemon/social-daemon/index'
+                ]
+        ],
+        'socialClientCollection'    =>  require(__DIR__ . '/social.php'),
         'db' => $db,
         'gearman' => [
             'class' => 'filsh\yii2\gearman\GearmanComponent',
@@ -71,9 +85,12 @@ return [
             'gearmanComponent'  => 'gearman'
         ],
         'fixture' => [
-            'class' => 'yii\faker\FixtureController',
-            'templatePath' => 'tests/unit/fixtures',
-        ],        
+            'class'             => 'yii\faker\FixtureController',
+            'templatePath'      => 'tests/unit/fixtures',
+        ],
+        'social-daemon' =>  [
+            'class'             => 'app\modules\daemon\controllers\SocialDaemonController',
+        ]
     ],    
     'aliases' => [
         '@temp'         =>  '@app/temp',

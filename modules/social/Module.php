@@ -8,6 +8,7 @@ class Module extends \yii\base\Module
 {
     public $controllerNamespace =   'app\modules\social\controllers';
     public $socialTable         =   '{{%social}}';
+    public $socialContentTable  =   '{{%socialcontent}}';
     
     public function init()
     {

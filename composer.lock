@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a1cc6eee4d9d053d53fbb360a30484d3",
+    "hash": "2fa2c7812aff191d681b596095df6ae8",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -193,16 +193,16 @@
         },
         {
             "name": "bower-asset/dante",
-            "version": "v0.0.10",
+            "version": "v0.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/michelson/Dante.git",
-                "reference": "616c2770cefdf5b40dcb1de0c77a06dc05dc73a4"
+                "reference": "383cbb2dd203dc00082b6f4f7d71cbbffea84e25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/michelson/Dante/zipball/616c2770cefdf5b40dcb1de0c77a06dc05dc73a4",
-                "reference": "616c2770cefdf5b40dcb1de0c77a06dc05dc73a4",
+                "url": "https://api.github.com/repos/michelson/Dante/zipball/383cbb2dd203dc00082b6f4f7d71cbbffea84e25",
+                "reference": "383cbb2dd203dc00082b6f4f7d71cbbffea84e25",
                 "shasum": ""
             },
             "require": {
@@ -399,16 +399,16 @@
         },
         {
             "name": "bower-asset/jquery.inputmask",
-            "version": "3.1.61",
+            "version": "3.1.62",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobinHerbots/jquery.inputmask.git",
-                "reference": "f2c086411d2557fc485c47afb3cecfa6c1de9ee2"
+                "reference": "da1a274cefa18a52a0519ac7ffe8e8d31e950eae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/f2c086411d2557fc485c47afb3cecfa6c1de9ee2",
-                "reference": "f2c086411d2557fc485c47afb3cecfa6c1de9ee2",
+                "url": "https://api.github.com/repos/RobinHerbots/jquery.inputmask/zipball/da1a274cefa18a52a0519ac7ffe8e8d31e950eae",
+                "reference": "da1a274cefa18a52a0519ac7ffe8e8d31e950eae",
                 "shasum": ""
             },
             "require": {
@@ -527,16 +527,16 @@
         },
         {
             "name": "bower-asset/underscore",
-            "version": "1.8.2",
+            "version": "1.8.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jashkenas/underscore.git",
-                "reference": "19db749b190a7cb5a8b7ab1aab42c0e9dc517250"
+                "reference": "e4743ab712b8ab42ad4ccb48b155034d02394e4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jashkenas/underscore/zipball/19db749b190a7cb5a8b7ab1aab42c0e9dc517250",
-                "reference": "19db749b190a7cb5a8b7ab1aab42c0e9dc517250",
+                "url": "https://api.github.com/repos/jashkenas/underscore/zipball/e4743ab712b8ab42ad4ccb48b155034d02394e4d",
+                "reference": "e4743ab712b8ab42ad4ccb48b155034d02394e4d",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -549,7 +549,11 @@
                     "CNAME",
                     "index.html",
                     "favicon.ico",
-                    "CONTRIBUTING.md"
+                    "CONTRIBUTING.md",
+                    ".*",
+                    "component.json",
+                    "package.json",
+                    "karma.*"
                 ]
             },
             "keywords": [
@@ -899,12 +903,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
-                "reference": "d80540ec05931f819bd0dea16a76f989776ce09c"
+                "reference": "a3ab9b21220bee198b0c70383f3b8a8ca083aff9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/d80540ec05931f819bd0dea16a76f989776ce09c",
-                "reference": "d80540ec05931f819bd0dea16a76f989776ce09c",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/a3ab9b21220bee198b0c70383f3b8a8ca083aff9",
+                "reference": "a3ab9b21220bee198b0c70383f3b8a8ca083aff9",
                 "shasum": ""
             },
             "require": {
@@ -935,7 +939,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2015-03-25 08:14:18"
+            "time": "2015-04-06 16:53:15"
         },
         {
             "name": "kartik-v/yii2-krajee-base",
@@ -985,16 +989,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "51cd7cd7ee0defbaafc6ec0d3620110a5d71e11a"
+                "reference": "3c2400a99ccc3be6884d40361890010449c6b447"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/51cd7cd7ee0defbaafc6ec0d3620110a5d71e11a",
-                "reference": "51cd7cd7ee0defbaafc6ec0d3620110a5d71e11a",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/3c2400a99ccc3be6884d40361890010449c6b447",
+                "reference": "3c2400a99ccc3be6884d40361890010449c6b447",
                 "shasum": ""
             },
             "require": {
@@ -1004,7 +1008,7 @@
                 "ext-fileinfo": "*",
                 "league/phpunit-coverage-listener": "~1.1",
                 "mockery/mockery": "~0.9",
-                "phpspec/phpspec": "~2.0.0",
+                "phpspec/phpspec": "~2.0",
                 "phpspec/prophecy-phpunit": "~1.0",
                 "phpunit/phpunit": "~4.1",
                 "predis/predis": "~1.0",
@@ -1064,7 +1068,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2015-03-10 11:04:14"
+            "time": "2015-03-29 14:01:43"
         },
         {
             "name": "league/flysystem-sftp",
@@ -1112,6 +1116,50 @@
             ],
             "description": "Flysystem adapter for SFTP",
             "time": "2015-03-10 15:16:27"
+        },
+        {
+            "name": "linkedinapi/linkedin",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ashwinks/PHP-LinkedIn-SDK.git",
+                "reference": "2649e60793936931fa931cfe6994a8b2db2bd2d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ashwinks/PHP-LinkedIn-SDK/zipball/2649e60793936931fa931cfe6994a8b2db2bd2d4",
+                "reference": "2649e60793936931fa931cfe6994a8b2db2bd2d4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "LinkedIn": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ashwin Surajbali",
+                    "email": "ashwin@redinkdesign.net",
+                    "homepage": "http://www.redinkdesign.co"
+                }
+            ],
+            "description": "PHP LinkedIn SDK",
+            "homepage": "https://github.com/ashwinks/PHP-LinkedIn-SDK",
+            "keywords": [
+                "api",
+                "api client",
+                "linkedin",
+                "rest"
+            ],
+            "time": "2015-03-23 13:46:53"
         },
         {
             "name": "mandrill/mandrill",
@@ -1427,12 +1475,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sinergi/gearman.git",
-                "reference": "c31d21cd940241c6702bd4b924670e8678956ec5"
+                "reference": "aecedd5936c9c572369ffcd0c4f5869851dbfd7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sinergi/gearman/zipball/c31d21cd940241c6702bd4b924670e8678956ec5",
-                "reference": "c31d21cd940241c6702bd4b924670e8678956ec5",
+                "url": "https://api.github.com/repos/sinergi/gearman/zipball/aecedd5936c9c572369ffcd0c4f5869851dbfd7d",
+                "reference": "aecedd5936c9c572369ffcd0c4f5869851dbfd7d",
                 "shasum": ""
             },
             "require": {
@@ -1476,7 +1524,7 @@
                 "jobs",
                 "workers"
             ],
-            "time": "2015-03-06 02:27:31"
+            "time": "2015-03-30 12:00:03"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1532,17 +1580,17 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.6.5",
+            "version": "v2.6.6",
             "target-dir": "Symfony/Component/Console",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "53f86497ccd01677e22435cfb7262599450a90d1"
+                "reference": "5b91dc4ed5eb08553f57f6df04c4730a73992667"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/53f86497ccd01677e22435cfb7262599450a90d1",
-                "reference": "53f86497ccd01677e22435cfb7262599450a90d1",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/5b91dc4ed5eb08553f57f6df04c4730a73992667",
+                "reference": "5b91dc4ed5eb08553f57f6df04c4730a73992667",
                 "shasum": ""
             },
             "require": {
@@ -1586,7 +1634,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-13 17:37:22"
+            "time": "2015-03-30 15:54:10"
         },
         {
             "name": "symfony/css-selector",
@@ -1649,12 +1697,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "1d357922e805ab5320cc83084055b28481e073ce"
+                "reference": "4bd9dfe4807e2f3d0114c44363fa373276d6423b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/1d357922e805ab5320cc83084055b28481e073ce",
-                "reference": "1d357922e805ab5320cc83084055b28481e073ce",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/4bd9dfe4807e2f3d0114c44363fa373276d6423b",
+                "reference": "4bd9dfe4807e2f3d0114c44363fa373276d6423b",
                 "shasum": ""
             },
             "require": {
@@ -1694,7 +1742,50 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "http://symfony.com",
-            "time": "2015-03-24 17:09:17"
+            "time": "2015-03-30 15:59:03"
+        },
+        {
+            "name": "vyants/yii2-daemon",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vyants/yii2-daemon.git",
+                "reference": "50fe02e7b3bb8d1b28812a359bb61c5a1339a28e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vyants/yii2-daemon/zipball/50fe02e7b3bb8d1b28812a359bb61c5a1339a28e",
+                "reference": "50fe02e7b3bb8d1b28812a359bb61c5a1339a28e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcntl": "*",
+                "ext-posix": "*",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "vyants\\daemon\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Vladimir Yants",
+                    "email": "vladimir.yants@gmail.com"
+                }
+            ],
+            "description": "Extension provides functionality for simple daemons creation and control",
+            "keywords": [
+                "daemon",
+                "extension",
+                "yii2"
+            ],
+            "time": "2015-03-25 16:00:55"
         },
         {
             "name": "yiisoft/yii2",
@@ -2468,7 +2559,8 @@
         "zelenin/yii2-rss": 20,
         "symfony/dom-crawler": 20,
         "symfony/css-selector": 20,
-        "kartik-v/yii2-grid": 20
+        "kartik-v/yii2-grid": 20,
+        "linkedinapi/linkedin": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

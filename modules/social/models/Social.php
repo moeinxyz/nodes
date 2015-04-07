@@ -17,6 +17,7 @@ use app\modules\social\Module;
  * @property string $auth
  * @property string $share
  * @property string $created_at
+ * @property string $last_used
  * @property integer $user_id
  *
  * @property User $user
@@ -53,7 +54,7 @@ class Social extends \yii\db\ActiveRecord
         return [
             [['type', 'token', 'status', 'auth', 'share'], 'string'],
             [['media_id', 'token', 'user_id'], 'required'],
-            [['created_at'], 'safe'],
+            [['created_at','last_used'], 'safe'],
             [['user_id'], 'integer'],
             [['media_id'], 'string', 'max' => 64]
         ];
@@ -78,6 +79,7 @@ class Social extends \yii\db\ActiveRecord
         if (parent::beforeValidate()){
             if ($this->isNewRecord){
                 $this->created_at       =   New \yii\db\Expression('NOW()');
+                $this->last_used        =   New \yii\db\Expression('NOW()');
             }
             if ($this->user_id === NULL){
                 $this->user_id          =   Yii::$app->user->getId();    
