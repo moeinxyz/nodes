@@ -13,6 +13,8 @@ return [
     'STATUS.DEACTIVE'   =>  'غیرفعال',
     'AUTH.AUTH'         =>  'دسترسی معتبر',
     'AUTH.DEAUTH'       =>  'دسترسی غیرمعتبر',
+    'SHARE.POST'        =>  'نوشته های من',
+    'SHARE.ALL'         =>  'نوشته ها و توصیه های من',
     
     //admin
     '_admin.btn.active.title'       =>  'فعال کردن',
@@ -22,7 +24,8 @@ return [
     '_admin.btn.add.twitter'        =>  'افزودن حساب کاربری توئتر',
     '_admin.btn.add.facebook'       =>  'افزودن حساب کاربری فیس بوک',
     '_admin.btn.add.linkedin'       =>  'افزودن حساب کاربری لیندکین',
-    
+    '_admin.btn.share.post.title'   =>  'فقط به اشتراک گذاری نوشته ها',
+    '_admin.btn.share.all.title'    =>  'به اشتراک گذاری نوشته ها و توصیه شده ها',
     'admin.box.LINKEDIN'            =>  'حساب کاربری لینکدین با موفقیت افزوده شد.',
     'admin.box.FACEBOOK'            =>  'حساب کاربری فیس بوک با موفقیت افزوده شد.',
     'admin.box.TWITTER'             =>  'حساب کاربری توئیتر با موفقیت افزوده شد.',

@@ -118,6 +118,9 @@ class PostController extends Controller
             if ($model->url === NULL){
                 $model->url = Post::suggestUniqueUrl($model->title, $model->id);
             }
+            if ($model->published_at === '0000-00-00 00:00:00'){
+                $model->published_at    =   new \yii\db\Expression('NOW()');
+            }
             $model->save();
             return $this->redirect(Yii::$app->urlManager->createUrl(["@{$model->getUser()->one()->username}/{$model->url}"]));
         } else {

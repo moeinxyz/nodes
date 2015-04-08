@@ -21,6 +21,7 @@ use app\components\Helper\Stopwords;
  * @property string $status
  * @property string $created_at
  * @property string $updated_at
+ * @property string $published_at
  * @property string $last_update_type
  * @property integer $user_id
  *
@@ -92,6 +93,8 @@ class Post extends \yii\db\ActiveRecord
                 $this->user_id          =   Yii::$app->user->id;
                 $this->last_update_type =   self::LAST_UPDATE_TYPE_MANUAL;
                 $this->cover            =   self::COVER_NOCOVER;
+                $this->created_at       =   new \yii\db\Expression('NOW()');
+                $this->published_at     =   '0000-00-00 00:00:00';
             }
             $this->updated_at = new \yii\db\Expression('NOW()');
             $this->title      = substr($this->title, 0,256);
@@ -213,5 +216,11 @@ class Post extends \yii\db\ActiveRecord
         } else {
             $this->status   =   self::STATUS_TRASH;
         }
+    }
+    
+    public static function getCoverUrl($id)
+    {
+        $postfix    = md5($id).$id.'.jpg';
+        return Yii::getAlias("@upBaseUrl/{$postfix}");
     }
 }

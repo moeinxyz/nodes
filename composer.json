@@ -40,7 +40,6 @@
         "mohammad-mahdy/yii2-jdate": "*",
         "kartik-v/yii2-grid": "dev-master",
 	"abraham/twitteroauth": "0.5.2",
-        "vyants/yii2-daemon": "*",
         "linkedinapi/linkedin": "dev-master"
     },
     "require-dev": {

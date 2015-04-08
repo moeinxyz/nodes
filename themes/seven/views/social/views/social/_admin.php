@@ -44,6 +44,12 @@ echo GridView::widget([
             }    
         ],
         [
+            'attribute'     =>  'share',
+            'content'       => function ($model, $key, $index, $column) {
+                return Module::t('social','SHARE.'.$model->share);
+            }
+        ],
+        [
             'attribute'     =>  'status',
             'content'       => function ($model, $key, $index, $column) {
                 return Module::t('social','STATUS.'.$model->status);
@@ -63,8 +69,23 @@ echo GridView::widget([
         ],
         [
             'class'     => 'yii\grid\ActionColumn',
-            'template'  => '{active}{delete}',
+            'template'  => '{share}{active}{delete}',
             'buttons'   =>  [
+                'share'     => function ($url, $model) use($pjax) {
+                    if ($model->share === Social::SHARE_POST) {
+                        return Html::a('<span class="glyphicon glyphicon-resize-full"></span>', ['share','id' => $model->id], [
+                                    'title' => Module::t('social', '_admin.btn.share.all.title'),
+                                    'data-pjax' => $pjax->getId(),
+                                    'style' => 'font-size:22px;padding-right:10px;'
+                        ]);
+                    } else {
+                        return Html::a('<span class="glyphicon glyphicon-resize-small"></span>', ['share','id' => $model->id], [
+                                    'title' => Module::t('social', '_admin.btn.share.post.title'),
+                                    'data-pjax' => $pjax->getId(),
+                                    'style' => 'font-size:22px;padding-right:10px;'
+                        ]);
+                    }
+                },                
                 'active'     => function ($url, $model) use($pjax) {
                     if ($model->status === Social::STATUS_DEACTIVE) {
                         return Html::a('<span class="glyphicon glyphicon-thumbs-up"></span>', ['status','id' => $model->id], [

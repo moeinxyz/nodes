@@ -107,6 +107,29 @@ class SocialController extends Controller
         ]);        
     }
     
+    public function actionShare($id)
+    {
+        if (Yii::$app->request->isAjax){
+            $social = $this->findModel($id);
+            if ($social->share === Social::SHARE_ALL){
+                $social->share = Social::SHARE_POST;
+            } else {
+                $social->share = Social::SHARE_ALL;
+            }
+            $social->save();
+            
+            $dataProvider = new ActiveDataProvider([
+                'query' => Social::find()->where('user_id=:user_id',['user_id'=>Yii::$app->user->getId()])
+            ]);
+            $dataProvider->sort->route  =   'social/admin';
+            return $this->renderAjax('_admin', [
+                'dataProvider' => $dataProvider,
+            ]);             
+        } else {
+            return $this->redirect('social/admin');
+        }
+    }
+    
     public function actionStatus($id)
     {
         if (Yii::$app->request->isAjax){

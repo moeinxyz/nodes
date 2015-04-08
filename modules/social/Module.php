@@ -6,6 +6,9 @@ namespace app\modules\social;
 use Yii;
 class Module extends \yii\base\Module
 {
+    
+    const ADDITIONAL_SLEEP_SECS =   5;
+    const CHECK_INTERVAL        =   86400;
     public $controllerNamespace =   'app\modules\social\controllers';
     public $socialTable         =   '{{%social}}';
     public $socialContentTable  =   '{{%socialcontent}}';

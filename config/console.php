@@ -24,9 +24,6 @@ return [
         'social' => [
             'class' => 'app\modules\social\Module',
         ],        
-        'daemon' => [
-            'class' => 'app\modules\daemon\Module',
-        ],        
     ],
     'components' => [
         'ftpFs' => [
@@ -57,13 +54,6 @@ return [
                 ],
             ],
         ],
-        'urlManager'                =>  [
-//            'showScriptName'    => false,
-//            'enablePrettyUrl'   => true,
-                'rules' => [
-                    'social-daemon/index'   =>  'daemon/social-daemon/index'
-                ]
-        ],
         'socialClientCollection'    =>  require(__DIR__ . '/social.php'),
         'db' => $db,
         'gearman' => [
@@ -88,9 +78,6 @@ return [
             'class'             => 'yii\faker\FixtureController',
             'templatePath'      => 'tests/unit/fixtures',
         ],
-        'social-daemon' =>  [
-            'class'             => 'app\modules\daemon\controllers\SocialDaemonController',
-        ]
     ],    
     'aliases' => [
         '@temp'         =>  '@app/temp',
