@@ -50,11 +50,11 @@ class DaemonController extends \yii\console\Controller{
     private function getUnsharedPosts(Social $social){
         $recommends =   [];
         $posts      = Post::find()->where('user_id=:user_id AND status=:status AND published_at>=:published_at',[
-            'published_at'  =>  $linkedin->last_used,
-            'status'        =>  Social::STATUS_ACTIVE,
-            'used_id'       =>  $linkedin->user_id
-        ]);        
-        if ($linkedin->share === Social::SHARE_ALL){
+            'used_id'       =>  $social->user_id,
+            'published_at'  =>  $social->last_used,
+            'status'        =>  Post::STATUS_PUBLISH,
+        ])->all();        
+        if ($social->share === Social::SHARE_ALL){
             $recommends = Post::find()->join('LEFT JOIN', Userrecommend::tableName(),  Post::tableName().'.id = '.Userrecommend::tableName().'.post_id')
                 ->where(Userrecommend::tableName().'.user_id=:user_id AND '.Userrecommend::tableName().'.created_at>=:created_at AND '.Post::tableName().'.status=:status',[
                     'user_id'       =>  $social->user_id,
