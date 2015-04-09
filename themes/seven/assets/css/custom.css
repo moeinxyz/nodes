@@ -7,12 +7,48 @@
  */
 
 /* Begin custom styles */
-
+#loginmodal{
+    direction: ltr !important;
+}
+#loginmodal.modal{
+    padding-top: 0px! important;
+}
 @media (min-width: 768px){
     .navbar-nav > li > a {
         padding-bottom: 10px;
     }    
 } 
+@media (max-width:768px) {
+    .toggleclose {
+        width: 100% !important;
+    }
+    #wrapper.page-content {
+        padding-top: 0px !important;
+    }
+}
+.skin-blue .main-header .navbar .dropdown-menu li a {
+    color: #444 !important;
+}
+.skin-blue .main-header .navbar .dropdown-menu li a:hover {
+    background: #367fa9 !important;
+}
+.explore{
+    float: left;
+}
+/*@media (max-width: 767px) {
+  .skin-blue .main-header .navbar .dropdown-menu li a {
+    color: #444 !important;
+  }
+  .skin-blue .main-header .navbar .dropdown-menu li a:hover {
+    background: #367fa9 !important;
+  }
+}
+@media (max-width: 991px) {
+  .main-header .navbar-custom-menu a, .main-header .navbar-right a {
+     color: inherit; 
+    background: transparent;
+  }
+}*/
 .small-font-size {
     font-size: 14px;
 }

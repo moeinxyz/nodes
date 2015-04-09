@@ -1,27 +1,29 @@
 <?php  use yii\helpers\Html; ?>
 <div class="navbar-custom-menu pull-right">
     <ul class="nav navbar-nav flaty-nav pull-right">
-        <li class="hidden-xs">
+        <li>
             <a href="<?= Yii::$app->urlManager->createUrl(['/post/write']) ?>">
                 <?php echo Yii::t('app','header.write'); ?>
                 <i class="glyphicon glyphicon-pencil"></i>                
             </a> 
         </li>          
     </ul>
-    <ul class="nav navbar-nav flaty-nav pull-right">
+<!--    <ul class="nav navbar-nav flaty-nav pull-right">
         <li class="hidden-xs">
             <a href="<?= Yii::$app->urlManager->createUrl(['search']) ?>">
                 <i class="glyphicon glyphicon-search"></i>                
             </a> 
         </li>
-    </ul>       
+    </ul>       -->
 </div>
 <div class="navbar-custom-menu pull-left">
     <ul class="nav navbar-nav flaty-nav pull-left">
         <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">               
-                <i class="glyphicon"><?= Yii::$app->user->getIdentity()->getUsername();?></i>                
+                <i class="glyphicon hidden-xs"><?= Yii::$app->user->getIdentity()->getUsername();?></i>                
+                <i class="glyphicon hidden-lg hidden-md hidden-sm">@</i>  
                 <img src="<?= Yii::$app->user->getIdentity()->getProfilePicture();?>" class="user-image" alt="<?= Yii::$app->user->getIdentity()->getName();?>"/>
+                              
             </a>
             <ul class="dropdown-menu">
                 <li class="user-footer">      

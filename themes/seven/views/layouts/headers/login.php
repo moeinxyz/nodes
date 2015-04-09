@@ -3,7 +3,6 @@
     <button class="toggleclose" data-dismiss="modal" aria-hidden="true">
         <span class="icon-close"></span>
     </button>
-
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">

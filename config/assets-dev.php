@@ -67,7 +67,7 @@ return [
     ],
     'dante'             =>  [
         'class'         =>  'yii\web\AssetBundle',
-        'sourcePath'    =>  '@bower/dante/dist/0.0.10',        
+        'sourcePath'    =>  '@bower/dante/dist',        
         'css'           =>  ['css/dante-editor.css'],
         'js'            =>  ['js/dante-editor.js'],
         'depends'       =>  ['yii\web\JqueryAsset','underscore','sanitize','Main']
@@ -80,7 +80,7 @@ return [
     ],
     'show-post'         =>  [
         'class'         =>  'yii\web\AssetBundle',
-        'sourcePath'    =>  '@bower/dante/dist/0.0.10',        
+        'sourcePath'    =>  '@bower/dante/dist',        
         'css'           =>  ['css/dante-editor.css']        
     ],
     'jasny-bootstrap'   =>  [

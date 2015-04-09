@@ -2,7 +2,7 @@
 <div class="top-buffer"></div>
 <?php if (Yii::$app->session->getFlash('user.join.successful')): ?>
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-md-8 col-lg-offset-2">
+        <div class="col-md-10 col-md-offset-1 col-xs-12">
             <div class="alert alert-success">
                 <h4><i class="icon fa fa-check"></i><?= Module::t('user','join.success_join.header'); ?></h4> 
                 <p><?= Module::t('user','join.success_join.text'); ?></p>
