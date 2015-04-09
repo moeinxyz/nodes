@@ -17,6 +17,23 @@ use yii\filters\AccessControl;
  */
 class FollowingController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access'    =>  [
+                'class' =>  AccessControl::className(),
+                'only'  =>  ['follow'],
+                'rules' =>  [
+                    [
+                        'actions'   =>  ['follow'],
+                        'roles'     =>  ['@','?'],
+                        'allow'     =>  true
+                    ]
+                ],
+                
+            ]
+        ];
+    }
     public function actionFollow()
     {
         $username = Yii::$app->request->post('username');
@@ -31,12 +48,6 @@ class FollowingController extends Controller
         } else {
             throw new \yii\web\HttpException(403);
         }            
-    }
-
-    
-    public function actionSuggest()
-    {
-        
     }
 
     protected function findUser($username)

@@ -21,7 +21,7 @@ class TokenController extends Controller
         return [
             'access'    =>  [
                 'class' =>  AccessControl::className(),
-                'only'  =>  ['activation','reset','change','auth'],
+                'only'  =>  ['activation','reset','change'],
                 'rules' =>  [
                     [
                         'actions'       =>  ['activation','reset'],

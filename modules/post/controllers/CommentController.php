@@ -21,7 +21,7 @@ class CommentController extends Controller
         return [
             'access'    =>  [
                 'class' =>  AccessControl::className(),
-                'only'  =>  ['write'],
+                'only'  =>  ['write','trash','abuse','comments'],
                 'rules' =>  [
                     [
                         'actions'   =>  ['write'],
@@ -29,9 +29,17 @@ class CommentController extends Controller
                         'verbs'     =>  ['POST'],       
                         'allow'     =>  true
                     ],
+                    [
+                        'actions'   =>  ['comments','trash','abuse'],
+                        'roles'     =>  ['@'],
+                        'verbs'     =>  ['GET'],
+                        'allow'     =>  true
+                    ]
                 ],
                 'denyCallback'  =>  function($rule, $action){
-                    return $this->redirect(Yii::$app->request->getReferrer());
+                    if ($action->getUniqueId() != 'post/comment/comments')
+                        return $this->redirect(Yii::$app->request->getReferrer());
+                    return $this->redirect(Yii::$app->urlManager->createUrl(Yii::$app->user->loginUrl[0]));
                 }
                 
             ]
@@ -64,27 +72,28 @@ class CommentController extends Controller
         }
     }
     
-    public function actionComments($id = NULL)
+    public function actionComments($pid = NULL)
     {
-        if ($id != NULL){
-            $id     =   base_convert($id, 36, 10);
-            $post   =   $this->findPostById($id);
+        if ($pid != NULL){
+            $PostId     =   base_convert($pid, 36, 10);
+            $post   =   $this->findPostById($PostId);
             $dataProvider = new ActiveDataProvider([
                 'query' => Comment::find()->where('post_id=:post_id',['post_id'=>$post->id]),
             ]);            
         } else {
             $dataProvider = new ActiveDataProvider([
                 'query' => Comment::find()->join('JOIN',  Post::tableName(),  Comment::tableName().'.post_id = '.Post::tableName().'.id')
-                    ->where(Post::tableName().'.user_id=:user_id',['user_id'=>Yii::$app->user->getId()]),
+                    ->where(Post::tableName().'.user_id=:user_id AND '.Post::tableName().'.status!=:status',['user_id'=>Yii::$app->user->getId(),'status'=>Post::STATUS_DELETE]),
             ]);            
         }
         $dataProvider->sort->route = 'post/comments';
         return $this->render('admin', [
-            'dataProvider' => $dataProvider,
+            'dataProvider'  =>  $dataProvider,
+            'postId'        =>  $pid
         ]);        
     }
 
-    public function actionTrash($id)
+    public function actionTrash($id,$pid = NULL)
     {
         if (Yii::$app->request->isAjax){
             $id     =   base_convert($id, 36, 10);
@@ -97,6 +106,7 @@ class CommentController extends Controller
             $dataProvider->sort->route = 'post/comments';            
             return $this->renderAjax('_admin',[
                 'dataProvider'  =>  $dataProvider,
+                'postId'        =>  $pid
             ]);    
         } else {
             return $this->redirect('post/comments');
@@ -104,7 +114,7 @@ class CommentController extends Controller
     }    
     
 
-    public function actionAbuse($id)
+    public function actionAbuse($id,$pid = NULL)
     {
         if (Yii::$app->request->isAjax){
             $id     =   base_convert($id, 36, 10);
@@ -120,103 +130,12 @@ class CommentController extends Controller
             $dataProvider->sort->route = 'post/comments';
             return $this->renderAjax('_admin',[
                 'dataProvider'  =>  $dataProvider,
+                'postId'        =>  $pid
             ]);    
         } else {
             return $this->redirect('post/comments');
         }        
     }        
-    /**
-     * Lists all Comment models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Comment::find(),
-        ]);
-
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Displays a single Comment model.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new Comment model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Comment();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Updates an existing Comment model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    /**
-     * Deletes an existing Comment model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
-     * @return mixed
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the Comment model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Comment the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Comment::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
     
     /**
      * 

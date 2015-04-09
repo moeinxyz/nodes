@@ -7,6 +7,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use app\modules\user\models\User;
 use yii\web\Response;
 use yii\bootstrap\ActiveForm;
@@ -22,12 +23,24 @@ class PostController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
+            'access'    =>  [
+                'class' =>  AccessControl::className(),
+                'only'  =>  ['admin','autosave','delete','edit','pin','preview','publish','recommend','trash','write'],
+                'rules' =>  [
+                    [
+                        'actions'   =>  ['admin','preview','edit','write','pin','publish','trash'],
+                        'roles'     =>  ['@'],
+                        'verbs'     =>  ['GET'],
+                        'allow'     =>  true
+                    ],
+                    [
+                        'actions'   =>  ['autosave','delete','preview'],
+                        'roles'     =>  ['@'],
+                        'verbs'     =>  ['POST'],
+                        'allow'     =>  TRUE
+                    ],
+                ]
+            ]            
         ];
     }
     

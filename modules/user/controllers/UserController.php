@@ -45,18 +45,13 @@ class UserController extends Controller
         return [
             'access'    =>  [
                 'class' =>  AccessControl::className(),
-                'only'  =>  ['login','join','logout','auth','setting','profile','trigger'],
+                
+                'only'  =>  ['activation','join','login','logout','profile','reset','setting','auth'],
                 'rules' =>  [
                     [
-                        'actions'       =>  ['join','auth'],
+                        'actions'       =>  ['join','auth','activation','login','reset'],
                         'roles'         =>  ['?'],
                         'allow'         =>  true,
-                    ],
-                    [
-                        'actions'       =>  ['login','trigger'],
-                        'roles'         =>  ['?'],
-                        'verbs'         =>  ['POST','GET'],
-                        'allow'         =>  true,                        
                     ],
                     [
                         'actions'   =>  ['setting','profile'],
@@ -69,11 +64,7 @@ class UserController extends Controller
                         'verbs'     =>  ['GET'],                        
                         'allow'     =>  true,
                     ]
-                ],
-//                'denyCallback'  =>  function($rule, $action){
-//                    return $this->goHome();
-//                }
-                
+                ]
             ]
         ];
     }
@@ -356,18 +347,6 @@ class UserController extends Controller
             }
         }        
         return $urls;
-    }
-
-    /**
-     * 
-     * @return type
-     * @throws \yii\web\HttpException
-     */
-    public function actionTrigger()
-    {
-        if (Yii::$app->request->isAjax || Yii::$app->request->isPjax)
-            return $this->renderAjax('_trigger_login');
-        throw new \yii\web\HttpException(404);
     }
 
     /**

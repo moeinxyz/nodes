@@ -7,8 +7,7 @@ use app\modules\social\models\Social;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-
+use yii\filters\AccessControl;
 /**
  * SocialController implements the CRUD actions for Social model.
  */
@@ -17,12 +16,30 @@ class SocialController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
+            'access'    =>  [
+                'class' =>  AccessControl::className(),
+                'only'  =>  ['admin','delete','share','status','auth'],
+                'rules' =>  [
+                    [
+                        'actions'   =>  ['admin','share','status'],
+                        'roles'     =>  ['@'],
+                        'verbs'     =>  ['GET'],       
+                        'allow'     =>  true
+                    ],
+                    [
+                        'actions'   =>  ['delete'],
+                        'roles'     =>  ['@'],
+                        'verbs'     =>  ['POST'],
+                        'allow'     =>  true
+                    ],
+                    [
+                        'actions'   =>  ['auth'],
+                        'roles'     =>  ['@'],
+                        'allow'     =>  TRUE
+                    ]
+                ]
+                
+            ]
         ];
     }
     
