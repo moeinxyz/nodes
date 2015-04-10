@@ -218,7 +218,7 @@ class Stopwords{
         "yourselves"
    ];
 
-        /**
+    /**
      * 
      * @param array $words
      * @return array
@@ -226,6 +226,16 @@ class Stopwords{
     public static function purifierText(array $words){
         $pure = array_diff($words, self::$faStopWordsList);
         $pure = array_diff($words, self::$enStopWordsList);
+        return $pure;
+    }
+    
+    public static function purgeLongWord(array $words,$len = 40){
+        $pure   =   [];
+        foreach ($words as $word){
+            if (strlen($word) < $len){
+                $pure[] =   $word;
+            }
+        }
         return $pure;
     }
 }
