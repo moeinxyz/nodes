@@ -41,29 +41,18 @@ use yii\widgets\Pjax;
                 <?php endif;?>
             <?php endif;?>
         </div>
-        <div class="navbar-custom-menu pull-right">
-            <ul class="nav navbar-nav flaty-nav pull-right">
-                <li class="dropdown hidden-sm hidden-md hidden-lg">
-                    <a class="dropdown-toggle user user-menu" href="#" data-toggle="dropdown">SALAM</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="">g4 manual</a></li>
-                        <li><a href="">g4 skin</a></li>
-                        <li><a href="">g4 requirement</a></li>
-                    </ul>                    
-                </li>
-            </ul>
-        </div>
         <div class="navbar-custom-menu pull-left">
             <ul class="nav navbar-nav flaty-nav pull-left">
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">               
-                        <i class="glyphicon"><?= Yii::$app->user->getIdentity()->getUsername();?></i>                
+                        <i class="glyphicon hidden-xs"><?= Yii::$app->user->getIdentity()->getUsername();?></i>                
+                        <i class="glyphicon hidden-lg hidden-md hidden-sm">@</i>  
                         <img src="<?= Yii::$app->user->getIdentity()->getProfilePicture();?>" class="user-image" alt="<?= Yii::$app->user->getIdentity()->getName();?>"/>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="user-footer">      
                             <?= Html::a(Yii::t('app','header.user.newpost').'<i class="glyphicon glyphicon-pencil"></i>',
-                                        Yii::$app->urlManager->createUrl(['/post/write']));?>
+                                        Yii::$app->urlManager->createUrl(['/post/write','type'=>'new']));?>
                             <hr class="mini central">
                             <?= Html::a(Yii::t('app','header.user.posts').'<i class="glyphicon glyphicon-list"></i>',
                                         Yii::$app->urlManager->createUrl(['/post/admin']));?>

@@ -26,8 +26,10 @@ echo GridView::widget([
     'columns' => [
         [
             'attribute'     => 'title',
-//            'enableSorting' =>  false,
             'content' => function ($model, $key, $index, $column) {
+                if ($model->title === NULL && $model->content === NULL)
+                    return Module::t('post','_admin.title.null');
+                
                 $content = Html::a($model->title, ['edit', 'id' => base_convert($model->id, 10, 36)], ['target' => '_blank', 'data-pjax' => 0]);
                 $content .= '<br><span class="small-font-size">';
                 $content .= StringHelper::truncateWords(strip_tags($model->content), 14);
@@ -37,18 +39,16 @@ echo GridView::widget([
                 ],
                 [
                     'attribute'     => 'updated_at',
-//                    'enableSorting' =>  false,
                     'content'       => function ($model, $key, $index, $column) {
                         return '<span class="small-font-size">' . Yii::$app->jdate->date("l jS F Y h:i A", strtotime($model->updated_at)) . '</span>';
                     }
                 ],
                 [
                     'class' => 'yii\grid\ActionColumn',
-//                    'template' => '{comment}{stat}{view}{edit}{pin}{trash}{delete}',
                     'template' => '{comment}{view}{edit}{pin}{trash}{delete}',
                     'buttons' => [
                         'comment'   => function ($url, $model) use($pjax, $username) {
-                            return Html::a('<span class="glyphicon glyphicon-comment"></span>', ['/post/comments', 'id' => base_convert($model->id, 10, 36)], [
+                            return Html::a('<span class="glyphicon glyphicon-comment"></span>', ['/post/comments', 'pid' => base_convert($model->id, 10, 36)], [
                                         'title' => Module::t('post', '_admin.btn.comment.title',['count'=>  PersianNumber::convertNumberToPersian($model->comments_count)]),
                                         'data-pjax' => 0,
                                         'style' => 'font-size:22px;padding-right:10px;'

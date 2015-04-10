@@ -47,6 +47,7 @@ $config = [
         'user' => [
             'identityClass'     => 'app\modules\user\models\User',
             'enableAutoLogin'   => true,
+//            'loginUrl'          => ['home','login'=>'trigger'],  
         ],
         'socialClientCollection'    =>  require(__DIR__ . '/social.php'),
         'authClientCollection'      => [

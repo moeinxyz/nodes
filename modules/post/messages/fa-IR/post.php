@@ -44,5 +44,6 @@ return [
     '_admin.btn.untrash.title'  =>  'بازگرداندن به پیش نویس ها',
     '_admin.btn.delete.title'   =>  'حذف دائمی',
     '_admin.btn.delete.dataconfirm' =>  'آیا از حذف کامل این نوشته اطمینان دارید؟بعد از تایید پست شما بصورت کامل حذف می گردد و نمی توانید آن را بازگردانید.',
+    '_admin.title.null'         =>  'بدون عنوان',
     
 ];

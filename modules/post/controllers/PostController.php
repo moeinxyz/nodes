@@ -149,8 +149,7 @@ class PostController extends Controller
         } else {
             Post::draftAllWrittingPost();
         }
-        
-        if (!$model){
+        if ($model === NULL){
             $model = new Post;
             $model->save();
         }

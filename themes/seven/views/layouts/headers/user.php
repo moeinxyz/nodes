@@ -28,7 +28,7 @@
             <ul class="dropdown-menu">
                 <li class="user-footer">      
                     <?= Html::a(Yii::t('app','header.user.newpost').'<i class="glyphicon glyphicon-pencil"></i>',
-                                Yii::$app->urlManager->createUrl(['/post/write']));?>
+                                Yii::$app->urlManager->createUrl(['/post/write','type'=>'new']));?>
                     <hr class="mini central">
                     <?= Html::a(Yii::t('app','header.user.posts').'<i class="glyphicon glyphicon-list"></i>',
                                 Yii::$app->urlManager->createUrl(['/post/admin']));?>

@@ -9,56 +9,48 @@ use app\modules\post\models\Post;
     <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
         <div class="navbar-custom-menu pull-right">
             <ul class="nav navbar-nav flaty-nav pull-right">
-                <li class="hidden-xs">
+                <li>
                     <a href="#" id="save">
-                        <?php echo Module::t('post','header.save'); ?>
-                        <i class="glyphicon glyphicon-floppy-save" id="status"></i>                
+                        <span class="hidden-xs"><?php echo Module::t('post','header.save'); ?></span>
+                        <i class="glyphicon glyphicon-floppy-save" id="status" title="<?php echo Module::t('post','header.save'); ?>"></i>
                     </a>
                 </li>          
             </ul>
             <ul class="nav navbar-nav flaty-nav pull-right">
-                <li class="hidden-xs">
+                <li>
                     <a href="<?= Yii::$app->urlManager->createUrl(['/post/preview','id'=>  base_convert($model->id, 10, 36)]) ?>" target="_blank">
-                        <?php echo Module::t('post','header.preview'); ?>
-                        <i class="glyphicon glyphicon-eye-open"></i>                
+                        <span class="hidden-xs"><?php echo Module::t('post','header.preview'); ?></span>
+                        <i class="glyphicon glyphicon-eye-open hidden-lg hidden-md hidden-sm" title="<?php echo Module::t('post','header.preview'); ?>"></i>                
+                        <i class="glyphicon glyphicon-eye-open hidden-xs"></i>                
                     </a>
                 </li>          
             </ul>
 
             <?php if ($model->status != Post::STATUS_PUBLISH): ?>
                 <ul class="nav navbar-nav flaty-nav pull-right">
-                    <li class="hidden-xs">
+                    <li>
                         <a href="#" id="publish">
-                            <?php echo Module::t('post','header.publish'); ?>
-                            <i class="glyphicon glyphicon-bullhorn"></i>                
+                            <span class="hidden-xs"><?php echo Module::t('post','header.publish'); ?></span>
+                            <i class="glyphicon glyphicon-bullhorn hidden-xs"></i>
+                            <i class="glyphicon glyphicon-bullhorn hidden-lg hidden-md hidden-sm" title="<?php echo Module::t('post','header.publish'); ?>"></i>
                         </a>
                     </li>          
                 </ul>            
             <?php endif; ?>  
         </div>
-        <div class="navbar-custom-menu pull-right">
-            <ul class="nav navbar-nav flaty-nav pull-right">
-                <li class="dropdown hidden-sm hidden-md hidden-lg">
-                    <a class="dropdown-toggle user user-menu" href="#" data-toggle="dropdown">SALAM</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="">g4 manual</a></li>
-                        <li><a href="">g4 skin</a></li>
-                        <li><a href="">g4 requirement</a></li>
-                    </ul>                    
-                </li>
-            </ul>
-        </div>
+
         <div class="navbar-custom-menu pull-left">
             <ul class="nav navbar-nav flaty-nav pull-left">
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">               
-                        <i class="glyphicon"><?= Yii::$app->user->getIdentity()->getUsername();?></i>                
+                        <i class="glyphicon hidden-xs"><?= Yii::$app->user->getIdentity()->getUsername();?></i>                
+                        <i class="glyphicon hidden-lg hidden-md hidden-sm">@</i>  
                         <img src="<?= Yii::$app->user->getIdentity()->getProfilePicture();?>" class="user-image" alt="<?= Yii::$app->user->getIdentity()->getName();?>"/>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="user-footer">      
                             <?= Html::a(Yii::t('app','header.user.newpost').'<i class="glyphicon glyphicon-pencil"></i>',
-                                        Yii::$app->urlManager->createUrl(['/post/write']));?>
+                                        Yii::$app->urlManager->createUrl(['/post/write','type'=>'new']));?>
                             <hr class="mini central">
                             <?= Html::a(Yii::t('app','header.user.posts').'<i class="glyphicon glyphicon-list"></i>',
                                         Yii::$app->urlManager->createUrl(['/post/admin']));?>
