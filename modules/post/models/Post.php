@@ -62,7 +62,7 @@ class Post extends \yii\db\ActiveRecord
             [['content','autosave_content','pure_text'], 'string'],
             [['cover'],'in','range'=>[self::COVER_BYCOVER,self::COVER_NOCOVER]],
             [['comments_count', 'user_id'], 'integer'],
-            [['url', 'title'], 'string', 'max' => 256],
+            [['url', 'title'], 'string', 'max' => 256,'skipOnEmpty'=>TRUE],
             [['status'],'in','range'=>[self::STATUS_DELETE,self::STATUS_DRAFT,self::STATUS_PUBLISH,self::STATUS_TRASH,self::STATUS_WRITTING]],
             [['pin'],'in','range'   =>[self::PIN_ON,self::PIN_OFF]],            
             [['last_update_type'],'in','range'   =>[self::LAST_UPDATE_TYPE_AUTOSAVE,self::LAST_UPDATE_TYPE_MANUAL]],            
@@ -96,8 +96,11 @@ class Post extends \yii\db\ActiveRecord
                 $this->created_at       =   new \yii\db\Expression('NOW()');
                 $this->published_at     =   '0000-00-00 00:00:00';
             }
+            if ($this->title != NULL)
+            {
+                $this->title      = substr($this->title, 0,256);    
+            }
             $this->updated_at = new \yii\db\Expression('NOW()');
-            $this->title      = substr($this->title, 0,256);
             return TRUE;
         }
         return FALSE;
@@ -114,64 +117,49 @@ class Post extends \yii\db\ActiveRecord
     {
         return self::updateAll(['status'=>self::STATUS_DRAFT],'user_id=:user_id AND status=:status',[':user_id'=>Yii::$app->user->id,':status'=>self::STATUS_WRITTING]);
     }
-
-    public static function temp($title,$id)
-    {
-        
-    }
-
+    
     /**
      * 
      * @param string $title
      * @param string $id ID is base36 number
      * @return string
      */
-    //@todo fix empty title url
     public static function suggestUniqueUrl($title,$id)
     {
         $title      =   strtolower($title);
-        $postfix    =   strtolower($id);
-        $base       =   substr('/[[:space:]]+/', 0);
+        $title      =   preg_replace('/[[:space:]]+/', '-', $title);
         $words      =   Stopwords::purifierText(explode('-', $title));
+        $words      =   Stopwords::purgeLongWord();
+        $postfix    =   strtolower($id);
         $count      =   count($words);
-//        $len        =   3;
-//        do {
-//            
-//        }while(!self::isUniueUrl($url) && $len <= $count && strlen($url) <= 40);
-//        $url = implode($url, $pieces)
-        
-//        foreach ($words as $index=>$word){
-//            $url    .=  $word;
-//        }
-        
-        
-        // first attempt to get by title
-        
-//        $url        =   NULL;
-//        $baseUrl    =   substr(preg_replace('/[[:space:]]+/', '-', $title),0,1500);
-//        $counter    =   0;
-        
-        
-        // second attempt to get by postfix
-        do {
-            if ($postfix === $id){
-                $url        =   urlencode($baseUrl);    
-            } else {
-                $url        =   urlencode($baseUrl.$postfix);
+        $tries      =   0;
+        $maxLen     =   40;
+        $url        =   '';
+        $skipTitle  =   ($count === 0)?TRUE:FALSE;
+
+        do
+        {
+            $pieces         =   [];
+            $random_keys    =   array_rand ($words, rand (min (3,$count), $count));
+            foreach ($random_keys as $key){
+                $pieces[]   =   $words[$key];
             }
-            
-            /**
-             * Similar Idea as Aloha (network algorith)
-             */
-            if ($counter <= 15){
-                $number = base_convert($postfix, 36, 10);
-            } else {
+            $url            =   implode ('-', $pieces);
+            if (strlen($url) > $maxLen){
+                continue;
+            }
+            if (!$skipTitle && $tries >= 25 && $maxLen === 40){
+                $tries  =   0;
+                $maxLen =   60;
+            } elseif (!$skipTitle && $tries >= 25 && $maxLen === 60) {
+                $url    =   $url.'-'.$postfix;
                 $number =   base_convert($postfix, 36, 10);
-                $number =   rand($number, ($number + $counter));
+                $number =   rand($number, ($number + $tries));
+                $postfix=   base_convert($number + 1, 10, 36);           
             }
-            $counter++;
-            $postfix= base_convert($number + 1, 10, 36);                
-        } while(!self::isUniueUrl($url));
+            $tries++;
+        } while(!$this->isUniueUrl($url));
+        
         return $url;
     }
     
