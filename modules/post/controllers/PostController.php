@@ -28,17 +28,28 @@ class PostController extends Controller
                 'only'  =>  ['admin','autosave','delete','edit','pin','preview','publish','recommend','trash','write'],
                 'rules' =>  [
                     [
-                        'actions'   =>  ['admin','preview','edit','write','pin','publish','trash'],
+                        'actions'   =>  ['admin','preview','write','pin','trash'],
                         'roles'     =>  ['@'],
                         'verbs'     =>  ['GET'],
                         'allow'     =>  true
                     ],
                     [
-                        'actions'   =>  ['autosave','delete','preview'],
+                        'actions'   =>  ['autosave','delete','publish'],
                         'roles'     =>  ['@'],
                         'verbs'     =>  ['POST'],
                         'allow'     =>  TRUE
                     ],
+                    [
+                        'actions'   =>  ['edit'],
+                        'roles'     =>  ['@'],
+                        'allow'     =>  TRUE
+                    ],
+                    [
+                        'actions'   =>  ['recommend'],
+                        'verbs'     =>  ['POST'],
+                        'allow'     =>  TRUE
+                        
+                    ]
                 ]
             ]            
         ];
@@ -124,9 +135,9 @@ class PostController extends Controller
     public function actionPublish($id)
     {
         if (Yii::$app->request->isAjax) {
-            Yii::$app->response->format =   Response::FORMAT_JSON;
             $id                         =   base_convert($id, 36, 10);
             $model                      =   $this->findModel($id);
+            $model->setScenario('publish');
             $model->status              =   Post::STATUS_PUBLISH;
             if ($model->url === NULL){
                 $model->url = Post::suggestUniqueUrl($model->title, $model->id);
@@ -134,8 +145,12 @@ class PostController extends Controller
             if ($model->published_at === '0000-00-00 00:00:00'){
                 $model->published_at    =   new \yii\db\Expression('NOW()');
             }
-            $model->save();
-            return $this->redirect(Yii::$app->urlManager->createUrl(["@{$model->getUser()->one()->username}/{$model->url}"]));
+            if ($model->save()){
+                Yii::$app->response->format =   Response::FORMAT_JSON;
+                return ['url'   =>  Yii::$app->urlManager->createAbsoluteUrl(["@{$model->getUser()->one()->username}/{$model->url}"])];
+            } else {
+                throw new \yii\web\HttpException(406);
+            }
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }        
@@ -153,7 +168,7 @@ class PostController extends Controller
             $model = new Post;
             $model->save();
         }
-        return $this->redirect(['edit', 'id' => base_convert($model->id, 10, 36)]);
+        return $this->redirect(['edit', 'id' => base_convert($model->id, 10, 36),'type'=>'autosave']);
     }
 
     public function actionPin($status,$id)
@@ -217,8 +232,10 @@ class PostController extends Controller
     {
         $user               =   $this->findUser($username);
         $post               =   $this->findPost($user->id, $url);
-        if (Yii::$app->request->isAjax){// &&  $post->user_id != Yii::$app->user->getId()){
-            Yii::$app->response->format =   Response::FORMAT_JSON;
+        Yii::$app->response->format =   Response::FORMAT_JSON;
+        if (Yii::$app->user->isGuest){
+            return ['status'    =>  'LOGIN'];
+        } else if (Yii::$app->request->isAjax && $post->user_id != Yii::$app->user->getId()){
             $recommend = Userrecommend::getPostRecommended($post->id);
             if ($recommend === NULL){
                 $recommend              =   new Userrecommend();

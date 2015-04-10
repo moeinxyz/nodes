@@ -37,6 +37,28 @@ use app\modules\post\models\Post;
                     </li>          
                 </ul>            
             <?php endif; ?>  
+            
+            <?php if ($type != 'content'): ?>
+                <ul class="nav navbar-nav flaty-nav pull-right">
+                    <li>
+                        <a href="<?= Yii::$app->urlManager->createUrl(['post/edit','id'=>  base_convert($model->id, 10, 36),'type'=>'content'])?>">
+                            <span class="hidden-xs"><?php echo Module::t('post','header.load.saved'); ?></span>
+                            <i class="glyphicon glyphicon-backward hidden-xs"></i>
+                            <i class="glyphicon glyphicon-backward hidden-lg hidden-md hidden-sm" title="<?php echo Module::t('post','header.load.saved'); ?>"></i>
+                        </a>
+                    </li>          
+                </ul>            
+            <?php else: ?>
+                <ul class="nav navbar-nav flaty-nav pull-right">
+                    <li>
+                        <a href="<?= Yii::$app->urlManager->createUrl(['post/edit','id'=>  base_convert($model->id, 10, 36),'type'=>'autosave'])?>">
+                            <span class="hidden-xs"><?php echo Module::t('post','header.load.autosave'); ?></span>
+                            <i class="glyphicon glyphicon-forward hidden-xs"></i>
+                            <i class="glyphicon glyphicon-forward hidden-lg hidden-md hidden-sm" title="<?php echo Module::t('post','header.load.autosave'); ?>"></i>
+                        </a>
+                    </li>          
+                </ul>                   
+            <?php endif;?>
         </div>
 
         <div class="navbar-custom-menu pull-left">

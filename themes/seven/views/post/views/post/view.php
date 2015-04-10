@@ -7,7 +7,12 @@ use app\modules\post\models\Post;
 use yii\helpers\HtmlPurifier;
 $this->registerAssetBundle('show-post');
 // Render Header
-echo $this->render('header/_view',['model'=>$post]);
+
+if (Yii::$app->user->isGuest){
+    echo $this->render('header/_view_guest',['model'=>$post]);
+} else {
+    echo $this->render('header/_view_user',['model'=>$post]);
+}
 echo $this->render('dynamicJS/_view',['model'=>$post]);
 ?>
 <div id="wrapper" class="page-content">

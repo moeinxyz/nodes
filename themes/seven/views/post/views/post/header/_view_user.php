@@ -3,17 +3,15 @@
 /* @var $model app\modules\post\models\Post */
 use yii\helpers\Html;
 use app\modules\post\Module;
-use app\modules\post\models\Post;
 use app\modules\post\models\Userrecommend;
-use yii\widgets\Pjax;
 ?>
 <header class="main-header">
     <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
         <div class="navbar-custom-menu pull-right">
-            <?php if ($model->user_id != Yii::$app->user->getId()):?>
+            <?php if ($model->user_id === Yii::$app->user->getId()):?>
                 <ul class="nav navbar-nav flaty-nav pull-right">
                     <li class="hidden-xs">
-                        <a href="<?= Yii::$app->urlManager->createUrl(['/post/edit','id'=>  base_convert($model->id, 10, 36)]) ?>">
+                        <a href="<?= Yii::$app->urlManager->createUrl(['/post/edit','id'=>  base_convert($model->id, 10, 36),'type'=>'autosave']) ?>">
                             <?php echo Module::t('post','header.view.edit'); ?>
                             <i class="glyphicon glyphicon-pencil"></i>                
                         </a>

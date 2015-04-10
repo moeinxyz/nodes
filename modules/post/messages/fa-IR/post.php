@@ -18,14 +18,24 @@ return [
     '_follow.unfollow'          =>  'دنبال شده',
     '_follow.follow'            =>  'دنبال کن',
     '_follow.editMyProfile'     =>  'بروزرسانی پروفایل',
+    
     'header.save'               =>  'ذخیره',
     'header.preview'            =>  'پیش نمایش',
     'header.publish'            =>  'انتشار',
+    'header.view.edit'          =>  'ویرایش',
+    'header.view.recommend'     =>  'توصیه',
+    'header.view.recommended'   =>  'توصیه شده',
+    'header.load.autosave'      =>  'بازیابی از ذخیره خودکار',
+    'header.load.saved'         =>  'بازیابی از ذخیره',
+    
     'write.title.placeholder'   =>  'عنوان',
     'write.body.placeholder'    =>  'متن',
     'write.embed.placeholder'   =>  'لینک ویدئو را از آپارت،Youtube یا Vimeo کپی کنید.',
     'write.extract.placeholder' =>  'لینک صفحه ای از یک سایت دیگر را کپی کنید تا استخراج شود.',
+    'write.save.error.title'    =>  'در ذخیره نوشته شما مشکلی به وجود آمده است،اطمینان حاصل نمایید که عنوان و متن نوشته خالی نمی باشد.',
     'post.written_by'           =>  'نوشته شده در {time} توسط {author}',
+    
+    'comment.submitBtn'         =>  'ارسال نظر',
     
     'admin.status.draft'        =>  'پیش نویس ها',
     'admin.status.publish'      =>  'منتشر شده ها',
@@ -45,5 +55,5 @@ return [
     '_admin.btn.delete.title'   =>  'حذف دائمی',
     '_admin.btn.delete.dataconfirm' =>  'آیا از حذف کامل این نوشته اطمینان دارید؟بعد از تایید پست شما بصورت کامل حذف می گردد و نمی توانید آن را بازگردانید.',
     '_admin.title.null'         =>  'بدون عنوان',
-    
+    'comment.loginToComment'    =>  'وارد شوید و نظر دهید'
 ];

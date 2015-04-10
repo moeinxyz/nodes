@@ -13,7 +13,7 @@ $titlePlaceholder   =   Module::t('post','write.title.placeholder');
 $bodyPlaceholder    =   Module::t('post','write.body.placeholder');
 $embedPlaceholder   =   Module::t('post','write.embed.placeholder');
 $extractPlaceholder =   Module::t('post','write.extract.placeholder');
-
+$errorTitle         =   Module::t('post','write.save.error.title');
 $js=<<<JS
 var status      =   $("i#status");
 var setting     =   $("#setting");
@@ -36,34 +36,56 @@ $("#editor").bind("DOMSubtreeModified",function(){
 });
 $(document).ajaxStart(function(){
     status.attr('class','glyphicon glyphicon-repeat glyphicon-refresh-animate');
+    editorElm.find('.fa-warning').remove();
 });
 $(document).ajaxSuccess(function(){
     status.attr('class','glyphicon glyphicon-floppy-saved');
+    editorElm.find('.fa-warning').remove();
 });
-$(document).ajaxError(function(){
+$(document).ajaxError(function(data){
     status.attr('class','glyphicon glyphicon-floppy-remove');
+    editorElm.find('.overlay').remove();        
+    editorElm.append('<i class="fa fa-warning" title="{$errorTitle}"></i>');
 });  
 $("a#save").on('click',function(){
     editorElm.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
     var store = editor.checkforStore();
     if ((typeof store) === "number"){
-        editorElm.find('.overlay').remove();
-        jQuery.post("{$saveUrl}",function(){
-            editorElm.find('.overlay').remove();
-        });    
+        save(false);
     } else if ((typeof store) === "object"){
         store.success(function(){
-            jQuery.post("{$saveUrl}",function(){
-                editorElm.find('.overlay').remove();        
-            });
+            save(false);
         });
     }
     return false;
 });
+// edit this dummy coding
 $("a#publish").on('click',function(){
-    jQuery.post("{$publishUrl}");
+    editorElm.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+    var store = editor.checkforStore();
+    if ((typeof store) === "number"){
+        save(true);
+    } else if ((typeof store) === "object"){
+        store.success(function(){
+            save(true);
+        });
+    }            
     return false;
 });
+function save(publish){
+    jQuery.post("{$saveUrl}",function(){
+        if (publish === true){
+            jQuery.post("{$publishUrl}",function(data){
+                if (data.url){
+                    window.location = data.url;
+                }
+                editorElm.find('.overlay').remove(); 
+            });    
+        } else {
+            editorElm.find('.overlay').remove();        
+        }
+    });        
+}
 //        
 //$(function() {
 //  $('a[href*=#]:not([href=#])').click(function() {

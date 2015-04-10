@@ -58,7 +58,7 @@ class Post extends \yii\db\ActiveRecord
     {
         return [
             [['user_id'], 'required'],
-            [['url', 'title', 'content'], 'required','on'=>'save'],
+            [['url', 'title', 'content'], 'required','on'=>'publish'],
             [['content','autosave_content','pure_text'], 'string'],
             [['cover'],'in','range'=>[self::COVER_BYCOVER,self::COVER_NOCOVER]],
             [['comments_count', 'user_id'], 'integer'],
@@ -66,7 +66,8 @@ class Post extends \yii\db\ActiveRecord
             [['status'],'in','range'=>[self::STATUS_DELETE,self::STATUS_DRAFT,self::STATUS_PUBLISH,self::STATUS_TRASH,self::STATUS_WRITTING]],
             [['pin'],'in','range'   =>[self::PIN_ON,self::PIN_OFF]],            
             [['last_update_type'],'in','range'   =>[self::LAST_UPDATE_TYPE_AUTOSAVE,self::LAST_UPDATE_TYPE_MANUAL]],            
-            [['url'],'validateUniqueUrl','on'=>'save']
+            [['url'],'validateUniqueUrl','on'=>'save'],
+            [['title','pure_text'],'trim']
         ];
     }
 
@@ -121,7 +122,7 @@ class Post extends \yii\db\ActiveRecord
     /**
      * 
      * @param string $title
-     * @param string $id ID is base36 number
+     * @param integer $id 
      * @return string
      */
     public static function suggestUniqueUrl($title,$id)
@@ -129,36 +130,46 @@ class Post extends \yii\db\ActiveRecord
         $title      =   strtolower($title);
         $title      =   preg_replace('/[[:space:]]+/', '-', $title);
         $words      =   Stopwords::purifierText(explode('-', $title));
-        $words      =   Stopwords::purgeLongWord();
-        $postfix    =   strtolower($id);
+        $words      =   Stopwords::purgeLongWord($words);
+        $postfix    =   base_convert($id, 10, 36);
         $count      =   count($words);
         $tries      =   0;
         $maxLen     =   40;
         $url        =   '';
-        $skipTitle  =   ($count === 0)?TRUE:FALSE;
-
+        $skipTitle  =   ($count === 0 || $title === '')?TRUE:FALSE;
         do
         {
-            $pieces         =   [];
-            $random_keys    =   array_rand ($words, rand (min (3,$count), $count));
-            foreach ($random_keys as $key){
-                $pieces[]   =   $words[$key];
-            }
-            $url            =   implode ('-', $pieces);
-            if (strlen($url) > $maxLen){
-                continue;
+            if (!$skipTitle){
+                $pieces         =   [];
+                $random_keys    =   array_rand ($words, rand (min (3,$count), $count));
+                if (is_array($random_keys)){
+                    foreach ($random_keys as $key){
+                        $pieces[]   =   $words[$key];
+                    }                    
+                } else {
+                    $pieces[]   =   $words[$random_keys];
+                }
+                $url            =   implode ('-', $pieces);
+                if (strlen($url) > $maxLen){
+                    continue;
+                }                
             }
             if (!$skipTitle && $tries >= 25 && $maxLen === 40){
                 $tries  =   0;
                 $maxLen =   60;
-            } elseif (!$skipTitle && $tries >= 25 && $maxLen === 60) {
-                $url    =   $url.'-'.$postfix;
+            } elseif ($skipTitle || ($tries >= 25 && $maxLen === 60)) {
+                if ($skipTitle){
+                    $url    =   $postfix;
+                } else {
+                    $url    =   $url.'-'.$postfix;
+                }
                 $number =   base_convert($postfix, 36, 10);
                 $number =   rand($number, ($number + $tries));
                 $postfix=   base_convert($number + 1, 10, 36);           
             }
             $tries++;
-        } while(!$this->isUniueUrl($url));
+            $url = urlencode($url);
+        } while(!self::isUniueUrl($url));
         
         return $url;
     }
