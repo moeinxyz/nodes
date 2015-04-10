@@ -10,7 +10,7 @@ use app\modules\post\models\Userrecommend;
         <div class="navbar-custom-menu pull-right">
             <?php if ($model->user_id === Yii::$app->user->getId()):?>
                 <ul class="nav navbar-nav flaty-nav pull-right">
-                    <li class="hidden-xs">
+                    <li>
                         <a href="<?= Yii::$app->urlManager->createUrl(['/post/edit','id'=>  base_convert($model->id, 10, 36),'type'=>'autosave']) ?>">
                             <?php echo Module::t('post','header.view.edit'); ?>
                             <i class="glyphicon glyphicon-pencil"></i>                
@@ -26,6 +26,11 @@ use app\modules\post\models\Userrecommend;
                                 <i class="glyphicon glyphicon-star-empty"></i>
                             </a>
                         </li>          
+                        <li class="hidden-lg hidden-md hidden-sm">
+                            <a href="#" id="recommend">
+                                <i class="glyphicon glyphicon-star-empty" title="<?php echo Module::t('post','header.view.recommend'); ?>"></i>
+                            </a>
+                        </li>                                  
                     </ul>   
                 <?php else:?>
                     <ul class="nav navbar-nav flaty-nav pull-right">
@@ -34,7 +39,13 @@ use app\modules\post\models\Userrecommend;
                                 <?php echo Module::t('post','header.view.recommended'); ?>
                                 <i class="glyphicon glyphicon-star"></i>
                             </a>
-                        </li>
+                        </li>          
+                        <li class="hidden-lg hidden-md hidden-sm">
+                            <a href="#" id="recommend">
+                                <?php echo Module::t('post','header.view.recommended'); ?>
+                                <i class="glyphicon glyphicon-star" title="<?php echo Module::t('post','header.view.recommended'); ?>"></i>
+                            </a>
+                        </li>       
                     </ul>                           
                 <?php endif;?>
             <?php endif;?>

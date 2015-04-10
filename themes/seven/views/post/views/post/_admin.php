@@ -27,12 +27,20 @@ echo GridView::widget([
         [
             'attribute'     => 'title',
             'content' => function ($model, $key, $index, $column) {
-                if ($model->title === NULL && $model->content === NULL)
-                    return Module::t('post','_admin.title.null');
+                if (($model->title === NULL || $model->title === '')){
+                    $title = Module::t('post','_admin.title.null');
+                } else {
+                    $title = $model->title;
+                }
                 
-                $content = Html::a($model->title, ['edit', 'id' => base_convert($model->id, 10, 36)], ['target' => '_blank', 'data-pjax' => 0]);
+                if (($model->content === NULL || $model->content === '')){
+                    $text = Module::t('post','_admin.content.null');
+                } else {
+                    $text = $model->content;
+                }                
+                $content = Html::a($title, ['edit', 'id' => base_convert($model->id, 10, 36),'type'=>'autosave'], ['target' => '_blank', 'data-pjax' => 0]);
                 $content .= '<br><span class="small-font-size">';
-                $content .= StringHelper::truncateWords(strip_tags($model->content), 14);
+                $content .= StringHelper::truncateWords(strip_tags($text), 14);
                 $content .= '</span>';
                 return $content;
             }
@@ -77,7 +85,7 @@ echo GridView::widget([
                             }
                         },
                         'edit' => function ($url, $model) use($pjax, $username) {
-                            return Html::a('<span class="glyphicon glyphicon-edit"></span>', ['edit', 'id' => base_convert($model->id, 10, 36)], [
+                            return Html::a('<span class="glyphicon glyphicon-edit"></span>', ['edit', 'id' => base_convert($model->id, 10, 36),'type'=>'autosave'], [
                                         'title' => Module::t('post', 'ـadmin.btn.edit.title'),
                                         'data-pjax' => 0,
                                         'style' => 'font-size:22px;padding-right:10px;'
