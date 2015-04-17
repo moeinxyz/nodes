@@ -435,7 +435,7 @@ class UserController extends Controller
      * @return Attributes 
      */    
     protected function twitterAuth($attributes){
-        
+        var_dump($attributes);die;
     }
     
     /**

@@ -62,7 +62,6 @@ class SocialController extends Controller
     public function authCallback($client)
     {   
         $attributes =   $client->getUserAttributes();
-        $status     =   false;
         if ($client->getId() === 'linkedin'){
             $this->linkedinAuth($client,$attributes);
         } else if ($client->getId() === 'facebook'){

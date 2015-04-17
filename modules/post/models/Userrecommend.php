@@ -74,12 +74,28 @@ class Userrecommend extends \yii\db\ActiveRecord
         }
         return FALSE;
     }
-
-        public static function getPostRecommended($postId)
+    
+    /**
+     * 
+     * @param integer $postId
+     * @return Userrecommend
+     */
+    public static function getPostRecommended($postId)
     {
         if (($model = self::findOne(['user_id'=>Yii::$app->user->getId(),'post_id'=>$postId])) != NULL){
             return $model;
         }
         return NULL;
+    }
+    
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+        $this->getUser()->one()->updateCounters(['recommended_count'=>1]);
+    }
+    
+
+    public function afterDelete() {
+        parent::afterDelete();
+        $this->getUser()->one()->updateCounters(['recommended_count'=>-1]);
     }
 }

@@ -152,7 +152,9 @@ class Post extends \yii\db\ActiveRecord
                 $url            =   implode ('-', $pieces);
                 if (strlen($url) > $maxLen){
                     continue;
-                }                
+                } else if (in_array($url, Yii::$app->params['wildcat_urls'])){
+                    continue;
+                }
             }
             if (!$skipTitle && $tries >= 25 && $maxLen === 40){
                 $tries  =   0;
@@ -221,5 +223,21 @@ class Post extends \yii\db\ActiveRecord
     {
         $postfix    = md5($id).$id.'.jpg';
         return Yii::getAlias("@upBaseUrl/{$postfix}");
+    }
+    
+    //@todo test it
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+        if ($this->oldAttributes['status'] !== self::STATUS_PUBLISH && $this->status === self::STATUS_PUBLISH){
+            $this->getUser()->one()->updateCounters(['posts_count'=>1]);            
+            User::find()->join('LEFT JOIN', Userrecommend::tableName(),User::tableName().'.id = '.Userrecommend::tableName().'.user_id')
+                    ->where(Userrecommend::tableName().'.post_id=:post_id',['post_id'=>$this->id])
+                    ->all()->updateAllCounters(['recommended_count'=>1]);
+        } else if ($this->oldAttributes['status'] === self::STATUS_PUBLISH && $this->status !== self::STATUS_PUBLISH) {
+            $this->getUser()->one()->updateCounters(['posts_count'=>-1]);
+            User::find()->join('LEFT JOIN', Userrecommend::tableName(),User::tableName().'.id = '.Userrecommend::tableName().'.user_id')
+                    ->where(Userrecommend::tableName().'.post_id=:post_id',['post_id'=>$this->id])
+                    ->all()->updateAllCounters(['recommended_count'=>-1]);            
+        }
     }
 }

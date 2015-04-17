@@ -16,5 +16,10 @@ return [
     'header.user.comments'              =>  'نظرات',
     'link.join'                         =>  'ثبت نام',
     'link.reset'                        =>  'فراموشی کلمه عبور',
-        
+    
+    'oauth.facebook'                    =>  'فیس بوک',
+    'oauth.twitter'                     =>  'توئتر',
+    'oauth.github'                      =>  'گیت هاب',
+    'oauth.linkedin'                    =>  'لینکدین',
+    'oauth.google'                      =>  'google',
 ];

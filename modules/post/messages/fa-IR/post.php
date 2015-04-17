@@ -56,5 +56,9 @@ return [
     '_admin.btn.delete.dataconfirm' =>  'آیا از حذف کامل این نوشته اطمینان دارید؟بعد از تایید پست شما بصورت کامل حذف می گردد و نمی توانید آن را بازگردانید.',
     '_admin.title.null'         =>  'بدون عنوان',
     '_admin.content.null'       =>  'بدون متن',
+    
+    '_show_post_abstract.written_by'        =>  'نوشته شده در {time} توسط ',
+    '_show_post_abstract.recommended_by'    =>  '،توصیه شده توسط ',
+    
     'comment.loginToComment'    =>  'وارد شوید و نظر دهید'
 ];

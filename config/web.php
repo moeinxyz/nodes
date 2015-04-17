@@ -50,6 +50,17 @@ $config = [
 //            'loginUrl'          => ['home','login'=>'trigger'],  
         ],
         'socialClientCollection'    =>  require(__DIR__ . '/social.php'),
+//        'contactClientCollection'   =>  [
+//            'class'     => 'yii\authclient\Collection',
+//            'clients'   =>  [
+//                'gmail'    =>  [
+//                    'class'         => 'yii\authclient\clients\GoogleOAuth',
+//                    'clientId'      => '584470786627-k9gdurbjgm09cdhhqd2qpp4274dd8ii1.apps.googleusercontent.com',
+//                    'clientSecret'  => 'i_mC-awvMXmqUXfC_2L28KWs',
+//                    'scope'         =>  implode(' ', ['email','https://www.googleapis.com/auth/contacts.readonly'])                    
+//                ]
+//            ]
+//        ],
         'authClientCollection'      => [
             'class' => 'yii\authclient\Collection',
             'clients' => [
@@ -74,7 +85,12 @@ $config = [
                     'class'         => 'yii\authclient\clients\Twitter',
                     'consumerKey'   => 'yev9zPwjVEXZEr6t5hXAnTmsT',
                     'consumerSecret'=> 'ZPfzJJMDbj104KYy80ikoAjqOLIm41ECLogLvY9PfKjej4NLDg',
-                ]  
+                ],
+                'facebook' => [
+                    'class'         => 'yii\authclient\clients\Facebook',
+                    'clientId'      => '865054846839734',
+                    'clientSecret'  => '737f7715218838239a00a06aed234c13',
+                ],
             ],
         ],        
         'errorHandler' => [

@@ -8,4 +8,5 @@ return [
     '_admin.btn.trash.title'    =>  'عدم نمایش',
     '_admin.btn.untrash.title'  =>  'نمایش',
     '_admin.btn.abuse.title'    =>  'گزارش سو استفاده',
+    'post.comment'              =>  'ارسال نظر',
 ];

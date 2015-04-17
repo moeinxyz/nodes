@@ -40,7 +40,8 @@
         "mohammad-mahdy/yii2-jdate": "*",
         "kartik-v/yii2-grid": "dev-master",
 	"abraham/twitteroauth": "0.5.2",
-        "linkedinapi/linkedin": "dev-master"
+        "linkedinapi/linkedin": "dev-master",
+        "google/apiclient": "1.0.*@beta"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

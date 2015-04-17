@@ -58,32 +58,19 @@ class Following extends \yii\db\ActiveRecord
         return $model;
     }
 
+    //@todo rewrite it by mysql trigger
     public function toggleFollow()
     {
-        $follower = User::findOne(['id'=>  $this->user_id]);
-        $followed = User::findOne(['id'=>  $this->followed_user_id]);
-        
         if ($this->isNewRecord || $this->status == self::STATUS_DEACTIVE){
-            $this->status = self::STATUS_ACTIVE;
-            $follower->following_count++;
-            $followed->followers_count++;            
+            $this->status   =   self::STATUS_ACTIVE;
+            $number         =   1;
         } else {
             $this->status = self::STATUS_DEACTIVE;
-            $follower->following_count--;
-            $followed->followers_count--;                
-        }
-        $connection     =   Yii::$app->db;
-        $transaction    =   $connection->beginTransaction();
-        try{
-            $followed->save();
-            $follower->save();
-            $this->save();
-            $transaction->commit();
-        } catch (\Exception $ex) {
-            $transaction->rollBack();
-            return FALSE;
-        }
-        return FALSE;
+            $number         =   -1; 
+        }   
+        $this->save();
+        $this->getFollowedUser()->one()->updateCounters(['followers_count'=>$number]);
+        $this->getUser()->one()->updateCounters(['following_count'=>$number]);
     }
     
     public static function isUserFollowing($userId)

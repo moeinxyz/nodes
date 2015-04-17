@@ -19,7 +19,7 @@ use app\modules\user\models\Url;
         </div>
     </div>
 </section>
-<section class="container-fluid">
+<section class="container-fluid" id="details">
     <hr class="title">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
@@ -34,30 +34,62 @@ use app\modules\user\models\Url;
                             </a>
                         <?php endforeach; ?>
                     </div>
-                    <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}/following"]); ?>">
+                    
+                    <?php if ($user->following_count > 0):?>
+                        <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}/following"]); ?>">
+                            <div class="col-md-2 col-sm-2 col-xs-6">
+                                <h3><?= Module::t('post','user._user.following'); ?></h3>
+                                <span class="counter"><?= $user->following_count; ?></span>
+                            </div>                    
+                        </a>
+                    <?php else: ?>
                         <div class="col-md-2 col-sm-2 col-xs-6">
                             <h3><?= Module::t('post','user._user.following'); ?></h3>
                             <span class="counter"><?= $user->following_count; ?></span>
-                        </div>                    
-                    </a>
-                    <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}/followers"]); ?>">
+                        </div>                                        
+                    <?php endif;?>
+
+                    <?php if ($user->followers_count > 0):?>
+                        <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}/followers"]); ?>">
+                            <div class="col-md-2 col-sm-2 col-xs-6">
+                                <h3><?= Module::t('post','user._user.followers'); ?></h3>
+                                <span class="counter"><?= $user->followers_count; ?></span>
+                            </div>                    
+                        </a>
+                    <?php else: ?>
                         <div class="col-md-2 col-sm-2 col-xs-6">
                             <h3><?= Module::t('post','user._user.followers'); ?></h3>
                             <span class="counter"><?= $user->followers_count; ?></span>
-                        </div>                        
-                    </a>
-                    <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}/recommended"]); ?>">
+                        </div>                                        
+                    <?php endif;?>
+                    
+                    <?php if ($user->recommended_count > 0):?>
+                        <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}/recommends"]); ?>">
+                            <div class="col-md-2 col-sm-2 col-xs-6">
+                                <h3><?= Module::t('post','user._user.recommended'); ?></h3>
+                                <span class="counter"><?= $user->recommended_count; ?></span>
+                            </div>                        
+                        </a>
+                    <?php else: ?>
                         <div class="col-md-2 col-sm-2 col-xs-6">
                             <h3><?= Module::t('post','user._user.recommended'); ?></h3>
                             <span class="counter"><?= $user->recommended_count; ?></span>
                         </div>                        
-                    </a>
-                    <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}/posts"]); ?>">
+                    <?php endif;?>                    
+                    
+                    <?php if ($user->posts_count > 0):?>
+                        <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}/posts"]); ?>">
+                            <div class="col-md-2 col-sm-2 col-xs-6">
+                                <h3><?= Module::t('post','user._user.posts'); ?></h3>
+                                <span class="counter"><?= $user->posts_count; ?></span>
+                            </div>                        
+                        </a>
+                    <?php else: ?>
                         <div class="col-md-2 col-sm-2 col-xs-6">
                             <h3><?= Module::t('post','user._user.posts'); ?></h3>
                             <span class="counter"><?= $user->posts_count; ?></span>
-                        </div>                        
-                    </a>                    
+                        </div>    
+                    <?php endif;?>                    
                 </div>
             </div>
         </div>

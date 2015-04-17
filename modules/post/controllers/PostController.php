@@ -6,7 +6,7 @@ use app\modules\post\models\Post;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+
 use yii\filters\AccessControl;
 use app\modules\user\models\User;
 use yii\web\Response;
@@ -15,6 +15,9 @@ use yii\helpers\StringHelper;
 use app\components\Helper\Extract;
 use app\modules\post\models\Comment;
 use app\modules\post\models\Userrecommend;
+use app\modules\post\models\Guestread;
+use app\modules\post\models\Userread;
+use yii\data\Pagination;
 /**
  * PostController implements the CRUD actions for Post model.
  */
@@ -58,14 +61,75 @@ class PostController extends Controller
     
     public function actionUser($username)
     {
-        $user   = $this->findUser($username);
-        return $this->render('user',['user'=>$user]);
+        $user   =   $this->findUser($username);
+        $query  =   Post::find()->leftJoin(Userrecommend::tableName(),Post::tableName().'.id='.Userrecommend::tableName().'.post_id')
+                    ->where(Post::tableName().'.status=:status AND ('.Userrecommend::tableName().'.user_id=:user_id OR '.Post::tableName().'.user_id=:user_id)',['user_id'=>$user->id,'status'=>Post::STATUS_PUBLISH]);
+        
+        $countQuery =   clone $query;
+        $count      =   $countQuery->count();
+        $pages = new Pagination(['totalCount' => $count,'defaultPageSize'=>7,'params'=>array_merge($_GET, ['#' => 'details'])]);
+        $posts = $query->offset($pages->offset)
+            ->limit(7)
+            ->orderBy('published_at desc')
+            ->all();
+        
+        return $this->render('user',[
+            'user'  =>  $user,
+            'posts' =>  $posts,
+            'pages' =>  $pages
+        ]);
     }
- 
+    
+    public function actionPosts($username)
+    {
+        $user       =   $this->findUser($username);
+        $query      =   Post::find()->where(['user_id'=>$user->id,'status'=>Post::STATUS_PUBLISH]);
+        $countQuery =   clone $query;
+        $count      =   $countQuery->count();
+        if ($count == 0){
+            return $this->redirect(Yii::$app->urlManager->createUrl("@{$username}"));
+        }
+        $pages = new Pagination(['totalCount' => $count,'defaultPageSize'=>7,'params'=>array_merge($_GET, ['#' => 'details'])]);
+        $posts = $query->offset($pages->offset)
+            ->limit(7)
+            ->orderBy('published_at desc')
+            ->all();
+        
+        return $this->render('user',[
+            'user'  =>  $user,
+            'posts' =>  $posts,
+            'pages' =>  $pages
+        ]);
+    }
+
+    public function actionRecommends($username)
+    {
+        $user       =   $this->findUser($username);
+        $query      =   Post::find()->leftJoin(Userrecommend::tableName(),Post::tableName().'.id='.Userrecommend::tableName().'.post_id')
+                            ->where(Post::tableName().'.status=:status AND '.Userrecommend::tableName().'.user_id=:user_id',['user_id'=>$user->id,'status'=>Post::STATUS_PUBLISH]);
+        $countQuery =   clone $query;
+        $count      =   $countQuery->count();
+        if ($count == 0){
+            return $this->redirect(Yii::$app->urlManager->createUrl("@{$username}"));
+        }
+        $pages = new Pagination(['totalCount' => $count,'defaultPageSize'=>7,'params'=>array_merge($_GET, ['#' => 'details'])]);
+        $posts = $query->offset($pages->offset)
+            ->limit(7)
+            ->orderBy('published_at desc')
+            ->all();
+        
+        return $this->render('user',[
+            'user'  =>  $user,
+            'posts' =>  $posts,
+            'pages' =>  $pages
+        ]);        
+    }
+
     public function actionView($username,$url)
     {
         $user               =   $this->findUser($username);
         $post               =   $this->findPost($user->id, $url);
+        $this->addPostRead($post);
         $newComment         =   new Comment;
         $newComment->post_id=   $post->id;
         $comments           =   Comment::getCommentsOfPost($post->id);
@@ -103,6 +167,10 @@ class PostController extends Controller
     {
         $id     = base_convert($id, 36, 10);
         $model  = $this->findModel($id);
+        $type   = strtolower($type);
+        if ($type != 'content'){
+            $type = 'autosave';
+        }
         if (Yii::$app->request->isAjax){
             Yii::$app->response->format =   Response::FORMAT_JSON;
             $model->title               =   Extract::extractTitle($model->autosave_content);
@@ -368,5 +436,73 @@ class PostController extends Controller
             $query = $query->where('status=:status AND user_id=:user_id',[':status'=>$status,'user_id'=>Yii::$app->user->getId()]);
         }
         return $query;
+    }
+    
+    private function addPostRead(Post $post)
+    {
+        if (\Yii::$app->user->isGuest){
+            $this->addGuestReadPost($post);
+        } else {
+            $cookiesRequest =   \Yii::$app->getRequest()->getCookies();
+            $cookiesResponse=   \Yii::$app->getResponse()->getCookies();
+            if ($cookiesRequest->has('_r_hash')){    
+                $readHash   =   $cookiesRequest->getValue('_r_hash');
+                $this->moveLastDaysReadToUser($readHash);
+                $cookiesResponse->remove('_r_hash');
+                unset($_COOKIE['_r_hash']);
+            }
+            $this->addUserReadPost($post);
+        }
+    }
+    
+    
+    private function addUserReadPost(Post $post)
+    {
+        $model              =   new Userread();
+        $model->post_id     =   $post->id;
+        $model->user_id     =   \Yii::$app->user->getId();
+        $model->ip          =   ip2long(\Yii::$app->request->getUserIp());            
+        $model->save();
+    }
+
+    private function addGuestReadPost(Post $post)
+    {
+        $cookiesRequest =   \Yii::$app->getRequest()->getCookies();
+        $cookiesResponse=   \Yii::$app->getResponse()->getCookies();
+        if ($cookiesRequest->has('_r_hash')){
+            $readHash   =   $cookiesRequest->getValue('_r_hash');
+        } else {
+            $readHash   = \Yii::$app->security->generateRandomString(32);
+            $cookiesResponse->add(new \yii\web\Cookie([
+                                'name'  => '_r_hash',
+                                'value' => $readHash,
+                                'expire'=> time() + (20 * 365 * 24 * 60 * 60)
+                            ]));
+        }   
+        $model              =   new Guestread();
+        $model->uuid        =   $readHash;
+        $model->post_id     =   $post->id;
+        $model->ip          =   ip2long(\Yii::$app->request->getUserIp());
+        $model->useragent   =   md5(\Yii::$app->request->getUserAgent());
+        $model->save();
+    }
+
+    private function moveLastDaysReadToUser($hash)
+    {
+        $models = Guestread::find()->where('uuid=:hash AND created_at>=:timestamp',[
+            'hash'      =>  $hash,
+            'timestamp' =>  date('Y-m-d H:i:s',time() - (3600 * 24 * 3))
+        ])->all();
+        $userRead   =   new Userread;
+        $rows       =   [];
+        foreach ($models as $model){
+            $userRead->user_id      =   \Yii::$app->user->getId();
+            $userRead->post_id      =   $model->post_id;
+            $userRead->ip           =   $model->ip;
+            $userRead->created_at   =   $model->created_at;
+            $rows[]                 =   $userRead->attributes;
+        }
+        $userRead   =   new Userread;
+        Yii::$app->db->createCommand()->batchInsert(Userread::tableName(), $userRead->attributes(), $rows)->execute();
     }
 }

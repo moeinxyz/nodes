@@ -26,7 +26,7 @@ echo GridView::widget([
     'columns' => [
         [
             'attribute'     => 'title',
-            'content' => function ($model, $key, $index, $column) {
+            'content' => function ($model, $key, $index, $column) use($username){
                 if (($model->title === NULL || $model->title === '')){
                     $title = Module::t('post','_admin.title.null');
                 } else {
@@ -38,7 +38,12 @@ echo GridView::widget([
                 } else {
                     $text = $model->content;
                 }                
-                $content = Html::a($title, ['edit', 'id' => base_convert($model->id, 10, 36),'type'=>'autosave'], ['target' => '_blank', 'data-pjax' => 0]);
+                if ($model->status === Post::STATUS_PUBLISH) {
+                    $content = Html::a($title, Yii::$app->urlManager->createUrl("$username/{$model->url}"), ['target' => '_blank', 'data-pjax' => 0]);    
+                } else {
+                    $content = Html::a($title, ['edit', 'id' => base_convert($model->id, 10, 36),'type'=>'autosave'], ['target' => '_blank', 'data-pjax' => 0]);    
+                }
+                
                 $content .= '<br><span class="small-font-size">';
                 $content .= StringHelper::truncateWords(strip_tags($text), 14);
                 $content .= '</span>';

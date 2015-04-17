@@ -12,6 +12,9 @@ class Module extends \yii\base\Module
     public $commentTable        =   '{{%comment}}';
     public $abuseTable          =   '{{%abuse}}';
     public $userRecommendTable  =   '{{%userrecommend}}';
+    public $userReadTable       =   '{{%userread}}';
+    public $guestReadTable      =   '{{%guestread}}';
+    
     public function init()
     {
         parent::init();
@@ -24,8 +27,10 @@ class Module extends \yii\base\Module
             'sourceLanguage' => 'en-US',
             'basePath' => '@app/modules/post/messages',
             'fileMap' => [
-                'modules/post/post'     => 'post.php',
-                'modules/post/comment'  => 'comment.php',
+                'modules/post/post'         => 'post.php',
+                'modules/post/comment'      => 'comment.php',
+                'modules/post/userread'     => 'userread.php',
+                'modules/post/guestread'    => 'guestread.php',
             ],
         ];
     }

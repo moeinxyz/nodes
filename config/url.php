@@ -3,11 +3,21 @@ return [
             'showScriptName'    => false,
             'enablePrettyUrl'   => true,
                 'rules' => [
+                    // special rules
+                    '@<username:[\w\-\.]+>/followers'                                       =>  'user/following/followers',
+                    '@<username:[\w\-\.]+>/following'                                       =>  'user/following/following',
+                    
+                    
                     // post module
-                    '@<username:[\w\-]+>/<url:[\w\-]+>'                                     =>  'post/post/view',
-                    '@<username:[\w\-]+>/<url:[\w\-]+>/comment/<timestamp:\d+>'             =>  'post/comment/write',
-                    '@<username:[\w\-]+>'                                                   =>  'post/post/user',
-                    '@<username:[\w\-]+>/rss'                                               =>  'post/post/rss',                    
+                    '@<username:[\w\-\.]+>/rss'                                             =>  'post/post/rss',      
+                    '@<username:[\w\-\.]+>/posts'                                           =>  'post/post/posts',    
+                    '@<username:[\w\-\.]+>/recommends'                                      =>  'post/post/recommends',                    
+                    '@<username:[\w\-\.]+>/<url:[\w\-]+>'                                   =>  'post/post/view',
+                    '@<username:[\w\-\.]+>/<url:[\w\-]+>/comment/<timestamp:\d+>'           =>  'post/comment/write',
+                    '@<username:[\w\-\.]+>/<url:[\w\-]+>/recommend'                         =>  'post/post/recommend',
+                    '@<username:[\w\-\.]+>'                                                 =>  'post/post/user',
+                    
+                    
                     'post/write'                                                            =>  'post/post/write',
                     'post/autosave/<id:\w+>'                                                =>  'post/post/autosave',
                     'post/edit'                                                             =>  'post/post/edit',
@@ -19,7 +29,6 @@ return [
                     'post/stat'                                                             =>  'post/stat/stat',
                     'post/trash'                                                            =>  'post/post/trash',
                     'post/delete'                                                           =>  'post/post/delete',
-                    '@<username:[\w\-]+>/<url:[\w\-]+>/recommend'                           =>  'post/post/recommend',
 
                     // user module
                     'user/login'                                                            =>  'user/user/login',
@@ -31,6 +40,7 @@ return [
                     'user/activation'                                                       =>  'user/user/activation',
                     'user/reset'                                                            =>  'user/user/reset',
                     'user/follow'                                                           =>  'user/following/follow',
+                    'user/import'                                                           =>  'user/following/import',
                     
                     'token/change'                                                          =>  'user/token/change',
                     'token/activation'                                                      =>  'user/token/activation',

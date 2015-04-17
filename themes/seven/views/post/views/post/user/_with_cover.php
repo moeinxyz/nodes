@@ -17,7 +17,7 @@ use app\modules\user\models\Url;
         </div>
     </div>
 </section>
-<section class="container-fluid">
+<section class="container-fluid" id="details">
     <hr class="title">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
