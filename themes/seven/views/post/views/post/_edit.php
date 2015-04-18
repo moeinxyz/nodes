@@ -1,7 +1,6 @@
 <?php
 use yii\helpers\Html;
 use app\modules\post\Module;
-use yii\helpers\HtmlPurifier;
 /* @var $this \yii\web\View */
 /* @var $model app\modules\post\models\Post */
 $this->registerAssetBundle('custom-editor');

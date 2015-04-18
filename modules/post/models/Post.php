@@ -228,12 +228,12 @@ class Post extends \yii\db\ActiveRecord
     //@todo test it
     public function afterSave($insert, $changedAttributes) {
         parent::afterSave($insert, $changedAttributes);
-        if ($this->oldAttributes['status'] !== self::STATUS_PUBLISH && $this->status === self::STATUS_PUBLISH){
+        if (isset($this->oldAttributes['status']) && $this->oldAttributes['status'] !== self::STATUS_PUBLISH && $this->status === self::STATUS_PUBLISH){
             $this->getUser()->one()->updateCounters(['posts_count'=>1]);            
             User::find()->join('LEFT JOIN', Userrecommend::tableName(),User::tableName().'.id = '.Userrecommend::tableName().'.user_id')
                     ->where(Userrecommend::tableName().'.post_id=:post_id',['post_id'=>$this->id])
                     ->all()->updateAllCounters(['recommended_count'=>1]);
-        } else if ($this->oldAttributes['status'] === self::STATUS_PUBLISH && $this->status !== self::STATUS_PUBLISH) {
+        } else if (isset($this->oldAttributes['status']) && $this->oldAttributes['status'] === self::STATUS_PUBLISH && $this->status !== self::STATUS_PUBLISH) {
             $this->getUser()->one()->updateCounters(['posts_count'=>-1]);
             User::find()->join('LEFT JOIN', Userrecommend::tableName(),User::tableName().'.id = '.Userrecommend::tableName().'.user_id')
                     ->where(Userrecommend::tableName().'.post_id=:post_id',['post_id'=>$this->id])

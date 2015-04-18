@@ -17,38 +17,31 @@ use app\modules\embed\models\Embed;
 class EmbedController extends \yii\web\Controller
 {
     
-    public function beforeAction($action) {
-    $this->enableCsrfValidation = false;
-    return parent::beforeAction($action);
-}
-    
     public function behaviors()
     {
-        return [];
-//        return [
-//            'access'    =>  [
-//                'class' =>  AccessControl::className(),
-//                'only'  =>  ['embed'],
-//                'rules' =>  [
-//                    [
-//                        'actions'       =>  ['embed'],
-//                        'roles'         =>  ['@'],                        
-//                        'matchCallback' =>  function($rule,$action){
-//                            Yii::$app->response->format =   Response::FORMAT_JSON;
-//                            $referrer                   =   Yii::$app->request->getReferrer();
-//                            $serverName                 =   Yii::$app->request->getServerName();
-//                            $parse                      =   parse_url($referrer);
-//                            if (array_key_exists('host', $parse) && $parse['host'] == $serverName){
-//                                return TRUE;
-//                            }
-//                            return TRUE;
-//                            return FALSE;
-//                        },
-//                        'allow'         =>  TRUE
-//                    ]
-//                ],                                
-//            ]
-//        ];
+        return [
+            'access'    =>  [
+                'class' =>  AccessControl::className(),
+                'only'  =>  ['embed'],
+                'rules' =>  [
+                    [
+                        'actions'       =>  ['embed'],
+                        'roles'         =>  ['@'],                        
+                        'matchCallback' =>  function($rule,$action){
+                            Yii::$app->response->format =   Response::FORMAT_JSON;
+                            $referrer                   =   Yii::$app->request->getReferrer();
+                            $serverName                 =   Yii::$app->request->getServerName();
+                            $parse                      =   parse_url($referrer);
+                            if (array_key_exists('host', $parse) && $parse['host'] == $serverName){
+                                return TRUE;
+                            }
+                            return FALSE;
+                        },
+                        'allow'         =>  TRUE
+                    ]
+                ],                                
+            ]
+        ];
     }
     
     public function actionEmbed($url,$type = 'oembed')
@@ -62,7 +55,6 @@ class EmbedController extends \yii\web\Controller
         } else {
             $type = Embed::TYPE_EXTRACT;
         }
-        
         $model  = $this->loadModel($url, $type);
         if ($model === NULL || strtotime($model->updated_at) < (time() - Yii::$app->controller->module->timeLimit)){
             $response   = $this->getEmbedResponse($url,  $type);

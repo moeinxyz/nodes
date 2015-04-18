@@ -18,6 +18,7 @@ $js=<<<JS
 var status      =   $("i#status");
 var setting     =   $("#setting");
 var editorElm   =   $("#editor");
+        
 var editor=new Dante.Editor({
     el: "#editor",
     upload_url:                 "{$uploadUrl}",
@@ -31,6 +32,7 @@ var editor=new Dante.Editor({
     extract_placeholder:        "{$extractPlaceholder}"
 });
 editor.start();
+    
 $("#editor").bind("DOMSubtreeModified",function(){
   $("input#post-content").val(editor.getContent());
 });
@@ -46,7 +48,8 @@ $(document).ajaxError(function(data){
     status.attr('class','glyphicon glyphicon-floppy-remove');
     editorElm.find('.overlay').remove();        
     editorElm.append('<i class="fa fa-warning" title="{$errorTitle}"></i>');
-});  
+}); 
+    
 $("a#save").on('click',function(){
     editorElm.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
     var store = editor.checkforStore();
@@ -59,6 +62,7 @@ $("a#save").on('click',function(){
     }
     return false;
 });
+    
 // edit this dummy coding
 $("a#publish").on('click',function(){
     editorElm.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');

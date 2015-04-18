@@ -11,7 +11,7 @@ Dante.Editor.Tooltip.prototype.move = function(coords) {
       right: coord_right
     });
 };
-Dante.Editor.Tooltip.prototype.getEmbedFromNode = function(node) {
+Dante.View.TooltipWidget.Embed.prototype.getEmbedFromNode = function(node) {
   this.node = $(node);
   this.node_name = this.node.attr("name");
   this.node.addClass("spinner");
@@ -32,7 +32,7 @@ Dante.Editor.Tooltip.prototype.getEmbedFromNode = function(node) {
     };
   })(this));
 };        
-Dante.Editor.Tooltip.prototype.getExtractFromNode = function(node) {
+Dante.View.TooltipWidget.EmbedExtract.prototype.getExtractFromNode = function(node) {
   this.node = $(node);
   this.node_name = this.node.attr("name");
   this.node.addClass("spinner");
