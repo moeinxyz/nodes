@@ -57,8 +57,9 @@ return [
     '_admin.title.null'         =>  'بدون عنوان',
     '_admin.content.null'       =>  'بدون متن',
     
-    '_show_post_abstract.written_by'        =>  'نوشته شده در {time} توسط ',
-    '_show_post_abstract.recommended_by'    =>  '،توصیه شده توسط ',
-    
+    '_show_post_abstract.written_by'                =>  'نوشته شده در {time} توسط ',
+    '_show_post_abstract.recommended_by'            =>  '،توصیه شده توسط ',
+    '_show_post_abstract.comma'                     =>  '، ',
+    '_show_post_abstract.recommended_by_some_more'  =>  ' و {counter} نفر دیگر',
     'comment.loginToComment'    =>  'وارد شوید و نظر دهید'
 ];

@@ -7,7 +7,7 @@ use yii\widgets\Breadcrumbs;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-$this->registerAssetBundle('Main');
+$this->registerAssetBundle('main');
 $lang   = Yii::$app->language;
 $js     = <<<JS
 var RecaptchaOptions = {

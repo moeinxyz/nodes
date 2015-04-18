@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cf5ccc984e8c9201485c2e270056bc46",
+    "hash": "3f1f7975a16a50fb56ae834bcbd6c3cb",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -59,6 +59,33 @@
                 "twitter"
             ],
             "time": "2015-03-19 05:51:18"
+        },
+        {
+            "name": "bower-asset/animate.css",
+            "version": "3.2.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/daneden/animate.css.git",
+                "reference": "c60dc9028bccb062ab03f0ab7d5b6a32ec555996"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/daneden/animate.css/zipball/c60dc9028bccb062ab03f0ab7d5b6a32ec555996",
+                "reference": "c60dc9028bccb062ab03f0ab7d5b6a32ec555996",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "./animate.css",
+                "bower-asset-ignore": [
+                    ".*",
+                    "src",
+                    "*.yml",
+                    "Gemfile",
+                    "Gemfile.lock",
+                    "*.md"
+                ]
+            }
         },
         {
             "name": "bower-asset/bootstrap",
@@ -295,6 +322,22 @@
             ]
         },
         {
+            "name": "bower-asset/jQuery-One-Page-Nav",
+            "version": "v3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/davist11/jQuery-One-Page-Nav.git",
+                "reference": "ad42eea086d77314bc5399251a15405d628e9a17"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/davist11/jQuery-One-Page-Nav/zipball/ad42eea086d77314bc5399251a15405d628e9a17",
+                "reference": "ad42eea086d77314bc5399251a15405d628e9a17",
+                "shasum": ""
+            },
+            "type": "bower-asset-library"
+        },
+        {
             "name": "bower-asset/jasny-bootstrap",
             "version": "v3.1.3",
             "source": {
@@ -450,6 +493,36 @@
             ]
         },
         {
+            "name": "bower-asset/jquery.nicescroll",
+            "version": "3.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/inuyaksa/jquery.nicescroll.git",
+                "reference": "9cdc541fe2cdecf7171261b7bc1c16840cc831d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/inuyaksa/jquery.nicescroll/zipball/9cdc541fe2cdecf7171261b7bc1c16840cc831d8",
+                "reference": "9cdc541fe2cdecf7171261b7bc1c16840cc831d8",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.8.3"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "./jquery.nicescroll.js",
+                    "./zoomico.png"
+                ],
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "demo",
+                    "package.json"
+                ]
+            }
+        },
+        {
             "name": "bower-asset/punycode",
             "version": "v1.3.2",
             "source": {
@@ -562,6 +635,41 @@
                 "functional",
                 "server",
                 "util"
+            ]
+        },
+        {
+            "name": "bower-asset/wow",
+            "version": "1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/matthieua/WOW.git",
+                "reference": "535597ab3d6dfe3f7bfd76281c991e042fdeca25"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/matthieua/WOW/zipball/535597ab3d6dfe3f7bfd76281c991e042fdeca25",
+                "reference": "535597ab3d6dfe3f7bfd76281c991e042fdeca25",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "dist/wow.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "tests"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Reveal CSS animation as you scroll down a page.",
+            "keywords": [
+                "animation",
+                "reveal",
+                "scroll"
             ]
         },
         {

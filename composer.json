@@ -41,7 +41,11 @@
         "kartik-v/yii2-grid": "dev-master",
 	"abraham/twitteroauth": "0.5.2",
         "linkedinapi/linkedin": "dev-master",
-        "google/apiclient": "1.0.*@beta"
+        "google/apiclient": "1.0.*@beta",
+        "bower-asset/wow": "*",
+        "bower-asset/jQuery-One-Page-Nav": "*",
+        "bower-asset/jquery.nicescroll": "*",
+        "bower-asset/animate.css": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

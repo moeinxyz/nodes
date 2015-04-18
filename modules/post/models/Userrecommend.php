@@ -3,7 +3,7 @@
 namespace app\modules\post\models;
 
 use Yii;
-
+use app\modules\user\models\User;
 /**
  * This is the model class for table "{{%userrecommend}}".
  *
@@ -97,5 +97,34 @@ class Userrecommend extends \yii\db\ActiveRecord
     public function afterDelete() {
         parent::afterDelete();
         $this->getUser()->one()->updateCounters(['recommended_count'=>-1]);
+    }
+    
+    /**
+     * 
+     * @param integer $postId
+     * @return integer
+     */
+    public static function countPostRecommends($postId)
+    {
+        return self::find()->leftJoin(User::tableName(),self::tableName().'.user_id='.User::tableName().'.id')
+                ->where(self::tableName().'.post_id=:post_id AND '.User::tableName().'.status!=:status',['post_id'=>$postId,'status'=>  User::STATUS_BLOCK])->count();
+    }
+    
+    /**
+     * 
+     * @param integer $postId
+     * @param integer $limit
+     * @param integer $exceptedUserId
+     * @return array
+     */
+    public static function getPostRecommenders($postId,$limit = 5,$exceptedUserId = null)
+    {
+        $query = User::find()->leftJoin(self::tableName(),self::tableName().'.user_id='.User::tableName().'.id');
+        if ($exceptedUserId === NULL){
+            $query = $query->where(self::tableName().'.post_id=:post_id AND '.User::tableName().'.status!=:status',['post_id'=>$postId,'status'=>User::STATUS_BLOCK]);
+        } else {
+            $query = $query->where(self::tableName().'.post_id=:post_id AND '.self::tableName().'.user_id!=:user_id AND '.User::tableName().'.status!=:status',['post_id'=>$postId,'user_id'=>$exceptedUserId,'status'=>User::STATUS_BLOCK]);
+        }
+        return $query->orderBy('created_at desc')->limit($limit)->all();
     }
 }

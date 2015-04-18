@@ -1,8 +1,15 @@
-<?php use app\modules\post\models\Post;use app\modules\post\Module; use yii\helpers\StringHelper;?>
-<div class="box">
+<?php 
+use app\modules\post\models\Post;
+use app\modules\post\Module; 
+use yii\helpers\StringHelper;
+use app\modules\post\models\Userrecommend;
+
+$author =   $post->getUser()->one();
+$bold   =   ($user->id === $author->id && $post->pin === Post::PIN_ON)?true:false;
+?>
+<div class="box <?= ($bold===true)?'box-info':''; ?>">
     <div class="box-header">
         <?php
-            $author     =   $post->getUser()->one();
             $content    =   '<a href="'.Yii::$app->urlManager->createUrl("{$author->getUsername()}").'">';   
             $content    .=  '<img src="'.$author->getProfilePicture(36).'" alt="'.$author->getName().'" class="img-circle" style="width: 36px;height: 36px;margin-top: auto;">';
             $content    .=  '</a>';
@@ -11,12 +18,34 @@
             $content    .=  '<a href="'.Yii::$app->urlManager->createUrl(["{$author->getUsername()}"]).'">';
             $content    .=  $author->getName();
             $content    .=  '</a></span>';
-            if ($author->id != $user->id){
+            
+            if (($counter = Userrecommend::countPostRecommends($post->id)) && $counter >= 1){
                 $content    .=  '<span class="small-font-size">';
                 $content    .=  Module::t('post','_show_post_abstract.recommended_by');
-                $content    .=  '<a href="'.Yii::$app->urlManager->createUrl(["{$user->getUsername()}"]).'">';
-                $content    .=  $user->getName();
-                $content    .=  '</a></span>';
+                // user cound't recommend his own post
+                if ($author->id != $user->id){
+                    //show user recommeneded posts
+                    $content    .=  '<a href="'.Yii::$app->urlManager->createUrl(["{$user->getUsername()}"]).'">';
+                    $content    .=  $user->getName();
+                    $content    .=  '</a>';
+                    $content    .=  Module::t('post','_show_post_abstract.comma');
+                    $counter--;//this user recommend it
+                }
+                $recommenders   =   Userrecommend::getPostRecommenders($post->id,3,$user->id);
+                foreach ($recommenders as $index => $recommender){
+                    if ($index >= 1){
+                        //don't use comma for first one
+                        $content    .=  Module::t('post','_show_post_abstract.comma');    
+                    }
+                    $content    .=  '<a href="'.Yii::$app->urlManager->createUrl(["{$recommender->getUsername()}"]).'">';
+                    $content    .=  $recommender->getName();
+                    $content    .=  '</a>';
+                    $counter--;
+                }                
+                if ($counter >= 1){
+                    $content    .=  Module::t('post','_show_post_abstract.recommended_by_some_more',['counter'=>$counter]);
+                }                
+                $content    .=  '</span>';
             }
             echo $content;
         ?>
@@ -29,7 +58,7 @@
                         <?= $post->title;?>
                     </a><br>
                     <span class="medium-font-size">
-                        <?= StringHelper::truncateWords(strip_tags($post->content), 30); ?>
+                        <?= StringHelper::truncateWords(strip_tags($post->content), ($bold===true)?60:30); ?>
                     </span>
                 </div>
                 <div class="col-md-4">
@@ -45,7 +74,7 @@
                         <?= $post->title;?>
                     </a><br>
                     <span class="medium-font-size">
-                        <?= StringHelper::truncateWords(strip_tags($post->content), 60); ?>
+                        <?= StringHelper::truncateWords(strip_tags($post->content), ($bold===true)?120:30); ?>
                     </span>
                 </div>                    
             </div>
