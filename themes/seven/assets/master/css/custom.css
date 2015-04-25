@@ -1,0 +1,245 @@
+@charset "utf-8";
+/*
+ * Columbia Theme
+ * Custom Theme Styles
+ * File: css/custom.css
+ *
+ */
+
+/* Begin custom styles */
+#loginmodal{
+    direction: ltr !important;
+}
+#loginmodal.modal{
+    padding-top: 0px! important;
+}
+@media (min-width: 768px){
+    .navbar-nav > li > a {
+        padding-bottom: 10px;
+    }    
+} 
+@media (max-width:768px) {
+    .toggleclose {
+        width: 100% !important;
+    }
+    #wrapper.page-content {
+        padding-top: 0px !important;
+    }
+}
+.skin-blue .main-header .navbar .dropdown-menu li a {
+    color: #444 !important;
+}
+.skin-blue .main-header .navbar .dropdown-menu li a:hover {
+    background: #367fa9 !important;
+}
+.explore{
+    float: left;
+}
+/*@media (max-width: 767px) {
+  .skin-blue .main-header .navbar .dropdown-menu li a {
+    color: #444 !important;
+  }
+  .skin-blue .main-header .navbar .dropdown-menu li a:hover {
+    background: #367fa9 !important;
+  }
+}
+@media (max-width: 991px) {
+  .main-header .navbar-custom-menu a, .main-header .navbar-right a {
+     color: inherit; 
+    background: transparent;
+  }
+}*/
+.small-font-size {
+    font-size: 14px;
+}
+.medium-font-size {
+    font-size: 17px;
+}
+.medium-font-size .help-block,.medium-font-size .help-inline{
+    font-size: 14px;
+}
+.dropdown-menu > li.user-header > a{
+    padding: 5px;
+    color: rgba(255, 255, 255, 0.8);
+}
+/*
+    Original version: http://www.bootply.com/128062
+    
+    This version adds support for IE 10+ and Firefox.
+*/
+ 
+.glyphicon-refresh-animate {
+    -animation: spin .7s infinite linear;
+    -ms-animation: spin .7s infinite linear;
+    -webkit-animation: spinw .7s infinite linear;
+    -moz-animation: spinm .7s infinite linear;
+}
+
+.top-buffer{
+    margin-top: 25px;
+}
+
+.othermedia > a{
+    padding-left: 9px;
+    font-size: 18px;
+}
+
+.graf--blockquote{
+    border-right: 3px solid rgba(0, 0, 0, 0.8);
+    border-left: 0px !important;
+    font-family: "B koodak", "jaf-bernino-sans", "Open Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif !important;
+}
+.graf--p{
+    
+}
+
+span.transparent-input{
+   background-color:transparent !important;
+   border:none !important;
+   padding-right: 0px;
+}
+input.transparent-input:focus{
+   border:none !important;     
+   padding-left: 0px;
+}
+input.transparent-input:not(:focus){
+   background-color:transparent !important;
+   border:none !important;    
+   padding-left: 0px;
+}
+.dante-menu-input{
+    direction: ltr;
+}
+
+h1.post-header{
+    font-size: 60px;
+}
+h2.post-header{
+    font-size: 35px;
+}
+.imageCaption{
+    text-align: justify;
+    /*word-break:break-all;*/
+    left:-75px !important;
+    width: 65px !important;
+    font-family: inherit !important;
+}
+.hero h1{
+    color: #222;
+}
+.table > thead > tr > th{
+    text-align: center !important;
+}
+div.grid-view > .summary{
+    padding-right: 15px;
+}
+.messages {
+    margin: 0;
+    padding: 10px;
+    padding-bottom: 0;
+    list-style: none;
+    word-break: break-word;
+}
+.messages > li,.messages > div > li {
+    margin-bottom: 15px;
+}
+.messages > li > img,.messages> div > li > img {
+    float: right;
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+}
+.messages > li > div,.messages > div > li > div {
+    background-color: #f7f8f9;
+    padding: 10px;
+    padding-top: 1px;
+    margin-right: 80px;
+    position: relative;
+    font-size: 20px;
+}
+.messages > li > div:before,.messages > div > li > div:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    right: -10px;
+    top: 19px;
+    border-left: 10px solid #f7f8f9;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}
+.messages > li > div h5,.messages > div > li > div h5 {
+    font-weight: bold;
+    display: inline-block;
+}
+.messages > li > div .time, .messages > div > li > div .time {
+    margin-top: 5px;
+    color: #999;
+    float: left;
+    font-size: 14px;
+}
+.messages.messages-stripped > li:nth-child(odd) > div        {background-color: #eef1f4;}
+.messages.messages-stripped > li:nth-child(odd) > div:before {border-right-color: #eef1f4;}
+.messages.messages-zigzag > li:nth-child(even) > img {
+    float: right;
+}
+.messages.messages-zigzag > li:nth-child(even) > div {
+    margin-right: 80px;
+    margin-left: 0;
+}
+.messages.messages-zigzag > li:nth-child(even) > div:before {
+    right: -10px;
+    left: auto;
+    border-left: 10px solid #f7f8f9;
+    border-right: 0;
+}
+.messages.messages-zigzag > li:nth-child(even) > div h5    {float: right;}
+.messages.messages-zigzag > li:nth-child(even) > div .time {float: none;}
+.messages.messages-chat > li > div {
+    padding-top: 0;
+    padding-bottom: 2px;
+}
+.messages.messages-chat > li > div p {
+    margin-bottom: 3px;
+    line-height: 16px;
+}
+.messages li .messages-actions {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    opacity: 0;
+    -webkit-transition: all 0.3s ease;
+       -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+         -o-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+}
+.messages li:hover .messages-actions {
+    opacity: 1;
+}
+.messages li .messages-actions a {
+    font-size: 16px;
+    margin: 0 3px;
+}
+
+.profile-list-image{
+    max-width: 120px;
+    max-height: 120px;
+    width: auto;
+    height: auto;
+    margin-top: 0px;
+}
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+  
+@-webkit-keyframes spinw {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+ 
+@-moz-keyframes spinm {
+    from { -moz-transform: rotate(0deg);}
+    to { -moz-transform: rotate(360deg);}
+}

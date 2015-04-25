@@ -32,21 +32,26 @@ return [
                         'FontAwesome'
                     ]        
     ],
+    'wow'               =>  [
+        'class'         =>  'yii\web\AssetBundle',
+        'sourcePath'    =>  '@bower/wow/dist',        
+        'js'            =>  ['wow.min.js']
+    ],    
     'main'  =>  [
         'class'         =>  'yii\web\AssetBundle',
         'sourcePath'    =>  '@app/themes/seven/assets',
         'css'           =>  [
-                                'css/icomoon.css',//https://icomoon.io/
-                                'css/style.css',
-                                'css/custom.css',
-                                'dist/css/AdminLTE.css',
-                                'dist/css/skins/skin-blue.css',
+                                'master/css/icomoon.css',//https://icomoon.io/
+                                'master/css/style.css',
+                                'master/css/custom.css',
+                                'master/css/AdminLTE.css',
+                                'master/css/skin-blue.css',
                             ],
         'js'            => [
-                                'js/scripts.js',
-                                'dist/js/app.min.js',
+                                'master/js/main.js',
+                                'master/js/app.min.js',
                             ],        
-        'depends'       =>  ['init']        
+        'depends'       =>  ['init','wow']        
     ],
     'iCheck'    =>  [
         'class'         =>  'yii\web\AssetBundle',
@@ -85,17 +90,11 @@ return [
         'js'            =>  ['js/editor.js'],
         'depends'       =>  ['main','dante']
     ],
-    'wow'               =>  [
-        'class'         =>  'yii\web\AssetBundle',
-        'sourcePath'    =>  '@bower/wow/dist',        
-        'js'            =>  ['wow.min.js'],
-        'depends'       =>  ['main']
-    ],
     'show-post'         =>  [
         'class'         =>  'yii\web\AssetBundle',
         'sourcePath'    =>  '@bower/dante/dist',        
         'css'           =>  ['css/dante-editor.css'],
-        'depends'       =>  ['wow']
+        'depends'       =>  ['main']
     ],
     'jasny-bootstrap'   =>  [
         'class'         =>  'yii\web\AssetBundle',
