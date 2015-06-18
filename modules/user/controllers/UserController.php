@@ -15,6 +15,7 @@ use app\modules\user\models\ChangePasswordForm;
 use app\modules\user\models\ChangeSettingForm;
 use app\modules\user\models\ChangeUsernameForm;
 use app\modules\user\models\PublicProfileForm;
+use app\modules\user\Module;
 use yii\web\UploadedFile;
 
 use yii\web\Controller;
@@ -144,7 +145,9 @@ class UserController extends Controller
             $url    =   Yii::$app->urlManager->createAbsoluteUrl(['token/activation','id'=>$token->id,'code'=>urlencode($token->token)]);
             
             \Yii::$app->mailer
-                ->compose('@mail/activation', ['url' => $url,'email'=>$model->email])
+                ->compose('@mail/join', ['url' => $url,'email'=>$model->email])
+                ->setSubject(Module::t('mail','user.join.title'))
+                ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])                    
                 ->setTags(['activation',  Yii::$app->name])
                 ->setTo($model->email)
                 ->send();
@@ -163,9 +166,11 @@ class UserController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()){
             $token  =   Token::getNewResetToken($model->getUser()->id);
             $url    =   Yii::$app->urlManager->createAbsoluteUrl(['token/reset','id'=>$token->id,'code'=>urlencode($token->token)]);
-
+            
             \Yii::$app->mailer
                 ->compose('@mail/reset', ['url' => $url,'email'=>$model->email])
+                ->setSubject(Module::t('mail','user.reset.title'))
+                ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])
                 ->setTags(['reset',  Yii::$app->name])
                 ->setTo($model->email)
                 ->send();                
@@ -189,6 +194,8 @@ class UserController extends Controller
 
             \Yii::$app->mailer
                 ->compose('@mail/activation', ['url' => $url,'email'=>$model->email])
+                ->setSubject(Module::t('mail','user.activation.title'))
+                ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])                    
                 ->setTags(['activation',  Yii::$app->name])
                 ->setTo($model->email)
                 ->send();                
@@ -357,6 +364,8 @@ class UserController extends Controller
     {
         \Yii::$app->mailer
             ->compose('@mail/passwordChanged')
+            ->setSubject(Module::t('mail','user.pass_changed.title'))
+            ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])                
             ->setTags(['passwordChanged',  Yii::$app->name])
             ->setTo($email)
             ->send();                                
@@ -374,6 +383,8 @@ class UserController extends Controller
         $url    =   Yii::$app->urlManager->createAbsoluteUrl(['token/change','id'=>$token->id,'code'=>urlencode($token->token)]);
         \Yii::$app->mailer
             ->compose('@mail/confirmEmailChangeStep1',['email'=>$email,'url'=>$url])
+            ->setSubject(Module::t('mail','user.emailchange1.title'))
+            ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])                
             ->setTags(['emailchange','step1',  Yii::$app->name])
             ->setTo($email)
             ->send();                                

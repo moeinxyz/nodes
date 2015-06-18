@@ -1,6 +1,6 @@
 <?php
 return [
-            'showScriptName'    => false,
+            #'showScriptName'    => false,
             'enablePrettyUrl'   => true,
                 'rules' => [
                     // special rules

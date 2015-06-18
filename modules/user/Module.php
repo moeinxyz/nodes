@@ -28,9 +28,10 @@ class Module extends \yii\base\Module
             'sourceLanguage' => 'en-US',
             'basePath' => '@app/modules/user/messages',
             'fileMap' => [
-                'modules/user/user'     => 'user.php',
-                'modules/user/token'    => 'token.php',
-                'modules/user/following'=> 'following.php'
+                'modules/user/user'     =>  'user.php',
+                'modules/user/token'    =>  'token.php',
+                'modules/user/following'=>  'following.php',
+                'modules/user/mail'     =>  'mail.php'
             ],
         ];
     }

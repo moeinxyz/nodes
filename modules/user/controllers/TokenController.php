@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\HttpException;
 use yii\filters\AccessControl;
+use app\modules\user\Module;
 /**
  * TokenController implements the CRUD actions for Token model.
  */
@@ -142,9 +143,13 @@ class TokenController extends Controller
                                                                 'email'=>urlencode($email)]);
             \Yii::$app->mailer
                 ->compose('@mail/confirmEmailChangeStep2',['email'=>$email,'url'=>$url])
+                ->setSubject(Module::t('mail','token.emailchange2.title'))
+                ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])                    
+                ->setSubject(Module::t('mail','token.emailchange.title'))
+                ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])                    
                 ->setTags(['emailchange','step2',  Yii::$app->name])
                 ->setTo($email)
-                ->send();                               
+                ->send();                             
             return true;
         }
         return false;

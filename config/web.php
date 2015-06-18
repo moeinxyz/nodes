@@ -128,8 +128,9 @@ $config = [
 //            'useFileTransport' => true,
 //        ],
         'mailer' => [
-            'class'     => 'nickcv\mandrill\Mailer',
-            'apikey'    => '6mEUoQyuhDN4itn_O1UlCg',
+            'class'     =>  'nickcv\mandrill\Mailer',
+            'apikey'    =>  '6mEUoQyuhDN4itn_O1UlCg',
+            'htmlLayout'=>  '@app/themes/seven/views/user/views/mail/layout.php',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 30 : 0,

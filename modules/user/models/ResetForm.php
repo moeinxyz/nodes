@@ -24,7 +24,7 @@ class ResetForm extends Model
     {
         return [
             [['email'], 'required'],            
-            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className(), 'secret' => Yii::$app->reCaptcha->secret],
+//            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className(), 'secret' => Yii::$app->reCaptcha->secret],
             [['email'],'validateStatus'],
         ];
     }

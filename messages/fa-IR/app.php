@@ -1,6 +1,6 @@
 <?php
 return [
-    'header.home'                       =>  'NODES',
+    'header.home'                       =>  'نودز',
     'login.social'                      =>  'می توانید با استفاده از سرویس های زیر وارد شوید',
     'header.login'                      =>  'ورود / عضویت',
     'header.write'                      =>  'بنویس',
