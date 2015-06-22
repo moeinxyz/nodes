@@ -17,6 +17,8 @@ use app\modules\post\models\Comment;
 use app\modules\post\models\Userrecommend;
 use app\modules\post\models\Guestread;
 use app\modules\post\models\Userread;
+use app\modules\post\models\GuestToRead;
+use app\modules\post\models\UserToRead;
 use yii\data\Pagination;
 /**
  * PostController implements the CRUD actions for Post model.
@@ -191,7 +193,7 @@ class PostController extends Controller
             Yii::$app->response->format =   Response::FORMAT_JSON;
             $id                         =   base_convert($id, 36, 10);
             $model                      =   $this->findModel($id);
-            $model->autosave_content    =   \Yii::$app->request->getRawBody();
+            $model->autosave_content    =   trim(\Yii::$app->request->getBodyParam('body'));
             $model->last_update_type    =   Post::LAST_UPDATE_TYPE_AUTOSAVE;
             $model->save();
             return ActiveForm::validate($model);
@@ -505,4 +507,54 @@ class PostController extends Controller
         $userRead   =   new Userread;
         Yii::$app->db->createCommand()->batchInsert(Userread::tableName(), $userRead->attributes(), $rows)->execute();
     }
+    
+    
+    /*
+     * Home Page
+     */
+    public function actionHome()
+    {
+        if (\Yii::$app->user->isGuest){
+            return $this->guestHome();
+        } else {
+            return $this->userHome(Yii::$app->user->getId());
+        }
+    }
+    
+    
+    private function guestHome()
+    {
+        $query      =   GuestToRead::find()
+                        ->rightJoin(Post::tableName(),  GuestToRead::tableName().'.post_id = '.Post::tableName().'.id')
+                        ->where($condition);
+        $countQuery =   clone $query;
+        
+    }
+    
+    
+    private function userHome($userId)
+    {
+        $query      =   Post::find()
+                            ->leftJoin(UserToRead::tableName(),Post::tableName().'.id = '.UserToRead::tableName().'.post_id')
+                            ->where(UserToRead::tableName().'.user_id = :user_id AND '.Post::tableName().'.status = :status',[':user_id' =>  $userId,':status'   =>  Post::STATUS_PUBLISH]);
+        $count      =   $query->count();
+        // maybe become useful
+//        $otherwiseQuery     =   Post::find()
+//                                    ->leftJoin(UserToRead::tableName(), Post::tableName().'.id != '.UserToRead::tableName().'.post_id')
+//                                    ->where(UserToRead::tableName().'.user_id = :user_id AND '.Post::tableName().'.user_id != :user_id',[':user_id'=>$userId]);
+//        $otherwiseCount     =   $otherwiseQuery->count();
+        
+        $pages = new Pagination(['totalCount' => $count,'defaultPageSize'=>7,'params'=>array_merge($_GET, ['#' => 'details'])]);
+        $posts = $query->offset($pages->offset)
+            ->limit(7)
+            ->orderBy('score desc')
+            ->all();
+        
+        return $this->render('user',[
+            'user'  =>  $user,
+            'posts' =>  $posts,
+            'pages' =>  $pages
+        ]);
+    }    
+    
 }
