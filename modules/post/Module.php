@@ -14,7 +14,10 @@ class Module extends \yii\base\Module
     public $userRecommendTable  =   '{{%userrecommend}}';
     public $userReadTable       =   '{{%userread}}';
     public $guestReadTable      =   '{{%guestread}}';
-    
+    public $userToReadTable     =   '{{%usertoread}}';
+    public $guestToReadTable    =   '{{%guesttoread}}';
+
+
     public function init()
     {
         parent::init();
