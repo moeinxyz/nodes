@@ -94,9 +94,8 @@ class EmbedController extends \yii\web\Controller
         $parse      =   parse_url($url);
         $host       =   $parse['host'];
         if ($type === Embed::TYPE_OEMBED){
-            $response   = $this->embedlyOembed($url);
             if (in_array($host, Yii::$app->controller->module->aparatEmbedRange)){
-                $response = $this->simulateAparat($response);
+                $response = $this->simulateAparat($url);
             }
         } else {
             $response = $this->embedlyExtract($url);
@@ -105,22 +104,20 @@ class EmbedController extends \yii\web\Controller
         return $response;
     }
 
-    private function simulateAparat($data)
+    private function simulateAparat($url)
     {
-        if (isset($data->url)){
-            $result                 =   $data;            
-            $parse                  =   parse_url($result->url);
-            $params                 =   split("/", $parse['path']);
-            $videoHash              =   $params[2];
-            $result->type           =   'video';
-            $result->width          =   $result->thumbnail_width;
-            $result->height         =   $result->thumbnail_height;
-            $result->author_url     =   '';
-            $result->author_name    =   '';
-            $result->html           =   "<iframe src=\"http://www.aparat.com/video/video/embed/videohash/{$videoHash}/vt/frame\" allowFullScreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" height=\"360\" width=\"640\" ></iframe>";
-            return $result;
-        }
-        return NULL;
+        $result = new \stdClass();
+        $parse                  =   parse_url($url);
+        $params                 =   split("/", $parse['path']);
+        $videoHash              =   $params[2];
+        $result->url            =   $url;
+        $result->type           =   'video';
+        $result->width          =   640;
+        $result->height         =   360;
+        $result->author_url     =   '';
+        $result->author_name    =   '';
+        $result->html           =   "<iframe src=\"http://www.aparat.com/video/video/embed/videohash/{$videoHash}/vt/frame\" allowFullScreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" height=\"360\" width=\"640\" ></iframe>";        
+        return $result;
     }
 
     
