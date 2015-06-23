@@ -73,9 +73,9 @@ class PublicProfileForm extends Model{
             try {
                 Yii::$app->gearman->getDispatcher()->background('SyncImage', new JobWorkload([
                     'params' => [
-                        'userId'    =>  $this->getPrimaryKey(),
+                        'userId'    =>  $user->getPrimaryKey(),
                         'type'      =>  SyncImage::TYPE_PROFILE,
-                        'image'     =>  Yii::$app->urlManager->createAbsoluteUrl(Yii::getAlias("@tempFolder/pictures/{$id}.{$this->profilePicture->getExtension()}"))
+                        'image'     =>  Yii::$app->urlManager->createAbsoluteUrl(Yii::getAlias("@webTempPicturesFolder/{$id}.{$this->profilePicture->getExtension()}"))
                     ]
                 ]));
                 $user->profile_pic  =   User::PIC_UPLOADED;
@@ -90,9 +90,9 @@ class PublicProfileForm extends Model{
             try {
                 Yii::$app->gearman->getDispatcher()->background('SyncImage', new JobWorkload([
                     'params' => [
-                        'userId'    =>  $this->getPrimaryKey(),
+                        'userId'    =>  $user->getPrimaryKey(),
                         'type'      =>  SyncImage::TYPE_COVER,
-                        'image'     =>  Yii::$app->urlManager->createAbsoluteUrl(Yii::getAlias("@tempFolder/covers/{$id}.{$this->coverPicture->getExtension()}"))
+                        'image'     =>  Yii::$app->urlManager->createAbsoluteUrl(Yii::getAlias("@webTempCoversFolder/{$id}.{$this->coverPicture->getExtension()}"))
                     ]
                 ]));
                 $user->profile_cover    = User::COVER_UPLOADED;

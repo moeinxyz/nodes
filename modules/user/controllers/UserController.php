@@ -323,11 +323,11 @@ class UserController extends Controller
         if ($profile->validate()){
             $id = md5(Yii::$app->user->id).base_convert(Yii::$app->user->id, 10, 36);
             if ($profile->profilePicture instanceof UploadedFile){
-                $file = Yii::getAlias("@pictures/{$id}.{$profile->profilePicture->getExtension()}");
+                $file = Yii::getAlias("@webTempPictures/{$id}.{$profile->profilePicture->getExtension()}");
                 $profile->profilePicture->saveAs($file);
             }
             if ($profile->coverPicture instanceof UploadedFile){
-                $file = Yii::getAlias("@covers/{$id}.{$profile->coverPicture->getExtension()}");
+                $file = Yii::getAlias("@webTempCovers/{$id}.{$profile->coverPicture->getExtension()}");
                 $profile->coverPicture->saveAs($file);
             }
             if ($profile->update()){

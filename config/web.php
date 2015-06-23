@@ -14,10 +14,10 @@ $config = [
         ],        
         'ftpFs' => [
             'class' => 'creocoder\flysystem\FtpFilesystem',
-            'host'  => 'b101054.parspack.org',
+            'host'  => '91.109.23.155',
             'port'  => 21,
-            'username' => 'b101054',
-            'password' => 'DdIlxJvBmSp2yM',
+            'username' => 'cdn2@nodes.ir',
+            'password' => 'CU9eb8Mk',
             // 'root' => '/path/to/root',
             // 'passive' => false,
             // 'ssl' => true,
@@ -171,7 +171,7 @@ $config = [
             'servers' => [
                 ['host' => '127.0.0.1', 'port' => 4730],
             ],
-            'user' => 'moein7tl',
+            'user' => 'moein',
             'jobs' => [
                 'syncImage' =>  [
                     'class' => 'app\gearworker\SyncImage'
@@ -194,18 +194,30 @@ $config = [
         ],        
     ],    
     'aliases' => [
-        '@uploaded'     =>  '@app/uploaded',
+        '@runtimeTemp'              =>  '@app/runtime/temp/images',
+        '@webTemp'                  =>  '@app/web/userassets',
+        '@webTempPictures'          =>  '@webTemp/pictures',
+        '@webTempCovers'            =>  '@webTemp/covers',
+        '@webTempFolder'            =>  'userassets',
+        '@webTempCoversFolder'      =>  '@webTempFolder/covers',
+        '@webTempPicturesFolder'    =>  '@webTempFolder/pictures',
+        '@ftp'                      =>  '/assets',
+        '@ftpImages'                =>  '@ftp/images',
+        
+        '@ppicBaseUrl'      =>  'http://cdn2.nodes.ir/assets/pictures',
+        '@cpicBaseUrl'      =>  'http://cdn2.nodes.ir/assets/covers',
+        '@upBaseUrl'        =>  'http://cdn2.nodes.ir/assets/images',
+        '@gravatar'         =>  'http://www.gravatar.com/avatar',
+        '@placeHold'        =>  'http://www.placehold.it',
+        '@profile'          =>  'http://nodes.ir',
+        
+        
+        '@uploaded'     =>  '@app/runtime/temp/images',
         '@temp'         =>  '@app/web/t',
         '@tempFolder'   =>  't',
         '@pictures'     =>  '@temp/pictures',
         '@covers'       =>  '@temp/covers',        
-        '@ftp'          =>  '/assets',
-        '@ppicBaseUrl'  =>  'http://cdn.nodes.ir/assets/p',
-        '@cpicBaseUrl'  =>  'http://cdn.nodes.ir/assets/c',
-        '@upBaseUrl'    =>  'http://cdn.nodes.ir/assets/images',
-        '@gravatar'     =>  'http://www.gravatar.com/avatar',
-        '@placeHold'    =>  'http://www.placehold.it',
-        '@profile'      =>  'http://nodes.ir'
+
     ],    
     'params' => $params,
 ];

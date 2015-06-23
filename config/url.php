@@ -1,6 +1,6 @@
 <?php
 return [
-            #'showScriptName'    => false,
+            'showScriptName'    => false,
             'enablePrettyUrl'   => true,
                 'rules' => [
                     // special rules
@@ -52,5 +52,8 @@ return [
                     // social module
                     'social/admin'                                                          =>  'social/social/admin',
                     'social/auth'                                                           =>  'social/social/auth',
+                    
+                    // default site route
+                    ''                                                                      =>  'post/home/home',
                 ],
         ];

@@ -34,12 +34,11 @@ class ImageController extends \yii\web\Controller
         $model->file    =   UploadedFile::getInstanceByName('file');
         $model->post_id =   base_convert($id, 36, 10);
         if ($model->save()){
-            $file = Yii::getAlias("@uploaded/{$model->url}");
-            $model->file->saveAs($file);
-            $remoteFile =   Yii::getAlias("@ftp/p/{$model->url}");
-            $content = file_get_contents($file);
-            //@todo fix it
-//            Yii::$app->ftpFs->put($remoteFile, $content);
+            $file = Yii::getAlias("@runtimeTemp/{$model->url}");
+            @$model->file->saveAs($file);
+            $remoteFile =   Yii::getAlias("@ftpImages/{$model->url}");
+            $content    =   file_get_contents($file);
+            Yii::$app->ftpFs->put($remoteFile, $content);
             unlink($file);
             return Yii::getAlias("@upBaseUrl/{$model->url}");
         } else {

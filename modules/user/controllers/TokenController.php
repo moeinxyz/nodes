@@ -55,7 +55,7 @@ class TokenController extends Controller
             if ($token->activeAccount()){
                 Yii::$app->session->setFlash('token.activation.successful');//@todo implement in toread
                 Yii::$app->user->login($token->user);
-                return $this->redirect(Yii::$app->urlManager->createUrl(['user/toread','activation'=>true]));
+                return $this->redirect(Yii::$app->urlManager->createUrl(['','activation'=>true]));
             } else {
                 throw new HttpException(500);
             }
@@ -78,7 +78,7 @@ class TokenController extends Controller
             if ($model->load(Yii::$app->request->post()) && $model->changePassword()){
                 Yii::$app->session->setFlash('token.reset.successful');//@todo implement in toread
                 Yii::$app->user->login($token->user);
-                return $this->redirect(Yii::$app->urlManager->createUrl(['user/toread','reset'=>true]));                
+                return $this->redirect(Yii::$app->urlManager->createUrl(['','reset'=>true]));                
             }
             return $this->render('password',['model'=>$model]);
         }

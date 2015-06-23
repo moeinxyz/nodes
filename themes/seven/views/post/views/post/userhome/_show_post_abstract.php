@@ -63,7 +63,6 @@ $bold   =   ($user->id === $author->id && $post->pin === Post::PIN_ON)?true:fals
                 </div>
                 <div class="col-md-4">
                     <a href="<?= Yii::$app->urlManager->createUrl(["{$user->getUsername()}/{$post->url}"])?>">
-                        <?php //@todo fix it ?>
                         <img src="http://digiato.com/wp-content/uploads/2015/04/cclj-usw0aepnnd.jpg" alt="<?= $post->title;?>">
                     </a>
                 </div>

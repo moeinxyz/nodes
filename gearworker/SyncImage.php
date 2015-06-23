@@ -22,17 +22,17 @@ class SyncImage extends JobBase
         $fileName   =   md5($userId).base_convert($userId, 10, 36);
         if ($type === self::TYPE_PROFILE){
             $localFile  =   Yii::getAlias("@pictures/{$fileName}.jpg");
-            $remoteFile =   Yii::getAlias("@ftp/p/{$fileName}.jpg");
+            $remoteFile =   Yii::getAlias("@ftpPictures/{$fileName}.jpg");
         } else {
             $localFile  =   Yii::getAlias("@covers/{$fileName}.jpg");
-            $remoteFile =   Yii::getAlias("@ftp/c/{$fileName}.jpg");
+            $remoteFile =   Yii::getAlias("@ftpCovers/{$fileName}.jpg");
         }
         imagejpeg($stream,$localFile,100);
         imagedestroy($stream);
         $this->setStandardImageSize($localFile,$type);
         $content = file_get_contents($localFile);
-        unlink($localFile);
         Yii::$app->ftpFs->put($remoteFile, $content);
+        unlink($localFile);        
     }    
     
     private function setStandardImageSize($image,$type)

@@ -28,10 +28,10 @@ return [
     'components' => [
         'ftpFs' => [
             'class' => 'creocoder\flysystem\FtpFilesystem',
-            'host'  => 'b101054.parspack.org',
+            'host'  => '91.109.23.155',
             'port'  => 21,
-            'username' => 'b101054',
-            'password' => 'DdIlxJvBmSp2yM',
+            'username' => 'cdn2@nodes.ir',
+            'password' => 'CU9eb8Mk',
             // 'root' => '/path/to/root',
             // 'passive' => false,
             // 'ssl' => true,
@@ -61,9 +61,9 @@ return [
             'servers' => [
                 ['host' => '127.0.0.1', 'port' => 4730],
             ],
-            'user' => 'moein7tl',
+            'user' => 'moein',
             'jobs' => [
-                'syncImage' =>  [
+                'SyncImage' =>  [
                     'class' => 'app\gearworker\SyncImage'
                 ],
             ]
@@ -80,10 +80,12 @@ return [
         ],
     ],    
     'aliases' => [
-        '@temp'         =>  '@app/temp',
+        '@temp'         =>  '@app/runtime/temp',
         '@pictures'     =>  '@temp/pictures',
         '@covers'       =>  '@temp/covers',        
         '@ftp'          =>  '/assets',
+        '@ftpPictures'  =>  '@ftp/pictures',
+        '@ftpCovers'    =>  '@ftp/covers'
 //        '@tests'        =>   __DIR__ . '/../tests',
     ], 
     'params' => $params,

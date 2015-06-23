@@ -538,6 +538,9 @@ class PostController extends Controller
                             ->leftJoin(UserToRead::tableName(),Post::tableName().'.id = '.UserToRead::tableName().'.post_id')
                             ->where(UserToRead::tableName().'.user_id = :user_id AND '.Post::tableName().'.status = :status',[':user_id' =>  $userId,':status'   =>  Post::STATUS_PUBLISH]);
         $count      =   $query->count();
+        if ($count == 0){ // for example new registered user
+            return $this->guestHome();
+        }
         // maybe become useful
 //        $otherwiseQuery     =   Post::find()
 //                                    ->leftJoin(UserToRead::tableName(), Post::tableName().'.id != '.UserToRead::tableName().'.post_id')
