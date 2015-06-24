@@ -6,6 +6,7 @@ use yii\filters\AccessControl;
 use yii\web\Response;
 use app\modules\post\models\Image;
 use yii\web\UploadedFile;
+
 class ImageController extends \yii\web\Controller
 {
     public function behaviors()
@@ -37,12 +38,24 @@ class ImageController extends \yii\web\Controller
             $file = Yii::getAlias("@runtimeTemp/{$model->url}");
             @$model->file->saveAs($file);
             $remoteFile =   Yii::getAlias("@ftpImages/{$model->url}");
+            $this->resizeImage($file);
             $content    =   file_get_contents($file);
             Yii::$app->ftpFs->put($remoteFile, $content);
             unlink($file);
             return Yii::getAlias("@upBaseUrl/{$model->url}");
         } else {
             throw new \yii\web\NotFoundHttpException;
+        }
+    }
+    
+    private function resizeImage($file)
+    {
+        $image = \yii\imagine\Image::getImagine()->open($file);
+        if ($image->getSize()->getWidth() > 700)
+        {
+            $height = (700 * $image->getSize()->getHeight()) / $image->getSize()->getWidth();
+            $image->resize(new \Imagine\Image\Box(700, $height))
+                    ->save($file);
         }
     }
 }
