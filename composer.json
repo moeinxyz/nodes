@@ -46,7 +46,7 @@
         "bower-asset/jQuery-One-Page-Nav": "*",
         "bower-asset/jquery.nicescroll": "*",
         "bower-asset/animate.css": "*",
-        "makotokw/hadoopstreaming": "dev-master"        
+        "yiisoft/yii2-imagine": "~2.0.0"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

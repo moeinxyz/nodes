@@ -83,7 +83,7 @@ return [
     'profile._public.image.remove'          =>  'پاک کردن',
     'profile._public.image.change'          =>  'تغییر',
     'profile._public.saveBtn'               =>  'بروزرسانی پروفایل',
-    'profile._public.successful.header'     =>  'پروفایل شما با موفقیت بروزرسانی شد.',
+    'profile._public.successful.header'     =>  'پروفایل شما با موفقیت بروزرسانی شد، اعمال برخی تغییرات ممکن است چند دقیقه زمان ببرد.',
     
     // url
     'profile.urls.header'                   =>  'دیگر رسانه ها',

@@ -58,7 +58,7 @@ $form = ActiveForm::begin([
             <div class="col-sm-8 col-lg-9 controls">
                 <div class="col-md-12 controls">
                     <div class="fileinput fileinput-new" data-provides="fileinput">
-                        <div class="fileinput-new thumbnail" style="width: 400px; height: 175px;">
+                        <div class="fileinput-new thumbnail" style="width: 300px; height: 130px;">
                             <img src="<?= Yii::$app->user->getIdentity()->getCoverPicture(); ?>" data-src="<?= Yii::$app->user->getIdentity()->getProfilePicture(); ?>" alt="<?= Yii::$app->user->getIdentity()->getName(); ?>">
                         </div>
                         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>

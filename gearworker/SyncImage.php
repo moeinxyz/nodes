@@ -3,7 +3,10 @@ namespace app\gearworker;
 
 use Yii;
 use filsh\yii2\gearman\JobBase;
-use app\modules\user\models\User;
+use yii\imagine\Image;
+use Imagine\Image\Box;
+use Imagine\Image\Point;
+//use app\modules\user\models\User;
 class SyncImage extends JobBase
 {
     const TYPE_COVER    =   'COVER';
@@ -37,6 +40,50 @@ class SyncImage extends JobBase
     
     private function setStandardImageSize($image,$type)
     {
+        if ($type === self::TYPE_PROFILE){
+            $this->setStandardProfileImageSize($image);
+        } else {
+            $this->setStandardCoverImageSize($image);
+        }
+    }
+    
+    private function setStandardProfileImageSize($file)
+    {
+        $image          =   Image::getImagine()->open($file);
+        $width          =   $image->getSize()->getWidth();
+        $height         =   $image->getSize()->getHeight();
+        if ($width > $height) {
+            $start = new Point(($width - $height) / 2,0);
+            $size  = new Box($height,$height);
+        } else {
+            $start = new Point(0,($height - $width) / 2);
+            $size  = new Box($width,$width);
+        }
         
+        $image->crop($start, $size)
+                ->resize(new Box(200, 200))
+                ->save($file);
+    }
+    
+    private function setStandardCoverImageSize($file)
+    {
+        $image          =   Image::getImagine()->open($file);
+        $width          =   $image->getSize()->getWidth();
+        $height         =   $image->getSize()->getHeight();
+        
+        if (($width / 1400) > ($height / 600)) {
+            $newWidth   =   ($height / 600) * 1400;
+            $image      =   $image->crop(new Point(($width - $newWidth) / 2,0), new Box($newWidth, $height));
+        } else {
+            $newHeight  =   ($width / 1400) * 600;
+            $image      =   $image->crop(new Point(0,($height - $newHeight) / 2), new Box($width, $newHeight));
+        }
+        
+        if ($image->getSize()->getWidth() > 1400)
+        {
+            $image = $image->resize(new Box(1400, 600));
+        }
+        
+        $image->save($file,['quality'=>80]);
     }
 }

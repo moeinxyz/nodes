@@ -54,6 +54,6 @@ return [
                     'social/auth'                                                           =>  'social/social/auth',
                     
                     // default site route
-                    ''                                                                      =>  'post/home/home',
+                    ''                                                                      =>  'post/post/home',
                 ],
         ];
