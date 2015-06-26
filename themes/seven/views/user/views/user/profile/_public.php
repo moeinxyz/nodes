@@ -2,9 +2,11 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use app\modules\user\Module;
+use app\modules\user\models\PublicProfileForm;
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\modules\user\models\PublicProfileForm */
+$this->registerAssetBundle('iCheck');
 $this->registerAssetBundle('jasny-bootstrap');
 $form = ActiveForm::begin([
     'id' => 'public-form',
@@ -33,6 +35,7 @@ $form = ActiveForm::begin([
             </div>
         </div>        
         <div class="form-group">
+            <label class="col-sm-4 col-lg-3 hidden-lg hidden-md hidden-sm control-label"><?= Module::t('user', 'publicProfileForm.attr.profilePicture'); ?></label>
             <div class="col-sm-8 col-lg-9 controls">
                 <div class="col-md-12 controls">
                     <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -48,13 +51,15 @@ $form = ActiveForm::begin([
                         </span>
                         <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"  style="z-index: 0" ><?= Module::t('user', 'profile._public.image.remove'); ?></a>
                         <?= Html::error($model, 'profilePicture',['class'=>'help-block help-block-error small-font-size','style'=>'color:#da4453;']); ?>
+                        <?= $form->field($model,'profileStatus')->inline()->radioList(PublicProfileForm::getProfilePictureStatus())->label(false);?>
                       </div>
                     </div>                    
                 </div>
             </div>                
-            <label class="col-sm-4 col-lg-3 control-label"><?= Module::t('user', 'publicProfileForm.attr.profilePicture'); ?></label>
+            <label class="col-xs-4 col-lg-3 hidden-xs control-label"><?= Module::t('user', 'publicProfileForm.attr.profilePicture'); ?></label>
         </div>
         <div class="form-group">
+            <label class="col-sm-4 col-lg-3 hidden-lg hidden-md hidden-sm control-label"><?= Module::t('user', 'publicProfileForm.attr.coverPicture'); ?></label>
             <div class="col-sm-8 col-lg-9 controls">
                 <div class="col-md-12 controls">
                     <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -68,13 +73,14 @@ $form = ActiveForm::begin([
                                 <span class="fileinput-exists"  style="z-index: 0"><?= Module::t('user', 'profile._public.image.change'); ?></span>
                                 <?= Html::activeFileInput($model,'coverPicture');?>
                             </span>
-                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"  style="z-index: 0"><?= Module::t('user', 'profile._public.image.remove'); ?></a>
+                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"  style="z-index: 0" ><?= Module::t('user', 'profile._public.image.remove'); ?></a>
                             <?= Html::error($model, 'coverPicture',['class'=>'help-block help-block-error small-font-size','style'=>'color:#da4453;']); ?>
+                            <?= $form->field($model,'coverStatus')->inline()->radioList(PublicProfileForm::getCoverPictureStatus())->label(false);?>
                         </div>
                     </div>                    
                 </div>
             </div>                
-            <label class="col-sm-4 col-lg-3 control-label"><?= Module::t('user', 'publicProfileForm.attr.coverPicture'); ?></label>
+            <label class="col-xs-4 col-lg-3 hidden-xs control-label"><?= Module::t('user', 'publicProfileForm.attr.coverPicture'); ?></label>
         </div>        
         <div class="form-group">
             <div class="controls">
@@ -90,6 +96,16 @@ $form = ActiveForm::begin([
 ActiveForm::end();
 $js=<<<JS
 $('.fileinput').fileinput()     
+$('input[type="radio"]').each(function(){
+    var labelDom = $(($(this).parent())[0])[0];
+    var labelTxt = (labelDom.childNodes[1]);
+    labelDom.childNodes[1].remove();
+    $(this).iCheck({
+        radioClass: 'iradio_line-blue',
+        insert: '<div class="icheck_line-icon"></div>' + labelTxt.data                 
+    });        
+});                
+        
 JS;
 $this->registerJs($js);
 ?>
