@@ -19,6 +19,7 @@ use app\modules\post\models\Guestread;
 use app\modules\post\models\Userread;
 use app\modules\post\models\GuestToRead;
 use app\modules\post\models\UserToRead;
+use app\modules\post\models\CoverPhotoForm;
 use yii\data\Pagination;
 /**
  * PostController implements the CRUD actions for Post model.
@@ -169,10 +170,15 @@ class PostController extends Controller
     {
         $id     = base_convert($id, 36, 10);
         $model  = $this->findModel($id);
+        $cover  = new CoverPhotoForm();
         $type   = strtolower($type);
         if ($type != 'content'){
             $type = 'autosave';
         }
+        if ($model->cover === Post::COVER_BYCOVER) {
+            $cover->image = 'http://cdn2.nodes.ir/assets/pictures/c4ca4238a0b923820dcc509a6f75849b1.jpg';
+        }
+        $cover->image = 'http://cdn2.nodes.ir/assets/pictures/c4ca4238a0b923820dcc509a6f75849b1.jpg';
         if (Yii::$app->request->isAjax){
             Yii::$app->response->format =   Response::FORMAT_JSON;
             $model->title               =   Extract::extractTitle($model->autosave_content);
@@ -183,6 +189,7 @@ class PostController extends Controller
         }
         return $this->render('write', [
             'model' => $model,
+            'cover' => $cover,
             'type'  =>  $type
         ]);        
     }

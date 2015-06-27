@@ -40,7 +40,7 @@ $form = ActiveForm::begin([
                 <div class="col-md-12 controls">
                     <div class="fileinput fileinput-new" data-provides="fileinput">
                       <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                          <img src="<?= Yii::$app->user->getIdentity()->getProfilePicture(); ?>" data-src="<?= Yii::$app->user->getIdentity()->getProfilePicture(); ?>" alt="<?= Yii::$app->user->getIdentity()->getName(); ?>">
+                          <img src="<?= $user->getProfilePicture(); ?>" data-src="<?= $user->getProfilePicture(); ?>" alt="<?= Yii::$app->user->getIdentity()->getName(); ?>">
                       </div>
                       <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
                       <div>
@@ -51,7 +51,7 @@ $form = ActiveForm::begin([
                         </span>
                         <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"  style="z-index: 0" ><?= Module::t('user', 'profile._public.image.remove'); ?></a>
                         <?= Html::error($model, 'profilePicture',['class'=>'help-block help-block-error small-font-size','style'=>'color:#da4453;']); ?>
-                        <?= $form->field($model,'profileStatus')->inline()->radioList(PublicProfileForm::getProfilePictureStatus())->label(false);?>
+                        <?= ($model->activeProfilePictureStatus == true)?$form->field($model,'profileStatus')->inline()->radioList(PublicProfileForm::getProfilePictureStatus())->label(false):'';?>
                       </div>
                     </div>                    
                 </div>
@@ -64,7 +64,7 @@ $form = ActiveForm::begin([
                 <div class="col-md-12 controls">
                     <div class="fileinput fileinput-new" data-provides="fileinput">
                         <div class="fileinput-new thumbnail" style="width: 300px; height: 130px;">
-                            <img src="<?= Yii::$app->user->getIdentity()->getCoverPicture(); ?>" data-src="<?= Yii::$app->user->getIdentity()->getProfilePicture(); ?>" alt="<?= Yii::$app->user->getIdentity()->getName(); ?>">
+                            <img src="<?= $user->getCoverPicture(); ?>" data-src="<?= $user->getProfilePicture(); ?>" alt="<?= Yii::$app->user->getIdentity()->getName(); ?>">
                         </div>
                         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"></div>
                         <div>
@@ -75,7 +75,7 @@ $form = ActiveForm::begin([
                             </span>
                             <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"  style="z-index: 0" ><?= Module::t('user', 'profile._public.image.remove'); ?></a>
                             <?= Html::error($model, 'coverPicture',['class'=>'help-block help-block-error small-font-size','style'=>'color:#da4453;']); ?>
-                            <?= $form->field($model,'coverStatus')->inline()->radioList(PublicProfileForm::getCoverPictureStatus())->label(false);?>
+                            <?= ($model->activeCoverPictureStatus == true)?$form->field($model,'coverStatus')->inline()->radioList(PublicProfileForm::getCoverPictureStatus())->label(false):'';?>
                         </div>
                     </div>                    
                 </div>

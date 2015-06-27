@@ -85,6 +85,10 @@ return [
     'profile._public.saveBtn'               =>  'بروزرسانی پروفایل',
     'profile._public.successful.header'     =>  'پروفایل شما با موفقیت بروزرسانی شد، اعمال برخی تغییرات ممکن است چند دقیقه زمان ببرد.',
     
+    'publicProfileForm.profile.gravatar'            =>  'تصویر پیش فرض',
+    'publicProfileForm.profile.uploadedProfilePic'  =>  'آخرین تصویر پروفایل افزوده شده',    
+    'publicProfileForm.cover.noCover'               =>  'بدون کاور',
+    'publicProfileForm.cover.uploadedCover'         =>  'آخرین کاور افزوده شده',
     // url
     'profile.urls.header'                   =>  'دیگر رسانه ها',
     'profile.updateUrls'                    =>  'بروزرسانی لینک ها',

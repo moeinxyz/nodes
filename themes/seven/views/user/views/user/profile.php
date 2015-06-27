@@ -19,7 +19,7 @@
                     </div>
                 <?php endif; ?>                
                 <hr class="mini central">
-                <?= $this->render('profile/_public',['model'=>$public]);?>    
+                <?= $this->render('profile/_public',['model'=>$public,'user'=>$user]);?>    
             </div>
         </div>
     </div>    
