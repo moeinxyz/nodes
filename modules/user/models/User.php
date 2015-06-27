@@ -25,6 +25,8 @@ use filsh\yii2\gearman\JobWorkload;
  * @property string $tagline
  * @property string $profile_pic
  * @property string $profile_cover
+ * @property string $uploaded_profile_pic
+ * @property string $uploaded_cover_pic
  * @property string $content_activity
  * @property string $publisher_activity
  * @property string $social_activity
@@ -55,6 +57,11 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     
     const COVER_NOCOVER                 =   'NOCOVER';
     const COVER_UPLOADED                =   'UPLOADED';
+    
+    
+    // so dummy,change it ASAP
+    const UPLOADED_PIC_YES              =   'YES';
+    const UPLOADED_PIC_NO               =   'NO';
     
     const ACTIVITY_SETTING_FULL         =   'FULL';
     const ACTIVITY_SETTING_DIGEST       =   'DIGEST';
@@ -105,6 +112,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             [['type'],'in','range'=>[self::TYPE_ADMIN,self::TYPE_USER]],
             [['profile_pic'],'in',  'range'=>[self::PIC_GRAVATAR,self::PIC_UPLOADED]],
             [['profile_cover'],'in','range'=>[self::COVER_NOCOVER,self::COVER_UPLOADED]],
+            [['uploaded_profile_pic','uploaded_cover_pic'],'in','range'=>[self::UPLOADED_PIC_NO,self::UPLOADED_PIC_YES]]
         ];
     }
 
