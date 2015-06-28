@@ -240,4 +240,9 @@ class Post extends \yii\db\ActiveRecord
                     ->all()->updateAllCounters(['recommended_count'=>-1]);            
         }
     }
+    
+    public static function getCoverFileName($id)
+    {
+        return md5($id).base_convert($id, 10, 36);
+    }
 }

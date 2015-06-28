@@ -43,4 +43,25 @@ class Extract {
         }
         return $code;
     }
+    
+    public static function extractPureText($html){
+        libxml_use_internal_errors(true);
+        $encode                     =   mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
+        $dom                        =   new DOMDocument('1.0','UTF-8');
+        $dom->preserveWhiteSpace    =   TRUE;
+        @$dom->loadHTML($encode);
+        libxml_clear_errors();
+        
+        $expression                 =   (new CssSelector())->toXPath('.graf--p');
+        $xpath                      =   new DOMXPath($dom);
+        $nodes                      =   $xpath->query($expression);
+        $length                     =   $nodes->length;
+        $text                       =   '';
+        for ($i = 0;$i < $length;$i++)
+        {
+            $text   =   $text.' '.$nodes->item($i)->textContent;
+        }
+        
+        return strip_tags($text);
+    }
 }

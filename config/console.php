@@ -66,6 +66,9 @@ return [
                 'SyncImage' =>  [
                     'class' => 'app\gearworker\SyncImage'
                 ],
+                'SyncPostCover' =>  [
+                    'class' =>  'app\gearworker\SyncPostCover'
+                ]
             ]
         ],           
     ],
@@ -83,9 +86,10 @@ return [
         '@temp'         =>  '@app/runtime/temp',
         '@pictures'     =>  '@temp/pictures',
         '@covers'       =>  '@temp/covers',        
-        '@ftp'          =>  '/assets',
-        '@ftpPictures'  =>  '@ftp/pictures',
-        '@ftpCovers'    =>  '@ftp/covers'
+        '@postcovers'   =>  '@temp/postcovers',
+        '@ftpPictures'  =>  '/user/pictures',
+        '@ftpCovers'    =>  '/user/covers',
+        '@ftpPostCovers'=>  '/post/covers'
 //        '@tests'        =>   __DIR__ . '/../tests',
     ], 
     'params' => $params,

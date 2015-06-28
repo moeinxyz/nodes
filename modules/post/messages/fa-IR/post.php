@@ -61,5 +61,17 @@ return [
     '_show_post_abstract.recommended_by'            =>  '،توصیه شده توسط ',
     '_show_post_abstract.comma'                     =>  '، ',
     '_show_post_abstract.recommended_by_some_more'  =>  ' و {counter} نفر دیگر',
-    'comment.loginToComment'    =>  'وارد شوید و نظر دهید'
-];
+    'comment.loginToComment'    =>  'وارد شوید و نظر دهید',
+    
+    //
+    'coverPhotoForm.attr.coverImage'        =>  'کاور',
+    'coverPhotoForm.err.try_later'          =>  'در حال حاضر امکان این تغییر وجود ندارد،لطفا دقایقی دیگر دوباره امتحان نمایید.',
+    'write.cover.title'                     =>  'تنظیمات کاور',
+    'write.cover.image.new'                 =>  'انتخاب',
+    'write.cover.image.change'              =>  'تغییر',
+    'write.cover.image.remove'              =>  'پاک کردن',
+    'post.cover.add'                        =>  'افزودن/جایگزینی کاور',
+    'post.cover.remove'                     =>  'حذف کاور',
+    'cover.remove.successful'               =>  'کاور پست با موفقیت حذف گردید،این پست بدون کاور نمایش داده می شود.',
+    'cover.add_or_change.successful'        =>  'کاور با موفقیت تغییر یافت،نمایش این تغییر ممکن است تا چند دقیقه زمان ببرد.',
+];  

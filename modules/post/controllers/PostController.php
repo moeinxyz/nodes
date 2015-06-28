@@ -21,6 +21,8 @@ use app\modules\post\models\GuestToRead;
 use app\modules\post\models\UserToRead;
 use app\modules\post\models\CoverPhotoForm;
 use yii\data\Pagination;
+use yii\web\UploadedFile;
+use app\modules\post\Module;
 /**
  * PostController implements the CRUD actions for Post model.
  */
@@ -40,7 +42,7 @@ class PostController extends Controller
                         'allow'     =>  true
                     ],
                     [
-                        'actions'   =>  ['autosave','delete','publish'],
+                        'actions'   =>  ['autosave','delete','publish','cover'],
                         'roles'     =>  ['@'],
                         'verbs'     =>  ['POST'],
                         'allow'     =>  TRUE
@@ -170,20 +172,19 @@ class PostController extends Controller
     {
         $id     = base_convert($id, 36, 10);
         $model  = $this->findModel($id);
-        $cover  = new CoverPhotoForm();
+        $cover  = new CoverPhotoForm([
+            'coverStatus'   =>  $model->cover,
+            'postId'        =>  $model->id
+        ]);
         $type   = strtolower($type);
         if ($type != 'content'){
             $type = 'autosave';
         }
-        if ($model->cover === Post::COVER_BYCOVER) {
-            $cover->image = 'http://cdn2.nodes.ir/assets/pictures/c4ca4238a0b923820dcc509a6f75849b1.jpg';
-        }
-        $cover->image = 'http://cdn2.nodes.ir/assets/pictures/c4ca4238a0b923820dcc509a6f75849b1.jpg';
         if (Yii::$app->request->isAjax){
             Yii::$app->response->format =   Response::FORMAT_JSON;
             $model->title               =   Extract::extractTitle($model->autosave_content);
             $model->content             =   Extract::extractContent($model->autosave_content);
-            $model->pure_text           =   strip_tags($model->autosave_content);
+            $model->pure_text           =   Extract::extractPureText($model->content);
             $model->last_update_type    =   Post::LAST_UPDATE_TYPE_MANUAL;
             return $model->save();
         }
@@ -246,6 +247,40 @@ class PostController extends Controller
             $model->save();
         }
         return $this->redirect(['edit', 'id' => base_convert($model->id, 10, 36),'type'=>'autosave']);
+    }
+
+    public function actionCover($id) {
+        if (Yii::$app->request->isAjax){
+            $model          =   $this->findModel(base_convert($id, 36, 10));
+            $cover          =   new CoverPhotoForm([
+                'coverStatus'   =>  $model->status,
+                'postId'        =>  $model->id
+            ]);
+            $cover->coverImage  =   UploadedFile::getInstance($cover, 'coverImage');
+            if ((Yii::$app->request->post('submit-type')  == 'add-cover') && $cover->validate() && ($cover->coverImage instanceof UploadedFile)){
+                $name   =   Post::getCoverFileName(base_convert($id, 36, 10));
+                $file   =   Yii::getAlias("@webTempPostCover/{$name}.{$cover->coverImage->getExtension()}");
+                $cover->coverImage->saveAs($file);
+                
+                if ($cover->update()){
+                    Yii::$app->session->setFlash('post.cover.add_or_change.successful');    
+                } else if ($cover->getFirstError('coverImage') == null) {
+                    $cover->addError('coverImage',  Module::t('post','coverPhotoForm.err.try_later'));
+                }
+            } else if (Yii::$app->request->post('submit-type') == 'remove-cover') {
+                $model->cover       = Post::COVER_NOCOVER;
+                if ($model->save()){
+                    $cover->coverStatus =   Post::COVER_NOCOVER;
+                    Yii::$app->session->setFlash('post.cover.remove.successful');
+                } else if ($cover->getFirstError('coverImage') == null) {
+                    $cover->addError('coverImage',  Module::t('post','coverPhotoForm.err.try_later'));
+                    $cover->coverStatus =   $model->cover;
+                }
+            }
+            return $this->renderAjax('_post_cover',[
+                'cover' =>  $cover
+            ]);
+        }
     }
 
     public function actionPin($status,$id)

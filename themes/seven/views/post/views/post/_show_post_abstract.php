@@ -58,13 +58,16 @@ $bold   =   ($user->id === $author->id && $post->pin === Post::PIN_ON)?true:fals
                         <?= $post->title;?>
                     </a><br>
                     <span class="medium-font-size">
-                        <?= StringHelper::truncateWords(strip_tags($post->content), ($bold===true)?60:30); ?>
+                        <?= StringHelper::truncateWords($post->pure_text, ($bold===true)?60:30); ?>
                     </span>
                 </div>
                 <div class="col-md-4">
                     <a href="<?= Yii::$app->urlManager->createUrl(["{$user->getUsername()}/{$post->url}"])?>">
-                        <?php //@todo fix it ?>
-                        <img src="http://digiato.com/wp-content/uploads/2015/04/cclj-usw0aepnnd.jpg" alt="<?= $post->title;?>">
+                        <?php
+                        $name       =   Post::getCoverFileName($post->id);
+                        $image      =   Yii::getAlias("@postCoverBaseUrl/{$name}-thumbnail.jpg");
+                        ?>
+                        <img src="<?= $image ?>" alt="<?= $post->title;?>">
                     </a>
                 </div>
             </div>
@@ -75,7 +78,7 @@ $bold   =   ($user->id === $author->id && $post->pin === Post::PIN_ON)?true:fals
                         <?= $post->title;?>
                     </a><br>
                     <span class="medium-font-size">
-                        <?= StringHelper::truncateWords(strip_tags($post->content), ($bold===true)?120:30); ?>
+                        <?= StringHelper::truncateWords($post->pure_text, ($bold===true)?120:30); ?>
                     </span>
                 </div>                    
             </div>

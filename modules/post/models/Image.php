@@ -38,7 +38,7 @@ class Image extends \yii\db\ActiveRecord
             [['post_id'], 'integer'],
             [['url'], 'string', 'max' => 255],
             [['url'],'unique'],
-            [['file'],'image','skipOnEmpty'=>FALSE,'extensions'=>['jpg','png','jpeg','gif','svg','tif','tiff','webp'],'mimeTypes'=>['image/png','image/gif','image/jpeg','image/jpg','image/pjpeg','image/gif','image/tiff','image/x-tiff','image/svg+xml','image/webp'],'maxSize'=>1572864],            
+            [['file'],'image','skipOnEmpty'=>FALSE,'extensions'=>['jpg','png','jpeg','gif','svg','tif','tiff','webp'],'mimeTypes'=>['image/png','image/gif','image/jpeg','image/jpg','image/pjpeg','image/gif','image/tiff','image/x-tiff','image/svg+xml','image/webp'],'maxSize'=>8388608],            
         ];
     }
 

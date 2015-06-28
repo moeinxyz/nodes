@@ -29,7 +29,8 @@ return [
                     'post/stat'                                                             =>  'post/stat/stat',
                     'post/trash'                                                            =>  'post/post/trash',
                     'post/delete'                                                           =>  'post/post/delete',
-
+                    'post/cover'                                                            =>  'post/post/cover',
+                    
                     // user module
                     'user/login'                                                            =>  'user/user/login',
                     'user/join'                                                             =>  'user/user/join',

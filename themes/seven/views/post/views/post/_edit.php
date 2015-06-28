@@ -23,9 +23,6 @@ $this->registerAssetBundle('custom-editor');
                     ?>
                 </div>
             </div>
-            <div class="col-md-12">
-                <?= $this->render('_cover_form'); ?>
-            </div>
         </div>
         <?php
             echo Html::beginForm(['post/edit','id'=>  base_convert($model->id, 10, 36)],'post',['id'=>'post-form']);

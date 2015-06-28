@@ -113,7 +113,7 @@ return [
     
     'setting._setting.content_activity.hint'    =>  'نحوه مطلع نمودن شما از طریق ایمیل از نظرات بر روی نوشته های شما،پاسخ به نظرات شما و یا اشاره کردن به شما در نوشته ها و نظرات',
     'setting._setting.social_activity.hint'     =>  'نحوه مطلع نمودن شما از دنبال کنندگان جدید و یا پیوستن دوستان ',
-    'setting._setting.reading_list.hint'        =>  'دریافت نوشته های پیشنهاد شده و ترند شده',
+    'setting._setting.reading_list.hint'        =>  'دریافت  نوشته های پیشنهاد شده و برتر',
     'setting.changeSettingBtn'                  =>  'تغییر تنظیمات',
     
     // email
