@@ -68,6 +68,9 @@ return [
                 ],
                 'SyncPostCover' =>  [
                     'class' =>  'app\gearworker\SyncPostCover'
+                ],
+                'PostSuggestionForUser' =>  [
+                    'class' =>  'app\gearworker\PostSuggestionForUser'
                 ]
             ]
         ],           

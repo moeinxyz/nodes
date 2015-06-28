@@ -556,6 +556,8 @@ class PostController extends Controller
      */
     public function actionHome()
     {
+        var_dump(count(preg_split('~[^\p{L}\p{N}\']+~u',"این جمله اول است. این هم جمله دوم است.")));
+        die;
         if (\Yii::$app->user->isGuest){
             return $this->guestHome();
         } else {
