@@ -1,4 +1,4 @@
-<?php  use app\modules\user\Module; use yii\grid\GridView;?>
+<?php  use app\modules\user\Module;?>
 <div class="top-buffer"></div>
 <!--public form-->
 <div class="row">   

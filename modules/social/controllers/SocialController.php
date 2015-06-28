@@ -21,13 +21,13 @@ class SocialController extends Controller
                 'only'  =>  ['admin','delete','share','status','auth'],
                 'rules' =>  [
                     [
-                        'actions'   =>  ['admin','share','status'],
+                        'actions'   =>  ['admin'],
                         'roles'     =>  ['@'],
                         'verbs'     =>  ['GET'],       
                         'allow'     =>  true
                     ],
                     [
-                        'actions'   =>  ['delete'],
+                        'actions'   =>  ['delete','share','status'],
                         'roles'     =>  ['@'],
                         'verbs'     =>  ['POST'],
                         'allow'     =>  true

@@ -8,7 +8,7 @@ use yii\helpers\StringHelper;
 use app\components\Helper\PersianNumber;
 
 $username   =   Yii::$app->user->getIdentity()->getUsername();
-$pjax       =   Pjax::begin(['enablePushState'=>FALSE]);
+$pjax       =   Pjax::begin(['enablePushState'=>FALSE,'clientOptions' => ['method' => 'POST']]);
 echo GridView::widget([
     'tableOptions' => [
         'class' => 'table table-striped table-hover fill-head'
@@ -104,12 +104,14 @@ echo GridView::widget([
                                 return Html::a('<span class="glyphicon glyphicon-star-empty"></span>', ['pin','status'=>$status,'id' => base_convert($model->id, 10, 36)], [
                                             'title' => Module::t('post', 'ـadmin.btn.unpin.title'),
                                             'data-pjax' => $pjax->getId(),
+//                                            'data-method'   => 'post',
                                             'style' => 'font-size:22px;padding-right:10px;'
                                 ]);
                             } else {
                                 return Html::a('<span class="glyphicon glyphicon-star"></span>', ['pin','status'=>$status,'id' => base_convert($model->id, 10, 36)], [
                                             'title' => Module::t('post', 'ـadmin.btn.pin.title'),
                                             'data-pjax' => $pjax->getId(),
+//                                            'data-method'   => 'post',
                                             'style' => 'font-size:22px;padding-right:10px;'
                                 ]);
                             }                                
@@ -154,5 +156,5 @@ pjaxDiv.on('pjax:complete',function(){
     pjaxDiv.find('.overlay').remove();
 });
 JS;
-$this->registerJs($js);
+//$this->registerJs($js);
 ?>            

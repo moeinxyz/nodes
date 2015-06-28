@@ -8,7 +8,7 @@ use app\modules\post\models\Abuse;
 use yii\widgets\Pjax;
 
 $username   =   Yii::$app->user->getIdentity()->getUsername();
-$pjax       =   Pjax::begin(['enablePushState'=>false]);
+$pjax       =   Pjax::begin(['enablePushState'=>FALSE,'clientOptions' => ['method' => 'POST']]);
 echo GridView::widget([
     'tableOptions' => [
         'class' => 'table table-striped table-hover fill-head'
@@ -79,24 +79,24 @@ echo GridView::widget([
                 'trash'     => function ($url, $model) use($pjax,$postId) {
                     if ($model->status != Comment::STATUS_TRASH) {
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['trash','id' => base_convert($model->id, 10, 36),'pid'=>  $postId], [
-                                    'title' => Module::t('comment', '_admin.btn.trash.title'),
-                                    'data-pjax' => $pjax->getId(),
-                                    'style' => 'font-size:22px;padding-right:10px;'
+                                    'title'         =>  Module::t('comment', '_admin.btn.trash.title'),
+                                    'data-pjax'     =>  $pjax->getId(),
+                                    'style'         =>  'font-size:22px;padding-right:10px;',
                         ]);
                     } else {
                         return Html::a('<span class="glyphicon glyphicon-refresh"></span>', ['trash','id' => base_convert($model->id, 10, 36),'pid'=>  $postId], [
-                                    'title' => Module::t('comment', '_admin.btn.untrash.title'),
-                                    'data-pjax' => $pjax->getId(),
-                                    'style' => 'font-size:22px;padding-right:10px;'
+                                    'title'         =>  Module::t('comment', '_admin.btn.untrash.title'),
+                                    'data-pjax'     =>  $pjax->getId(),
+                                    'style'         =>  'font-size:22px;padding-right:10px;',
                         ]);
                     }
                 },
                 'abuse'     => function ($url, $model) use($pjax,$postId) {
                     if (!Abuse::isCommentAbuseExist($model->id)){
                         return Html::a('<span class="glyphicon glyphicon-warning-sign"></span>', ['abuse','id' => base_convert($model->id, 10, 36),'pid'=>  $postId], [
-                                    'title' => Module::t('comment', '_admin.btn.abuse.title'),
-                                    'data-pjax' => $pjax->getId(),
-                                    'style' => 'font-size:22px;padding-right:10px;'
+                                    'title'         =>  Module::t('comment', '_admin.btn.abuse.title'),
+                                    'data-pjax'     =>  $pjax->getId(),
+                                    'style'         =>  'font-size:22px;padding-right:10px;',
                         ]);
                     }
                 }, 

@@ -6,7 +6,7 @@ use app\modules\social\models\Social;
 use yii\widgets\Pjax;
 
 $username   =   Yii::$app->user->getIdentity()->getUsername();
-$pjax       =   Pjax::begin(['enablePushState'=>false]);
+$pjax       =   Pjax::begin(['enablePushState'=>FALSE,'clientOptions' => ['method' => 'POST']]);
 echo GridView::widget([
     'tableOptions' => [
         'class' => 'table table-striped table-hover fill-head'

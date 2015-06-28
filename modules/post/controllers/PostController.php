@@ -36,13 +36,13 @@ class PostController extends Controller
                 'only'  =>  ['admin','autosave','delete','edit','pin','preview','publish','recommend','trash','write'],
                 'rules' =>  [
                     [
-                        'actions'   =>  ['admin','preview','write','pin','trash'],
+                        'actions'   =>  ['admin','preview','write'],
                         'roles'     =>  ['@'],
                         'verbs'     =>  ['GET'],
                         'allow'     =>  true
                     ],
                     [
-                        'actions'   =>  ['autosave','delete','publish','cover'],
+                        'actions'   =>  ['autosave','delete','publish','cover','pin','trash'],
                         'roles'     =>  ['@'],
                         'verbs'     =>  ['POST'],
                         'allow'     =>  TRUE

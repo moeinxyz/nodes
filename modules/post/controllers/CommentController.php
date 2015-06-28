@@ -24,13 +24,13 @@ class CommentController extends Controller
                 'only'  =>  ['write','trash','abuse','comments'],
                 'rules' =>  [
                     [
-                        'actions'   =>  ['write'],
+                        'actions'   =>  ['write','trash','abuse'],
                         'roles'     =>  ['@'],
                         'verbs'     =>  ['POST'],       
                         'allow'     =>  true
                     ],
                     [
-                        'actions'   =>  ['comments','trash','abuse'],
+                        'actions'   =>  ['comments'],
                         'roles'     =>  ['@'],
                         'verbs'     =>  ['GET'],
                         'allow'     =>  true
@@ -41,7 +41,6 @@ class CommentController extends Controller
                         return $this->redirect(Yii::$app->request->getReferrer());
                     return $this->redirect(Yii::$app->urlManager->createUrl(Yii::$app->user->loginUrl[0]));
                 }
-                
             ]
         ];
     }
@@ -95,22 +94,23 @@ class CommentController extends Controller
 
     public function actionTrash($id,$pid = NULL)
     {
-        if (Yii::$app->request->isAjax){
-            $id     =   base_convert($id, 36, 10);
-            $comment= $this->findComment($id);   
-            $comment->toggleTash();
-            $comment->save();
-            $dataProvider = new ActiveDataProvider([
-                'query' => Comment::find()->where('post_id=:post_id',['post_id'=>$comment->post->id]),
-            ]);
-            $dataProvider->sort->route = 'post/comments';            
-            return $this->renderAjax('_admin',[
-                'dataProvider'  =>  $dataProvider,
-                'postId'        =>  $pid
-            ]);    
-        } else {
-            return $this->redirect('post/comments');
-        }        
+        $id     =   base_convert($id, 36, 10);
+        $comment= $this->findComment($id);   
+        $comment->toggleTash();
+        $comment->save();
+        $dataProvider = new ActiveDataProvider([
+            'query' => Comment::find()->where('post_id=:post_id',['post_id'=>$comment->post->id]),
+        ]);
+        $dataProvider->sort->route = 'post/comments';            
+        return $this->renderAjax('_admin',[
+            'dataProvider'  =>  $dataProvider,
+            'postId'        =>  $pid
+        ]);    
+//        if (Yii::$app->request->isPut){
+//            
+//        } else {
+//            return $this->redirect(Yii::$app->request->getReferrer());
+//        }        
     }    
     
 
@@ -133,7 +133,7 @@ class CommentController extends Controller
                 'postId'        =>  $pid
             ]);    
         } else {
-            return $this->redirect('post/comments');
+            return $this->redirect(Yii::$app->request->getReferrer());
         }        
     }        
     
