@@ -2,14 +2,12 @@
 use app\modules\post\Module; 
 use yii\helpers\HtmlPurifier;
 
-use app\modules\user\models\User;
-use app\modules\user\models\Url;
 /* @var $this \yii\web\View */
 /* @var $user app\modules\user\models\User */
 ?>
 <section class="container-fluid">
     <div class="row">
-        <div class="col-xs-12 element-img postfade center-block centertext central" style="background-image: url(<?= Yii::$app->user->getIdentity()->getCoverPicture(); ?>);">
+        <div class="col-xs-12 element-img postfade center-block centertext central" style="background-image: url(<?= $user->getCoverPicture(); ?>);">
             <img src="<?= $user->getProfilePicture(); ?>" class="img-circle" width="200">    
             <div class="follow">
                 <?= $this->render('_follow',['user'=>$user]);?>
