@@ -23,6 +23,11 @@ use app\modules\post\models\CoverPhotoForm;
 use yii\data\Pagination;
 use yii\web\UploadedFile;
 use app\modules\post\Module;
+
+
+use yii\db\Query;
+use app\modules\user\models\Following;
+
 /**
  * PostController implements the CRUD actions for Post model.
  */
@@ -556,7 +561,7 @@ class PostController extends Controller
      */
     public function actionHome()
     {
-        var_dump(count(preg_split('~[^\p{L}\p{N}\']+~u',"این جمله اول است. این هم جمله دوم است.")));
+        var_dump($this->getFriendsRecommendedPost(4));
         die;
         if (\Yii::$app->user->isGuest){
             return $this->guestHome();
@@ -565,6 +570,34 @@ class PostController extends Controller
         }
     }
     
+    
+    private function getFriendsRecommendedPost($userId)
+    {
+        
+//        $query  =   new Query;
+//        $query->select('id, comments_count, published_at, pure_text')
+//                ->from(Post::tableName())
+//                ->leftJoin(Following::tableName(),  Post::tableName().'.user_id = '. Following::tableName().'.followed_user_id')
+//                ->where(Post::tableName().'.status = :status',[':status'=>Post::STATUS_PUBLISH])
+//                ->andWhere(Following::tableName().'.user_id = :user_id', [':user_id'=>$userId])
+//                ->andWhere(Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 100 DAY)')
+//                ->andWhere(Post::tableName().'.id NOT IN (SELECT DISTINCT post_id FROM '.Userread::tableName().' WHERE '.Userread::tableName().'.user_id = :user_id)',[':user_id'=>$userId])
+//                ->orderBy(Post::tableName().'.published_at');
+//        return $query->all();    
+//        
+        $query  =   new Query;
+        $query->select('id')
+                ->from(Post::tableName())
+                ->leftJoin(Userrecommend::tableName(), Post::tableName().'.id = '.Userrecommend::tableName().'.post_id')
+                ->where(Post::tableName().'.status = :status',[':status'=>Post::STATUS_PUBLISH])
+                ->andWhere(Post::tableName().'.user_id != :user_id', [':user_id'=>$userId])
+                ->andWhere(Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 100 DAY)')
+                ->andWhere(Post::tableName().'.id NOT IN (SELECT DISTINCT post_id FROM '.Userread::tableName().' WHERE '.Userread::tableName().'.user_id = :user_id)',[':user_id'=>$userId])
+                ->andWhere(Userrecommend::tableName().'.user_id IN (SELECT DISTINCT followed_user_id FROM '.Following::tableName().' WHERE '.Following::tableName().'.user_id = :user_id)',[':user_id'=>$userId])
+                ->orderBy(Post::tableName().'.published_at');
+        
+        return $query->all();
+    }
     
     private function guestHome()
     {

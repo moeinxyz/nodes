@@ -219,12 +219,6 @@ class Post extends \yii\db\ActiveRecord
         }
     }
     
-    public static function getCoverUrl($id)
-    {
-        $postfix    = md5($id).$id.'.jpg';
-        return Yii::getAlias("@upBaseUrl/{$postfix}");
-    }
-    
     //@todo test it
     public function afterSave($insert, $changedAttributes) {
         parent::afterSave($insert, $changedAttributes);
@@ -245,4 +239,14 @@ class Post extends \yii\db\ActiveRecord
     {
         return md5($id).base_convert($id, 10, 36);
     }
+    
+    
+    public static function getCoverUrl($id,$thumbnail = false)
+    {
+        $name   =   self::getCoverFileName($id);
+        if ($thumbnail){
+            return Yii::getAlias("@postCoverBaseUrl/{$name}-thumbnail.jpg");
+        }
+        return Yii::getAlias("@postCoverBaseUrl/{$name}.jpg");
+    }    
 }

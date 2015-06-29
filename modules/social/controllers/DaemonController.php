@@ -6,6 +6,10 @@ use app\modules\social\Module;
 use app\modules\post\models\Post;
 use app\modules\post\models\Userrecommend;
 use Yii;
+
+/**
+ * This Way Is So Dummy,Need Queue Arch
+ */
 class DaemonController extends \yii\console\Controller{
     
     public function init() {
@@ -17,15 +21,15 @@ class DaemonController extends \yii\console\Controller{
     {
         do
         {
-            $timestamp      =   Social::find()->where('status=:status',['status'=>  Social::STATUS_ACTIVE])->min('last_used');
+            $timestamp      =   Social::find()->where('status=:status',[':status'=>  Social::STATUS_ACTIVE])->min('last_used');
             $farthestTime   =   strtotime($timestamp);
             $diffTime       =   time()  -   $farthestTime;
             if ($timestamp == NULL || $diffTime < Module::CHECK_INTERVAL){
                 sleep(Module::CHECK_INTERVAL - $diffTime + Module::ADDITIONAL_SLEEP_SECS);
             }
-            $socials = Social::find()->where('status=:status AND last_used=:timestamp',[
-                'status'    =>  Social::STATUS_ACTIVE,
-                'timestamp' =>  $timestamp
+            $socials = Social::find()->where('status=:status AND last_used >= :timestamp',[
+                ':status'    =>  Social::STATUS_ACTIVE,
+                ':timestamp' =>  $timestamp
             ])->limit(10)->all();
             foreach ($socials as $social){
                 $this->dispatch($social);
@@ -92,11 +96,12 @@ class DaemonController extends \yii\console\Controller{
             ];
             
             $response = $li->post('people/~/shares', $params);
-            $this->addSocialContent($social, $post, $params,$response);
+            $this->addSocialContent($linkedin, $post, $params,$response);
         }
         $linkedin->last_used    =   new \yii\db\Expression('NOW()');
         $linkedin->update();
     }
+    
     private function addSocialContent($social,$post,$request,$response = NULL)
     {
         $verbose            =   [

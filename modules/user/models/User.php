@@ -35,6 +35,9 @@ use filsh\yii2\gearman\JobWorkload;
  * @property Integer $recommended_count
  * @property Integer $following_count
  * @property Integer $followers_count
+ * @property Integer $notifications_count
+ * @property string  $last_post_suggestion
+ * 
  * @property string $reCaptcha
  * @property mixed $links
  * 
@@ -209,9 +212,10 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function beforeValidate() {
         if (parent::beforeValidate()) {
             if ($this->isNewRecord) {
-                $this->auth_key     =   Yii::$app->getSecurity()->generateRandomString();
-                $this->created_at   =   new Expression('NOW()');
-                $this->type         =   self::TYPE_USER;
+                $this->auth_key             =   Yii::$app->getSecurity()->generateRandomString();
+                $this->created_at           =   new Expression('NOW()');
+                $this->last_post_suggestion =   new Expression('NOW()');
+                $this->type                 =   self::TYPE_USER;
                 $this->content_activity     =   self::ACTIVITY_SETTING_DIGEST;
                 $this->publisher_activity   =   self::ACTIVITY_SETTING_DIGEST;
                 $this->social_activity      =   self::ACTIVITY_SETTING_DIGEST;

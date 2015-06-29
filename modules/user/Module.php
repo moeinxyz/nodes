@@ -5,6 +5,9 @@ use Yii;
 
 class Module extends \yii\base\Module
 {
+    const ADDITIONAL_SLEEP_SECS =   5;
+    const CHECK_INTERVAL        =   86400;
+    
     public $controllerNamespace =   'app\modules\user\controllers';
     public $userTable           =   '{{%user}}';
     public $urlTable            =   '{{%url}}';

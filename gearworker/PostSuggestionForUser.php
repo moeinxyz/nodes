@@ -29,9 +29,12 @@ class PostSuggestionForUser extends JobBase
             }
         }
         
-        \Yii::$app->db->createCommand()
+        if (count($rows) >= 1){
+            \Yii::$app->db->createCommand()
                 ->batchInsert(UserToRead::tableName(), ['user_id','post_id','score'], $rows)
                 ->execute();
+        }
+        
     }
     
     private function generatePostsRank($userId)
@@ -59,7 +62,7 @@ class PostSuggestionForUser extends JobBase
                 $score  +=  $this->generateWordsCountRank($post['pure_text']);
                 $score  +=  $this->generateCommentsCountRank($post['comments_count']);
             }
-            
+
             $this->addPostScore($post['id'], $score);
         }
         
@@ -68,7 +71,6 @@ class PostSuggestionForUser extends JobBase
         foreach ($getLastUnreadedPost as $post)
         {
             $score  =   $this->generateTimeBasedRank($current, strtotime($post['published_at']));
-            
             // if not calcuate before
             if (!key_exists($post['id'], $this->posts)){
                 $score  +=  $this->generateWordsCountRank($post['pure_text']);
@@ -84,7 +86,7 @@ class PostSuggestionForUser extends JobBase
         $query  =   new Query;
         $query->select('id, comments_count, published_at, pure_text')
                 ->from(Post::tableName())
-                ->leftJoin(Following::tableName(),  Post::tableName().'.user_id = '. Following::tableName().'.followed_user_id as followed_user_id')
+                ->leftJoin(Following::tableName(),  Post::tableName().'.user_id = '. Following::tableName().'.followed_user_id')
                 ->where(Post::tableName().'.status = :status',[':status'=>Post::STATUS_PUBLISH])
                 ->andWhere(Following::tableName().'.user_id = :user_id', [':user_id'=>$userId])
                 ->andWhere(Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 100 DAY)')
@@ -96,26 +98,27 @@ class PostSuggestionForUser extends JobBase
     private function getFriendsRecommendedPost($userId)
     {
         $query  =   new Query;
-        $query->select('id, comments_count, published_at, pure_text, '.Userrecommend::tableName().'.followed_user_id')
+        $query->select('id, comments_count, published_at, pure_text')
                 ->from(Post::tableName())
-                ->leftJoin(Following::tableName(),  Post::tableName().'.user_id = '. $userId)
-                ->leftJoin(Userrecommend::tableName(), Post::tableName().'.user_id = '.Userrecommend::tableName().'.followed_user_id')
+                ->leftJoin(Userrecommend::tableName(), Post::tableName().'.id = '.Userrecommend::tableName().'.post_id')
                 ->where(Post::tableName().'.status = :status',[':status'=>Post::STATUS_PUBLISH])
                 ->andWhere(Post::tableName().'.user_id != :user_id', [':user_id'=>$userId])
                 ->andWhere(Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 100 DAY)')
                 ->andWhere(Post::tableName().'.id NOT IN (SELECT DISTINCT post_id FROM '.Userread::tableName().' WHERE '.Userread::tableName().'.user_id = :user_id)',[':user_id'=>$userId])
+                ->andWhere(Userrecommend::tableName().'.user_id IN (SELECT DISTINCT followed_user_id FROM '.Following::tableName().' WHERE '.Following::tableName().'.user_id = :user_id)',[':user_id'=>$userId])
                 ->orderBy(Post::tableName().'.published_at');
+
         return $query->all();
     }
     
     private function getLastUnreadedPost($userId)
     {
         $sql    =   'SELECT id, comments_count, published_at, pure_text'
-            .' ( SELECT COUNT(*) '   //correlated subquery
+            .' ,( SELECT COUNT(*) '   //correlated subquery
             . 'FROM '.Userread::tableName()
             . ' WHERE '.  Post::tableName().'.id = '.Userread::tableName().'.post_id'
             . ') AS user_read_count '
-            .' ( SELECT COUNT(*) '   //correlated subquery
+            .' ,( SELECT COUNT(*) '   //correlated subquery
             . 'FROM '.Guestread::tableName()
             . ' WHERE '.  Post::tableName().'.id = '.Guestread::tableName().'.post_id'
             . ') AS guest_read_count '                
@@ -129,6 +132,7 @@ class PostSuggestionForUser extends JobBase
         $query =    Yii::$app->db->createCommand($sql)
                 ->bindValue(':status', Post::STATUS_PUBLISH)
                 ->bindValue(':user_id', $userId);
+        
         return $query->queryAll();
     }    
     
