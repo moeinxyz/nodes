@@ -20,19 +20,27 @@ class PostSuggestionForUser extends JobBase
         $params     =   unserialize($job->workload())->getParams();
         $this->generatePostsRank($params['userId']);
         $rows       =   [];
+        $posts      =   [];
+        $timestamp  =   date("Y-m-d H:i:s", time());
+
         
-        foreach ($this->posts as $key => $score){
+        foreach ($this->posts as $postId => $score){
+            $posts[]    =   $postId;
             if ($score < 255){
-                $rows[] =   [$params['userId'],$key,  round($score)];    
+                $rows[] =   [$params['userId'],$postId,  round($score),$timestamp];    
             } else {
-                $rows[] =   [$params['userId'],$key,  255];
+                $rows[] =   [$params['userId'],$postId,  255,$timestamp];
             }
         }
         
         if (count($rows) >= 1){
             \Yii::$app->db->createCommand()
-                ->batchInsert(UserToRead::tableName(), ['user_id','post_id','score'], $rows)
+                ->batchInsert(UserToRead::tableName(), ['user_id','post_id','score','created_at'], $rows)
                 ->execute();
+            UserToRead::deleteAll(['AND','user_id = :user_id AND created_at < :timestamp',['in','post_id',$posts]],[
+                ':timestamp'    =>  $timestamp,
+                ':user_id'      =>  $params['userId']
+            ]);
         }
         
     }
@@ -127,8 +135,8 @@ class PostSuggestionForUser extends JobBase
             .       Post::tableName().'.user_id != :user_id AND '                
             .       Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 25 DAY) AND '
             .       Post::tableName().'.id NOT IN '                
-            .       '(SELECT DISTINCT post_id FROM '.Userread::tableName().' WHERE user_id = :user_id) '
-            .       'ORDER BY '.Post::tableName().'.published_at';        
+            .       '(SELECT DISTINCT post_id FROM '.Userread::tableName().' WHERE user_id = :user_id) ';
+
         $query =    Yii::$app->db->createCommand($sql)
                 ->bindValue(':status', Post::STATUS_PUBLISH)
                 ->bindValue(':user_id', $userId);
