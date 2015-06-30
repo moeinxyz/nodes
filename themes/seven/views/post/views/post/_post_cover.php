@@ -34,8 +34,7 @@ $pjax       =   Pjax::begin(['enablePushState'=>false]);
                         </div>
                     <?php endif; ?>                  <?php
                     if ($cover->coverStatus === Post::COVER_BYCOVER){
-                        $name       =   Post::getCoverFileName($cover->postId);
-                        $imageSrc   =   Yii::getAlias("@postCoverBaseUrl/{$name}-thumbnail.jpg");
+                        $imageSrc   =   Post::getCoverUrl($cover->postId, true);
                     } else {
                         $imageSrc   =   Yii::getAlias("@placeHold/300x169/EFEEEF/AAAAAA&text=No+Post+Cover");
                     }
