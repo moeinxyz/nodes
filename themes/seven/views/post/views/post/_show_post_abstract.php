@@ -22,7 +22,7 @@ $bold   =   ($user->id === $author->id && $post->pin === Post::PIN_ON)?true:fals
             if (($counter = Userrecommend::countPostRecommends($post->id)) && $counter >= 1){
                 $content    .=  '<span class="small-font-size">';
                 $content    .=  Module::t('post','_show_post_abstract.recommended_by');
-                // user cound't recommend his own post
+                // user couldn't recommend his own post
                 if ($author->id != $user->id){
                     //show user recommeneded posts
                     $content    .=  '<a href="'.Yii::$app->urlManager->createUrl(["{$user->getUsername()}"]).'">';
@@ -63,11 +63,7 @@ $bold   =   ($user->id === $author->id && $post->pin === Post::PIN_ON)?true:fals
                 </div>
                 <div class="col-md-4">
                     <a href="<?= Yii::$app->urlManager->createUrl(["{$user->getUsername()}/{$post->url}"])?>">
-                        <?php
-                        $name       =   Post::getCoverFileName($post->id);
-                        $image      =   Yii::getAlias("@postCoverBaseUrl/{$name}-thumbnail.jpg");
-                        ?>
-                        <img src="<?= $image ?>" alt="<?= $post->title;?>">
+                        <img src="<?= Post::getCoverUrl($post->id, true) ?>" alt="<?= $post->title;?>">
                     </a>
                 </div>
             </div>
