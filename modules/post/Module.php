@@ -6,6 +6,9 @@ use Yii;
 
 class Module extends \yii\base\Module
 {
+    const CHECK_INTERVAL        =   3600;
+    const ADDITIONAL_SLEEP_SECS =   5;
+    
     public $controllerNamespace =   'app\modules\post\controllers';
     public $postTable           =   '{{%post}}';
     public $imageTable          =   '{{%image}}';
@@ -15,8 +18,6 @@ class Module extends \yii\base\Module
     public $userReadTable       =   '{{%userread}}';
     public $guestReadTable      =   '{{%guestread}}';
     public $userToReadTable     =   '{{%usertoread}}';
-    public $guestToReadTable    =   '{{%guesttoread}}';
-
 
     public function init()
     {

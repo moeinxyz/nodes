@@ -24,6 +24,8 @@ use app\components\Helper\Stopwords;
  * @property string $published_at
  * @property string $last_update_type
  * @property integer $user_id
+ * @property Integer $score
+ * @property string $score_updated_at
  *
  * @property User $user
  */
