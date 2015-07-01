@@ -1,5 +1,4 @@
 <?php 
-use app\modules\user\models\User;
 use yii\widgets\LinkPager;
 echo $this->render('_posts_list',['posts'=>$posts]);
 ?>

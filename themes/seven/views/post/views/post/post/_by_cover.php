@@ -5,10 +5,8 @@ use yii\helpers\HtmlPurifier;
 use app\modules\post\Module; 
 use app\modules\post\models\Post;
 $user = $post->getUser()->one();
-$name       =   Post::getCoverFileName($post->id);
-$image      =   Yii::getAlias("@postCoverBaseUrl/{$name}.jpg");
 ?>
-<section id="start" class="herofade hero cover element-img" style="opacity: 1; height: 302px; background-image: url(<?= $image ?>);">
+<section id="start" class="herofade hero cover element-img" style="opacity: 1; height: 302px; background-image: url(<?= Post::getCoverUrl($post->id); ?>);">
     <div class="tagline">
         <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}"]) ?>">
             <img src="<?= Yii::$app->user->getIdentity()->getProfilePicture();?>" class="img-circle wow fadeInUp animated" alt="<?= Yii::$app->user->getIdentity()->getName();?>" data-wow-delay="0.3s" style="visibility: visible; -webkit-animation-delay: 0.3s;">                        

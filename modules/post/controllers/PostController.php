@@ -559,19 +559,25 @@ class PostController extends Controller
         if (\Yii::$app->user->isGuest){
             return $this->guestHome();
         } else {
-//            return $this->userHome(Yii::$app->user->getId());
-            return $this->userHome(2);
+            return $this->userHome(Yii::$app->user->getId());
         }
     }
     
     private function guestHome()
     {
-        
-//        $query      =   GuestToRead::find()
-//                        ->rightJoin(Post::tableName(),  GuestToRead::tableName().'.post_id = '.Post::tableName().'.id')
-//                        ->where($condition);
-//        $countQuery =   clone $query;
-        
+        $query  =   Post::find()->where('status=:status',[':status'=>  Post::STATUS_PUBLISH]);
+        $count  =   $query->count();
+        $pages  =   new Pagination(['totalCount' => $count,'defaultPageSize'=>7,'params'=>array_merge($_GET, ['#' => 'details'])]);
+        $posts  =   $query->offset($pages->offset)
+                    ->limit(7)
+                    ->orderBy('score desc')
+                    ->orderBy('created_at desc')
+                    ->all();
+
+        return $this->render('home/index',[
+            'posts' =>  $posts,
+            'pages' =>  $pages
+        ]);       
     }
     
     
@@ -593,8 +599,7 @@ class PostController extends Controller
             ->orderBy('score desc')
             ->all();
         
-        return $this->render('home/user',[
-            'user'  =>  User::findOne($userId),
+        return $this->render('home/index',[
             'posts' =>  $posts,
             'pages' =>  $pages
         ]);

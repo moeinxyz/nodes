@@ -6,7 +6,7 @@ if ($user->profile_cover === User::COVER_UPLOADED){
 } else {
     echo $this->render('user/_without_cover',['user'=>$user]);
 }
-echo $this->render('_posts_list',['posts'=>$posts,'user'=>$user]);
+echo $this->render('user/_posts_list',['posts'=>$posts,'user'=>$user]);
 ?>
 <div class="row">
     <div class="col-md-12 centertext">
