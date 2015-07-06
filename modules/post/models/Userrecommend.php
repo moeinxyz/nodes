@@ -119,6 +119,7 @@ class Userrecommend extends \yii\db\ActiveRecord
      */
     public static function getPostRecommenders($postId,$limit = 5,$exceptedUserId = null)
     {
+        //@todo show friends recommendation first,then top following users
         $query = User::find()->leftJoin(self::tableName(),self::tableName().'.user_id='.User::tableName().'.id');
         if ($exceptedUserId === NULL){
             $query = $query->where(self::tableName().'.post_id=:post_id AND '.User::tableName().'.status!=:status',['post_id'=>$postId,'status'=>User::STATUS_BLOCK]);
