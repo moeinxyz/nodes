@@ -1,6 +1,6 @@
 <div class="top-buffer"></div>
 <?php if (Yii::$app->user->isGuest): ?>
-
+    <?= $this->render('_signup_suggestion'); ?>
 <?php endif; ?>
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
