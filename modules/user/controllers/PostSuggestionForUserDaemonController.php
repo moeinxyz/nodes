@@ -22,7 +22,7 @@ class PostSuggestionForUserDaemonController extends \yii\console\Controller{
             $farthestTime   =   strtotime($timestamp);
             $diffTime       =   time()  -   $farthestTime;
             
-            if ($timestamp == NULL || $diffTime < Module::CHECK_INTERVAL){
+            if ($timestamp != NULL && $diffTime < Module::CHECK_INTERVAL){
                 sleep(Module::CHECK_INTERVAL - $diffTime + Module::ADDITIONAL_SLEEP_SECS);
             }
             
