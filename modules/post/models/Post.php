@@ -26,6 +26,7 @@ use app\components\Helper\Stopwords;
  * @property integer $user_id
  * @property Integer $score
  * @property string $score_updated_at
+ * @property string $score_update_requested_at
  *
  * @property User $user
  */
@@ -69,7 +70,8 @@ class Post extends \yii\db\ActiveRecord
             [['pin'],'in','range'   =>[self::PIN_ON,self::PIN_OFF]],            
             [['last_update_type'],'in','range'   =>[self::LAST_UPDATE_TYPE_AUTOSAVE,self::LAST_UPDATE_TYPE_MANUAL]],            
             [['url'],'validateUniqueUrl','on'=>'save'],
-            [['title','pure_text'],'trim']
+            [['title','pure_text'],'trim'],
+            [['score'],'number','min'=>0,'max'=>4294967295]
         ];
     }
 
@@ -93,11 +95,14 @@ class Post extends \yii\db\ActiveRecord
     public function beforeValidate() {
         if (parent::beforeValidate()){
             if ($this->isNewRecord){
-                $this->user_id          =   Yii::$app->user->id;
-                $this->last_update_type =   self::LAST_UPDATE_TYPE_MANUAL;
-                $this->cover            =   self::COVER_NOCOVER;
-                $this->created_at       =   new \yii\db\Expression('NOW()');
-                $this->published_at     =   '0000-00-00 00:00:00';
+                $this->user_id                      =   Yii::$app->user->id;
+                $this->last_update_type             =   self::LAST_UPDATE_TYPE_MANUAL;
+                $this->cover                        =   self::COVER_NOCOVER;
+                $this->created_at                   =   new \yii\db\Expression('NOW()');
+                $this->published_at                 =   '0000-00-00 00:00:00';
+                $this->score_updated_at             =   '0000-00-00 00:00:00';
+                $this->score_update_requested_at    =   '0000-00-00 00:00:00';
+                $this->score                        =   0;
             }
             if ($this->title != NULL)
             {
