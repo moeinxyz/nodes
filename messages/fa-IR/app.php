@@ -4,6 +4,7 @@ return [
     'login.social'                      =>  'می توانید با استفاده از سرویس های زیر وارد شوید',
     'header.login'                      =>  'ورود / عضویت',
     'header.write'                      =>  'بنویس',
+    'header.read'                       =>  'بخوان',
     'header.user.completeYourProfile'   =>  'تکمیل اطلاعات پروفایل',
     'header.user.profile'               =>  'پروفایل',
     'header.user.setting'               =>  'تنظیمات',

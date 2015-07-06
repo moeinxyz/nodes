@@ -7,6 +7,12 @@
                 <i class="glyphicon glyphicon-pencil"></i>                
             </a> 
         </li>          
+        <li>
+            <a href="<?= Yii::$app->urlManager->baseUrl ?>">
+                <?php echo Yii::t('app','header.read'); ?>
+                <i class="glyphicon glyphicon-book"></i>                
+            </a> 
+        </li>         
     </ul>
 <!--    <ul class="nav navbar-nav flaty-nav pull-right">
         <li class="hidden-xs">
