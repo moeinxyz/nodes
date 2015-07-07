@@ -10,3 +10,9 @@ echo $this->render('home/_posts_list',['posts'=>$posts]);
         <?= LinkPager::widget(['pagination' => $pages,'nextPageLabel'=>'&laquo;','prevPageLabel'=>'&raquo;']);?>
     </div>
 </div>
+<?php
+if ($login === true){
+    //trigger login modal if request to login user
+    $this->registerJs('$("#loginmodal").modal();');    
+}
+?>

@@ -572,10 +572,17 @@ class PostController extends Controller
                     ->orderBy('score desc')
                     ->orderBy('created_at desc')
                     ->all();
-
+        
+        if (strtolower(Yii::$app->request->get('login')) == 'required'){
+            $login  =   true;
+        } else {
+            $login  =   false;    
+        }
+        
         return $this->render('home',[
             'posts' =>  $posts,
-            'pages' =>  $pages
+            'pages' =>  $pages,
+            'login' =>  $login
         ]);       
     }
     
