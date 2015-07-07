@@ -18,4 +18,7 @@ return [
     
     'email.sent.header'             =>  'لینک تایید ارسال گردید',
     'email.sent.text'               =>  'لینک تایید نگاشت ایمیل به {email} ارسال گردید،با مراجعه به ایمیل و کلیک بر روی لینک،نگاشت ایمیل جدید شما تکمیل می گردد.',
+    
+    'reset.password.head.title'     =>  'نگاشت کلمه عبور جدید - '.Yii::t('app','title'),
+    'change.step1.head.title'       =>  'نگاشت ایمیل جدید - '.Yii::t('app','title')
 ];

@@ -5,6 +5,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\modules\user\models\Token */
+$this->title = Module::t('token','reset.password.head.title');
 ?>
 <div class="top-buffer"></div>
 <div class="row">   

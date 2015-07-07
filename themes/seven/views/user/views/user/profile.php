@@ -1,4 +1,8 @@
-<?php  use app\modules\user\Module;?>
+<?php
+use app\modules\user\Module;
+/* @var $this yii\web\View */
+$this->title    =   Module::t('user','profile.head.title');
+?>
 <div class="top-buffer"></div>
 <!--public form-->
 <div class="row">   

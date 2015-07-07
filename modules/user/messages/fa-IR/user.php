@@ -134,4 +134,11 @@ return [
     'chgUsername.attr.username'                 =>  'نام کاربری',
     'chgUsername.vld.uniqueUsername'            =>  'در حال حاضر نام کاربری با مقدار "{username}" گرفته شده است.',
     'chgUsername.vld.yourUsername'              =>  '"{username}" نام کاربری فعلی شما می باشد و تغییر آن بی تاثیر می باشد.در صورتی که قصد تغییر نام کاربری خود را ندارید این پیام را نادیده بگیرید.',
+    
+    
+    'setting.head.title'                        =>  'تنظیمات حساب کاربری - '.Yii::t('app','title'),
+    'profile.head.title'                        =>  'بروزرسانی پروفایل - '.Yii::t('app','title'),
+    'join.head.title'                           =>  'عضویت - '.Yii::t('app','title'),
+    'reset.head.title'                          =>  'بازسازی کلمه عبور - '.Yii::t('app','title'),
+    'activation.head.title'                     =>  'دریافت مجدد لینک فعال سازی حساب کاربری - '.Yii::t('app','title'),
 ];

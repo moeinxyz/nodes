@@ -1,4 +1,9 @@
-<?php use app\modules\user\Module; ?>
+<?php 
+use app\modules\user\Module;
+/* @var $this yii\web\View */
+/* @var $model app\modules\user\models\Token */
+$this->title = Module::t('token','change.step1.head.title');
+?>
 <div class="top-buffer"></div>
 <div class="row">   
     <div class="col-md-10 col-md-offset-1 col-xs-12">

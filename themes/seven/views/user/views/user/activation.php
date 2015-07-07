@@ -1,4 +1,8 @@
-<?php use app\modules\user\Module; ?>
+<?php
+use app\modules\user\Module;
+/* @var $this yii\web\View */
+$this->title    =   Module::t('user','activation.head.title');
+?>
 <div class="top-buffer"></div>
 <?php if (Yii::$app->session->getFlash('token.activation.expired')): ?>
     <div class="row">

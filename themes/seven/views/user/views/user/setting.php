@@ -1,5 +1,9 @@
+<?php
+use app\modules\user\Module;
+/* @var $this yii\web\View */
+$this->title    =   Module::t('user','setting.head.title');
+?>
 <div class="top-buffer"></div>
-<?php use app\modules\user\Module; ?>
 <?php if (Yii::$app->session->getFlash('user.setting.setting')): ?>
     <div class="row">
         <div class="col-md-10 col-md-offset-1 col-xs-12">

@@ -1,4 +1,9 @@
-<?php use app\modules\user\Module; use yii\helpers\Html; ?>
+<?php
+use yii\helpers\Html;
+use app\modules\user\Module;
+/* @var $this yii\web\View */
+$this->title    =   Module::t('user','join.head.title');
+?>
 <div class="top-buffer"></div>
 <?php if (Yii::$app->session->getFlash('user.join.successful')): ?>
     <div class="row">

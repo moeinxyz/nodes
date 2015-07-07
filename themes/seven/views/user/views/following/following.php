@@ -1,6 +1,8 @@
 <?php
 use app\modules\user\Module;
 use yii\widgets\LinkPager;
+/* @var $this yii\web\View */
+$this->title    =   Module::t('following','following.head.title',['name'=>$user->getName()]);
 ?>
 <div class="top-buffer"></div>
 <div class="row">   
