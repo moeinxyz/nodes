@@ -1,6 +1,9 @@
 <?php 
 use yii\widgets\LinkPager;
-echo $this->render('_posts_list',['posts'=>$posts]);
+use app\modules\post\Module;
+/* @var $this yii\web\View */
+$this->title    = Module::t('post','home.index.head.title');
+echo $this->render('home/_posts_list',['posts'=>$posts]);
 ?>
 <div class="row">
     <div class="col-md-12 centertext">

@@ -3,10 +3,19 @@
 /* @var $post app\modules\post\models\Post */
 use app\modules\post\models\Post;
 use app\components\Helper\Extract;
+use app\modules\post\Module;
 use yii\helpers\HtmlPurifier;
 $this->registerAssetBundle('show-post');
-$title      =   Extract::extractTitle($post->autosave_content);
-$content    =   Extract::extractContent($post->autosave_content);
+
+$title              =   Extract::extractTitle($post->autosave_content);
+$content            =   Extract::extractContent($post->autosave_content);
+
+if ($title  == ''){
+    $this->title        =   Module::t('post','preview.head.title.unknown');
+} else {
+    $this->title        =   Module::t('post','preview.head.title.set',['title'=>$title]);    
+}
+
 if ($post->cover === Post::COVER_BYCOVER){
     echo $this->render('post/_by_cover',['title'=>$title,'post'=>$post]);
 } else {

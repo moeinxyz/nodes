@@ -79,4 +79,13 @@ return [
     'home._signup_suggestion.text'          =>  'برای استفاده بهتر از امکانات سایت بهتر است  وارد و یا عضو شوید.',
     'home._signup_suggestion.btn.register'  =>  'عضویت',
     'home._signup_suggestion.btn.login'     =>  'ورود',
+    
+    'home.index.head.title'                 =>  Yii::t('app','title'),
+    'user.user.head.title'                  =>  '{name} - '.Yii::t('app','title'),    
+    'write.head.title.new'                  =>  'یک نوشته جدید - '.Yii::t('app','title'),
+    'write.head.title.edit'                 =>  'ویرایش {title} - '.Yii::t('app','title'),
+    'view.head.title'                       =>  '{title} - '.Yii::t('app','title'),
+    'preview.head.title.set'                =>  '{title} - '.Yii::t('app','title'),
+    'preview.head.title.unknown'            =>  'بدون عنوان - '.Yii::t('app','title'),
+    'admin.head.title'                      =>  'مدیریت نوشته ها',
 ];  

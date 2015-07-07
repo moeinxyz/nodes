@@ -2,6 +2,9 @@
 use yii\helpers\Html;
 use app\modules\post\Module;
 use app\modules\post\models\Post;
+
+/* @var $this \yii\web\View */
+$this->title    = Module::t('post','admin.head.title');
 ?>
 <div class="row">
     <div class="col-md-10 col-md-offset-1 col-xs-12">

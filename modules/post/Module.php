@@ -33,7 +33,6 @@ class Module extends \yii\base\Module
             'fileMap' => [
                 'modules/post/post'         => 'post.php',
                 'modules/post/comment'      => 'comment.php',
-                'modules/post/userread'     => 'userread.php'
             ],
         ];
     }

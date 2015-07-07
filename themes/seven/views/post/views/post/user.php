@@ -1,6 +1,10 @@
 <?php 
 use app\modules\user\models\User;
 use yii\widgets\LinkPager;
+use app\modules\post\Module;
+/* @var $this yii\web\View */
+
+$this->title    = Module::t('post','user.user.head.title',['name'=>$user->getName()]);
 if ($user->profile_cover === User::COVER_UPLOADED){
     echo $this->render('user/_with_cover',['user'=>$user]);
 } else {

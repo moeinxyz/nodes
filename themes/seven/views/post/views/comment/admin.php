@@ -1,3 +1,10 @@
+<?php
+use app\modules\post\Module;
+/* @var $this yii\web\View */
+$this->title    = Module::t('comment','admin.head.title');
+
+?>
+
 <div class="row">
     <div class="col-md-10 col-md-offset-1 col-xs-12">
         <div class="top-buffer"></div>

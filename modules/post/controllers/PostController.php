@@ -63,7 +63,6 @@ class PostController extends Controller
         ];
     }
     
-    
     public function actionUser($username)
     {
         $user   =   $this->findUser($username);
@@ -574,7 +573,7 @@ class PostController extends Controller
                     ->orderBy('created_at desc')
                     ->all();
 
-        return $this->render('home/index',[
+        return $this->render('home',[
             'posts' =>  $posts,
             'pages' =>  $pages
         ]);       
@@ -599,7 +598,7 @@ class PostController extends Controller
             ->orderBy('score desc')
             ->all();
         
-        return $this->render('home/index',[
+        return $this->render('home',[
             'posts' =>  $posts,
             'pages' =>  $pages
         ]);

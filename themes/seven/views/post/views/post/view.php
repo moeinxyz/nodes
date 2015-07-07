@@ -5,7 +5,9 @@
 /* @var $comments array */
 use app\modules\post\models\Post;
 use yii\helpers\HtmlPurifier;
+use app\modules\post\Module;
 $this->registerAssetBundle('show-post');
+$this->title    =   Module::t('post','view.head.title',['title'=>$post->title]);
 // Render Header
 
 if (Yii::$app->user->isGuest){

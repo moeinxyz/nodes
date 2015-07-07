@@ -9,4 +9,5 @@ return [
     '_admin.btn.untrash.title'  =>  'نمایش',
     '_admin.btn.abuse.title'    =>  'گزارش سو استفاده',
     'post.comment'              =>  'ارسال نظر',
+    'admin.head.title'          =>  'مدیریت نظرها',
 ];
