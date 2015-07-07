@@ -1,5 +1,6 @@
 <?php
 return [
+    'title'                             =>  'نودز',
     'header.home'                       =>  'نودز',
     'login.social'                      =>  'می توانید با استفاده از سرویس های زیر وارد شوید',
     'header.login'                      =>  'ورود / عضویت',
