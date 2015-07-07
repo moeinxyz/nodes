@@ -47,7 +47,7 @@ class PostSuggestionForGuestDaemonController extends \yii\console\Controller{
     {
         try {
             Yii::$app->gearman->getDispatcher()->background('PostSuggestionForGuest', new JobWorkload([
-                'params' => ['$postId'    =>  $postId]
+                'params' => ['postId'    =>  $postId]
             ]));
             return true;
         } catch (\Sinergi\Gearman\Exception $ex) {

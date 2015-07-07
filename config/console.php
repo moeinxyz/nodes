@@ -71,6 +71,9 @@ return [
                 ],
                 'PostSuggestionForUser' =>  [
                     'class' =>  'app\gearworker\PostSuggestionForUser'
+                ],
+                'PostSuggestionForGuest'=>  [
+                    'class' =>  'app\gearworker\PostSuggestionForGuest'
                 ]
             ]
         ],           
