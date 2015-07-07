@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Html;
 use app\modules\social\Module;
+/* @var $this yii\web\View */
+$this->title    =   Module::t('social','admin.head.title');
 ?>
 <div class="row">
     <div class="col-md-10 col-md-offset-1 col-xs-12">
