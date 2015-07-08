@@ -8,7 +8,7 @@
             </a> 
         </li>          
         <li>
-            <a href="<?= Yii::$app->urlManager->baseUrl ?>">
+            <a href="<?= Yii::$app->homeUrl ?>">
                 <?php echo Yii::t('app','header.read'); ?>
                 <i class="glyphicon glyphicon-book"></i>                
             </a> 

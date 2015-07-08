@@ -33,7 +33,7 @@ use app\modules\post\models\Userrecommend;
         <div class="nav flaty-nav pull-left">
             <ul class="nav navbar-nav flaty-nav pull-left">
                 <li class="hidden-xs">
-                    <a href="<?= Yii::$app->urlManager->baseUrl;?>">
+                    <a href="<?= Yii::$app->homeUrl;?>">
                         <i class="glyphicon glyphicon-home"></i>    
                         <?php echo Yii::t('app','header.home'); ?>                
                     </a>
@@ -41,7 +41,7 @@ use app\modules\post\models\Userrecommend;
             </ul>  
             <ul class="nav flaty-nav pull-left">
                 <li class="hidden-lg hidden-md hidden-sm">
-                    <a href="<?= Yii::$app->urlManager->baseUrl;?>">
+                    <a href="<?= Yii::$app->homeUrl;?>">
                         <i class="glyphicon glyphicon-home" title="<?php echo Yii::t('app','header.home'); ?>"></i>    
                     </a>
                 </li>               
