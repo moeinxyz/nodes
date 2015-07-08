@@ -11,8 +11,8 @@ use app\modules\user\models\Url;
     <div class="row">
         <div class="col-xs-12 center-block centertext central">
             <img src="<?= $user->getProfilePicture(); ?>" class="img-circle" width="200" style="margin-top: 15px;">    
-            <h1><?= HtmlPurifier::process($user->name); ?></h1>
-            <p><?= HtmlPurifier::process($user->tagline); ?></p>            
+            <h1><?= HtmlPurifier::process($user->getName()); ?></h1>
+            <p><?= HtmlPurifier::process($user->getTagLine()); ?></p>            
             <div class="follow">
                 <?= $this->render('_follow',['user'=>$user]);?>
             </div>
