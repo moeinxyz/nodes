@@ -13,4 +13,9 @@ class SiteController extends Controller
             ]            
         ];
     }   
+    
+    public function actionTerms()
+    {
+        return $this->render('terms');
+    }
 }

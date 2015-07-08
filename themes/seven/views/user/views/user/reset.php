@@ -1,7 +1,9 @@
 <?php
 use app\modules\user\Module;
 /* @var $this yii\web\View */
+$this->render('meta/_reset');
 $this->title    =   Module::t('user','reset.head.title');
+
 ?>
 <div class="top-buffer"></div>
 <?php if (Yii::$app->session->getFlash('token.reset.expired')): ?>

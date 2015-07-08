@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use app\modules\user\Module;
 /* @var $this yii\web\View */
+$this->render('meta/_join');
 $this->title    =   Module::t('user','join.head.title');
 ?>
 <div class="top-buffer"></div>
