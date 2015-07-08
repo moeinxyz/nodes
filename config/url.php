@@ -54,6 +54,7 @@ return [
                     'social/admin'                                                          =>  'social/social/admin',
                     'social/auth'                                                           =>  'social/social/auth',
                     
+                    'page/terms'                                                            =>  'site/terms',
                     // default site route
                     ''                                                                      =>  'post/post/home',
                 ],
