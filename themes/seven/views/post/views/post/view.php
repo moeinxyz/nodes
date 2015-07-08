@@ -6,6 +6,10 @@
 use app\modules\post\models\Post;
 use yii\helpers\HtmlPurifier;
 use app\modules\post\Module;
+
+// meta tags
+$this->render('meta/_post',['post'=>$post]);
+
 $this->registerAssetBundle('show-post');
 $this->title    =   Module::t('post','view.head.title',['title'=>$post->title]);
 // Render Header

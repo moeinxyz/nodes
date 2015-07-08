@@ -530,6 +530,8 @@ class PostController extends Controller
         $model->save();
     }
 
+    
+    //@todo this is so slow
     private function moveLastDaysReadToUser($hash)
     {
         $models = Guestread::find()->where('uuid=:hash AND created_at>=:timestamp',[
@@ -607,6 +609,5 @@ class PostController extends Controller
             'posts' =>  $posts,
             'pages' =>  $pages
         ]);
-    }    
-    
+    }
 }

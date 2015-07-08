@@ -11,6 +11,7 @@ var RecaptchaOptions = {
 };                
 JS;
 $this->registerJs($js);
+$this->registerMetaTag(['name'=>'og:site_name','content'=>Yii::t('app','title')]);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

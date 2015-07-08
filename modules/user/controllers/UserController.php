@@ -265,8 +265,14 @@ class UserController extends Controller
     {
         $user   =   User::findOne(Yii::$app->user->id);
         $public =   new PublicProfileForm([
-            'name'      =>  $user->name,
-            'tagline'   =>  $user->tagline
+            'name'                      =>  $user->name,
+            'tagline'                   =>  $user->tagline,
+            // has cover ,profile picture or not
+            'profileStatus'             =>  $user->profile_pic,
+            'coverStatus'               =>  $user->profile_cover,
+            // any profile or cover picture uploaded yet?
+            'activeProfilePictureStatus'=>  ($user->uploaded_profile_pic === User::UPLOADED_PIC_YES)?true:false,
+            'activeCoverPictureStatus'  =>  ($user->uploaded_cover_pic === User::UPLOADED_PIC_YES)?true:false
         ]);
         $urls       =   Url::find()->where('user_id=:user_id',['user_id'=>Yii::$app->user->id])->all();
         $newUrl     =   new Url;
@@ -285,14 +291,15 @@ class UserController extends Controller
             $newUrl->load(Yii::$app->request->post());
             return ActiveForm::validate($newUrl);
         // Post Submit or Pjax Request
-        } else if (Yii::$app->request->post('public-button') !== NULL){ //Poest Request
+        } else if (Yii::$app->request->post('public-button') !== NULL){ //Post Request
             $public = $this->updateProfile($public);
         } else if (Yii::$app->request->post('urls-update') !== NULL){ //Post Request
             $urls  = $this->updateUrls($urls);
         } else if (Yii::$app->request->post('url-add') !== NULL) {// Pjax Request
             return $this->addUrl($newUrl);
-        }        
-        return $this->render('profile',['urls'=>$urls,'public'=>$public,'newUrl'=>$newUrl]);
+        }
+        $user   = User::findOne(Yii::$app->getUser()->getId());// because need fresh instance of user profile
+        return $this->render('profile',['urls'=>$urls,'public'=>$public,'newUrl'=>$newUrl,'user'=>$user]);
     }
 
     /**
