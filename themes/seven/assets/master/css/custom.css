@@ -247,3 +247,7 @@ div.grid-view > .summary{
 pre.graf--pre {
     direction: ltr;
 }
+
+.padding{
+    padding: 15px 0 !important;
+}

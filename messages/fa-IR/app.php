@@ -18,6 +18,8 @@ return [
     'header.user.comments'              =>  'نظرات',
     'link.join'                         =>  'ثبت نام',
     'link.reset'                        =>  'فراموشی کلمه عبور',
+    'footer'                            =>  'کلیه حقوق برای کاربران و گروه نودز محفوظ است.',
+    
     
     'oauth.facebook'                    =>  'فیس بوک',
     'oauth.twitter'                     =>  'توئتر',

@@ -70,7 +70,9 @@ use app\modules\post\models\Post;
                         <img src="<?= Yii::$app->user->getIdentity()->getProfilePicture();?>" class="user-image" alt="<?= Yii::$app->user->getIdentity()->getName();?>"/>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="user-footer">      
+                        <li class="user-footer">
+                            <?= Html::a(Yii::t('app','header.read').'<i class="glyphicon glyphicon-book"></i>',
+                                        Yii::$app->urlManager->baseUrl);?>                            
                             <?= Html::a(Yii::t('app','header.user.newpost').'<i class="glyphicon glyphicon-pencil"></i>',
                                         Yii::$app->urlManager->createUrl(['/post/write','type'=>'new']));?>
                             <hr class="mini central">

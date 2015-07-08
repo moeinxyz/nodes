@@ -15,7 +15,13 @@ use app\modules\post\models\Userrecommend;
                             <?php echo Module::t('post','header.view.edit'); ?>
                             <i class="glyphicon glyphicon-pencil"></i>                
                         </a>
-                    </li>          
+                    </li>
+                    <li>
+                        <a href="<?= Yii::$app->urlManager->baseUrl ?>">
+                            <?php echo Yii::t('app','header.read'); ?>
+                            <i class="glyphicon glyphicon-book"></i>                
+                        </a> 
+                    </li>                        
                 </ul>
             <?php else:?>
                 <?php if (Userrecommend::getPostRecommended($model->id) == NULL):?>
@@ -30,7 +36,13 @@ use app\modules\post\models\Userrecommend;
                             <a href="#" id="recommend">
                                 <i class="glyphicon glyphicon-star-empty" title="<?php echo Module::t('post','header.view.recommend'); ?>"></i>
                             </a>
-                        </li>                                  
+                        </li>
+                        <li>
+                            <a href="<?= Yii::$app->urlManager->baseUrl ?>">
+                                <?php echo Yii::t('app','header.read'); ?>
+                                <i class="glyphicon glyphicon-book"></i>                
+                            </a> 
+                        </li>                            
                     </ul>   
                 <?php else:?>
                     <ul class="nav navbar-nav flaty-nav pull-right">
@@ -46,6 +58,12 @@ use app\modules\post\models\Userrecommend;
                                 <i class="glyphicon glyphicon-star" title="<?php echo Module::t('post','header.view.recommended'); ?>"></i>
                             </a>
                         </li>       
+                        <li>
+                            <a href="<?= Yii::$app->urlManager->baseUrl ?>">
+                                <?php echo Yii::t('app','header.read'); ?>
+                                <i class="glyphicon glyphicon-book"></i>                
+                            </a> 
+                        </li>                            
                     </ul>                           
                 <?php endif;?>
             <?php endif;?>
