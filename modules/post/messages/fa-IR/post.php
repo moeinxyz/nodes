@@ -88,4 +88,7 @@ return [
     'preview.head.title.set'                =>  '{title} - '.Yii::t('app','title'),
     'preview.head.title.unknown'            =>  'بدون عنوان - '.Yii::t('app','title'),
     'admin.head.title'                      =>  'مدیریت نوشته ها',
+    
+    'meta._home.title'                      =>  'نودز، لذت بی نهایت خواندن و خوانده شدن',
+    'meta._home.description'                =>  'نودز یک بستر ساده و کاربر پسند برای خواندن و نوشتن می باشد.شما می توانید به راحتی بنویسید،به دیگران توصیه کنید و به راحتی نوشته های دیگران را بخوانید.',
 ];  

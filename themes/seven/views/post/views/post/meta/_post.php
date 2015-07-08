@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\StringHelper;
 use app\modules\post\models\Post;
+use app\modules\post\Module;
 use yii\helpers\HtmlPurifier;
 /* @var $this \yii\web\View */
 /* @var $post app\modules\post\models\Post */
@@ -10,6 +11,8 @@ $author         =   $post->user;
 $title          =   HtmlPurifier::process($post->title);
 $description    =   HtmlPurifier::process(StringHelper::truncate($post->pure_text, 200));
 $authorName     =   HtmlPurifier::process($author->getName());
+
+$this->registerLinkTag(['rel'=>'alternate','type'=>'application/rss+xm','title'=>$authorName,'href'=>Yii::$app->urlManager->createAbsoluteUrl(["{$author->getUsername()}/rss"])]);
 
 $this->registerMetaTag(['name'=>'description','content'=>$title]);
 $this->registerMetaTag(['name'=>'author','content'=>$authorName]);
