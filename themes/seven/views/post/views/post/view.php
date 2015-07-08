@@ -7,7 +7,7 @@ use app\modules\post\models\Post;
 use yii\helpers\HtmlPurifier;
 use app\modules\post\Module;
 
-// meta tags
+// social meta tags
 $this->render('meta/_post',['post'=>$post]);
 
 $this->registerAssetBundle('show-post');

@@ -4,7 +4,7 @@ use yii\widgets\LinkPager;
 use app\modules\post\Module;
 /* @var $this yii\web\View */
 
-//social meta tags
+// social meta tags
 $this->render('meta/_user',['user'=>$user]);
 
 $this->title    = Module::t('post','user.user.head.title',['name'=>$user->getName()]);
