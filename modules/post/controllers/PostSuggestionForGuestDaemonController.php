@@ -25,6 +25,7 @@ class PostSuggestionForGuestDaemonController extends \yii\console\Controller{
             
             if ($timestamp != NULL && $diffTime < Module::CHECK_INTERVAL){
                 sleep(Module::CHECK_INTERVAL - $diffTime + Module::ADDITIONAL_SLEEP_SECS);
+                continue;
             }
             
             $posts  =   Post::find()->select('id')->where('status=:status AND score_update_requested_at=:timestamp',[

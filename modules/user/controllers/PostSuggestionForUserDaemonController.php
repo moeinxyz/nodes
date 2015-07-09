@@ -24,6 +24,7 @@ class PostSuggestionForUserDaemonController extends \yii\console\Controller{
             
             if ($timestamp != NULL && $diffTime < Module::CHECK_INTERVAL){
                 sleep(Module::CHECK_INTERVAL - $diffTime + Module::ADDITIONAL_SLEEP_SECS);
+                continue;
             }
             
             $users  =   User::find()->select('id')->where('status=:status AND last_post_suggestion=:timestamp',[

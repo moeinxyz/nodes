@@ -29,6 +29,7 @@ class DaemonController extends \yii\console\Controller{
             
             if ($timestamp != NULL && $diffTime < Module::CHECK_INTERVAL){
                 sleep(Module::CHECK_INTERVAL - $diffTime + Module::ADDITIONAL_SLEEP_SECS);
+                continue;
             }
             $socials = Social::find()->where('status=:status AND last_used >= :timestamp',[
                 ':status'    =>  Social::STATUS_ACTIVE,

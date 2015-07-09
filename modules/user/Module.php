@@ -6,7 +6,10 @@ use Yii;
 class Module extends \yii\base\Module
 {
     const ADDITIONAL_SLEEP_SECS =   5;
-    const CHECK_INTERVAL        =   86400;
+    const CHECK_INTERVAL        =   43200;
+    const DAY_SECONDS           =   86400;
+    const WEEK_SECONDS          =   604800;
+    
     
     public $controllerNamespace =   'app\modules\user\controllers';
     public $userTable           =   '{{%user}}';
