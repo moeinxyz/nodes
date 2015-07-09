@@ -23,21 +23,25 @@ $this->title    =   Module::t('social','admin.head.title');
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-4">
+                    <div class="col-xs-6">
                         <a href="<?= Yii::$app->urlManager->createUrl(['social/auth','authclient'=>'linkedin']); ?>" class="btn btn-block btn-social btn-linkedin">
                             <i class="fa fa-linkedin"></i><?= Module::t('social','_admin.btn.add.linkedin'); ?>
                         </a>                        
                     </div>
-                    <div class="col-xs-4">
+                    <div class="col-xs-6">
                         <a href="<?= Yii::$app->urlManager->createUrl(['social/auth','authclient'=>'twitter']); ?>" class="btn btn-block btn-social btn-twitter">
                             <i class="fa fa-twitter"></i><?= Module::t('social','_admin.btn.add.twitter'); ?>
                         </a>
                     </div>
-                    <div class="col-xs-4">
+                    <?php
+/**
+ *                     <div class="col-xs-4">
                         <a href="<?= Yii::$app->urlManager->createUrl(['social/auth','authclient'=>'facebook']); ?>" class="btn btn-block btn-social btn-facebook">
                             <i class="fa fa-facebook"></i><?= Module::t('social','_admin.btn.add.facebook'); ?>
                         </a>                 
                     </div>
+ */                    
+                    ?>
                 </div>                
             </div>            
             <div class="box-body table-responsive no-padding medium-font-size">
