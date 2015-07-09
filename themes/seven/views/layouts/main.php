@@ -12,6 +12,7 @@ var RecaptchaOptions = {
 JS;
 $this->registerJs($js);
 $this->registerMetaTag(['name'=>'og:site_name','content'=>Yii::t('app','title')]);
+$this->registerLinkTag(['rel'=>'shortcut icon','href'=>Yii::$app->urlManager->baseUrl.'/favicon.ico','type'=>'image/x-icon']);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
