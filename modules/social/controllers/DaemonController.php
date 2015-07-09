@@ -1,11 +1,13 @@
 <?php
 namespace app\modules\social\controllers;
+
+use Yii;
+use yii\authclient\clients\Twitter;
 use app\modules\social\models\Social;
 use app\modules\social\models\Socialcontent;
 use app\modules\social\Module;
 use app\modules\post\models\Post;
 use app\modules\post\models\Userrecommend;
-use Yii;
 
 /**
  * This Way Is So Dummy,Need Queue Arch
@@ -45,7 +47,7 @@ class DaemonController extends \yii\console\Controller{
         if ($social->type === Social::TYPE_FACEBOOK){
             
         } else if ($social->type === Social::TYPE_TWITTER){
-            
+            $this->twitter($social, $posts);
         } else if ($social->type === Social::TYPE_LINKEDIN){
             $this->linkedin($social,$posts);
         }
@@ -84,7 +86,7 @@ class DaemonController extends \yii\console\Controller{
                 'title'         =>  $post->title,
                 'submitted-url' =>  Yii::$app->urlManager->createAbsoluteUrl([
                             "{$post->user->getUsername()}/{$post->url}",
-                            "utm_source"    =>  'linkedin',"UTM_CAMPAIGN"  =>  'auto-'.md5($post->user->get)]),
+                            'UTM_SOURCE'    =>  'linkedin','UTM_CAMPAIGN'  =>  'auto-'.md5($linkedin->user_id)]),
             ];
             if ($post->cover === Post::COVER_BYCOVER){
                 $content['submitted-image-url'] =   Post::getCoverUrl($post->id);
@@ -103,6 +105,26 @@ class DaemonController extends \yii\console\Controller{
         $linkedin->update();
     }
     
+    private function twitter(Social $twitter,$posts)
+    {
+        foreach ($posts as $post){
+            $tw         =   new Twitter([
+                'consumerKey'   =>  Yii::$app->socialClientCollection->getClient('twitter')->clientId,
+                'consumerSecret'=>  Yii::$app->socialClientCollection->getClient('twitter')->clientId,
+            ]);
+            $token  =   unserialize($twitter->token);
+            $tw->setAccessToken($token->getAccessToken());
+            $url        =   Yii::$app->urlManager->createAbsoluteUrl(["{$post->user->getUsername()}/{$post->url}",
+                            'UTM_SOURCE' =>'twitter','UTM_CAMPAIGN'  =>  'auto-'.md5($twitter->user_id)]);
+            $params     =   ['status'=>$post->title.'  '.$url];
+            $response   =   $tw->api('/statuses/update.json','POST',$params);
+            $this->addSocialContent($twitter, $post, $params,$response);
+        }
+        $twitter->last_used     =   new \yii\db\Expression('NOW()');
+        $twitter->update();        
+    }
+
+
     private function addSocialContent($social,$post,$request,$response = NULL)
     {
         $verbose            =   [

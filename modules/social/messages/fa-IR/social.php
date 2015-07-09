@@ -26,9 +26,14 @@ return [
     '_admin.btn.add.linkedin'       =>  'افزودن حساب کاربری لیندکین',
     '_admin.btn.share.post.title'   =>  'فقط به اشتراک گذاری نوشته ها',
     '_admin.btn.share.all.title'    =>  'به اشتراک گذاری نوشته ها و توصیه شده ها',
-    'admin.box.LINKEDIN'            =>  'حساب کاربری لینکدین با موفقیت افزوده شد.',
-    'admin.box.FACEBOOK'            =>  'حساب کاربری فیس بوک با موفقیت افزوده شد.',
-    'admin.box.TWITTER'             =>  'حساب کاربری توئیتر با موفقیت افزوده شد.',
+    
+    'admin.box.successful.LINKEDIN'     =>  'حساب کاربری لینکدین با موفقیت افزوده شد.',
+    'admin.box.successful.TWITTER'      =>  'حساب کاربری توئیتر با موفقیت افزوده شد.',
+    'admin.box.unsuccessful.LINKEDIN'   =>  'متاسفانه در افزودن حساب کاربری لینکدین شما مشکلی به وجود آمده است،لطفا مجددا تلاش نمایید.',
+    'admin.box.unsuccessful.TWITTER'    =>  'متاسفانه در افزودن حساب کاربری توئیتر شما مشکلی به وجود آمده است،لطفا مجددا تلاش نمایید.',
+    
+    'admin.box.successful.FACEBOOK'     =>  'حساب کاربری فیس بوک با موفقیت افزوده شد.',
+    'admin.box.unsuccessful.FACEBOOK'   =>  'حساب کاربری فیس بوک با موفقیت افزوده شد.',
     
     'admin.head.title'              =>  'مدیریت اتصال به  شبکه های اجتماعی - '.Yii::t('app','title'),
     

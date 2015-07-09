@@ -13,11 +13,11 @@ $this->title    =   Module::t('social','admin.head.title');
                     <div class="col-xs-12">
                         <?php if (($type = Yii::$app->session->getFlash('social.add')) && $type !== NULL):?>
                             <div class="alert alert-success">
-                                <?= Module::t('social','admin.box.'.$type); ?>
+                                <?= Module::t('social','admin.box.successful.'.$type); ?>
                             </div>                                
                         <?php elseif (($type = Yii::$app->session->getFlash('social.wrong')) && $type !== NULL): ?>
                             <div class="alert alert-error">
-                                <?= Module::t('social','admin.box.'.$type); ?>
+                                <?= Module::t('social','admin.box.unsuccessful.'.$type); ?>
                             </div>                            
                         <?php endif;?>
                     </div>

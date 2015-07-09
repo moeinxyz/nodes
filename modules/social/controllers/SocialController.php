@@ -64,12 +64,10 @@ class SocialController extends Controller
         $attributes =   $client->getUserAttributes();
         if ($client->getId() === 'linkedin'){
             $this->linkedinAuth($client,$attributes);
-        } else if ($client->getId() === 'facebook'){
-            
         } else if ($client->getId() === 'twitter'){
-            
+            $this->twitterAuth($client, $attributes);
         }
-        
+        // add facebook later
         return $this->redirect('social/admin');
     }
     
@@ -86,6 +84,22 @@ class SocialController extends Controller
             Yii::$app->session->setFlash('social.add',  Social::TYPE_LINKEDIN);
         } else {
             Yii::$app->session->setFlash('social.wrong',  Social::TYPE_LINKEDIN);
+        }
+    }
+
+    
+    private function twitterAuth(\yii\authclient\clients\Twitter $client,array $attributes)
+    {
+        $social         =   $this->getSocial(Social::TYPE_TWITTER, $attributes['id_str']);
+        $social->name   =   $attributes['name'].' ( '.$attributes['screen_name'].' ) ';
+        $social->url    =   'https://twitter.com/'.$attributes['screen_name'];
+        $social->auth   =   Social::AUTH_AUTH;
+        $social->status =   Social::STATUS_ACTIVE;
+        $social->token  =   serialize($client);
+        if ($social->save()){
+            Yii::$app->session->setFlash('social.add',  Social::TYPE_TWITTER);
+        } else {
+            Yii::$app->session->setFlash('social.wrong',  Social::TYPE_TWITTER);
         }
     }
 
@@ -111,9 +125,34 @@ class SocialController extends Controller
         return $social;
     }
 
+    
+    private function test()
+    {
+        $twitter    =   new \yii\authclient\clients\Twitter([
+                    'consumerKey'   => 'yev9zPwjVEXZEr6t5hXAnTmsT',
+                    'consumerSecret'=> 'ZPfzJJMDbj104KYy80ikoAjqOLIm41ECLogLvY9PfKjej4NLDg',
+        ]);
+        
+        $social = $this->findModel(1);
+        $client = unserialize($social->token);
+        $twitter->setAccessToken($client->getAccessToken());
+
+        var_dump($twitter->api('/statuses/update.json','POST',['status'=>'Test API']));
+        die;
+        
+//        $twitter    =   new \TwitterAPIExchange([
+//            'oauth_access_token'        => $client->getAccessToken()->getToken(),
+//            'oauth_access_token_secret' => $client->getAccessToken()->getTokenSecret(),
+//            'consumer_key'              => "yev9zPwjVEXZEr6t5hXAnTmsT",
+//            'consumer_secret'           => "ZPfzJJMDbj104KYy80ikoAjqOLIm41ECLogLvY9PfKjej4NLDg"
+//        ]);
+        
+//        $twitter->buildOauth('', 'POST')
+    }
 
     public function actionAdmin()
     {
+        $this->test();
         $dataProvider = new ActiveDataProvider([
             'query' => Social::find()->where('user_id=:user_id',['user_id'=>Yii::$app->user->getId()])
         ]);
