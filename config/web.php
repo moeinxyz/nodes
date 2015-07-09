@@ -50,17 +50,6 @@ $config = [
             'loginUrl'          => ['','login'=>'required'],  
         ],
         'socialClientCollection'    =>  require(__DIR__ . '/social.php'),
-//        'contactClientCollection'   =>  [
-//            'class'     => 'yii\authclient\Collection',
-//            'clients'   =>  [
-//                'gmail'    =>  [
-//                    'class'         => 'yii\authclient\clients\GoogleOAuth',
-//                    'clientId'      => '584470786627-k9gdurbjgm09cdhhqd2qpp4274dd8ii1.apps.googleusercontent.com',
-//                    'clientSecret'  => 'i_mC-awvMXmqUXfC_2L28KWs',
-//                    'scope'         =>  implode(' ', ['email','https://www.googleapis.com/auth/contacts.readonly'])                    
-//                ]
-//            ]
-//        ],
         'authClientCollection'      => [
             'class' => 'yii\authclient\Collection',
             'clients' => [
@@ -115,18 +104,6 @@ $config = [
                 ],
             ],            
         ],
-//        'mailer' => [
-//            'class' => 'yii\swiftmailer\Mailer',
-//            // send all mails to a file by default. You have to set
-//            // 'useFileTransport' to false and configure a transport
-//            // for the mailer to send real emails.
-//            'useFileTransport' => true,
-//        ],
-        'mailer' => [
-            'class'     =>  'nickcv\mandrill\Mailer',
-            'apikey'    =>  '6mEUoQyuhDN4itn_O1UlCg',
-            'htmlLayout'=>  '@app/themes/seven/views/user/views/mail/layout.php',
-        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 30 : 0,
             'targets' => [
@@ -138,8 +115,13 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
-        'urlManager' => require(__DIR__ . '/url.php'),      
+        'mailer'    => [
+            'class'     =>  'nickcv\mandrill\Mailer',
+            'apikey'    =>  '6mEUoQyuhDN4itn_O1UlCg',
+            'htmlLayout'=>  '@app/themes/seven/views/user/views/mail/layout.php',
+        ],
+        'db'            => require(__DIR__ . '/db.php'),
+        'urlManager'    => require(__DIR__ . '/url.php'),      
         'reCaptcha' => [
             'name'      =>  'reCaptcha',
             'class'     =>  'himiklab\yii2\recaptcha\ReCaptcha',

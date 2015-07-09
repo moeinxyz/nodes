@@ -39,11 +39,15 @@ return [
             // 'permPrivate' => 0700,
             // 'permPublic' => 0744,
             // 'transferMode' => FTP_TEXT,
-        ],                   
-        'cache' => [
+        ],        
+        'mailer'    => [
+            'class'     =>  'nickcv\mandrill\Mailer',
+            'apikey'    =>  '6mEUoQyuhDN4itn_O1UlCg',
+        ],
+        'cache'     => [
             'class' => 'yii\caching\FileCache',
         ],
-        'log' => [
+        'log'       => [
             'traceLevel' => YII_DEBUG ? 30 : 0,
             'targets' => [
                 [
