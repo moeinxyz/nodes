@@ -268,7 +268,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      * @param Attributes $attributes
      * @return User
      */
-    public static function oauthLogin($attributes){
+    public static function oauthLogin(Attributes $attributes){
         $model  =   self::findIdentityByEmail($attributes->email);
         if ($model === NULL){
             $model              =   new User;

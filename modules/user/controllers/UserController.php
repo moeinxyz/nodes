@@ -444,7 +444,16 @@ class UserController extends Controller
      * @return Attributes 
      */    
     protected function facebookAuth($attributes){
+        $model                  =   new Attributes;
         
+        $model->name            =   $attributes['name'];
+        $model->email           =   $attributes['email'];
+        $model->tagline         =   NULL;
+        $model->profile_pic     =   NULL;
+        $model->profile_cover   =   NULL;
+        
+        $model->addUrl(Url::TYPE_FACEBOOK, "https://facebook.com/{$attributes['id']}");
+        return $model;
     }
     
     /**
