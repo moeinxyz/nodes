@@ -82,8 +82,6 @@ class UserController extends Controller
             $model  =   $this->googleAuth($attributes);
         } else if ($client->getId() === 'facebook'){
             $model  =   $this->facebookAuth($attributes);
-        } else if ($client->getId() === 'twitter'){
-            $model  =   $this->twitterAuth($attributes);
         } else if ($client->getId() === 'linkedin'){
             $model  =   $this->linkedinAuth($attributes);
         } else if ($client->getId()  === 'github'){
@@ -456,14 +454,6 @@ class UserController extends Controller
         return $model;
     }
     
-    /**
-     * 
-     * @param mixed $attributes
-     * @return Attributes 
-     */    
-    protected function twitterAuth($attributes){
-        var_dump($attributes);die;
-    }
     
     /**
      * 

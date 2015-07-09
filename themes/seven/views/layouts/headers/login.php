@@ -10,27 +10,22 @@
                 <h1><?php echo Yii::t('app','login.social'); ?></h1>
                 <ul class="socialicons motion">
                     <li class="six animated fadeInUp">
-                        <a href="<?= Yii::$app->urlManager->createUrl(['user/auth','authclient'=>'google']); ?>" title="<?= Yii::t('app', 'oauth.google'); ?>"  class="twitter" target="_blank">
+                        <a href="<?= Yii::$app->urlManager->createUrl(['user/auth','authclient'=>'google']); ?>" title="<?= Yii::t('app', 'oauth.google'); ?>"  class="google" target="_blank">
                             <span class="icon-google-plus"></span>
                         </a>
                     </li>
                     <li class="eight animated fadeInUp">
-                        <a href="<?= Yii::$app->urlManager->createUrl(['user/auth','authclient'=>'linkedin']); ?>" title="<?= Yii::t('app', 'oauth.linkedin'); ?>"  class="twitter" target="_blank">
+                        <a href="<?= Yii::$app->urlManager->createUrl(['user/auth','authclient'=>'linkedin']); ?>" title="<?= Yii::t('app', 'oauth.linkedin'); ?>"  class="linkedin" target="_blank">
                             <span class="icon-linkedin"></span>
                         </a>
                     </li>                                                                     
                     <li class="ten animated fadeInUp">
-                        <a href="<?= Yii::$app->urlManager->createUrl(['user/auth','authclient'=>'facebook']); ?>" title="<?= Yii::t('app', 'oauth.facebook'); ?>"   class="twitter" target="_blank">
+                        <a href="<?= Yii::$app->urlManager->createUrl(['user/auth','authclient'=>'facebook']); ?>" title="<?= Yii::t('app', 'oauth.facebook'); ?>"   class="facebook" target="_blank">
                             <span class="icon-facebook"></span>
-                        </a>
-                    </li>                                        
-                    <li class="twelve animated fadeInUp">
-                        <a href="<?= Yii::$app->urlManager->createUrl(['user/auth','authclient'=>'twitter']); ?>" title="<?= Yii::t('app', 'oauth.twitter'); ?>" class="twitter" target="_blank">
-                            <span class="icon-twitter"></span>
                         </a>
                     </li>                                                 
                     <li class="fourteen animated fadeInUp">
-                        <a href="<?= Yii::$app->urlManager->createUrl(['user/auth','authclient'=>'github']); ?>" title="<?= Yii::t('app', 'oauth.github'); ?>"  class="twitter" target="_blank">
+                        <a href="<?= Yii::$app->urlManager->createUrl(['user/auth','authclient'=>'github']); ?>" title="<?= Yii::t('app', 'oauth.github'); ?>"  class="github" target="_blank">
                             <span class="icon-github"></span>
                         </a>
                     </li>                    

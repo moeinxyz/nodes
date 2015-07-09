@@ -81,11 +81,6 @@ $config = [
                     'clientId'      => '78pbzg810si8wb',
                     'clientSecret'  => 'TfZ4uwfiBgrb5V9w',
                 ],                
-                'twitter' => [
-                    'class'         => 'yii\authclient\clients\Twitter',
-                    'consumerKey'   => 'yev9zPwjVEXZEr6t5hXAnTmsT',
-                    'consumerSecret'=> 'ZPfzJJMDbj104KYy80ikoAjqOLIm41ECLogLvY9PfKjej4NLDg',
-                ],
                 'facebook' => [
                     'class'         => 'yii\authclient\clients\Facebook',
                     'clientId'      => '865054846839734',

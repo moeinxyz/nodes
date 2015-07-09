@@ -30,9 +30,6 @@ $this->title    =   Module::t('user','join.head.title');
                 <a href="<?= Yii::$app->urlManager->createUrl(['user/auth','authclient'=>'facebook']) ?>" target="_blank" class="btn btn-block btn-social btn-facebook">
                   <i class="fa fa-facebook"></i><?= Module::t('user', 'join.byFacebook'); ?>
                 </a>
-                <a href="<?= Yii::$app->urlManager->createUrl(['user/auth','authclient'=>'twitter']) ?>" target="_blank" class="btn btn-block btn-social btn-twitter">
-                  <i class="fa fa-twitter"></i><?= Module::t('user', 'join.byTwitter'); ?>
-                </a>        
                 <a href="<?= Yii::$app->urlManager->createUrl(['user/auth','authclient'=>'linkedin']) ?>" target="_blank" class="btn btn-block btn-social btn-linkedin">
                   <i class="fa fa-linkedin"></i><?= Module::t('user', 'join.byLinkedin'); ?>
                 </a>        

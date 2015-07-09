@@ -22,10 +22,9 @@ return [
     'errorpage_hint'                    =>  'می توانید موضوعات جذابی را برای خواندن در میان نوشته ها بیابید.',
     
     'oauth.facebook'                    =>  'فیس بوک',
-    'oauth.twitter'                     =>  'توئتر',
     'oauth.github'                      =>  'گیت هاب',
     'oauth.linkedin'                    =>  'لینکدین',
-    'oauth.google'                      =>  'google',
+    'oauth.google'                      =>  'گوگل',
     
     'meta._terms.title'                         =>  'حقوق متقابل کاربر و نودز',
     'meta._terms.description'                   =>  'حقوق متقابل کاربران و نودز که ضمن احترام و حمایت از آزادی بیان،ادامه فعالیت نودز را میسر می سازد.',    
