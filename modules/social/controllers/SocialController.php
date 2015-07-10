@@ -125,34 +125,8 @@ class SocialController extends Controller
         return $social;
     }
 
-    
-    private function test()
-    {
-        $twitter    =   new \yii\authclient\clients\Twitter([
-                    'consumerKey'   => 'yev9zPwjVEXZEr6t5hXAnTmsT',
-                    'consumerSecret'=> 'ZPfzJJMDbj104KYy80ikoAjqOLIm41ECLogLvY9PfKjej4NLDg',
-        ]);
-        
-        $social = $this->findModel(1);
-        $client = unserialize($social->token);
-        $twitter->setAccessToken($client->getAccessToken());
-
-        var_dump($twitter->api('/statuses/update.json','POST',['status'=>'Test API']));
-        die;
-        
-//        $twitter    =   new \TwitterAPIExchange([
-//            'oauth_access_token'        => $client->getAccessToken()->getToken(),
-//            'oauth_access_token_secret' => $client->getAccessToken()->getTokenSecret(),
-//            'consumer_key'              => "yev9zPwjVEXZEr6t5hXAnTmsT",
-//            'consumer_secret'           => "ZPfzJJMDbj104KYy80ikoAjqOLIm41ECLogLvY9PfKjej4NLDg"
-//        ]);
-        
-//        $twitter->buildOauth('', 'POST')
-    }
-
     public function actionAdmin()
     {
-        $this->test();
         $dataProvider = new ActiveDataProvider([
             'query' => Social::find()->where('user_id=:user_id',['user_id'=>Yii::$app->user->getId()])
         ]);
