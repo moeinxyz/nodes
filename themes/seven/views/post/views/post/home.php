@@ -15,7 +15,7 @@ echo $this->render('home/_posts_list',['posts'=>$posts]);
     </div>
 </div>
 <?php
-if ($login === true){
+if (isset($login) && $login === true){
     //trigger login modal if request to login user
     $this->registerJs('$("#loginmodal").modal();');    
 }

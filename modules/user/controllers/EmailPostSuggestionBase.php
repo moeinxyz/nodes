@@ -39,7 +39,7 @@ class EmailPostSuggestionBase extends \yii\console\Controller{
     protected function sendDigestMail(User $user,array $posts)
     {
         return \Yii::$app->mailer
-                    ->compose('@mail/digest', ['User' => $user,'posts'=>$posts])
+                    ->compose('@mail/digest', ['user' => $user,'posts'=>$posts])
                     ->setSubject(Module::t('mail','digest.title'))
                     ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])                    
                     ->setTags(['digest',  Yii::$app->name])
@@ -50,6 +50,6 @@ class EmailPostSuggestionBase extends \yii\console\Controller{
     protected function updateUserDigestTime(User $user)
     {
         $user->last_digest_mail =   new \yii\db\Expression('NOW()');
-        var_dump($user->save(false));
+        $user->save(false);
     }
 }

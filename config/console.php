@@ -9,6 +9,8 @@ return [
     'id' => 'basic-console',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', 'gii'],
+    'language'          =>  'fa-IR',
+    'sourceLanguage'    =>  'en-US',    
     'controllerNamespace' => 'app\commands',
     'modules' => [
         'gii' => 'yii\gii\Module',
@@ -99,8 +101,15 @@ return [
         '@postcovers'   =>  '@temp/postcovers',
         '@ftpPictures'  =>  '/user/pictures',
         '@ftpCovers'    =>  '/user/covers',
-        '@ftpPostCovers'=>  '/post/covers'
-//        '@tests'        =>   __DIR__ . '/../tests',
+        '@ftpPostCovers'=>  '/post/covers',
+
+        '@ppicBaseUrl'      =>  'http://cdn.nodes.ir/user/pictures',
+        '@cpicBaseUrl'      =>  'http://cdn.nodes.ir/user/covers',
+        '@upBaseUrl'        =>  'http://cdn.nodes.ir/post/images',
+        '@postCoverBaseUrl' =>  'http://cdn.nodes.ir/post/covers',
+        '@gravatar'         =>  'http://www.gravatar.com/avatar',
+        '@placeHold'        =>  'http://www.placehold.it',
+        '@homeUrl'          =>  'http://nodes.ir',
     ], 
     'params' => $params,
 ];
