@@ -251,3 +251,7 @@ pre.graf--pre {
 .padding{
     padding: 15px 0 !important;
 }
+
+#comment-text{
+    margin-top: 10px;
+}

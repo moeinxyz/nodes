@@ -77,12 +77,14 @@ class CommentController extends Controller
             $PostId     =   base_convert($pid, 36, 10);
             $post   =   $this->findPostById($PostId);
             $dataProvider = new ActiveDataProvider([
-                'query' => Comment::find()->where('post_id=:post_id',['post_id'=>$post->id]),
+                'query' => Comment::find()->where('post_id=:post_id',['post_id'=>$post->id])
+                                            ->orderBy('created_at desc'),
             ]);            
         } else {
             $dataProvider = new ActiveDataProvider([
                 'query' => Comment::find()->join('JOIN',  Post::tableName(),  Comment::tableName().'.post_id = '.Post::tableName().'.id')
-                    ->where(Post::tableName().'.user_id=:user_id AND '.Post::tableName().'.status!=:status',['user_id'=>Yii::$app->user->getId(),'status'=>Post::STATUS_DELETE]),
+                    ->where(Post::tableName().'.user_id=:user_id AND '.Post::tableName().'.status!=:status',['user_id'=>Yii::$app->user->getId(),'status'=>Post::STATUS_DELETE])
+                    ->orderBy('created_at desc'),
             ]);            
         }
         $dataProvider->sort->route = 'post/comments';

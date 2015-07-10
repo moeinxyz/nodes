@@ -181,9 +181,10 @@ class PostController extends Controller
             $type = 'autosave';
         }
         if (Yii::$app->request->isAjax){
+            //@todo HtmlPurifier should use in model
             Yii::$app->response->format =   Response::FORMAT_JSON;
             $model->title               =   HtmlPurifier::process(Extract::extractTitle($model->autosave_content));
-            $model->content             =   HtmlPurifier::process(Extract::extractContent($model->autosave_content),app\components\Helper\Purifier::getConfig());
+            $model->content             =   HtmlPurifier::process(Extract::extractContent($model->autosave_content),\app\components\Helper\Purifier::getConfig());
             $model->pure_text           =   HtmlPurifier::process(Extract::extractPureText($model->content));
             $model->last_update_type    =   Post::LAST_UPDATE_TYPE_MANUAL;
             return $model->save();
