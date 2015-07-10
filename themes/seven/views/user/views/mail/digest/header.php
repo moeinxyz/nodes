@@ -1,5 +1,7 @@
 <?php
+
 use app\modules\user\Module;
+
 /* @var $this yii\web\View */
 /* @var $user \app\modules\user\models\User */
 ?>
@@ -20,6 +22,7 @@ use app\modules\user\Module;
                         * { 
                             margin:0;
                             padding:0;
+                            direction: rtl;
                         }
                         * { font-family: Helvetica, Arial, sans-serif; }
 
@@ -243,25 +246,23 @@ use app\modules\user\Module;
 
                     </head>
 
-    <body bgcolor="#FFFFFF" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" style="margin: 0;padding: 0;font-family: Helvetica, Arial, sans-serif;-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;height: 100%;direction: rtl;width: 100%!important;" dir="rtl">
+                    <body bgcolor="#FFFFFF" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0" style="margin: 0;padding: 0;font-family: Helvetica, Arial, sans-serif;-webkit-font-smoothing: antialiased;-webkit-text-size-adjust: none;height: 100%;direction: rtl;width: 100%!important;direction: rtl;">
                         <!-- BODY -->
-                        <table class="body-wrap" bgcolor="" style="margin: 0;padding: 0;font-family: Helvetica, Arial, sans-serif;width: 100%;">
-                            <tr style="margin: 0;padding: 0;font-family: Helvetica, Arial, sans-serif;">
-                                <td style="margin: 0;padding: 0;font-family: Helvetica, Arial, sans-serif;"></td>
-                                <td class="container" align="" bgcolor="#FFFFFF" style="margin: 0 auto!important;padding: 0;font-family: Helvetica, Arial, sans-serif;display: block!important;max-width: 600px!important;clear: both!important;">
-
-
+                        <table class="body-wrap" bgcolor="" style="margin: 0;padding: 0;font-family: Helvetica, Arial, sans-serif;width: 100%; direction: rtl;" dir="rtl">
+                            <tr style="margin: 0;padding: 0;font-family: Helvetica, Arial, sans-serif; direction: rtl;">
+                                <td style="margin: 0;padding: 0;font-family: Helvetica, Arial, sans-serif; direction: rtl;"></td>
+                                <td class="container" align="" bgcolor="#FFFFFF" style="margin: 0 auto!important;padding: 0;font-family: Helvetica, Arial, sans-serif;display: block!important;max-width: 600px!important;clear: both!important; direction: rtl;">
 
                                     <!-- content -->
-                                    <div class="content" style="margin: 0 auto;padding: 15px;font-family: Helvetica, Arial, sans-serif;max-width: 600px;display: block;">
-                                        <table style="margin: 0;padding: 0;font-family: Helvetica, Arial, sans-serif;width: 100%;">
-                                            <tr style="margin: 0;padding: 0;font-family: Helvetica, Arial, sans-serif;">
-                                                <td style="margin: 0;padding: 0;font-family: Helvetica, Arial, sans-serif;">
-                                                    <h4 style='margin: 0;padding: 0;font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;line-height: 1.1;margin-bottom: 15px;color: #000;font-weight: 500;font-size: 23px;'>
-                                                        <?= Module::t('mail','digest.header.hello',['name'=>$user->getName()]); ?>
+                                    <div class="content" style="margin: 0 auto;padding: 15px;font-family: Helvetica, Arial, sans-serif;max-width: 600px;display: block; direction: rtl;">
+                                        <table style="margin: 0;padding: 0;font-family: Helvetica, Arial, sans-serif;width: 100%; direction: rtl;">
+                                            <tr style="margin: 0;padding: 0;font-family: Helvetica, Arial, sans-serif; direction: rtl;">
+                                                <td style="margin: 0;padding: 0;font-family: Helvetica, Arial, sans-serif; direction: rtl;">
+                                                    <h4 style='margin: 0;padding: 0;font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;line-height: 1.1;margin-bottom: 15px;color: #000;font-weight: 500;font-size: 23px; direction: rtl;'>
+                                                        <?= Module::t('mail', 'digest.header.hello', ['name' => $user->getName()]); ?>
                                                     </h4>
-                                                    <h4 style='margin: 0;padding: 0;font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;line-height: 1.1;margin-bottom: 15px;color: #000;font-weight: 900;font-size: 17px;'>
-                                                        <?= Module::t('mail','digest.header.dontmiss'); ?>
+                                                    <h4 style='margin: 0;padding: 0;font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;line-height: 1.1;margin-bottom: 15px;color: #000;font-weight: 900;font-size: 17px; direction: rtl;'>
+                                                        <?= Module::t('mail', 'digest.header.dontmiss'); ?>
                                                     </h4>
                                                 </td>
                                             </tr>

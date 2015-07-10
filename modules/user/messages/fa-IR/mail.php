@@ -38,7 +38,7 @@ return [
     'mail.header'               =>  'نودز، لذت خواندن و خوانده شدن',
     'mail.footer'               =>  'ارسال شده توسط نودز',
     
-    'digest.title'              =>  'برترین مقالات امروز در نودز',
+    'digest.title'              =>  'در نودز بخوانید',
     'digest.by_cover.written_by'=>  'نوشته شده توسط',
     'digest.no_cover.written_by'=>  'نوشته شده توسط',
     'digest.no_cover.btn'       =>  'ادامه مطلب',
@@ -46,6 +46,6 @@ return [
     'digest.footer.nodes'       =>  'ارسال شده توسط نودز',
     'digest.header.title'       =>  'نوشته های برتر',
     'digest.header.hello'       =>  'سلام {name}',
-    'digest.header.dontmiss'    =>  'برترین نوشته های امروز را از دست ندهید!',
+    'digest.header.dontmiss'    =>  'برترین نوشته ها را از دست ندهید!',
     
 ];

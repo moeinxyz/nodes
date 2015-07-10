@@ -3,7 +3,6 @@ use app\modules\post\models\Post;
 /* @var $this yii\web\View */
 /* @var $user \app\modules\user\models\User */
 echo $this->render('digest/header',['user'=>$user]);
-
 foreach ($posts as $key=>$post)
 {
     if ($post->cover === Post::COVER_BYCOVER){
