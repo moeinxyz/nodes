@@ -21,9 +21,8 @@ class SocialController extends Controller
                 'only'  =>  ['admin','delete','share','status','auth'],
                 'rules' =>  [
                     [
-                        'actions'   =>  ['admin'],
-                        'roles'     =>  ['@'],
-                        'verbs'     =>  ['GET'],       
+                        'actions'   =>  ['admin','auth'],
+                        'roles'     =>  ['@'], 
                         'allow'     =>  true
                     ],
                     [
@@ -31,11 +30,6 @@ class SocialController extends Controller
                         'roles'     =>  ['@'],
                         'verbs'     =>  ['POST'],
                         'allow'     =>  true
-                    ],
-                    [
-                        'actions'   =>  ['auth'],
-                        'roles'     =>  ['@'],
-                        'allow'     =>  TRUE
                     ]
                 ]
                 
@@ -127,9 +121,7 @@ class SocialController extends Controller
 
     public function actionAdmin()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Social::find()->where('user_id=:user_id',['user_id'=>Yii::$app->user->getId()])
-        ]);
+        $dataProvider = $this->getDataProvider();
         
         return $this->render('admin', [
             'dataProvider' => $dataProvider,
@@ -147,10 +139,7 @@ class SocialController extends Controller
             }
             $social->save();
             
-            $dataProvider = new ActiveDataProvider([
-                'query' => Social::find()->where('user_id=:user_id',['user_id'=>Yii::$app->user->getId()])
-            ]);
-            $dataProvider->sort->route  =   'social/admin';
+            $dataProvider = $this->getDataProvider();
             return $this->renderAjax('_admin', [
                 'dataProvider' => $dataProvider,
             ]);             
@@ -170,16 +159,27 @@ class SocialController extends Controller
             }
             $social->save();
             
-            $dataProvider = new ActiveDataProvider([
-                'query' => Social::find()->where('user_id=:user_id',['user_id'=>Yii::$app->user->getId()])
-            ]);
-            $dataProvider->sort->route  =   'social/admin';
+            $dataProvider = $this->getDataProvider();
             return $this->renderAjax('_admin', [
                 'dataProvider' => $dataProvider,
             ]);             
         } else {
             return $this->redirect('social/admin');
         }
+    }
+    
+    /**
+     * 
+     * @return ActiveDataProvider
+     */
+    protected function getDataProvider()
+    {
+        $dataProvider   =   new ActiveDataProvider([
+            'query'     =>  Social::find()->where('user_id=:user_id',['user_id'=>Yii::$app->user->getId()]),
+            'sort'      =>  ['defaultOrder' => ['created_at'=>SORT_DESC]]
+        ]);   
+        $dataProvider->sort->route  =   'social/admin';
+        return $dataProvider;
     }
 
     /**

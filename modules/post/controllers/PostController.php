@@ -425,6 +425,11 @@ class PostController extends Controller
         return $status;
     }
     
+    /**
+     * 
+     * @param string $status
+     * @return ActiveDataProvider
+     */
     protected function getDataProvider($status)
     {
         $query = Post::find();

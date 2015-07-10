@@ -113,7 +113,11 @@ class CommentController extends Controller
         }        
     }        
     
-    
+    /**
+     * 
+     * @param string $pid
+     * @return ActiveDataProvider
+     */
     private function getDataProvider($pid = NULL)
     {
         if ($pid != NULL){
