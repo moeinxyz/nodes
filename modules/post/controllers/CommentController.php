@@ -32,7 +32,6 @@ class CommentController extends Controller
                     [
                         'actions'   =>  ['comments'],
                         'roles'     =>  ['@'],
-                        'verbs'     =>  ['GET'],
                         'allow'     =>  true
                     ]
                 ],
@@ -73,21 +72,7 @@ class CommentController extends Controller
     
     public function actionComments($pid = NULL)
     {
-        if ($pid != NULL){
-            $PostId     =   base_convert($pid, 36, 10);
-            $post   =   $this->findPostById($PostId);
-            $dataProvider = new ActiveDataProvider([
-                'query' => Comment::find()->where('post_id=:post_id',['post_id'=>$post->id])
-                                            ->orderBy('created_at desc'),
-            ]);            
-        } else {
-            $dataProvider = new ActiveDataProvider([
-                'query' => Comment::find()->join('JOIN',  Post::tableName(),  Comment::tableName().'.post_id = '.Post::tableName().'.id')
-                    ->where(Post::tableName().'.user_id=:user_id AND '.Post::tableName().'.status!=:status',['user_id'=>Yii::$app->user->getId(),'status'=>Post::STATUS_DELETE])
-                    ->orderBy('created_at desc'),
-            ]);            
-        }
-        $dataProvider->sort->route = 'post/comments';
+        $dataProvider = $this->getDataProvider($pid);
         return $this->render('admin', [
             'dataProvider'  =>  $dataProvider,
             'postId'        =>  $pid
@@ -99,20 +84,12 @@ class CommentController extends Controller
         $id     =   base_convert($id, 36, 10);
         $comment= $this->findComment($id);   
         $comment->toggleTash();
-        $comment->save();
-        $dataProvider = new ActiveDataProvider([
-            'query' => Comment::find()->where('post_id=:post_id',['post_id'=>$comment->post->id]),
-        ]);
-        $dataProvider->sort->route = 'post/comments';            
+        $comment->save();       
+        $dataProvider = $this->getDataProvider($pid);
         return $this->renderAjax('_admin',[
             'dataProvider'  =>  $dataProvider,
             'postId'        =>  $pid
         ]);    
-//        if (Yii::$app->request->isPut){
-//            
-//        } else {
-//            return $this->redirect(Yii::$app->request->getReferrer());
-//        }        
     }    
     
 
@@ -126,10 +103,7 @@ class CommentController extends Controller
                 $abuse->comment_id  =  $comment->id;
                 $abuse->save();
             }
-            $dataProvider = new ActiveDataProvider([
-                'query' => Comment::find()->where('post_id=:post_id',['post_id'=>$comment->post->id]),
-            ]);
-            $dataProvider->sort->route = 'post/comments';
+            $dataProvider = $this->getDataProvider($pid);
             return $this->renderAjax('_admin',[
                 'dataProvider'  =>  $dataProvider,
                 'postId'        =>  $pid
@@ -139,6 +113,26 @@ class CommentController extends Controller
         }        
     }        
     
+    
+    private function getDataProvider($pid = NULL)
+    {
+        if ($pid != NULL){
+            $PostId     =   base_convert($pid, 36, 10);
+            $post   =   $this->findPostById($PostId);
+            $dataProvider = new ActiveDataProvider([
+                'query' => Comment::find()->where('post_id=:post_id',['post_id'=>$post->id]),
+                'sort'  => ['defaultOrder' => ['created_at'=>SORT_DESC]]
+            ]);            
+        } else {
+            $dataProvider = new ActiveDataProvider([
+                'query' => Comment::find()->join('JOIN',  Post::tableName(),  Comment::tableName().'.post_id = '.Post::tableName().'.id')->where(Post::tableName().'.user_id=:user_id AND '.Post::tableName().'.status!=:status',['user_id'=>Yii::$app->user->getId(),'status'=>Post::STATUS_DELETE]),
+                'sort'  => ['defaultOrder' => ['created_at'=>SORT_DESC]]
+            ]);            
+        }
+        $dataProvider->sort->route = 'post/comments';
+        return $dataProvider;
+    }
+
     /**
      * 
      * @param string $username

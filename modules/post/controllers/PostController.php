@@ -37,7 +37,12 @@ class PostController extends Controller
                 'only'  =>  ['admin','autosave','delete','edit','pin','preview','publish','recommend','trash','write'],
                 'rules' =>  [
                     [
-                        'actions'   =>  ['admin','preview','write'],
+                        'actions'   =>  ['admin'],
+                        'roles'     =>  ['@'],
+                        'allow'     =>  true
+                    ],
+                    [
+                        'actions'   =>  ['preview','write'],
                         'roles'     =>  ['@'],
                         'verbs'     =>  ['GET'],
                         'allow'     =>  true
@@ -150,12 +155,8 @@ class PostController extends Controller
    
     public function actionAdmin($status = 'draft')
     {
-        $status = $this->normilizeStatus($status);
-        $query  = $this->getDataProviderQuery($status);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query
-        ]);
-        $dataProvider->sort->route = 'post/admin';
+        $status         = $this->normilizeStatus($status);
+        $dataProvider   = $this->getDataProvider($status);
         return $this->render('admin', [
             'dataProvider'  =>  $dataProvider,
             'status'        =>  $status
@@ -291,12 +292,8 @@ class PostController extends Controller
             $post   =   $this->findModel($id);   
             $post->togglePin();
             $post->save();
-            $status = $this->normilizeStatus($status);
-            $query  = $this->getDataProviderQuery($status);
-            $dataProvider = new ActiveDataProvider([
-                'query' => $query
-            ]);            
-            $dataProvider->sort->route = 'post/admin';            
+            $status         = $this->normilizeStatus($status);
+            $dataProvider   = $this->getDataProvider($status);
             return $this->renderAjax('_admin',[
                 'dataProvider'  =>  $dataProvider,
                 'status'        =>  $status                
@@ -313,12 +310,8 @@ class PostController extends Controller
             $post   =   $this->findModel($id);   
             $post->toggleTrash();
             $post->save();
-            $status = $this->normilizeStatus($status);
-            $query  = $this->getDataProviderQuery($status);
-            $dataProvider = new ActiveDataProvider([
-                'query' => $query
-            ]);            
-            $dataProvider->sort->route = 'post/admin';
+            $status         = $this->normilizeStatus($status);
+            $dataProvider   = $this->getDataProvider($status);
             return $this->renderAjax('_admin',[
                 'dataProvider'  =>  $dataProvider,
                 'status'        =>  $status                
@@ -365,6 +358,7 @@ class PostController extends Controller
         }
     }
 
+    
     public function actionRss($username)
     {
         $user           = $this->findUser($username);
@@ -376,7 +370,9 @@ class PostController extends Controller
             $description = $user->username;
         }
         $dataProvider = new ActiveDataProvider([
-            'query'         => Post::find(),//->where('user_id=:user_id AND status=:status', [':user_id'=>$user->id,':status'=>  Post::STATUS_PUBLISH]),//->orderBy(['id']),
+            'query'         => Post::find()
+                                ->where('user_id=:user_id AND status=:status', [':user_id'=>$user->id,':status'=>  Post::STATUS_PUBLISH])
+                                ->orderBy('published_at desc'),
             'pagination'    => [
                 'pageSize' => 15
             ],
@@ -429,7 +425,7 @@ class PostController extends Controller
         return $status;
     }
     
-    protected function getDataProviderQuery($status)
+    protected function getDataProvider($status)
     {
         $query = Post::find();
         if ($status === Post::STATUS_DRAFT){
@@ -437,9 +433,14 @@ class PostController extends Controller
         } else {
             $query = $query->where('status=:status AND user_id=:user_id',[':status'=>$status,'user_id'=>Yii::$app->user->getId()]);
         }
-        return $query;
+        $dataProvider =  new ActiveDataProvider([
+            'query'     =>  $query,
+            'sort'      =>  ['defaultOrder' => ['created_at'=>SORT_DESC]]
+        ]);
+        $dataProvider->sort->route = 'post/admin';
+        return $dataProvider;
     }
-    
+
     private function addPostRead(Post $post)
     {
         if (\Yii::$app->user->isGuest){
