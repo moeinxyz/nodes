@@ -7,8 +7,8 @@ use app\modules\post\Module;
 use yii\helpers\HtmlPurifier;
 $this->registerAssetBundle('show-post');
 
-$title              =   Extract::extractTitle($post->autosave_content);
-$content            =   Extract::extractContent($post->autosave_content);
+$title              =   HtmlPurifier::process(Extract::extractTitle($post->autosave_content));
+$content            =   HtmlPurifier::process(Extract::extractContent($post->autosave_content),app\components\Helper\Purifier::getConfig());
 
 if ($title  == ''){
     $this->title        =   Module::t('post','preview.head.title.unknown');
@@ -33,7 +33,7 @@ if ($post->cover === Post::COVER_BYCOVER){
                                 <section class="section--first section--last">
                                     <div class="section-content"> 
                                         <div class="section-inner layoutSingleColumn" style="padding-top: 35px;"> 
-                                            <?= HtmlPurifier::process($content,app\components\Helper\Purifier::getConfig());?>
+                                            <?= $content; ?>
                                         </div>
                                     </div>
                                 </section>
@@ -46,8 +46,8 @@ if ($post->cover === Post::COVER_BYCOVER){
     </div>
 </div>
 <?php 
-$js=<<<JS
-$("#editor a[href^='http://']").attr("target","_blank");
-$("#editor a[href^='https://']").attr("target","_blank");
-JS;
-$this->registerJs($js);
+//$js=<<<JS
+//$("#editor a[href^='http://']").attr("target","_blank");
+//$("#editor a[href^='https://']").attr("target","_blank");
+//JS;
+//$this->registerJs($js);

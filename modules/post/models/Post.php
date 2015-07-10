@@ -5,6 +5,7 @@ namespace app\modules\post\models;
 use Yii;
 use app\modules\post\Module;
 use app\modules\user\models\User;
+use yii\helpers\HtmlPurifier;
 use app\components\Helper\Stopwords;
 /**
  * This is the model class for table "{{%post}}".

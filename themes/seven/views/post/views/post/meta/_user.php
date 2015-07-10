@@ -1,12 +1,11 @@
 <?php
-use yii\helpers\HtmlPurifier;
 use app\modules\post\Module;
 
 /* @var $this \yii\web\View */
 /* @var $user app\modules\user\models\User */
 
-$title          =   HtmlPurifier::process($user->getName());
-$description    =   HtmlPurifier::process($user->getTagLine());
+$title          =   $user->getName();
+$description    =   $user->getTagLine();
 $profilePicture =   $user->getProfilePicture();
 
 $this->registerLinkTag(['rel'=>'alternate','type'=>'application/rss+xm','title'=>$title,'href'=>Yii::$app->urlManager->createAbsoluteUrl(["{$user->getUsername()}/rss"])]);

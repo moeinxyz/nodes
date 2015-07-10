@@ -22,6 +22,7 @@ use app\modules\post\models\CoverPhotoForm;
 use yii\data\Pagination;
 use yii\web\UploadedFile;
 use app\modules\post\Module;
+use yii\helpers\HtmlPurifier;
 
 /**
  * PostController implements the CRUD actions for Post model.
@@ -181,9 +182,9 @@ class PostController extends Controller
         }
         if (Yii::$app->request->isAjax){
             Yii::$app->response->format =   Response::FORMAT_JSON;
-            $model->title               =   Extract::extractTitle($model->autosave_content);
-            $model->content             =   Extract::extractContent($model->autosave_content);
-            $model->pure_text           =   Extract::extractPureText($model->content);
+            $model->title               =   HtmlPurifier::process(Extract::extractTitle($model->autosave_content));
+            $model->content             =   HtmlPurifier::process(Extract::extractContent($model->autosave_content),app\components\Helper\Purifier::getConfig());
+            $model->pure_text           =   HtmlPurifier::process(Extract::extractPureText($model->content));
             $model->last_update_type    =   Post::LAST_UPDATE_TYPE_MANUAL;
             return $model->save();
         }
@@ -418,49 +419,6 @@ class PostController extends Controller
         ]);
     }    
 
-    /**
-     * Finds the Post model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
-     * @return Post the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        $model = Post::findOne($id);
-        if ($model !== null && $model->status != Post::STATUS_DELETE && $model->user_id === Yii::$app->user->getId()) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-    
-    
-    /**
-     * 
-     * @param string $username
-     * @return User
-     * @throws NotFoundHttpException
-     */
-    protected function findUser($username)
-    {
-        if (($user = User::findOne(['username'=>$username])) != NULL && $user->status != User::STATUS_BLOCK){
-            return $user;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-    
-    
-    protected function findPost($userId,$url)
-    {
-        if (($post = Post::findOne(['user_id'=>$userId,'url'=>  urlencode($url)])) != NULL && $post->status === Post::STATUS_PUBLISH){
-            return $post;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }        
-    }
-    
     protected function normilizeStatus($status)
     {
         $status = strtoupper($status);
@@ -587,7 +545,6 @@ class PostController extends Controller
         ]);       
     }
     
-    
     private function userHome($userId)
     {
         $query      =   Post::find()
@@ -610,4 +567,47 @@ class PostController extends Controller
             'pages' =>  $pages
         ]);
     }
+
+
+    /**
+     * Finds the Post model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param string $id
+     * @return Post the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        $model = Post::findOne($id);
+        if ($model !== null && $model->status != Post::STATUS_DELETE && $model->user_id === Yii::$app->user->getId()) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
+    
+    /**
+     * 
+     * @param string $username
+     * @return User
+     * @throws NotFoundHttpException
+     */
+    protected function findUser($username)
+    {
+        if (($user = User::findOne(['username'=>$username])) != NULL && $user->status != User::STATUS_BLOCK){
+            return $user;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+    
+    protected function findPost($userId,$url)
+    {
+        if (($post = Post::findOne(['user_id'=>$userId,'url'=>  urlencode($url)])) != NULL && $post->status === Post::STATUS_PUBLISH){
+            return $post;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }        
+    }        
 }

@@ -6,6 +6,7 @@ use Yii;
 use app\modules\post\models\Post;
 use app\modules\user\models\User;
 use app\modules\post\Module;
+use yii\helpers\HtmlPurifier;
 
 /**
  * This is the model class for table "{{%comment}}".
@@ -52,21 +53,22 @@ class Comment extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-//            'id' => Yii::t('comment', 'ID'),
-            'user_id'   => Module::t('comment', 'comment.attr.user_id'),
-            'post_id'   => Module::t('comment', 'comment.attr.post_id'),
-            'text'      => Module::t('comment', 'comment.attr.text'),
-//            'status' => Yii::t('comment', 'Status'),
-            'created_at' => Module::t('comment', 'comment.attr.created_at'),
+            'user_id'       => Module::t('comment', 'comment.attr.user_id'),
+            'post_id'       => Module::t('comment', 'comment.attr.post_id'),
+            'text'          => Module::t('comment', 'comment.attr.text'),
+            'created_at'    => Module::t('comment', 'comment.attr.created_at'),
         ];
     }
 
     public function beforeValidate() {
         if (parent::beforeValidate()){
+            if ($this->isNewRecord){
+                $this->created_at   =   new \yii\db\Expression('NOW()');    
+            }
             if ($this->status === NULL){
                 $this->status       =   self::STATUS_PUBLISH;
             }
-            $this->created_at   =   new \yii\db\Expression('NOW()');
+            $this->text = HtmlPurifier::process($this->text);
             return TRUE;
         }
         return FALSE;

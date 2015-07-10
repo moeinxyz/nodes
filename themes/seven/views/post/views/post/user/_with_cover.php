@@ -1,6 +1,5 @@
 <?php
 use app\modules\post\Module; 
-use yii\helpers\HtmlPurifier;
 
 /* @var $this \yii\web\View */
 /* @var $user app\modules\user\models\User */
@@ -20,8 +19,8 @@ use yii\helpers\HtmlPurifier;
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
             <div class=" center-block centertext text-center">
-                <h1><?= HtmlPurifier::process($user->getName()); ?></h1>
-                <p><?= HtmlPurifier::process($user->getTagLine()); ?></p>
+                <h1><?= $user->getName(); ?></h1>
+                <p><?= $user->getTagLine(); ?></p>
                 <div class="top-buffer"></div>
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-12 othermedia">

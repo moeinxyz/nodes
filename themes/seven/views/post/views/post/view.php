@@ -4,7 +4,6 @@
 /* @var $newComment \app\modules\post\models\Comment*/
 /* @var $comments array */
 use app\modules\post\models\Post;
-use yii\helpers\HtmlPurifier;
 use app\modules\post\Module;
 
 // social meta tags
@@ -40,7 +39,7 @@ echo $this->render('dynamicJS/_view',['model'=>$post]);
                                     <section class="section--first section--last">
                                         <div class="section-content"> 
                                             <div class="section-inner layoutSingleColumn" style="padding-top: 35px;"> 
-                                                <?= HtmlPurifier::process($post->content,app\components\Helper\Purifier::getConfig());?>
+                                                <?= $post->content; ?>
                                             </div>
                                         </div>
                                     </section>

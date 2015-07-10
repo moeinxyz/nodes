@@ -6,6 +6,7 @@ use Yii;
 use \yii\base\NotSupportedException;
 use \yii\db\Expression;
 use app\modules\user\models\Attributes;
+use yii\helpers\HtmlPurifier;
 use app\modules\user\models\User;
 use app\modules\user\Module;
 use app\gearworker\SyncImage;
@@ -232,6 +233,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                     }
                 }
             }
+            $this->name     = HtmlPurifier::process($this->name);
+            $this->tagline  = HtmlPurifier::process($this->tagline);
             return true;
         }
         return false;        

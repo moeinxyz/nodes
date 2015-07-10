@@ -1,7 +1,6 @@
 <?php 
 /* @var $this \yii\web\View */
 /* @var $post app\modules\post\models\Post */
-use yii\helpers\HtmlPurifier;
 use app\modules\post\Module; 
 use app\modules\post\models\Post;
 $user = $post->getUser()->one();
@@ -13,7 +12,7 @@ $user = $post->getUser()->one();
         </a>
         <hr class="mini white central">
         <h1 class="wow fadeInUp animated post-header" data-wow-delay="0.5s" style="visibility: visible; -webkit-animation-delay: 0.5s;">
-            <?= HtmlPurifier::process($title); ?>
+            <?= $title; ?>
         </h1>        
         <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}"]) ?>"  class="wow fadeInUp animated post-header" data-wow-delay="0.5s" style="visibility: visible; -webkit-animation-delay: 0.5s;">
             <?= Module::t('post','post.written_by',['author'=>$user->getName(),'time'=>Yii::$app->jdate->date("l jS F Y",strtotime($post->published_at))]);?>
