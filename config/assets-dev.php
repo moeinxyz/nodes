@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'Font'  =>  [
-        'class'         =>  'yii\web\AssetBundle',
-        'sourcePath'    =>  '@app/themes/seven/assets',        
-        'css'           =>  ['http://ifont.ir/apicode/17']
-    ],
+//    'Font'  =>  [
+//        'class'         =>  'yii\web\AssetBundle',
+//        'sourcePath'    =>  '@app/themes/seven/assets',        
+//        'css'           =>  ['http://ifont.ir/apicode/17']
+//    ],
     'FontAwesome' =>  [
         'class'         =>  'yii\web\AssetBundle',
         'sourcePath'    =>  '@bower/components-font-awesome',
@@ -28,7 +28,7 @@ return [
                         'yii\bootstrap\BootstrapPluginAsset',
                         'yii\web\JqueryAsset',
                         'yii\jui\JuiAsset',
-                        'Font',
+//                        'Font',
                         'FontAwesome'
                     ]        
     ],
@@ -41,7 +41,7 @@ return [
         'class'         =>  'yii\web\AssetBundle',
         'sourcePath'    =>  '@app/themes/seven/assets/master/',
         'css'           =>  [
-                                'css/icomoon.css',//https://icomoon.io/
+                                'css/icomoon.css',
                                 'css/style.css',
                                 'css/custom.css',
                                 'css/AdminLTE.css',
