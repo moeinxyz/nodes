@@ -86,7 +86,7 @@ html {
 
 body {
   direction: rtl;
-  font-family: 'B Koodak', Georgia, serif;
+  font-family: 'Nodes', Georgia, serif;
   background-color: #F3F3F3;
   font-size: 24px;
   font-style: normal;
@@ -174,13 +174,13 @@ h1, h2, h3, h4, h5, h6, p, span, blockquote, hr {
 }
 
 h1 {
-  font-family: 'B Koodak', 'Vollkorn', Georgia, serif;
+  font-family: 'Nodes', 'Vollkorn', Georgia, serif;
   letter-spacing: -1px;
   font-weight: 700;
 }
 
 h2 {
-  font-family: 'B Koodak', 'Vollkorn', Georgia, serif;
+  font-family: 'Nodes', 'Vollkorn', Georgia, serif;
   letter-spacing: -2px;
   font-weight: 700;
 }
@@ -192,7 +192,7 @@ h4 {
 
 h3 {
   font-size: 20px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   color: #F26F70;
   line-height: 30px
@@ -218,7 +218,7 @@ p a {
 a {
   color: #F26F70;
   font-size: 14px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-decoration: none;
   text-transform: uppercase;
@@ -626,7 +626,7 @@ a.scrollto {
 #menumodal ul li span {
   display: block;
   font-size: 13px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 400;
   text-transform: uppercase;
   color: #eee;
@@ -1243,7 +1243,7 @@ blockquote.bigtext {
   text-align: center;
   font-size: 50px;
   line-height: 68px;
-  font-family: 'B Koodak', 'Vollkorn', Georgia, serif;
+  font-family: 'Nodes', 'Vollkorn', Georgia, serif;
   letter-spacing: -3px;
   font-weight: 700;
   border-left: none;
@@ -1273,7 +1273,7 @@ blockquote.bigtext {
 
 #stats span.counter {
   font-size: 80px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   line-height: 80px;
   color: #ccc;
@@ -1553,7 +1553,7 @@ blockquote.bigtext {
   width: 95%;
   color: #fff;
   margin: 0 auto 20px;
-  font-family: 'B Koodak', 'Vollkorn', Georgia, serif;
+  font-family: 'Nodes', 'Vollkorn', Georgia, serif;
   font-weight: 700;
 }
 
@@ -1909,13 +1909,13 @@ blockquote.bigtext {
 
 .meta.col-md-4 h4 {
   font-size: 14px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
 }
 .meta.col-md-4 p {
   font-size: 14px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: none;
   letter-spacing: 0;
@@ -2151,7 +2151,7 @@ ul.filters li p {
   border-bottom: 3px solid transparent;
   border-top: 3px solid transparent;
   font-size: 14px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
@@ -2779,7 +2779,7 @@ ul.filters li p:hover {
 .present,
 .born {
   font-size: 14px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   color: #F26F70;
@@ -2861,7 +2861,7 @@ ul.filters li p:hover {
 
 .articles h1 a {
   font-size: 36px;
-  font-family: 'B Koodak', 'Vollkorn', Georgia, serif;
+  font-family: 'Nodes', 'Vollkorn', Georgia, serif;
   letter-spacing: -1px;
   font-weight: 700;
   text-decoration: none;
@@ -2929,7 +2929,7 @@ body#contact form#contactForm.well {
 body#contact .form-control {
   padding: 36px 0 48px;
   border: none;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 13px;
@@ -2946,7 +2946,7 @@ body#contact textarea.form-control {
 }
 
 body#contact form#contactForm .btn-primary {
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 13px;
@@ -2976,7 +2976,7 @@ body#contact form#contactForm .alert-danger {
   border-radius: 0;
   border: none;
   font-size: 15px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   width: 80%;
   background-color: transparent;
@@ -3037,7 +3037,7 @@ span.icon-at {
 .plan ul {
   background-color: #fff;
   font-size: 14px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   border-bottom: 4px solid #777;
@@ -3090,7 +3090,7 @@ span.icon-at {
 
 .pricing-table span {
   font-size: 24px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -3128,7 +3128,7 @@ footer p {
 
 footer small {
   font-size: 13px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -3345,7 +3345,7 @@ footer img:hover {
   -moz-border-radius: 0;
   border-radius: 0;
   font-size: 14px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   color: #fff;
@@ -3462,7 +3462,7 @@ footer img:hover {
   border-radius: 0;
   height: 40px;
   font-size: 14px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   color: #fff;
@@ -3517,7 +3517,7 @@ footer img:hover {
 .breadcrumb > .active {
   color: #434a54;
   font-size: 14px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase
 }
@@ -3526,7 +3526,7 @@ footer img:hover {
   margin-bottom: 0;
   color: #434a54;
   font-size: 14px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase
 }
@@ -3721,7 +3721,7 @@ footer img:hover {
 
  .alert {
   font-size: 14px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -3801,7 +3801,7 @@ footer img:hover {
 .nav-tabs > li > a {
   margin-right: 0;
   font-size: 14px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   color: #fff;
@@ -3951,7 +3951,7 @@ a.list-group-item {
 }
 a.list-group-item .list-group-item-heading {
   font-size: 14px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -4097,7 +4097,7 @@ a.list-group-item-danger.active, a.list-group-item-danger:hover, a.list-group-it
 }
 .modaltagline {
   font-size: 14px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   float: left;
@@ -4178,7 +4178,7 @@ a.list-group-item-danger.active, a.list-group-item-danger:hover, a.list-group-it
 }
 .panel-title {
   font-size: 14px;
-  font-family: 'B Koodak', Helvetica, Arial, sans-serif;
+  font-family: 'Nodes', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
 }
