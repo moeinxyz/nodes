@@ -12,6 +12,7 @@ $this->registerLinkTag(['rel'=>'alternate','type'=>'application/rss+xm','title'=
 
 $this->registerMetaTag(['name'=>'description','content'=>  Module::t('post','meta._user.description',['title'=>$title,'description'=>$description])]);
 $this->registerMetaTag(['name'=>'author','content'=>$title]);
+$this->registerMetaTag(['name'=>'isFamilyFriendly','content'=>'true']);
 
 // Twitter Card Data
 $this->registerMetaTag(['name'=>'twitter:card','content'=>'summary']);
