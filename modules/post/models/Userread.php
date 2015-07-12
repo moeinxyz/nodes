@@ -65,6 +65,11 @@ class Userread extends \yii\db\ActiveRecord
         if (parent::beforeValidate()){
             if ($this->isNewRecord && $this->created_at == ''){//sometimes we moves from guest to user
                 $this->created_at   =   new \yii\db\Expression('NOW()');
+                if (in_array($this->ip, ['127.0.0.1', '::1'])) {
+                    return FALSE;
+                }
+                $this->ip           =   ip2long($this->ip);
+                $this->useragent    =   md5($this->useragent);                
             }
             return TRUE;
         }

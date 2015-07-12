@@ -469,7 +469,7 @@ class PostController extends Controller
         $model              =   new Userread();
         $model->post_id     =   $post->id;
         $model->user_id     =   \Yii::$app->user->getId();
-        $model->ip          =   ip2long(\Yii::$app->request->getUserIp());            
+        $model->ip          =   \Yii::$app->request->getUserIp();
         $model->save();
     }
 
@@ -490,9 +490,8 @@ class PostController extends Controller
         $model              =   new Guestread();
         $model->uuid        =   $readHash;
         $model->post_id     =   $post->id;
-        //@todo move modifier to model
-        $model->ip          =   ip2long(\Yii::$app->request->getUserIp());
-        $model->useragent   =   md5(\Yii::$app->request->getUserAgent());
+        $model->ip          =   \Yii::$app->request->getUserIp();
+        $model->useragent   =   \Yii::$app->request->getUserAgent();
         $model->save();
     }
 

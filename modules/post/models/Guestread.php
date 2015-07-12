@@ -58,9 +58,11 @@ class Guestread extends \yii\db\ActiveRecord
         if (parent::beforeValidate()){
             if ($this->isNewRecord){
                 $this->created_at   =   new \yii\db\Expression('NOW()');
-            }
-            if ($this->ip === FALSE){// localhost ip - ::1
-                $this->ip   = ip2long('127.0.0.1');
+                if (in_array($this->ip, ['127.0.0.1', '::1'])) {
+                    return FALSE;
+                }
+                $this->ip           =   ip2long($this->ip);
+                $this->useragent    =   md5($this->useragent);
             }
             return TRUE;
         }
