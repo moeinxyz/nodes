@@ -490,6 +490,7 @@ class PostController extends Controller
         $model              =   new Guestread();
         $model->uuid        =   $readHash;
         $model->post_id     =   $post->id;
+        //@todo move modifier to model
         $model->ip          =   ip2long(\Yii::$app->request->getUserIp());
         $model->useragent   =   md5(\Yii::$app->request->getUserAgent());
         $model->save();
@@ -512,8 +513,10 @@ class PostController extends Controller
             $userRead->created_at   =   $model->created_at;
             $rows[]                 =   $userRead->attributes;
         }
-        $userRead   =   new Userread;
-        Yii::$app->db->createCommand()->batchInsert(Userread::tableName(), $userRead->attributes(), $rows)->execute();
+        if (count($rows) >= 1)
+        {
+            Yii::$app->db->createCommand()->batchInsert(Userread::tableName(), $userRead->attributes(), $rows)->execute();    
+        }
     }
     
     
