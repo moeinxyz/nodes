@@ -57,13 +57,13 @@
   }
 }*/
 .small-font-size {
-    font-size: 14px;
+    font-size: 15px;
 }
 .medium-font-size {
-    font-size: 17px;
+    font-size: 18px;
 }
 .medium-font-size .help-block,.medium-font-size .help-inline{
-    font-size: 14px;
+    font-size: 15px;
 }
 .dropdown-menu > li.user-header > a{
     padding: 5px;
@@ -88,7 +88,7 @@
 
 .othermedia > a{
     padding-left: 9px;
-    font-size: 18px;
+    font-size: 19px;
 }
 
 .graf--blockquote{
@@ -259,6 +259,11 @@ pre.graf--pre {
     padding: 15px 0 !important;
 }
 
+.error-cover{
+    background-image: url(../img/Brick_Wall.jpg);
+    height: 235px; 
+    opacity: 1;
+}
 #comment-text{
     margin-top: 10px;
 }

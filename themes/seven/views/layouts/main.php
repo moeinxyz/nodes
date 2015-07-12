@@ -3,7 +3,8 @@ use yii\helpers\Html;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-$this->registerAssetBundle('main');
+\app\assets\MainAssets::register($this);
+
 $lang   = Yii::$app->language;
 $js     = <<<JS
 var RecaptchaOptions = {

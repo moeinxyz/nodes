@@ -7,7 +7,9 @@ use app\modules\user\models\Url;
   * currently font-awesome doesn't support feedback
   * you should wait for it to fix or bought glyphicons pro version
   */
-$this->registerAssetBundle('bootstrap-switch');
+
+ \app\assets\BootstrapSwitchAssets::register($this);
+
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $url app\modules\user\models\Url */

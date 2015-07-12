@@ -6,8 +6,10 @@ use app\modules\user\models\PublicProfileForm;
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\modules\user\models\PublicProfileForm */
-$this->registerAssetBundle('iCheck');
-$this->registerAssetBundle('jasny-bootstrap');
+
+app\assets\ICheckAssets::register($this);
+app\assets\JasnyBootstrapAssets::register($this);
+
 $form = ActiveForm::begin([
     'id' => 'public-form',
     'options' => ['class'   =>  'form-horizontal','enctype' => 'multipart/form-data'],

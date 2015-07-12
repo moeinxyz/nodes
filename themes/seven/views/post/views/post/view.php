@@ -9,7 +9,8 @@ use app\modules\post\Module;
 // social meta tags
 $this->render('meta/_post',['post'=>$post]);
 
-$this->registerAssetBundle('show-post');
+\app\assets\ShowPostAssets::register($this);
+
 $this->title    =   Module::t('post','view.head.title',['title'=>$post->title]);
 // Render Header
 

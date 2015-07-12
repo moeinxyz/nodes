@@ -4,7 +4,7 @@ use yii\bootstrap\ActiveForm;
 use app\modules\post\Module;
 use yii\widgets\Pjax;
 use app\modules\post\models\Post;
-$this->registerAssetBundle('jasny-bootstrap');
+app\assets\JasnyBootstrapAssets::register($this);
 $pjax       =   Pjax::begin(['enablePushState'=>false]);
 ?>
 <div class="row">

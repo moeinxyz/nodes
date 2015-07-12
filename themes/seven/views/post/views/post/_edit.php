@@ -3,7 +3,8 @@ use yii\helpers\Html;
 use app\modules\post\Module;
 /* @var $this \yii\web\View */
 /* @var $model app\modules\post\models\Post */
-$this->registerAssetBundle('custom-editor');
+
+app\assets\CustomEditorAssets::register($this);
 ?>
 <div class="row">
     <div class="col-md-8 col-md-offset-2">    

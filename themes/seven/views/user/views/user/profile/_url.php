@@ -2,7 +2,7 @@
 use app\modules\user\Module;
 use yii\widgets\Pjax;
 
-$this->registerAssetBundle('bootstrap-switch');
+\app\assets\BootstrapSwitchAssets::register($this);
 $pjax = Pjax::begin(['enablePushState'=>FALSE]);
 echo $this->render('_inner_url',['urls'=>$urls,'newUrl'=>$newUrl]);
 Pjax::end();

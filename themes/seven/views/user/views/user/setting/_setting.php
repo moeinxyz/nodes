@@ -7,7 +7,7 @@ use app\modules\user\models\ChangeSettingForm;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model app\modules\user\models\ChangeSettingForm */
 
-$this->registerAssetBundle('iCheck');
+app\assets\ICheckAssets::register($this);
 $form = ActiveForm::begin([
     'id'                    => 'password-form',
     'enableAjaxValidation'  => true,

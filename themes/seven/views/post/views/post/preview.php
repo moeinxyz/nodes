@@ -5,7 +5,8 @@ use app\modules\post\models\Post;
 use app\components\Helper\Extract;
 use app\modules\post\Module;
 use yii\helpers\HtmlPurifier;
-$this->registerAssetBundle('show-post');
+
+\app\assets\ShowPostAssets::register($this);
 
 $title              =   HtmlPurifier::process(Extract::extractTitle($post->autosave_content));
 $content            =   HtmlPurifier::process(Extract::extractContent($post->autosave_content),app\components\Helper\Purifier::getConfig());
