@@ -17,10 +17,7 @@ class InitAssets extends AssetBundle
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
-        'yii\bootstrap\BootstrapPluginAsset',
-        'yii\web\JqueryAsset',
-        'yii\jui\JuiAsset',
+        'yii\bootstrap\BootstrapPluginAsset',        
         'app\assets\FontAwesomeAssets',
     ];
 }
