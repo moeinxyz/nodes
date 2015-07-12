@@ -14,7 +14,6 @@ class DanteAssets extends AssetBundle
         'js/dante-editor.js'
     ];
     public $depends = [
-        'yii\web\JqueryAsset',
         'app\assets\UnderscoreAssets',
         'app\assets\SanitizeAssets',
         'app\assets\MainAssets'
