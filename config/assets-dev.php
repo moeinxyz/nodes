@@ -1,106 +1,74 @@
 <?php
-
 return [
-//    'Font'  =>  [
-//        'class'         =>  'yii\web\AssetBundle',
-//        'sourcePath'    =>  '@app/themes/seven/assets',        
-//        'css'           =>  ['http://ifont.ir/apicode/17']
-//    ],
-    'FontAwesome' =>  [
-        'class'         =>  'yii\web\AssetBundle',
-        'sourcePath'    =>  '@bower/components-font-awesome',
-        'css'           =>  ['css/font-awesome.min.css'],
+    'app\\assets\\FontAwesomeAssets' =>  [
+        'class'         =>  'app\\assets\\FontAwesomeAssets',
     ],
-    'init'  =>  [
-        'class'         =>  'yii\web\AssetBundle',        
-        'sourcePath'    =>  '@bower',
-        'css'           =>  [
-                        'animate.css/animate.min.css',
-        ],
-        'js'            =>  [
-                        'jQuery-One-Page-Nav/jquery.nav.js',
-                        'jquery.nicescroll/dist/jquery.nicescroll.min.js',
-                        'slimscroll/jquery.slimscroll.min.js'
-        ],
+    'app\\assets\\InitAssets'  =>  [
+        'class'         =>  'app\assets\InitAssets',        
         'depends'       =>  [
                         'yii\web\YiiAsset',
                         'yii\bootstrap\BootstrapAsset',
                         'yii\bootstrap\BootstrapPluginAsset',
                         'yii\web\JqueryAsset',
                         'yii\jui\JuiAsset',
-//                        'Font',
-                        'FontAwesome'
+                        'app\\assets\\FontAwesomeAssets'
                     ]        
     ],
-    'wow'               =>  [
-        'class'         =>  'yii\web\AssetBundle',
-        'sourcePath'    =>  '@bower/wow/dist',        
-        'js'            =>  ['wow.min.js']
+    'app\\assets\\WowAssets'=>  [
+        'class'         =>  'app\assets\WowAssets',
     ],    
-    'main'  =>  [
-        'class'         =>  'yii\web\AssetBundle',
-        'sourcePath'    =>  '@app/themes/seven/assets/master/',
-        'css'           =>  [
-                                'css/icomoon.css',
-                                'css/style.css',
-                                'css/custom.css',
-                                'css/AdminLTE.css',
-                                'css/skin-blue.css',
-                            ],
-        'js'            => [
-                                'js/main.js',
-                                'js/app.min.js',
-                            ],        
-        'depends'       =>  ['init','wow']        
+    'app\\assets\\MainAssets'  =>  [
+        'class'         =>  'app\\assets\\MainAssets',        
+        'depends'       =>  [
+            'app\\assets\\InitAssets',
+            'app\\assets\\WowAssets'
+        ]        
     ],
-    'iCheck'    =>  [
-        'class'         =>  'yii\web\AssetBundle',
-        'sourcePath'    =>  '@bower/iCheck',
-        'css'           =>  ['skins/line/blue.css'],
-        'js'            =>  ['icheck.min.js'],
-        'depends'       =>  ['main']
+    'app\\assets\\ICheckAssets'    =>  [
+        'class'         =>  'app\assets\ICheckAssets',
+        'depends'       =>  [
+            'app\\assets\\MainAssets'
+        ]
     ],
-    'bootstrap-switch'  =>  [
-        'class'         =>  'yii\web\AssetBundle',
-        'sourcePath'    =>  '@bower/bootstrap-switch/dist',
-        'css'           =>  ['css/bootstrap3/bootstrap-switch.min.css'],
-        'js'            =>  ['js/bootstrap-switch.min.js'],
-        'depends'       =>  ['main']        
+    'app\\assets\\BootstrapSwitchAssets'  =>  [
+        'class'         =>  'app\assets\BootstrapSwitchAssets',
+        'depends'       =>  [
+            'app\\assets\\MainAssets'
+        ]        
     ],
-    'underscore'        =>  [
-        'class'         =>  'yii\web\AssetBundle',
-        'sourcePath'    =>  '@bower/underscore',
-        'js'            =>  ['underscore-min.js'],
+    'app\\assets\\UnderscoreAssets'=>  [
+        'class'         =>  'app\assets\UnderscoreAssets',
     ],
-    'sanitize'          =>  [
-        'class'         =>  'yii\web\AssetBundle',
-        'sourcePath'    =>  '@bower/sanitize.js/lib',
-        'js'            =>  ['sanitize.js'],
+    'app\\assets\\SanitizeAssets'  =>  [
+        'class'         =>  'app\assets\SanitizeAssets',
     ],
-    'dante'             =>  [
-        'class'         =>  'yii\web\AssetBundle',
-        'sourcePath'    =>  '@bower/dante/dist',        
-        'css'           =>  ['css/dante-editor.css'],
-        'js'            =>  ['js/dante-editor.js'],
-        'depends'       =>  ['yii\web\JqueryAsset','underscore','sanitize','main']
+    'app\\assets\\DanteAssets'     =>  [
+        'class'         =>  'app\assets\DanteAssets',
+        'depends'       =>  [
+            'yii\web\JqueryAsset',
+            'app\\assets\\SanitizeAssets',
+            'app\\assets\\UnderscoreAssets',
+            'app\\assets\\MainAssets'
+        ]
+        
     ],
-    'custom-editor'     =>  [
-        'class'         =>  'yii\web\AssetBundle',
-        'sourcePath'    =>  '@app/themes/seven/assets/editor',
-        'js'            =>  ['js/editor.js'],
-        'depends'       =>  ['main','dante']
+    'app\\assets\\CustomEditorAssets'     =>  [
+        'class'         =>  'app\assets\CustomEditorAssets',
+        'depends'       =>  [
+            'app\\assets\\MainAssets',
+            'app\\assets\\DanteAssets'
+        ]
     ],
-    'show-post'         =>  [
-        'class'         =>  'yii\web\AssetBundle',
-        'sourcePath'    =>  '@bower/dante/dist',        
-        'css'           =>  ['css/dante-editor.css'],
-        'depends'       =>  ['main']
+    'app\\assets\\ShowPostAssets'  =>  [
+        'class'         => 'app\assets\ShowPostAssets',
+        'depends'       =>  [
+            'app\\assets\\MainAssets',
+        ]
     ],
-    'jasny-bootstrap'   =>  [
-        'class'         =>  'yii\web\AssetBundle',
-        'sourcePath'    =>  '@bower/jasny-bootstrap/dist',
-        'js'            =>  ['js/jasny-bootstrap.min.js'],
-        'css'           =>  ['css/jasny-bootstrap.min.css'],
-        'depends'       =>  ['main']
+    'app\\assets\\JasnyBootstrapAssets'   =>  [
+        'class'         =>  'app\assets\JasnyBootstrapAssets',
+        'depends'       =>  [
+            'app\\assets\\MainAssets',
+        ]
     ],
 ];
