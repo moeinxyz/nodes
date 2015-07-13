@@ -1,6 +1,5 @@
 <?php 
 use app\modules\post\Module;
-use yii\helpers\Html;
 ?>
 <div class="top-buffer"></div>
 <?php if (Yii::$app->user->isGuest): ?>
