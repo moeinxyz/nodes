@@ -6,7 +6,7 @@ use yii\web\AssetBundle;
 
 class ICheckAssets extends AssetBundle
 {
-    public $sourcePath =   '@bower/iCheck';
+    public $sourcePath =   '@bower/icheck';
     public $css = [
         'skins/line/blue.css',
     ];

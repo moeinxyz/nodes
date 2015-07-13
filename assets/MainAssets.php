@@ -8,11 +8,11 @@ class MainAssets extends AssetBundle
 {
     public $sourcePath =   '@app/themes/seven/assets/master/';
     public $css = [
+        'css/AdminLTE.css',
+        'css/skin-blue.css',
         'css/icomoon.css',
         'css/style.css',
-        'css/custom.css',
-        'css/AdminLTE.css',
-        'css/skin-blue.css'
+        'css/custom.css',        
     ];
     public $js = [
         'js/main.js',
