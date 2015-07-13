@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1a5ce72afd87cad6fd50966ad1c3f264",
+    "hash": "10bbc441e4b61eda9395daf53c60d060",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -269,16 +269,16 @@
             ]
         },
         {
-            "name": "bower-asset/iCheck",
+            "name": "bower-asset/icheck",
             "version": "1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fronteed/iCheck.git",
+                "url": "https://github.com/fronteed/icheck.git",
                 "reference": "8a6eb37bd7dab1e843c1b630c91c6398ff409d05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fronteed/iCheck/zipball/8a6eb37bd7dab1e843c1b630c91c6398ff409d05",
+                "url": "https://api.github.com/repos/fronteed/icheck/zipball/8a6eb37bd7dab1e843c1b630c91c6398ff409d05",
                 "reference": "8a6eb37bd7dab1e843c1b630c91c6398ff409d05",
                 "shasum": ""
             },
@@ -412,31 +412,6 @@
                 "jquery",
                 "library"
             ]
-        },
-        {
-            "name": "bower-asset/jquery-ui",
-            "version": "1.11.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/components/jqueryui.git",
-                "reference": "c34f8dbf3ba57b3784b93f26119f436c0e8288e1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/components/jqueryui/zipball/c34f8dbf3ba57b3784b93f26119f436c0e8288e1",
-                "reference": "c34f8dbf3ba57b3784b93f26119f436c0e8288e1",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/jquery": ">=1.6"
-            },
-            "type": "bower-asset-library",
-            "extra": {
-                "bower-asset-main": [
-                    "jquery-ui.js"
-                ],
-                "bower-asset-ignore": []
-            }
         },
         {
             "name": "bower-asset/jquery.inputmask",
@@ -1101,56 +1076,6 @@
             "time": "2013-07-10 17:25:36"
         },
         {
-            "name": "j7mbo/twitter-api-php",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/J7mbo/twitter-api-php.git",
-                "reference": "7e7aefc2e443ea5fd797cdc4138a0013f8b68774"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/J7mbo/twitter-api-php/zipball/7e7aefc2e443ea5fd797cdc4138a0013f8b68774",
-                "reference": "7e7aefc2e443ea5fd797cdc4138a0013f8b68774",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.5,>=4.5.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "TwitterAPIExchange.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GNU Public License"
-            ],
-            "authors": [
-                {
-                    "name": "James Mallison",
-                    "homepage": "https://github.com/j7mbo/twitter-api-php"
-                }
-            ],
-            "description": "Simple PHP Wrapper for Twitter API v1.1 calls",
-            "homepage": "https://github.com/j7mbo/twitter-api-php",
-            "keywords": [
-                "api",
-                "php",
-                "twitter"
-            ],
-            "time": "2015-06-23 20:17:44"
-        },
-        {
             "name": "kartik-v/yii2-grid",
             "version": "dev-master",
             "source": {
@@ -1242,16 +1167,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.6",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "e87d33ecc3a9fe2b1931856dc9921628f8c18cd5"
+                "reference": "c42bed650525ec9ea1a83b715e37f4fc690f99aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/e87d33ecc3a9fe2b1931856dc9921628f8c18cd5",
-                "reference": "e87d33ecc3a9fe2b1931856dc9921628f8c18cd5",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/c42bed650525ec9ea1a83b715e37f4fc690f99aa",
+                "reference": "c42bed650525ec9ea1a83b715e37f4fc690f99aa",
                 "shasum": ""
             },
             "require": {
@@ -1319,7 +1244,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2015-07-08 20:43:57"
+            "time": "2015-07-13 09:25:28"
         },
         {
             "name": "league/flysystem-sftp",
@@ -1946,12 +1871,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
-                "reference": "6bf50c092a5fcfb700e53addabb82ebd77625b27"
+                "reference": "cf85993681a0049b6a925a6abe480e8bbf89e918"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/6bf50c092a5fcfb700e53addabb82ebd77625b27",
-                "reference": "6bf50c092a5fcfb700e53addabb82ebd77625b27",
+                "url": "https://api.github.com/repos/symfony/DomCrawler/zipball/cf85993681a0049b6a925a6abe480e8bbf89e918",
+                "reference": "cf85993681a0049b6a925a6abe480e8bbf89e918",
                 "shasum": ""
             },
             "require": {
@@ -1991,20 +1916,20 @@
             ],
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
-            "time": "2015-06-04 20:30:47"
+            "time": "2015-07-09 16:12:34"
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "726867caee3f23aa7a6975c801e64b6021e14f86"
+                "reference": "ea8c13b9f5cd437bd7bf73cad8a3457a155f3727"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/726867caee3f23aa7a6975c801e64b6021e14f86",
-                "reference": "726867caee3f23aa7a6975c801e64b6021e14f86",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/ea8c13b9f5cd437bd7bf73cad8a3457a155f3727",
+                "reference": "ea8c13b9f5cd437bd7bf73cad8a3457a155f3727",
                 "shasum": ""
             },
             "require": {
@@ -2079,7 +2004,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2015-05-10 20:09:47"
+            "time": "2015-07-11 02:37:59"
         },
         {
             "name": "yiisoft/yii2-authclient",
@@ -2273,56 +2198,6 @@
                 "yii2"
             ],
             "time": "2015-03-01 06:22:44"
-        },
-        {
-            "name": "yiisoft/yii2-jui",
-            "version": "2.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yiisoft/yii2-jui.git",
-                "reference": "ce16f29cca654702c2ee500ccad9657a2d2e6a09"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-jui/zipball/ce16f29cca654702c2ee500ccad9657a2d2e6a09",
-                "reference": "ce16f29cca654702c2ee500ccad9657a2d2e6a09",
-                "shasum": ""
-            },
-            "require": {
-                "bower-asset/jquery-ui": "1.11.*@stable",
-                "yiisoft/yii2": ">=2.0.4"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.0.x-dev"
-                },
-                "asset-installer-paths": {
-                    "npm-asset-library": "vendor/npm",
-                    "bower-asset-library": "vendor/bower"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "yii\\jui\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Qiang Xue",
-                    "email": "qiang.xue@gmail.com"
-                }
-            ],
-            "description": "The Jquery UI extension for the Yii framework",
-            "keywords": [
-                "jQuery UI",
-                "yii2"
-            ],
-            "time": "2015-05-10 22:09:43"
         },
         {
             "name": "yiisoft/yii2-redis",
@@ -2831,8 +2706,7 @@
         "symfony/css-selector": 20,
         "kartik-v/yii2-grid": 20,
         "linkedinapi/linkedin": 20,
-        "google/apiclient": 10,
-        "j7mbo/twitter-api-php": 20
+        "google/apiclient": 10
     },
     "prefer-stable": true,
     "prefer-lowest": false,

@@ -32,6 +32,10 @@
         "bower-asset/bootstrap-switch":"*",
         "bower-asset/dante":"*",
         "bower-asset/jasny-bootstrap":"*",
+        "bower-asset/wow": "*",
+        "bower-asset/jQuery-One-Page-Nav": "*",
+        "bower-asset/jquery.nicescroll": "*",
+        "bower-asset/animate.css": "*",        
         "embedly/embedly-php": "dev-master",
         "zelenin/yii2-rss": "dev-master",
         "symfony/dom-crawler": "~3.0@dev",
@@ -41,10 +45,6 @@
 	"abraham/twitteroauth": "0.5.2",
         "linkedinapi/linkedin": "dev-master",
         "google/apiclient": "1.0.*@beta",
-        "bower-asset/wow": "*",
-        "bower-asset/jQuery-One-Page-Nav": "*",
-        "bower-asset/jquery.nicescroll": "*",
-        "bower-asset/animate.css": "*",
         "yiisoft/yii2-imagine": "~2.0.0"
     },
     "require-dev": {
