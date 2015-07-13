@@ -9,6 +9,7 @@
 use app\modules\post\models\Post;
 use app\modules\post\Module; 
 use yii\helpers\StringHelper;
+use Miladr\Jalali\jDateTime;
 use app\modules\post\models\Userrecommend;
 
 $author =   $post->getUser()->one();
@@ -22,7 +23,7 @@ $bold   =   ($user->id === $author->id && $post->pin === Post::PIN_ON)?true:fals
             <img src="<?= $author->getProfilePicture(36); ?>" alt="<?= $author->getName();?>" class="img-circle" style="width: 36px;height: 36px;margin-top: auto;">
         </a>
         <span class="small-font-size">
-            <?= Module::t('post','_show_post_abstract.written_by',['time'=>Yii::$app->jdate->date("l jS F Y",strtotime($post->published_at))]); ?>
+            <?= Module::t('post','_show_post_abstract.written_by',['time'=>  jDateTime::date("l jS F Y",strtotime($post->published_at))]); ?>
             <a href="<?= Yii::$app->urlManager->createUrl(["{$author->getUsername()}"]);?>">
                 <?= $author->getName();?>
             </a>

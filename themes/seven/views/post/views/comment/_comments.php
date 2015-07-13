@@ -1,4 +1,5 @@
 <?php 
+use Miladr\Jalali\jDateTime;
 /* @var $this \yii\web\View */
 /* @var $username string */
 /* @var $url string*/
@@ -21,7 +22,7 @@
                     </a>
                     <span class="time"><i class="fa fa-clock-o"></i>
                         <a href="<?= Yii::$app->urlManager->createUrl(["@{$username}/{$url}#comment-{$uid}"]) ?>">
-                            <?= Yii::$app->jdate->date("l jS F Y H:i",strtotime($comment->created_at))?>
+                            <?= jDateTime::date("l jS F Y H:i",strtotime($comment->created_at))?>
                         </a>
                     </span>
                 </div>

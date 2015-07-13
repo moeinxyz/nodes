@@ -6,6 +6,7 @@ use app\modules\post\models\Post;
 use yii\widgets\Pjax;
 use yii\helpers\StringHelper;
 use app\components\Helper\PersianNumber;
+use Miladr\Jalali\jDateTime;
 
 $username   =   Yii::$app->user->getIdentity()->getUsername();
 $pjax       =   Pjax::begin(['enablePushState'=>FALSE,'clientOptions' => ['method' => 'POST']]);
@@ -53,7 +54,7 @@ echo GridView::widget([
                 [
                     'attribute'     => 'updated_at',
                     'content'       => function ($model, $key, $index, $column) {
-                        return '<span class="small-font-size">' . Yii::$app->jdate->date("l jS F Y h:i A", strtotime($model->updated_at)) . '</span>';
+                        return '<span class="small-font-size">' . jDateTime::date("l jS F Y h:i A", strtotime($model->updated_at)) . '</span>';
                     }
                 ],
                 [

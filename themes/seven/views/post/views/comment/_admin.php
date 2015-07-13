@@ -6,6 +6,7 @@ use app\modules\post\models\Post;
 use app\modules\post\models\Comment;
 use app\modules\post\models\Abuse;
 use yii\widgets\Pjax;
+use Miladr\Jalali\jDateTime;
 
 $username   =   Yii::$app->user->getIdentity()->getUsername();
 $pjax       =   Pjax::begin(['enablePushState'=>FALSE,'clientOptions' => ['method' => 'POST']]);
@@ -63,7 +64,7 @@ echo GridView::widget([
             'attribute'     => 'created_at',
             'content' => function ($model, $key, $index, $column) {
                 $post   =   $model->post;
-                $content =  '<span class="small-font-size">' . Yii::$app->jdate->date("l jS F Y h:i A", strtotime($model->created_at)) . '</span>';
+                $content =  '<span class="small-font-size">' . jDateTime::date("l jS F Y h:i A", strtotime($model->created_at)) . '</span>';
                 if ($post->status === Post::STATUS_PUBLISH){
                     $uid    = md5($model->id);
                     $url = Yii::$app->urlManager->createUrl("{$post->user->getUsername()}/{$post->url}#comment-{$uid}");

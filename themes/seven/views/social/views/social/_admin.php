@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use app\modules\social\Module;
 use app\modules\social\models\Social;
 use yii\widgets\Pjax;
-
+use Miladr\Jalali\jDateTime;
 $username   =   Yii::$app->user->getIdentity()->getUsername();
 $pjax       =   Pjax::begin(['enablePushState'=>FALSE,'clientOptions' => ['method' => 'POST']]);
 echo GridView::widget([
@@ -40,7 +40,7 @@ echo GridView::widget([
             'content'       => function ($model, $key, $index, $column) {
                 return Html::a($model->name,$model->url);
                 return var_dump(unserialize($model->token));
-                return Yii::$app->jdate->date("l jS F Y h:i A", strtotime($model->created_at));
+                return jDateTime::date("l jS F Y h:i A", strtotime($model->created_at));
             }    
         ],
         [
@@ -64,7 +64,7 @@ echo GridView::widget([
         [
             'attribute'     => 'created_at',
             'content' => function ($model, $key, $index, $column) {
-                return Yii::$app->jdate->date("l jS F Y h:i A", strtotime($model->created_at));
+                return jDateTime::date("l jS F Y h:i A", strtotime($model->created_at));
             }            
         ],
         [

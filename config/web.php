@@ -9,9 +9,6 @@ $config = [
     'language'          =>  'fa-IR',
     'sourceLanguage'    =>  'en-US',
     'components' => [
-        'jdate' => [
-            'class' => 'jDate\DateTime'
-        ],        
         'ftpFs' => [
             'class' => 'creocoder\flysystem\FtpFilesystem',
             'host'  => '91.109.23.155',
