@@ -21,7 +21,6 @@
         "yiisoft/yii2-swiftmailer": "*",
         "yiisoft/yii2-authclient": "*",
         "yiisoft/yii2-redis": "*",
-        "yiisoft/yii2-jui": "*",
         "himiklab/yii2-recaptcha-widget": "*",        
         "nickcv/yii2-mandrill": "*",
         "bower-asset/slimScroll":"*",

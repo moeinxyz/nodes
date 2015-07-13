@@ -7,10 +7,7 @@ return [
         'class'         =>  'app\assets\InitAssets',        
         'depends'       =>  [
                         'yii\web\YiiAsset',
-                        'yii\bootstrap\BootstrapAsset',
                         'yii\bootstrap\BootstrapPluginAsset',
-                        'yii\web\JqueryAsset',
-                        'yii\jui\JuiAsset',
                         'app\\assets\\FontAwesomeAssets'
                     ]        
     ],
