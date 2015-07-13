@@ -11,7 +11,8 @@ return [
     // Adjust command/callback for JavaScript files compressing:
     'jsCompressor' => 'java -jar compiler.jar --js {from} --js_output_file {to}',
     // Adjust command/callback for CSS files compressing:
-    'cssCompressor' => 'java -jar yuicompressor.jar --type css {from} -o {to}',
+    'cssCompressor' => 'cleancss -o {to} {from}',
+    // YUI is not under maintaince,use npm install -g clean-css 
     // The list of asset bundles to compress:
     'bundles' => [
         'app\assets\BootstrapSwitchAssets',
@@ -27,13 +28,13 @@ return [
             'class'     =>  'yii\web\AssetBundle',
             'basePath'  =>  '@webroot/min',
             'baseUrl'   =>  '@web/min',
-            'js'        =>  'm{hash}.js',
-            'css'       =>  'm{hash}.css',
+            'js'        =>  'main-{hash}.js',
+            'css'       =>  'main-{hash}.css',
             'depends'   =>  [
                 'yii\web\YiiAsset',
                 'yii\web\JqueryAsset',                
                 'yii\bootstrap\BootstrapAsset',
-                'yii\bootstrap\BootstrapPluginAsset',           
+                'yii\bootstrap\BootstrapPluginAsset',   
                 'app\assets\FontAwesomeAssets',                        
                 'app\assets\InitAssets',                
                 'app\assets\WowAssets',        
@@ -44,8 +45,8 @@ return [
             'class'     =>  'yii\web\AssetBundle',
             'basePath'  =>  '@webroot/min',
             'baseUrl'   =>  '@web/min',
-            'js'        =>  'e{hash}.js',
-            'css'       =>  'e{hash}.css',
+            'js'        =>  'editor-{hash}.js',
+            'css'       =>  'editor-{hash}.css',
             'depends'   =>  [
                 'app\assets\CustomEditorAssets',
                 'app\assets\DanteAssets',                
@@ -57,8 +58,8 @@ return [
             'class'     =>  'yii\web\AssetBundle',
             'basePath'  =>  '@webroot/min',
             'baseUrl'   =>  '@web/min',
-            'js'        =>  's{hash}.js',
-            'css'       =>  's{hash}.css',
+            'js'        =>  'show-{hash}.js',
+            'css'       =>  'show-{hash}.css',
             'depends'   =>  [
                 'app\assets\ShowPostAssets'
             ]                        
@@ -67,8 +68,8 @@ return [
             'class'     =>  'yii\web\AssetBundle',
             'basePath'  =>  '@webroot/min',
             'baseUrl'   =>  '@web/min',
-            'js'        =>  'i{hash}.js',
-            'css'       =>  'i{hash}.css',
+            'js'        =>  'icheck-{hash}.js',
+            'css'       =>  'icheck-{hash}.css',
             'depends'   =>  [
                 'app\assets\ICheckAssets'
             ]                                    
@@ -77,8 +78,8 @@ return [
             'class'     =>  'yii\web\AssetBundle',
             'basePath'  =>  '@webroot/min',
             'baseUrl'   =>  '@web/min',
-            'js'        =>  'j{hash}.js',
-            'css'       =>  'j{hash}.css',
+            'js'        =>  'jasny-{hash}.js',
+            'css'       =>  'jasny-{hash}.css',
             'depends'   =>  [
                 'app\assets\JasnyBootstrapAssets'
             ]                                    
@@ -87,8 +88,8 @@ return [
             'class'     =>  'yii\web\AssetBundle',
             'basePath'  =>  '@webroot/min',
             'baseUrl'   =>  '@web/min',
-            'js'        =>  's2{hash}.js',
-            'css'       =>  's2{hash}.css',
+            'js'        =>  'switch-{hash}.js',
+            'css'       =>  'switch{hash}.css',
             'depends'   =>  [
                 'app\assets\BootstrapSwitchAssets',
             ]                                    
