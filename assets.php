@@ -28,8 +28,8 @@ return [
             'class'     =>  'yii\web\AssetBundle',
             'basePath'  =>  '@webroot/min',
             'baseUrl'   =>  '@web/min',
-            'js'        =>  'main-{hash}.js',
-            'css'       =>  'main-{hash}.css',
+            'js'        =>  'a{hash}.js',
+            'css'       =>  'a{hash}.css',
             'depends'   =>  [
                 'yii\web\YiiAsset',
                 'yii\web\JqueryAsset',                
@@ -45,8 +45,8 @@ return [
             'class'     =>  'yii\web\AssetBundle',
             'basePath'  =>  '@webroot/min',
             'baseUrl'   =>  '@web/min',
-            'js'        =>  'editor-{hash}.js',
-            'css'       =>  'editor-{hash}.css',
+            'js'        =>  'b{hash}.js',
+            'css'       =>  'b{hash}.css',
             'depends'   =>  [
                 'app\assets\CustomEditorAssets',
                 'app\assets\DanteAssets',                
@@ -58,8 +58,8 @@ return [
             'class'     =>  'yii\web\AssetBundle',
             'basePath'  =>  '@webroot/min',
             'baseUrl'   =>  '@web/min',
-            'js'        =>  'show-{hash}.js',
-            'css'       =>  'show-{hash}.css',
+            'js'        =>  'c{hash}.js',
+            'css'       =>  'c{hash}.css',
             'depends'   =>  [
                 'app\assets\ShowPostAssets'
             ]                        
@@ -68,8 +68,8 @@ return [
             'class'     =>  'yii\web\AssetBundle',
             'basePath'  =>  '@webroot/min',
             'baseUrl'   =>  '@web/min',
-            'js'        =>  'icheck-{hash}.js',
-            'css'       =>  'icheck-{hash}.css',
+            'js'        =>  'd{hash}.js',
+            'css'       =>  'd{hash}.css',
             'depends'   =>  [
                 'app\assets\ICheckAssets'
             ]                                    
@@ -78,8 +78,8 @@ return [
             'class'     =>  'yii\web\AssetBundle',
             'basePath'  =>  '@webroot/min',
             'baseUrl'   =>  '@web/min',
-            'js'        =>  'jasny-{hash}.js',
-            'css'       =>  'jasny-{hash}.css',
+            'js'        =>  'e{hash}.js',
+            'css'       =>  'e{hash}.css',
             'depends'   =>  [
                 'app\assets\JasnyBootstrapAssets'
             ]                                    
@@ -88,8 +88,8 @@ return [
             'class'     =>  'yii\web\AssetBundle',
             'basePath'  =>  '@webroot/min',
             'baseUrl'   =>  '@web/min',
-            'js'        =>  'switch-{hash}.js',
-            'css'       =>  'switch{hash}.css',
+            'js'        =>  'f{hash}.js',
+            'css'       =>  'f{hash}.css',
             'depends'   =>  [
                 'app\assets\BootstrapSwitchAssets',
             ]                                    
