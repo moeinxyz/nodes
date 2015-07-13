@@ -41,7 +41,7 @@ $this->registerLinkTag(['rel'=>'shortcut icon','href'=>Yii::$app->urlManager->ba
             ?>
             <?= $this->render('footer') ?>
             
-            <?php // (Yii::$app->user->isGuest)?$this->render('headers/login'):NULL; ?>
+            <?= (Yii::$app->user->isGuest)?$this->render('headers/login'):NULL; ?>
         <?php $this->endBody() ?>
         <script>
 //          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
