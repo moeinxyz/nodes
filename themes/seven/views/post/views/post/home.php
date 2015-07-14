@@ -7,6 +7,7 @@ use app\modules\post\Module;
 $this->render('meta/_home');
 
 $this->title    = Module::t('post','home.index.head.title');
+echo $this->render('home/_alert');
 echo $this->render('home/_posts_list',['posts'=>$posts]);
 ?>
 <div class="row">

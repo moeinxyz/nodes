@@ -53,7 +53,7 @@ class TokenController extends Controller
             $this->redirect(['user/activation']);
         } else {
             if ($token->activeAccount()){
-                Yii::$app->session->setFlash('token.activation.successful');//@todo implement in toread
+                Yii::$app->session->setFlash('token.activation.successful');
                 Yii::$app->user->login($token->user);
                 return $this->redirect(Yii::$app->urlManager->createUrl(['','activation'=>true]));
             } else {
@@ -76,7 +76,7 @@ class TokenController extends Controller
         } else {
             $model  =   new ResetPasswordForm(['_token'=>$token]);
             if ($model->load(Yii::$app->request->post()) && $model->changePassword()){
-                Yii::$app->session->setFlash('token.reset.successful');//@todo implement in toread
+                Yii::$app->session->setFlash('token.reset.successful');
                 Yii::$app->user->login($token->user);
                 return $this->redirect(Yii::$app->urlManager->createUrl(['','reset'=>true]));                
             }
