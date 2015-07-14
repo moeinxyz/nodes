@@ -41,34 +41,34 @@ class UserController extends Controller
         ];
     }
     
-//    public function behaviors()
-//    {
-//        return [
-//            'access'    =>  [
-//                'class' =>  AccessControl::className(),
-//                
-//                'only'  =>  ['activation','join','login','logout','profile','reset','setting','auth'],
-//                'rules' =>  [
-//                    [
-//                        'actions'       =>  ['join','auth','activation','login','reset'],
-//                        'roles'         =>  ['?'],
-//                        'allow'         =>  true,
-//                    ],
-//                    [
-//                        'actions'   =>  ['setting','profile'],
-//                        'roles'     =>  ['@'],
-//                        'allow'     =>  true
-//                    ],
-//                    [
-//                        'actions'   =>  ['logout'],
-//                        'roles'     =>  ['@'],
-//                        'verbs'     =>  ['GET'],                        
-//                        'allow'     =>  true,
-//                    ]
-//                ]
-//            ]
-//        ];
-//    }
+    public function behaviors()
+    {
+        return [
+            'access'    =>  [
+                'class' =>  AccessControl::className(),
+                
+                'only'  =>  ['activation','join','login','logout','profile','reset','setting','auth'],
+                'rules' =>  [
+                    [
+                        'actions'       =>  ['join','auth','activation','login','reset'],
+                        'roles'         =>  ['?'],
+                        'allow'         =>  true,
+                    ],
+                    [
+                        'actions'   =>  ['setting','profile'],
+                        'roles'     =>  ['@'],
+                        'allow'     =>  true
+                    ],
+                    [
+                        'actions'   =>  ['logout'],
+                        'roles'     =>  ['@'],
+                        'verbs'     =>  ['GET'],                        
+                        'allow'     =>  true,
+                    ]
+                ]
+            ]
+        ];
+    }
 
     /**
      * 

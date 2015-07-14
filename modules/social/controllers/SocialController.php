@@ -62,7 +62,7 @@ class SocialController extends Controller
             $this->twitterAuth($client, $attributes);
         }
         // add facebook later
-        return $this->redirect('social/admin');
+        return $this->redirect('admin');
     }
     
     
