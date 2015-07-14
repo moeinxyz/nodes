@@ -28,20 +28,7 @@ return [
         ],        
     ],
     'components' => [
-        'ftpFs' => [
-            'class' => 'creocoder\flysystem\FtpFilesystem',
-            'host'  => '91.109.23.155',
-            'port'  => 21,
-            'username' => 'cdn2@nodes.ir',
-            'password' => 'CU9eb8Mk',
-            // 'root' => '/path/to/root',
-            // 'passive' => false,
-            // 'ssl' => true,
-            // 'timeout' => 60,
-            // 'permPrivate' => 0700,
-            // 'permPublic' => 0744,
-            // 'transferMode' => FTP_TEXT,
-        ],        
+        'ftpFs' => require(__DIR__ . '/' . 'ftp.php'),
         'mailer'    => [
             'class'     =>  'nickcv\mandrill\Mailer',
             'apikey'    =>  '6mEUoQyuhDN4itn_O1UlCg',

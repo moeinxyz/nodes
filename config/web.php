@@ -9,20 +9,7 @@ $config = [
     'language'          =>  'fa-IR',
     'sourceLanguage'    =>  'en-US',
     'components' => [
-        'ftpFs' => [
-            'class' => 'creocoder\flysystem\FtpFilesystem',
-            'host'  => '91.109.23.155',
-            'port'  => 21,
-            'username' => 'cdn2@nodes.ir',
-            'password' => 'CU9eb8Mk',
-            // 'root' => '/path/to/root',
-            // 'passive' => false,
-            // 'ssl' => true,
-            // 'timeout' => 60,
-            // 'permPrivate' => 0700,
-            // 'permPublic' => 0744,
-            // 'transferMode' => FTP_TEXT,
-        ],        
+        'ftpFs' => require(__DIR__ . '/' . 'ftp.php'),        
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey'       => 'N9H_hIWERpGoYxMcgZnvFgmwsSVOck8j',
