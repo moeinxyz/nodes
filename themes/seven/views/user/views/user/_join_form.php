@@ -1,4 +1,5 @@
 <?php
+use Yii;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use app\modules\user\Module;

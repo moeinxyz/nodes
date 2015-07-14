@@ -2,6 +2,7 @@
 
 namespace app\modules\user\models;
 
+use Yii;
 use yii\base\Model;
 use app\modules\user\models\User;
 use app\modules\user\Module;
@@ -24,7 +25,7 @@ class ResetForm extends Model
     {
         return [
             [['email'], 'required'],            
-//            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className(), 'secret' => Yii::$app->reCaptcha->secret],
+            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className(), 'secret' => Yii::$app->reCaptcha->secret],
             [['email'],'validateStatus'],
         ];
     }

@@ -41,34 +41,34 @@ class UserController extends Controller
         ];
     }
     
-    public function behaviors()
-    {
-        return [
-            'access'    =>  [
-                'class' =>  AccessControl::className(),
-                
-                'only'  =>  ['activation','join','login','logout','profile','reset','setting','auth'],
-                'rules' =>  [
-                    [
-                        'actions'       =>  ['join','auth','activation','login','reset'],
-                        'roles'         =>  ['?'],
-                        'allow'         =>  true,
-                    ],
-                    [
-                        'actions'   =>  ['setting','profile'],
-                        'roles'     =>  ['@'],
-                        'allow'     =>  true
-                    ],
-                    [
-                        'actions'   =>  ['logout'],
-                        'roles'     =>  ['@'],
-                        'verbs'     =>  ['GET'],                        
-                        'allow'     =>  true,
-                    ]
-                ]
-            ]
-        ];
-    }
+//    public function behaviors()
+//    {
+//        return [
+//            'access'    =>  [
+//                'class' =>  AccessControl::className(),
+//                
+//                'only'  =>  ['activation','join','login','logout','profile','reset','setting','auth'],
+//                'rules' =>  [
+//                    [
+//                        'actions'       =>  ['join','auth','activation','login','reset'],
+//                        'roles'         =>  ['?'],
+//                        'allow'         =>  true,
+//                    ],
+//                    [
+//                        'actions'   =>  ['setting','profile'],
+//                        'roles'     =>  ['@'],
+//                        'allow'     =>  true
+//                    ],
+//                    [
+//                        'actions'   =>  ['logout'],
+//                        'roles'     =>  ['@'],
+//                        'verbs'     =>  ['GET'],                        
+//                        'allow'     =>  true,
+//                    ]
+//                ]
+//            ]
+//        ];
+//    }
 
     /**
      * 
@@ -154,6 +154,7 @@ class UserController extends Controller
         return $this->render('join',['model'=>$model]);
     }
 
+
     /**
      * 
      * @return type
@@ -161,6 +162,7 @@ class UserController extends Controller
     public function actionReset()
     {
         $model  =   new ResetForm();
+        
         if ($model->load(Yii::$app->request->post()) && $model->validate()){
             $token  =   Token::getNewResetToken($model->getUser()->id);
             $url    =   Yii::$app->urlManager->createAbsoluteUrl(['token/reset','id'=>$token->id,'code'=>urlencode($token->token)]);
@@ -175,7 +177,7 @@ class UserController extends Controller
             Yii::$app->session->setFlash('reset_sent');
             Yii::$app->session->setFlash('user.reset.successful');
         }
-        
+
         return $this->render('reset',['model'=>$model]);
     }
     
