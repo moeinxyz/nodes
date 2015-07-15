@@ -12,6 +12,7 @@ return [
     'language'          =>  'fa-IR',
     'sourceLanguage'    =>  'en-US',    
     'controllerNamespace' => 'app\commands',
+    'name'              =>  'Nodes Console',
     'modules' => [
         'gii' => 'yii\gii\Module',
         'user' => [

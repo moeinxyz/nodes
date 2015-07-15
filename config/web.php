@@ -8,6 +8,7 @@ $config = [
     'bootstrap' =>  ['log'],
     'language'          =>  'fa-IR',
     'sourceLanguage'    =>  'en-US',
+    'name'              =>  'Nodes Web',
     'components' => [
         'ftpFs' => require(__DIR__ . '/' . 'ftp.php'),        
         'request' => [
