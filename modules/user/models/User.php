@@ -100,7 +100,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             [['username', 'email', 'auth_key'], 'required'],
-            [['password'], 'required','on'=>'join'],
+            [['password'], 'required','on'=>['join_ajax','join_post']],
             [['email'],'email'],
             [['created_at'], 'safe'],
             [['type', 'status'], 'string'],
@@ -111,7 +111,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             [['tagline'], 'string', 'max' => 256],
             [['username','email'], 'unique'],
             [['pictureUrl','coverUrl'],'safe','on'=>'oauth_signup'],
-            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className(), 'secret' => Yii::$app->reCaptcha->secret,'on'=>'join'],
+            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className(), 'secret' => \Yii::$app->reCaptcha->secret,'on'=>['join_post']],
             [['content_activity','publisher_activity','social_activity'],'in','range'=>[self::ACTIVITY_SETTING_DIGEST,self::ACTIVITY_SETTING_FULL,self::ACTIVITY_SETTING_OFF]],
             [['reading_list'],'in','range'=>[self::READING_LIST_DAILY,self::READING_LIST_OFF,self::READING_LIST_WEEKLY]],
             [['type'],'in','range'=>[self::TYPE_ADMIN,self::TYPE_USER]],
@@ -242,7 +242,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     
     public function beforeSave($insert) {
         if (parent::beforeSave($insert)){
-            if ($this->getScenario() === 'join'){
+            if ($this->getScenario() === 'join_post'){
                 $this->clearPassword    = $this->password;
                 $this->password         = Yii::$app->security->generatePasswordHash($this->password);
             }            

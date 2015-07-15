@@ -133,12 +133,13 @@ class UserController extends Controller
      */
     public function actionJoin()
     {
-        $model  =   new User(['scenario'=>'join']);
+        $model  =   new User();
         $model->load(Yii::$app->request->post());
         if (Yii::$app->request->isAjax){
+            $model->setScenario('join_ajax');
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
-        } else if (Yii::$app->request->isPost && $model->save()){
+        } else if (Yii::$app->request->isPost && ($model->setScenario('join_post') || true) && $model->save()){
             $token  =   Token::getNewActivationToken($model->id);
             $url    =   Yii::$app->urlManager->createAbsoluteUrl(['token/activation','id'=>$token->id,'code'=>urlencode($token->token)]);
             
