@@ -107,9 +107,7 @@ class PostSuggestionForGuest extends JobBase
                             ->count();
         return $count * 2;
     }
-
     
-    //@todo implement it as PostSuggestionBase class
     private function wordsCountScore($pureText)
     {
         /**

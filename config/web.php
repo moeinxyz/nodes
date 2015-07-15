@@ -1,7 +1,6 @@
 <?php
 
 $params = require(__DIR__ . '/params.php');
-//@todo fix all unsafe attribute for models !attribute means unsafe
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
