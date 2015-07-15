@@ -35,7 +35,7 @@ $bold   =   ($user->id === $author->id && $post->pin === Post::PIN_ON)?true:fals
                     <a href="<?= Yii::$app->urlManager->createUrl(["{$user->getUsername()}"]); ?>">
                         <?= $user->getName(); ?>
                     </a>
-                    <?php if ($counter != 1): ?>
+                    <?php if ($counter != 0): ?>
                         <?= Module::t('post','_show_post_abstract.comma'); ?>
                     <?php endif; ?>
                 <?php endif; ?>
