@@ -91,7 +91,7 @@ $pjax       =   Pjax::begin(['enablePushState'=>false]);
                                     </div>
                                     <?php if ($cover->coverStatus === Post::COVER_BYCOVER): ?>
                                         <div class="col-md-12 controls">
-                                            <?= Html::submitButton(Module::t('post','post.cover.remove'), ['class' => 'btn btn-primary btn-block', 'name' => 'submit-type','value'=>'remove-cover']) ?>
+                                            <?= Html::submitButton(Module::t('post','post.cover.remove'), ['class' => 'btn btn-danger btn-block', 'name' => 'submit-type','value'=>'remove-cover']) ?>
                                         </div>                                    
                                     <?php endif; ?>
                                 </div>            
