@@ -69,7 +69,6 @@ class Userread extends \yii\db\ActiveRecord
                     return FALSE;
                 }
                 $this->ip           =   ip2long($this->ip);
-                $this->useragent    =   md5($this->useragent);                
             }
             return TRUE;
         }
