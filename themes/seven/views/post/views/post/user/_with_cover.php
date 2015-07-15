@@ -43,7 +43,7 @@ use app\modules\post\Module;
                             <span class="counter"><?= $user->followers_count; ?></span>
                         </div>                        
                     </a>
-                    <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}/recommended"]); ?>">
+                    <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}/recommends"]); ?>">
                         <div class="col-md-2 col-sm-2 col-xs-6">
                             <h3><?= Module::t('post','user._user.recommended'); ?></h3>
                             <span class="counter"><?= $user->recommended_count; ?></span>

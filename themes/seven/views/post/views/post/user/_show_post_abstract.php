@@ -35,7 +35,9 @@ $bold   =   ($user->id === $author->id && $post->pin === Post::PIN_ON)?true:fals
                     <a href="<?= Yii::$app->urlManager->createUrl(["{$user->getUsername()}"]); ?>">
                         <?= $user->getName(); ?>
                     </a>
-                    <?= Module::t('post','_show_post_abstract.comma'); ?>
+                    <?php if ($counter != 1): ?>
+                        <?= Module::t('post','_show_post_abstract.comma'); ?>
+                    <?php endif; ?>
                 <?php endif; ?>
                 <?php $recommenders   =   Userrecommend::getPostRecommenders($post->id,3,$user->id); ?>
                 <?php foreach ($recommenders as $index => $recommender): ?>
