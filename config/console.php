@@ -50,33 +50,73 @@ return [
         ],
         'socialClientCollection'    =>  require(__DIR__ . '/social.php'),
         'db' => $db,
-        'gearman' => [
+        'gearman-sync-image' => [
+            'class' => 'filsh\yii2\gearman\GearmanComponent',
+            'servers' => [
+                ['host' => '127.0.0.1', 'port' => 4730],
+            ],
+            'user'  => 'moein',
+            'jobs'  =>  [
+                'SyncImage' =>  [
+                    'class' => 'app\gearworker\SyncImage'
+                ],                
+            ]
+        ],           
+        'gearman-sync-post-cover' => [
             'class' => 'filsh\yii2\gearman\GearmanComponent',
             'servers' => [
                 ['host' => '127.0.0.1', 'port' => 4730],
             ],
             'user' => 'moein',
-            'jobs' => [
-                'SyncImage' =>  [
-                    'class' => 'app\gearworker\SyncImage'
-                ],
+            'jobs'  =>  [
                 'SyncPostCover' =>  [
                     'class' =>  'app\gearworker\SyncPostCover'
                 ],
+            ]            
+        ],           
+        'gearman-user-post-suggestion' => [
+            'class' => 'filsh\yii2\gearman\GearmanComponent',
+            'servers' => [
+                ['host' => '127.0.0.1', 'port' => 4730],
+            ],
+            'user' => 'moein',
+            'jobs'  =>  [
                 'PostSuggestionForUser' =>  [
                     'class' =>  'app\gearworker\PostSuggestionForUser'
                 ],
+            ]            
+        ],   
+        'gearman-guest-post-suggestion' => [
+            'class' => 'filsh\yii2\gearman\GearmanComponent',
+            'servers' => [
+                ['host' => '127.0.0.1', 'port' => 4730],
+            ],
+            'user' => 'moein',
+            'jobs'  =>  [
                 'PostSuggestionForGuest'=>  [
                     'class' =>  'app\gearworker\PostSuggestionForGuest'
                 ]
             ]
+            
         ],           
     ],
     'controllerMap' => [
-        'gearman' => [
+        'gearman-sync-image' => [
             'class'             => 'filsh\yii2\gearman\GearmanController',
-            'gearmanComponent'  => 'gearman'
+            'gearmanComponent'  => 'gearman-sync-image'
         ],
+        'gearman-sync-post-cover' => [
+            'class'             => 'filsh\yii2\gearman\GearmanController',
+            'gearmanComponent'  => 'gearman-sync-post-cover'
+        ],
+        'gearman-user-post-suggestion' => [
+            'class'             => 'filsh\yii2\gearman\GearmanController',
+            'gearmanComponent'  => 'gearman-user-post-suggestion'
+        ],
+        'gearman-guest-post-suggestion' => [
+            'class'             => 'filsh\yii2\gearman\GearmanController',
+            'gearmanComponent'  => 'gearman-guest-post-suggestion'
+        ],        
         'fixture' => [
             'class'             => 'yii\faker\FixtureController',
             'templatePath'      => 'tests/unit/fixtures',
