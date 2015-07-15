@@ -47,6 +47,9 @@ class Post extends \yii\db\ActiveRecord
     
     const LAST_UPDATE_TYPE_MANUAL   =   'MANUAL';
     const LAST_UPDATE_TYPE_AUTOSAVE =   'AUTOSAVE';
+    
+    private $oldStatus      =   NULL;
+
     /**
      * @inheritdoc
      */
@@ -227,22 +230,40 @@ class Post extends \yii\db\ActiveRecord
         }
     }
     
+    public function beforeSave($insert) {
+        if (parent::beforeSave($insert)){
+            if (isset($this->oldAttributes['status'])){
+                $this->oldStatus   =   $this->oldAttributes['status'];    
+            }
+            return TRUE;
+        }
+        return FALSE;
+    }
+
     //@todo test it
     public function afterSave($insert, $changedAttributes) {
         parent::afterSave($insert, $changedAttributes);
-        if (isset($this->oldAttributes['status']) && $this->oldAttributes['status'] !== self::STATUS_PUBLISH && $this->status === self::STATUS_PUBLISH){
-            $this->getUser()->one()->updateCounters(['posts_count'=>1]);            
-            User::find()->join('LEFT JOIN', Userrecommend::tableName(),User::tableName().'.id = '.Userrecommend::tableName().'.user_id')
-                    ->where(Userrecommend::tableName().'.post_id=:post_id',['post_id'=>$this->id])
-                    ->all()->updateAllCounters(['recommended_count'=>1]);
-        } else if (isset($this->oldAttributes['status']) && $this->oldAttributes['status'] === self::STATUS_PUBLISH && $this->status !== self::STATUS_PUBLISH) {
-            $this->getUser()->one()->updateCounters(['posts_count'=>-1]);
-            User::find()->join('LEFT JOIN', Userrecommend::tableName(),User::tableName().'.id = '.Userrecommend::tableName().'.user_id')
-                    ->where(Userrecommend::tableName().'.post_id=:post_id',['post_id'=>$this->id])
-                    ->all()->updateAllCounters(['recommended_count'=>-1]);            
+        if ($this->oldStatus !== NULL && $this->oldStatus !== self::STATUS_PUBLISH && $this->status === self::STATUS_PUBLISH){
+            $this->user->updateCounters(['posts_count'=>1]);
+            $this->updateUsersRecommendedCounts($this->id, 1);
+        } else if ($this->oldStatus !== NULL && $this->oldStatus === self::STATUS_PUBLISH && $this->status !== self::STATUS_PUBLISH) {
+            $this->user->updateCounters(['posts_count'=>-1]);
+            $this->updateUsersRecommendedCounts($this->id, -1);
         }
     }
     
+    private function updateUsersRecommendedCounts($postId,$count)
+    {        
+        $sql    =   'UPDATE '.User::tableName().' SET recommended_count=recommended_count + (:count) '
+                .   'WHERE id IN '
+                .   '(SELECT `user_id` FROM '.Userrecommend::tableName().' WHERE post_id=:postId)';
+
+        Yii::$app->db->createCommand($sql)
+                ->bindValue(':count', $count)
+                ->bindValue(':postId', $postId)
+                ->execute();        
+    }
+
     public static function getCoverFileName($id)
     {
         return md5($id).base_convert($id, 10, 36);
