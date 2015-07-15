@@ -73,7 +73,7 @@ class SocialController extends Controller
         $social->url    =   $attributes['public-profile-url'];
         $social->auth   =   Social::AUTH_AUTH;
         $social->status =   Social::STATUS_ACTIVE;
-        $social->token  =   serialize($client);
+        $social->token  =   serialize($client->getAccessToken());
         if ($social->save()){
             Yii::$app->session->setFlash('social.add',  Social::TYPE_LINKEDIN);
         } else {
@@ -89,7 +89,7 @@ class SocialController extends Controller
         $social->url    =   'https://twitter.com/'.$attributes['screen_name'];
         $social->auth   =   Social::AUTH_AUTH;
         $social->status =   Social::STATUS_ACTIVE;
-        $social->token  =   serialize($client);
+        $social->token  =   serialize($client->getAccessToken());
         if ($social->save()){
             Yii::$app->session->setFlash('social.add',  Social::TYPE_TWITTER);
         } else {

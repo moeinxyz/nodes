@@ -8,6 +8,7 @@ use app\modules\social\models\Socialcontent;
 use app\modules\social\Module;
 use app\modules\post\models\Post;
 use app\modules\post\models\Userrecommend;
+use yii\authclient\OAuthToken;
 
 /**
  * This Way Is So Dummy,Need Queue Arch
@@ -58,16 +59,16 @@ class DaemonController extends \yii\console\Controller{
     private function getUnsharedPosts(Social $social){
         $recommends =   [];
         $posts      = Post::find()->where('user_id=:user_id AND status=:status AND published_at>=:published_at',[
-            'used_id'       =>  $social->user_id,
-            'published_at'  =>  $social->last_used,
-            'status'        =>  Post::STATUS_PUBLISH,
+            ':user_id'       =>  $social->user_id,
+            ':published_at'  =>  $social->last_used,
+            ':status'        =>  Post::STATUS_PUBLISH,
         ])->all();        
         if ($social->share === Social::SHARE_ALL){
             $recommends = Post::find()->join('LEFT JOIN', Userrecommend::tableName(),  Post::tableName().'.id = '.Userrecommend::tableName().'.post_id')
                 ->where(Userrecommend::tableName().'.user_id=:user_id AND '.Userrecommend::tableName().'.created_at>=:created_at AND '.Post::tableName().'.status=:status',[
-                    'user_id'       =>  $social->user_id,
-                    'created_at'    =>  $social->last_used,
-                    'status'        =>  Post::STATUS_PUBLISH
+                    ':user_id'       =>  $social->user_id,
+                    ':created_at'    =>  $social->last_used,
+                    ':status'        =>  Post::STATUS_PUBLISH
                 ])->all();
         }
         return array_merge($recommends,$posts);
@@ -82,7 +83,7 @@ class DaemonController extends \yii\console\Controller{
                 'callback_url'  =>  Yii::$app->params['linkedinCallbackUrl']
             ]);
             $token  =   unserialize($linkedin->token);
-            $li->setAccessToken($token->getAccessToken()->getToken());
+            $li->setAccessToken($token->getToken());
             $content    =    [
                 'title'         =>  $post->title,
                 'submitted-url' =>  Yii::$app->urlManager->createAbsoluteUrl([
@@ -110,11 +111,14 @@ class DaemonController extends \yii\console\Controller{
     {
         foreach ($posts as $post){
             $tw         =   new Twitter([
-                'consumerKey'   =>  Yii::$app->socialClientCollection->getClient('twitter')->clientId,
-                'consumerSecret'=>  Yii::$app->socialClientCollection->getClient('twitter')->clientId,
+                'consumerKey'   =>  Yii::$app->socialClientCollection->getClient('twitter')->consumerKey,
+                'consumerSecret'=>  Yii::$app->socialClientCollection->getClient('twitter')->consumerSecret,
             ]);
-            $token  =   unserialize($twitter->token);
-            $tw->setAccessToken($token->getAccessToken());
+            $oldToken  =   unserialize($twitter->token);
+            $token  =   new OAuthToken();
+            $token->setToken($oldToken->getToken());
+            $token->setTokenSecret($oldToken->getTokenSecret());
+            $tw->setAccessToken($token);
             $url        =   Yii::$app->urlManager->createAbsoluteUrl(["{$post->user->getUsername()}/{$post->url}",
                             'UTM_SOURCE' =>'twitter','UTM_CAMPAIGN'  =>  'auto-'.md5($twitter->user_id)]);
             $params     =   ['status'=>$post->title.'  '.$url];
