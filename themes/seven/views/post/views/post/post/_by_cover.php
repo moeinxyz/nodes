@@ -13,7 +13,7 @@ if ($timestamp <= 0){
 <section id="start" class="herofade hero cover element-img" style="opacity: 1; height: 302px; background-image: url(<?= Post::getCoverUrl($post->id); ?>);">
     <div class="tagline">
         <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}"]) ?>">
-            <img src="<?= Yii::$app->user->getIdentity()->getProfilePicture();?>" class="img-circle wow fadeInUp animated" alt="<?= Yii::$app->user->getIdentity()->getName();?>" data-wow-delay="0.3s" style="visibility: visible; -webkit-animation-delay: 0.3s;">                        
+            <img src="<?= $user->getProfilePicture();?>" class="img-circle wow fadeInUp animated" alt="<?= Yii::$app->user->getIdentity()->getName();?>" data-wow-delay="0.3s" style="visibility: visible; -webkit-animation-delay: 0.3s;">                        
         </a>
         <hr class="mini white central">
         <h1 class="wow fadeInUp animated post-header" data-wow-delay="0.5s" style="visibility: visible; -webkit-animation-delay: 0.5s;">
