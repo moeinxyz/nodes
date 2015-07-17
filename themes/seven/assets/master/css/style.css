@@ -47,9 +47,9 @@
 html {
   width: auto;
   overflow-x: hidden;
-  overflow-y: scroll !important;
+  overflow-y: scroll;
 }
-/*
+
 @media (max-width: 1024px) {
   html {
     overflow-x: hidden;
@@ -60,9 +60,9 @@ html {
 @media (min-width: 1025px) {
   html {
     overflow-x: hidden;
-    overflow-y: scroll !important; 
+    /*overflow-y: hidden;*/ 
   }
-}*/
+}
 
 #ascrail2000 {
   display: none !important;
