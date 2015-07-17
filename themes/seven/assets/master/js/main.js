@@ -4,6 +4,23 @@
 $(document).ready(function($) {
     "use strict";
 
+
+    // Page Scrollbar
+    // There are many options available - see http://areaaperta.com/nicescroll/ for further usage variables
+    // =======================================================
+    var nice = $("html").niceScroll({
+        cursorcolor: "#202020",
+        scrollspeed: 60,
+        mousescrollstep: 30,
+        boxzoom: false,
+        autohidemode: false,
+        cursorborder: "0 solid #202020",
+        cursorborderradius: "0",
+        cursorwidth: 10,
+        background: "#666",
+        horizrailenabled: false
+    });
+
     jQuery(window).load(function () {
 
         // Page Loading Gif
@@ -104,22 +121,6 @@ $(document).ready(function($) {
             scrollTop: $(".scrollreceive").offset().top
         }, 1200);
         return false;
-    });
-
-    // Page Scrollbar
-    // There are many options available - see http://areaaperta.com/nicescroll/ for further usage variables
-    // =======================================================
-    var nice = $("html").niceScroll({
-        cursorcolor: "#202020",
-        scrollspeed: 60,
-        mousescrollstep: 30,
-        boxzoom: false,
-        autohidemode: false,
-        cursorborder: "0 solid #202020",
-        cursorborderradius: "0",
-        cursorwidth: 10,
-        background: "#666",
-        horizrailenabled: false
     });
 
     // Team / Staff Block
