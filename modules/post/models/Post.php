@@ -140,6 +140,7 @@ class Post extends \yii\db\ActiveRecord
     {
         $title      =   strtolower($title);
         $title      =   preg_replace('/[[:space:]]+/', '-', $title);
+        $title      =   Stopwords::removeUnvalidCharacters($title);
         $words      =   Stopwords::purifierText(explode('-', $title));
         $words      =   Stopwords::purgeLongWord($words);
         $postfix    =   base_convert($id, 10, 36);
