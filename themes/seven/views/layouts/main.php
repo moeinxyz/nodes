@@ -40,7 +40,7 @@ $this->registerLinkTag(['rel'=>'shortcut icon','href'=>Yii::$app->urlManager->ba
                 }
             ?>
             <?= $this->render('footer') ?>
-            
+
             <?= (Yii::$app->user->isGuest)?$this->render('headers/login'):NULL; ?>
         <?php $this->endBody() ?>
         <script>
