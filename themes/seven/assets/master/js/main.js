@@ -119,7 +119,7 @@ $(document).ready(function($) {
         cursorborderradius: "0",
         cursorwidth: 10,
         background: "#666",
-        horizrailenabled: false,
+        horizrailenabled: false
     });
 
     // Team / Staff Block
