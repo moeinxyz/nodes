@@ -42,7 +42,6 @@ class DaemonController extends \yii\console\Controller{
         } while(true);
     }
     
-    
     private function dispatch(Social $social)
     {
         $posts = $this->getUnsharedPosts($social);
@@ -76,14 +75,15 @@ class DaemonController extends \yii\console\Controller{
 
     private function linkedin(Social $linkedin,$posts)
     {
+        $li         =   new \LinkedIn\LinkedIn([
+            'api_key'       =>  Yii::$app->socialClientCollection->getClient('linkedin')->clientId,
+            'api_secret'    =>  Yii::$app->socialClientCollection->getClient('linkedin')->clientSecret,
+            'callback_url'  =>  Yii::$app->params['linkedinCallbackUrl']
+        ]);
+        $token  =   unserialize($linkedin->token);
+        $li->setAccessToken($token->getToken());
+        
         foreach ($posts as $post){
-            $li         =   new \LinkedIn\LinkedIn([
-                'api_key'       =>  Yii::$app->socialClientCollection->getClient('linkedin')->clientId,
-                'api_secret'    =>  Yii::$app->socialClientCollection->getClient('linkedin')->clientSecret,
-                'callback_url'  =>  Yii::$app->params['linkedinCallbackUrl']
-            ]);
-            $token  =   unserialize($linkedin->token);
-            $li->setAccessToken($token->getToken());
             $content    =    [
                 'title'         =>  $post->title,
                 'submitted-url' =>  Yii::$app->urlManager->createAbsoluteUrl([
@@ -109,20 +109,23 @@ class DaemonController extends \yii\console\Controller{
     
     private function twitter(Social $twitter,$posts)
     {
+        $token  = unserialize($twitter->token);
+        $settings = array(
+            'oauth_access_token'        => $token->getToken(),
+            'oauth_access_token_secret' => $token->getTokenSecret(),
+            'consumer_key'              => Yii::$app->socialClientCollection->getClient('twitter')->consumerKey,
+            'consumer_secret'           => Yii::$app->socialClientCollection->getClient('twitter')->consumerSecret
+        );        
+        
+        $url            = 'https://api.twitter.com/1.1/statuses/update.json';
+        $requestMethod  = 'POST';
+        $tw             = new TwitterAPIExchange($settings);
+        
         foreach ($posts as $post){
-            $tw         =   new Twitter([
-                'consumerKey'   =>  Yii::$app->socialClientCollection->getClient('twitter')->consumerKey,
-                'consumerSecret'=>  Yii::$app->socialClientCollection->getClient('twitter')->consumerSecret,
-            ]);
-            $oldToken  =   unserialize($twitter->token);
-            $token  =   new OAuthToken();
-            $token->setToken($oldToken->getToken());
-            $token->setTokenSecret($oldToken->getTokenSecret());
-            $tw->setAccessToken($token);
             $url        =   Yii::$app->urlManager->createAbsoluteUrl(["{$post->user->getUsername()}/{$post->url}",
                             'UTM_SOURCE' =>'twitter','UTM_CAMPAIGN'  =>  'auto-'.md5($twitter->user_id)]);
             $params     =   ['status'=>$post->title.'  '.$url];
-            $response   =   $tw->api('/statuses/update.json','POST',$params);
+            $response   =   $tw->buildOauth($url, $requestMethod)->setPostfields($params)->performRequest();
             $this->addSocialContent($twitter, $post, $params,$response);
         }
         $twitter->last_used     =   new \yii\db\Expression('NOW()');

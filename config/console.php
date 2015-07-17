@@ -30,6 +30,11 @@ return [
     ],
     'components' => [
         'ftpFs' => require(__DIR__ . '/' . 'ftp.php'),
+        'urlManager' => [
+            'baseUrl' => 'http://nodes.ir/',
+            'showScriptName'    => false,
+            'enablePrettyUrl'   => true,
+        ],        
         'mailer'    => [
             'class'     =>  'nickcv\mandrill\Mailer',
             'apikey'    =>  '6mEUoQyuhDN4itn_O1UlCg',
