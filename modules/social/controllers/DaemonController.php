@@ -7,7 +7,7 @@ use app\modules\social\models\Socialcontent;
 use app\modules\social\Module;
 use app\modules\post\models\Post;
 use app\modules\post\models\Userrecommend;
-use Abraham\TwitterOAuth;
+use Abraham\TwitterOAuth\TwitterOAuth;
 /**
  * This Way Is So Dummy,Need Queue Arch
  */

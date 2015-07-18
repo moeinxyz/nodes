@@ -46,8 +46,7 @@
         "google/apiclient": "1.0.*@beta",
         "yiisoft/yii2-imagine": "~2.0.0",
         "miladr/jalali": "dev-master",
-        "webtoucher/yii2-amqp": "*",
-         "j7mbo/twitter-api-php": "dev-master"
+        "webtoucher/yii2-amqp": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",
