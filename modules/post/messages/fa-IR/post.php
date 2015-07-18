@@ -80,7 +80,7 @@ return [
     'home._signup_suggestion.btn.register'  =>  'عضویت',
     'home._signup_suggestion.btn.login'     =>  'ورود',
     
-    'home.index.head.title'                 =>  Yii::t('app','title'),
+    'home.index.head.title'                 =>  Yii::t('app','title').' - لذت خواندن و خوانده شدن',
     'user.user.head.title'                  =>  '{name} - '.Yii::t('app','title'),    
     'write.head.title.new'                  =>  'یک نوشته جدید - '.Yii::t('app','title'),
     'write.head.title.edit'                 =>  'ویرایش {title} - '.Yii::t('app','title'),
