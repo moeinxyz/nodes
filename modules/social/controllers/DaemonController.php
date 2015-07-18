@@ -2,14 +2,12 @@
 namespace app\modules\social\controllers;
 
 use Yii;
-use yii\authclient\clients\Twitter;
 use app\modules\social\models\Social;
 use app\modules\social\models\Socialcontent;
 use app\modules\social\Module;
 use app\modules\post\models\Post;
 use app\modules\post\models\Userrecommend;
-use yii\authclient\OAuthToken;
-
+use Abraham\TwitterOAuth;
 /**
  * This Way Is So Dummy,Need Queue Arch
  */
@@ -110,22 +108,15 @@ class DaemonController extends \yii\console\Controller{
     private function twitter(Social $twitter,$posts)
     {
         $token  = unserialize($twitter->token);
-        $settings = array(
-            'oauth_access_token'        => $token->getToken(),
-            'oauth_access_token_secret' => $token->getTokenSecret(),
-            'consumer_key'              => Yii::$app->socialClientCollection->getClient('twitter')->consumerKey,
-            'consumer_secret'           => Yii::$app->socialClientCollection->getClient('twitter')->consumerSecret
-        );        
-        
-        $url            = 'https://api.twitter.com/1.1/statuses/update.json';
-        $requestMethod  = 'POST';
-        $tw             = new TwitterAPIExchange($settings);
-        
+        $connection = new TwitterOAuth( Yii::$app->socialClientCollection->getClient('twitter')->consumerKey, 
+                                        Yii::$app->socialClientCollection->getClient('twitter')->consumerSecret,
+                                        $token->getToken(),
+                                        $token->getTokenSecret());
         foreach ($posts as $post){
             $url        =   Yii::$app->urlManager->createAbsoluteUrl(["{$post->user->getUsername()}/{$post->url}",
                             'UTM_SOURCE' =>'twitter','UTM_CAMPAIGN'  =>  'auto-'.md5($twitter->user_id)]);
             $params     =   ['status'=>$post->title.'  '.$url];
-            $response   =   $tw->buildOauth($url, $requestMethod)->setPostfields($params)->performRequest();
+            $response   =    $connection->post('statuses/update', $params);
             $this->addSocialContent($twitter, $post, $params,$response);
         }
         $twitter->last_used     =   new \yii\db\Expression('NOW()');
