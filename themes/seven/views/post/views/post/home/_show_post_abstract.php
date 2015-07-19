@@ -50,7 +50,7 @@ $author =   $post->getUser()->one();
                         <?= $post->title;?>
                     </a><br>
                     <span class="medium-font-size">
-                        <?= StringHelper::truncateWords($post->pure_text, 45); ?>
+                        <?= StringHelper::truncateWords($post->pure_text, 75); ?>
                     </span>
                 </div>
                 <div class="col-md-4">
@@ -66,7 +66,7 @@ $author =   $post->getUser()->one();
                         <?= $post->title;?>
                     </a><br>
                     <span class="medium-font-size">
-                        <?= StringHelper::truncateWords($post->pure_text, 80); ?>
+                        <?= StringHelper::truncateWords($post->pure_text, 90); ?>
                     </span>
                 </div>                    
             </div>

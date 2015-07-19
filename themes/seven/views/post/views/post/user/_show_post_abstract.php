@@ -62,7 +62,7 @@ $bold   =   ($user->id === $author->id && $post->pin === Post::PIN_ON)?true:fals
                         <?= $post->title;?>
                     </a><br>
                     <span class="medium-font-size">
-                        <?= StringHelper::truncateWords($post->pure_text, ($bold===true)?60:30); ?>
+                        <?= StringHelper::truncateWords($post->pure_text, ($bold===true)?100:70); ?>
                     </span>
                 </div>
                 <div class="col-md-4">
@@ -78,7 +78,7 @@ $bold   =   ($user->id === $author->id && $post->pin === Post::PIN_ON)?true:fals
                         <?= $post->title;?>
                     </a><br>
                     <span class="medium-font-size">
-                        <?= StringHelper::truncateWords($post->pure_text, ($bold===true)?120:30); ?>
+                        <?= StringHelper::truncateWords($post->pure_text, ($bold===true)?120:90); ?>
                     </span>
                 </div>                    
             </div>

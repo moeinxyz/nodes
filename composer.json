@@ -41,11 +41,11 @@
         "symfony/dom-crawler": "~3.0@dev",
         "symfony/css-selector": "~3.0@dev",
         "kartik-v/yii2-grid": "dev-master",
-	"abraham/twitteroauth": "0.5.2",
         "linkedinapi/linkedin": "dev-master",
         "google/apiclient": "1.0.*@beta",
         "yiisoft/yii2-imagine": "~2.0.0",
         "miladr/jalali": "dev-master",
+	"abraham/twitteroauth": "*",        
         "webtoucher/yii2-amqp": "*"
     },
     "require-dev": {
