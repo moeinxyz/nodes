@@ -36,6 +36,7 @@ return [
     'post.written_by'           =>  'نوشته شده در {time} توسط {author}',
     
     'comment.submitBtn'         =>  'ارسال نظر',
+    'comment.delete'            =>  'حذف نظر',
     
     'admin.status.draft'        =>  'پیش نویس ها',
     'admin.status.publish'      =>  'منتشر شده ها',

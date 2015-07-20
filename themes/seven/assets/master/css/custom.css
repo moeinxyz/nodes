@@ -185,6 +185,13 @@ div.grid-view > .summary{
     float: left;
     font-size: 14px;
 }
+.messages > li > div > .trash, .messages > div > li > div .trash {
+    margin-top: 5px;
+    margin-left: 10px;
+    color: #999;
+    float: left;
+    font-size: 14px;
+}
 .messages.messages-stripped > li:nth-child(odd) > div        {background-color: #eef1f4;}
 .messages.messages-stripped > li:nth-child(odd) > div:before {border-right-color: #eef1f4;}
 .messages.messages-zigzag > li:nth-child(even) > img {

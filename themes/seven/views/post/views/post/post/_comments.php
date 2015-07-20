@@ -1,6 +1,9 @@
 <?php 
 use yii\widgets\Pjax;
 use Miladr\Jalali\jDateTime;
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
+use app\modules\post\Module;
 /* @var $this \yii\web\View */
 /* @var $post app\modules\post\models\Post */
 /* @var $newComment \app\modules\post\models\Comment*/
@@ -8,10 +11,14 @@ use Miladr\Jalali\jDateTime;
 /* @var $lastComment integer last comment timestamp*/
 ?>
 <ul class="messages">
-    
         <?php 
         $lastComment = 0;
-        foreach ($comments as $comment): 
+        foreach ($comments as $comment):
+            $deleteComment =   false;
+            if ($comment->user_id === Yii::$app->user->getId() || $post->user_id === Yii::$app->user->getId()){
+                Pjax::begin(['enablePushState'=>FALSE,'options' =>  ['class'=>'pjax'],'clientOptions' => ['method' => 'POST']]);
+                $deleteComment  =   true;
+            }
             $user           =   $comment->getUser()->one();
             $uid            =   md5($comment->id);
             $lastComment    =   strtotime($comment->created_at);
@@ -28,18 +35,41 @@ use Miladr\Jalali\jDateTime;
                             <?= jDateTime::date("l jS F Y H:i",$lastComment)?>
                         </a>
                     </span>
+                    <?php
+                        if ($deleteComment){
+                            $form = ActiveForm::begin([
+                                'action'=>Yii::$app->urlManager->createUrl(["@{$user->username}/{$post->url}/comment/delete",'id'=>  base_convert($comment->id,10,36)]),
+                                'id' => 'comment-delete',
+                                'enableClientValidation'=>true,
+                                'options' => ['class'   =>  'form-horizontal trash','data-pjax'=>TRUE],
+                                'fieldConfig' => [
+                                    'template'  =>  ''
+                                ],
+                            ]);
+                            echo Html::a('', '#', [
+                                'class'     =>  'fa fa-trash-o',
+                                'onclick'   =>  'return false;',
+                                'title'     =>  Module::t('post','comment.delete'),
+                                'id'        =>  'delete-'.$uid
+                            ]);
+                            ActiveForm::end();
+                        }
+                    ?>
                 </div>
                 <p>
                     <?= $comment->text;?>
                 </p>
             </div>
-        </li>    
-    <?php 
+        </li>
+        <?php
+        if ($deleteComment){
+            Pjax::end();
+        }
         endforeach;
         if (Yii::$app->user->isGuest){
             echo $this->render('_login_to_comment');
         } else {
-            Pjax::begin(['enablePushState'=>FALSE]);
+            Pjax::begin(['enablePushState'=>FALSE,'options' =>  ['class'=>'pjax'],'clientOptions' => ['method' => 'POST']]);
             ?>
             <li>
                 <img src="<?= Yii::$app->user->getIdentity()->getProfilePicture(60);?>" alt="<?= Yii::$app->user->getIdentity()->getName();?>">
@@ -52,3 +82,19 @@ use Miladr\Jalali\jDateTime;
         }
     ?>
 </ul>
+
+<?php
+$js         =   <<<JS
+var pjax =   $("div.pjax");
+pjax.on('pjax:send',function(){
+    pjax.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+});
+pjax.on('pjax:complete',function(){
+    pjax.find('.overlay').remove();
+});
+$("div.pjax form.trash a").on('click',function(){
+    $(this).parent().submit();
+});
+JS;
+$this->registerJs($js);
+?>

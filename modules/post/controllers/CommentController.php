@@ -21,10 +21,10 @@ class CommentController extends Controller
         return [
             'access'    =>  [
                 'class' =>  AccessControl::className(),
-                'only'  =>  ['write','trash','abuse','comments'],
+                'only'  =>  ['write','trash','abuse','comments','delte'],
                 'rules' =>  [
                     [
-                        'actions'   =>  ['write','trash','abuse'],
+                        'actions'   =>  ['write','trash','abuse','delete'],
                         'roles'     =>  ['@'],
                         'verbs'     =>  ['POST'],       
                         'allow'     =>  true
@@ -63,7 +63,8 @@ class CommentController extends Controller
                 'comments'      =>  $comments,
                 'username'      =>  $username,
                 'url'           =>  $url,
-                'timestamp'     =>  $timestamp
+                'timestamp'     =>  $timestamp,
+                'post'          =>  $post
             ]);            
         } else {
             throw new \yii\web\HttpException;
@@ -81,15 +82,19 @@ class CommentController extends Controller
 
     public function actionTrash($id,$pid = NULL)
     {
-        $id     =   base_convert($id, 36, 10);
-        $comment= $this->findComment($id);   
-        $comment->toggleTash();
-        $comment->save();       
-        $dataProvider = $this->getDataProvider($pid);
-        return $this->renderAjax('_admin',[
-            'dataProvider'  =>  $dataProvider,
-            'postId'        =>  $pid
-        ]);    
+        if (Yii::$app->request->isAjax){
+            $id     =   base_convert($id, 36, 10);
+            $comment= $this->findCommentForPostAuthor($id);   
+            $comment->toggleTrash();
+            $comment->save();       
+            $dataProvider = $this->getDataProvider($pid);
+            return $this->renderAjax('_admin',[
+                'dataProvider'  =>  $dataProvider,
+                'postId'        =>  $pid
+            ]);    
+        } else {
+            return $this->redirect(Yii::$app->request->getReferrer());
+        }                
     }    
     
 
@@ -97,7 +102,7 @@ class CommentController extends Controller
     {
         if (Yii::$app->request->isAjax){
             $id     =   base_convert($id, 36, 10);
-            $comment= $this->findComment($id);   
+            $comment= $this->findCommentForPostAuthor($id);   
             if (!Abuse::isCommentAbuseExist($comment->id)){
                 $abuse = new Abuse();
                 $abuse->comment_id  =  $comment->id;
@@ -113,6 +118,23 @@ class CommentController extends Controller
         }        
     }        
     
+    public function actionDelete($id)
+    {
+        if (Yii::$app->request->isAjax){
+            $id         =   base_convert($id, 36, 10);
+            $comment    =   $this->findCommentForPostAuthorOrCommentAuthor($id);
+            if ($comment->post->user_id === Yii::$app->user->getId()){
+                $comment->status    = Comment::STATUS_TRASH;
+            } else {
+                $comment->status    = Comment::STATUS_USER_DELETE;
+            }
+            $comment->save();                       
+            return ' ';
+        } else {
+            return $this->redirect(Yii::$app->request->getReferrer());
+        }
+    }
+
     /**
      * 
      * @param string $pid
@@ -124,12 +146,14 @@ class CommentController extends Controller
             $PostId     =   base_convert($pid, 36, 10);
             $post   =   $this->findPostById($PostId);
             $dataProvider = new ActiveDataProvider([
-                'query' => Comment::find()->where('post_id=:post_id',['post_id'=>$post->id]),
+                'query' => Comment::find()->where('post_id=:post_id AND status!=:status',[':post_id'=>$post->id,':status'=>  Comment::STATUS_USER_DELETE]),
                 'sort'  => ['defaultOrder' => ['created_at'=>SORT_DESC]]
             ]);            
         } else {
             $dataProvider = new ActiveDataProvider([
-                'query' => Comment::find()->join('JOIN',  Post::tableName(),  Comment::tableName().'.post_id = '.Post::tableName().'.id')->where(Post::tableName().'.user_id=:user_id AND '.Post::tableName().'.status!=:status',['user_id'=>Yii::$app->user->getId(),'status'=>Post::STATUS_DELETE]),
+                'query' => Comment::find()->join('JOIN',  Post::tableName(),  
+                        Comment::tableName().'.post_id = '.Post::tableName().'.id')->where(Post::tableName().'.user_id=:user_id AND '.Post::tableName().'.status!=:post_status AND '.Comment::tableName().'.status!=:comment_status',
+                        [':user_id'=>Yii::$app->user->getId(),':post_status'=>Post::STATUS_DELETE,':comment_status'=>Comment::STATUS_USER_DELETE]),
                 'sort'  => ['defaultOrder' => ['created_at'=>SORT_DESC]]
             ]);            
         }
@@ -171,12 +195,22 @@ class CommentController extends Controller
         } 
     }
     
-    protected function findComment($id)
+    protected function findCommentForPostAuthor($id)
     {
         if (($comment = Comment::findOne($id)) && $comment != NULL && $comment->post->user_id === Yii::$app->user->getId()){
             return $comment;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    protected function findCommentForPostAuthorOrCommentAuthor($id)
+    {
+        $comment = Comment::findOne($id);
+        if ($comment !== NULL && $comment->status === Comment::STATUS_PUBLISH &&($comment->user_id === Yii::$app->user->getId() || $comment->post->user_id === Yii::$app->user->getId())){
+            return $comment;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }        
     }
 }

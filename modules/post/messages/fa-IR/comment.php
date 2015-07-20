@@ -10,4 +10,5 @@ return [
     '_admin.btn.abuse.title'    =>  'گزارش سو استفاده',
     'post.comment'              =>  'ارسال نظر',
     'admin.head.title'          =>  'مدیریت نظرها',
+    '_comments.delete.confirm'  =>  'این نظر جدید می باشد،برای فعال شدن امکان حذف نظر این صفحه را مجددا بارگذاری نمایید.',
 ];

@@ -24,8 +24,10 @@ use yii\helpers\HtmlPurifier;
 class Comment extends \yii\db\ActiveRecord
 {
     
-    const STATUS_PUBLISH    =   'PUBLISH';
-    const STATUS_TRASH      =   'TRASH';
+    const STATUS_PUBLISH            =   'PUBLISH';
+    const STATUS_TRASH              =   'TRASH';
+    const STATUS_USER_DELETE        =   'USER_DELETE';
+    
     /**
      * @inheritdoc
      */
@@ -109,7 +111,7 @@ class Comment extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
     
-    public function toggleTash()
+    public function toggleTrash()
     {
         if ($this->status === self::STATUS_PUBLISH){
             $this->status = self::STATUS_TRASH;

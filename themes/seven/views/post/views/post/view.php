@@ -54,9 +54,3 @@ echo $this->render('dynamicJS/_view',['model'=>$post]);
         </div>
     </div>
 </div>
-<?php 
-$js=<<<JS
-$("#editor a[href^='http://']").attr("target","_blank");
-$("#editor a[href^='https://']").attr("target","_blank");
-JS;
-$this->registerJs($js);

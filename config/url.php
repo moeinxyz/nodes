@@ -14,6 +14,7 @@ return [
                     '@<username:[\w\-\.]+>/recommends'                                      =>  'post/post/recommends',                    
                     '@<username:[\w\-\.]+>/<url:[\w\-]+>'                                   =>  'post/post/view',
                     '@<username:[\w\-\.]+>/<url:[\w\-]+>/comment/<timestamp:\d+>'           =>  'post/comment/write',
+                    '@<username:[\w\-\.]+>/<url:[\w\-]+>/comment/delete'                    =>  'post/comment/delete',
                     '@<username:[\w\-\.]+>/<url:[\w\-]+>/recommend'                         =>  'post/post/recommend',
                     '@<username:[\w\-\.]+>'                                                 =>  'post/post/user',
                     
