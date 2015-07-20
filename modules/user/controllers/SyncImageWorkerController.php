@@ -2,6 +2,7 @@
 namespace app\modules\user\controllers;
 
 use Yii;
+use yii\helpers\Json;
 use app\components\Broker;
 use yii\imagine\Image;
 use Imagine\Image\Box;

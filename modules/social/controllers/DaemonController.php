@@ -113,6 +113,7 @@ class DaemonController extends \yii\console\Controller{
                                         $token->getToken(),
                                         $token->getTokenSecret());
         foreach ($posts as $post){
+            //@todo upload cover of post [https://twitteroauth.com]
             $url        =   Yii::$app->urlManager->createAbsoluteUrl(["{$post->user->getUsername()}/{$post->url}",
                             'UTM_SOURCE' =>'twitter','UTM_CAMPAIGN'  =>  'auto-'.md5($twitter->user_id)]);
             $params     =   ['status'=>$post->title.'  '.$url];

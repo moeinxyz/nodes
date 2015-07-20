@@ -3,7 +3,7 @@ namespace app\modules\user\controllers;
 
 use Yii;
 use app\components\Broker;
-
+use yii\helpers\Json;
 use yii\db\Query;
 use app\modules\post\models\Post;
 use app\modules\user\models\Following;
@@ -12,7 +12,10 @@ use app\modules\post\models\Userread;
 use app\modules\post\models\Guestread;
 use app\modules\post\models\UserToRead;
 
-class PostSuggestionForUserWorkerController extends \yii\console\Controller{
+class PostSuggestionForUserWorkerController extends \yii\console\Controller
+{
+    private $posts;
+    
     public function init() {
         parent::init();
         set_time_limit(0);
