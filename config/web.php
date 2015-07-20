@@ -126,19 +126,7 @@ $config = [
                     ],
                 ],
             ],
-        ],
-        'gearman' => [
-            'class' => 'filsh\yii2\gearman\GearmanComponent',
-            'servers' => [
-                ['host' => '127.0.0.1', 'port' => 4730],
-            ],
-            'user' => 'moein',
-            'jobs' => [
-                'syncImage' =>  [
-                    'class' => 'app\gearworker\SyncImage'
-                ],
-            ]
-        ]        
+        ]       
     ],
     'modules' => [
         'user' => [

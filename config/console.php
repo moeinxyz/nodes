@@ -54,34 +54,9 @@ return [
             ],
         ],
         'socialClientCollection'    =>  require(__DIR__ . '/social.php'),
-        'db' => $db,
-        'gearman' => [
-            'class' => 'filsh\yii2\gearman\GearmanComponent',
-            'servers' => [
-                ['host' => '127.0.0.1', 'port' => 4730],
-            ],
-            'user'  => 'moein',
-            'jobs'  =>  [
-                'SyncImage' =>  [
-                    'class' => 'app\gearworker\SyncImage'
-                ],                
-                'SyncPostCover' =>  [
-                    'class' =>  'app\gearworker\SyncPostCover'
-                ],                
-                'PostSuggestionForUser' =>  [
-                    'class' =>  'app\gearworker\PostSuggestionForUser'
-                ],                
-                'PostSuggestionForGuest'=>  [
-                    'class' =>  'app\gearworker\PostSuggestionForGuest'
-                ]                
-            ]
-        ],                      
+        'db' => $db,                      
     ],
     'controllerMap' => [
-        'gearman' => [
-            'class'             => 'filsh\yii2\gearman\GearmanController',
-            'gearmanComponent'  => 'gearman'
-        ],
         'fixture' => [
             'class'             => 'yii\faker\FixtureController',
             'templatePath'      => 'tests/unit/fixtures',
@@ -95,7 +70,7 @@ return [
         '@ftpPictures'  =>  '/user/pictures',
         '@ftpCovers'    =>  '/user/covers',
         '@ftpPostCovers'=>  '/post/covers',
-
+        
         '@ppicBaseUrl'      =>  'http://cdn.nodes.ir/user/pictures',
         '@cpicBaseUrl'      =>  'http://cdn.nodes.ir/user/covers',
         '@upBaseUrl'        =>  'http://cdn.nodes.ir/post/images',
