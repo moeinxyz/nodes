@@ -31,14 +31,14 @@ use app\modules\post\Module;
                         <h5><?= $user->getName();?></h5>
                     </a>
                     <span class="time"><i class="fa fa-clock-o"></i>
-                        <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}/{$post->url}#comment-{$uid}"]) ?>">
+                        <a href="<?= Yii::$app->urlManager->createUrl(["{$post->user->getUsername()}/{$post->url}#comment-{$uid}"]) ?>">
                             <?= jDateTime::date("l jS F Y H:i",$lastComment)?>
                         </a>
                     </span>
                     <?php
                         if ($deleteComment){
                             $form = ActiveForm::begin([
-                                'action'=>Yii::$app->urlManager->createUrl(["@{$user->username}/{$post->url}/comment/delete",'id'=>  base_convert($comment->id,10,36)]),
+                                'action'=>Yii::$app->urlManager->createUrl(["{$user->getUsername()}/{$post->url}/comment/delete",'id'=>  base_convert($comment->id,10,36)]),
                                 'id' => 'comment-delete',
                                 'enableClientValidation'=>true,
                                 'options' => ['class'   =>  'form-horizontal trash','data-pjax'=>TRUE],
