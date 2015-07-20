@@ -6,6 +6,13 @@ return [
     'linkedinCallbackUrl'   =>  'http://nodes.ir/medium/web/social/auth?authclient=linkedin',
     'noreply-email'         =>  'noreply@nodes.ir',
     'twitterHandler'        =>  '@nodesir',
+    'rabbitmq'              =>  [
+        'server'                =>  'localhost',
+        'port'                  =>  5672,
+        'username'              =>  'guest',
+        'password'              =>  'guest',
+        'vhost'                 =>  '/',
+    ],
     'wildcat_urls'  =>  [
         'posts',
         'recommends',
