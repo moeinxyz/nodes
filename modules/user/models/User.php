@@ -9,8 +9,9 @@ use app\modules\user\models\Attributes;
 use yii\helpers\HtmlPurifier;
 use app\modules\user\models\User;
 use app\modules\user\Module;
-use app\gearworker\SyncImage;
-use filsh\yii2\gearman\JobWorkload;
+use app\modules\user\controllers\SyncImageWorkerController;
+use app\components\Broker;
+
 /**
  * This is the model class for table "user".
  *
@@ -262,7 +263,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                 $model->user_id =   $this->getPrimaryKey();
                 $model->save();
             }
-            $this->syncPhotos();
+//            @todo fix it
+//            $this->syncPhotos();
+//            Broker::close();
         } else if ($this->getScenario() === 'join'){
             $this->password = $this->clearPassword;
         }
@@ -335,21 +338,16 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         $connection         =   Yii::$app->db;
         if ($this->pictureUrl != NULL){
             try {
-                Yii::$app->gearman->getDispatcher()->background('syncImageByOAuth', new JobWorkload([
-                    'params' => [
-                        'userId'    =>  $this->getPrimaryKey(),
-                        'type'      =>  SyncImage::TYPE_PROFILE,
-                        'image'     =>  $this->pictureUrl
-                    ]
-                ]));
+                Broker::publishMessage(['userId'    =>  $this->getPrimaryKey(),
+                                                        'type'      =>  SyncImageWorkerController::TYPE_PROFILE,
+                                                        'image'     =>  $this->pictureUrl
+                                                        ], 'syncImageByOAuth');
                 $this->profile_pic      =   self::PIC_UPLOADED;
                 // avoid calling after save because of loop
                 $connection->createCommand()
                         ->update(User::tableName(), ['profile_pic'=>self::PIC_UPLOADED],'id=:id')
                         ->bindValue(':id', $this->getPrimaryKey())
                         ->execute();
-            } catch (\Sinergi\Gearman\Exception $ex) {
-                $this->profile_pic  =   self::PIC_GRAVATAR;
             } catch (\Exception $ex){
                 $this->profile_pic  =   self::PIC_GRAVATAR;
             }
@@ -357,23 +355,19 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         
         if ($this->coverUrl != NULL){
             try {
-                Yii::$app->gearman->getDispatcher()->background('syncImageByOAuth', new JobWorkload([
-                    'params' => [
-                        'userId'    =>  $this->getPrimaryKey(),
-                        'type'      =>  SyncImage::TYPE_COVER,
-                        'image'     =>  $this->coverUrl
-                    ]
-                ]));
+                Broker::publishMessage([
+                                                        'userId'    =>  $this->getPrimaryKey(),
+                                                        'type'      =>  SyncImageWorkerController::TYPE_COVER,
+                                                        'image'     =>  $this->coverUrl
+                                                    ], 'syncImageByOAuth');
                 $this->profile_cover    =   self::COVER_UPLOADED;
                 // avoid calling after save because of loop
                 $connection->createCommand()
                         ->update(User::tableName(), ['profile_cover'=>self::COVER_UPLOADED],'id=:id')
                         ->bindValue(':id', $this->getPrimaryKey())
                         ->execute();
-            } catch (\Sinergi\Gearman\Exception $ex) {
-                $this->profile_pic  =   self::PIC_GRAVATAR;
             } catch (\Exception $ex){
-                $this->profile_pic  =   self::PIC_GRAVATAR;
+                $this->profile_cover  =   self::COVER_NOCOVER;
             }
         }
     }
