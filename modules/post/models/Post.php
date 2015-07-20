@@ -182,15 +182,13 @@ class Post extends \yii\db\ActiveRecord
                 $postfix=   base_convert($number + 1, 10, 36);           
             }
             $tries++;
-            $url = urlencode($url);
         } while(!self::isUniueUrl($url));
-        
-        return $url;
+        return urlencode($url);
     }
     
     public static function isUniueUrl($url)
     {
-        $model = Post::findOne(['user_id'=>Yii::$app->user->getId(),'url'=>  $url]);
+        $model = Post::findOne(['user_id'=>Yii::$app->user->getId(),'url'=> urlencode($url)]);
         if ($model) {
             return false;
         }

@@ -613,7 +613,7 @@ class PostController extends Controller
     
     protected function findPost($userId,$url)
     {
-        if (($post = Post::findOne(['user_id'=>$userId,'url'=>  urlencode($url)])) != NULL && $post->status === Post::STATUS_PUBLISH){
+        if (($post = Post::findOne(['user_id'=>$userId,'url'=> urlencode($url)])) != NULL && $post->status === Post::STATUS_PUBLISH){
             return $post;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
