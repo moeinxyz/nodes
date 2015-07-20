@@ -1,7 +1,11 @@
 <?php
 use app\modules\post\Module;
 $this->registerMetaTag(['name'=>'description','content'=>Module::t('post','meta._home.description')]);
-$this->registerMetaTag(['name'=>'isFamilyFriendly','content'=>'true']);
+$this->registerMetaTag(['name'=>'keywords','content'=>'']);
+
+$this->registerMetaTag(['itemprop'=>'name','content'=>Module::t('post','home.index.head.title')]);
+$this->registerMetaTag(['itemprop'=>'isFamilyFriendly','content'=>'true']);
+$this->registerMetaTag(['itemprop'=>'description','content'=>Module::t('post','meta._home.description')]);
 
 // Twitter Card Data
 $this->registerMetaTag(['name'=>'twitter:card','content'=>'summary']);

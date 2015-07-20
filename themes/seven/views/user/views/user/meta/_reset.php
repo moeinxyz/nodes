@@ -1,7 +1,13 @@
 <?php
 use app\modules\user\Module;
 $this->registerMetaTag(['name'=>'description','content'=>Module::t('user','meta._reset.description')]);
-$this->registerMetaTag(['name'=>'isFamilyFriendly','content'=>'true']);
+$this->registerMetaTag(['name'=>'keywords','content'=>'']);
+$this->registerLinkTag(['rel'=>'canonical','href'=>'/user/reset']);
+
+$this->registerMetaTag(['itemprop'=>'name','content'=>Module::t('user','meta._reset.title')]);
+$this->registerMetaTag(['itemprop'=>'isFamilyFriendly','content'=>'true']);
+$this->registerMetaTag(['itemprop'=>'description','content'=>Module::t('user','meta._reset.description')]);
+
 // Twitter Card Data
 $this->registerMetaTag(['name'=>'twitter:card','content'=>'summary']);
 $this->registerMetaTag(['name'=>'twitter:site','content'=>Yii::$app->params['twitterHandler']]);

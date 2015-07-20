@@ -1,7 +1,13 @@
 <?php
 use app\modules\user\Module;
 $this->registerMetaTag(['name'=>'description','content'=>Module::t('user','meta._join.description')]);
-$this->registerMetaTag(['name'=>'isFamilyFriendly','content'=>'true']);
+$this->registerMetaTag(['name'=>'keywords','content'=>'']);
+$this->registerLinkTag(['rel'=>'canonical','href'=>'/user/join']);
+
+$this->registerMetaTag(['itemprop'=>'name','content'=>Module::t('user','meta._join.title')]);
+$this->registerMetaTag(['itemprop'=>'isFamilyFriendly','content'=>'true']);
+$this->registerMetaTag(['itemprop'=>'description','content'=>Module::t('user','meta._join.description')]);
+
 // Twitter Card Data
 $this->registerMetaTag(['name'=>'twitter:card','content'=>'summary']);
 $this->registerMetaTag(['name'=>'twitter:site','content'=>Yii::$app->params['twitterHandler']]);

@@ -1,5 +1,11 @@
 <?php
 $this->registerMetaTag(['name'=>'description','content'=>Yii::t('app','meta._terms.description')]);
+$this->registerMetaTag(['name'=>'keywords','content'=>'']);
+$this->registerLinkTag(['rel'=>'canonical','href'=>'/page/terms']);
+
+$this->registerMetaTag(['itemprop'=>'name','content'=>Yii::t('app','meta._terms.title')]);
+$this->registerMetaTag(['itemprop'=>'isFamilyFriendly','content'=>'true']);
+$this->registerMetaTag(['itemprop'=>'description','content'=>Yii::t('app','meta._terms.description')]);
 
 // Twitter Card Data
 $this->registerMetaTag(['name'=>'twitter:card','content'=>'summary']);

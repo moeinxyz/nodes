@@ -14,7 +14,12 @@ $this->registerLinkTag(['rel'=>'alternate','type'=>'application/rss+xm','title'=
 
 $this->registerMetaTag(['name'=>'description','content'=>$title]);
 $this->registerMetaTag(['name'=>'author','content'=>$authorName]);
-$this->registerMetaTag(['name'=>'isFamilyFriendly','content'=>'true']);
+$this->registerMetaTag(['name'=>'keywords','content'=>'']);
+$this->registerLinkTag(['rel'=>'canonical','href'=>"/{$author->getUsername()}/{$post->url}"]);
+
+$this->registerMetaTag(['itemprop'=>'name','content'=>$title]);
+$this->registerMetaTag(['itemprop'=>'isFamilyFriendly','content'=>'true']);
+$this->registerMetaTag(['itemprop'=>'description','content'=>$title]);
 
 // Twitter Card Data
 $this->registerMetaTag(['name'=>'twitter:card','content'=>'summary']);
