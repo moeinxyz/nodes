@@ -4,13 +4,16 @@ namespace app\modules\post\controllers;
 use Yii;
 use app\modules\post\Module;
 use app\modules\post\models\Post;
-use filsh\yii2\gearman\JobWorkload;
+use app\components\Broker;
 
 class PostSuggestionForGuestDaemonController extends \yii\console\Controller{
     
     public function init() {
         parent::init();
         set_time_limit(0);
+        register_shutdown_function(function (){
+            Broker::close();
+        });
     }
 
     public function actionIndex()
@@ -47,13 +50,8 @@ class PostSuggestionForGuestDaemonController extends \yii\console\Controller{
     private function addMessageToBroker($postId)
     {
         try {
-            Yii::$app->gearman->getDispatcher()->background('PostSuggestionForGuest', new JobWorkload([
-                'params' => ['postId'    =>  $postId]
-            ]));
+            Broker::publishMessage(['postId'    =>  $postId], 'PostSuggestionForGuest');
             return true;
-        } catch (\Sinergi\Gearman\Exception $ex) {
-            // log exception
-            return false;
         } catch (\Exception $ex){
             // log exception
             return false;

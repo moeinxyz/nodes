@@ -7,7 +7,8 @@ use yii\base\Model;
 use app\modules\post\models\Post;
 use app\modules\post\Module;
 use yii\web\UploadedFile;
-use filsh\yii2\gearman\JobWorkload;
+use app\components\Broker;
+
 class CoverPhotoForm extends Model{
     private $_post;
     public $postId;
@@ -46,6 +47,7 @@ class CoverPhotoForm extends Model{
         if ($this->syncImage())
         {
             return $this->getPost()->save();    
+            Broker::close();
         }
         return false;
     }
@@ -57,20 +59,12 @@ class CoverPhotoForm extends Model{
         $name   =   Post::getCoverFileName($this->postId);
         if ($this->coverImage instanceof UploadedFile){
             try {
-                Yii::$app->gearman->getDispatcher()->background('SyncPostCover', new JobWorkload([
-                    'params' => [
-                        'postId'    =>  $this->postId,
-                        'image'     =>  Yii::$app->urlManager->createAbsoluteUrl(Yii::getAlias("@webTempPostCoverFolder/{$name}.{$this->coverImage->getExtension()}"))
-                    ]
-                ]));
+                Broker::publishMessage(['postId'    =>  $this->postId,
+                                                        'image'     =>  Yii::$app->urlManager->createAbsoluteUrl(Yii::getAlias("@webTempPostCoverFolder/{$name}.{$this->coverImage->getExtension()}"))
+                                                        ], 'SyncPostCover');
                 $post->cover            =   Post::COVER_BYCOVER;
                 $this->coverStatus      =   Post::COVER_BYCOVER;
                 return true;
-            } catch (\Sinergi\Gearman\Exception $ex) {
-                $post->cover            =   $post->getOldAttribute('cover');
-                $this->coverStatus      =   $post->getOldAttribute('cover');
-                $this->addError('coverImage',  Module::t('post','coverPhotoForm.err.try_later'));
-                return false;
             } catch (\Exception $ex){
                 $post->cover            =   $post->getOldAttribute('cover');
                 $this->coverStatus      =   $post->getOldAttribute('cover');
