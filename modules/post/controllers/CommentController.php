@@ -56,6 +56,7 @@ class CommentController extends Controller
         $comment->text      =   nl2br($comment->text);
         $comment->text      =   strip_tags($comment->text, '<br><br\>');
         if ($comment->save()){
+            $post->updateCounters(['comments_count'=>1]);
             $newComment =   new Comment;
             $comments   =   Comment::getCommentsOfPost($post->id,$timestamp);
             return $this->renderPartial('_comments',[
@@ -127,6 +128,7 @@ class CommentController extends Controller
                 $comment->status    = Comment::STATUS_TRASH;
             } else {
                 $comment->status    = Comment::STATUS_USER_DELETE;
+                $comment->post->updateCounters(['comments_count'=>-1]);
             }
             $comment->save();                       
             return ' ';
