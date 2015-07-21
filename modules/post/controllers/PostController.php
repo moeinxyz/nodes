@@ -555,12 +555,12 @@ class PostController extends Controller
     }
     
     private function userHome($userId)
-    {
-        $query      =   Post::find()
+    {    
+        $query     =   Post::find()
                             ->leftJoin(UserToRead::tableName(),Post::tableName().'.id = '.UserToRead::tableName().'.post_id')
                             ->where(UserToRead::tableName().'.user_id = :user_id AND '.Post::tableName().'.status = :status',[':user_id' =>  $userId,':status'   =>  Post::STATUS_PUBLISH]);
         $count      =   $query->count();
-        
+
         if ($count == 0){ // for example new registered user
             return $this->guestHome();
         }
@@ -568,7 +568,7 @@ class PostController extends Controller
         $pages = new Pagination(['totalCount' => $count,'defaultPageSize'=>7,'params'=>array_merge($_GET, ['#' => 'details'])]);
         $posts = $query->offset($pages->offset)
             ->limit(7)
-            ->orderBy(UserToRead::tableName().'.created_at desc,'.UserToRead::tableName().'.score desc')
+            ->orderBy(UserToRead::tableName().'.created_at desc,'.UserToRead::tableName().'.score desc,'.Post::tableName().'.score desc,'.Post::tableName().'.published_at desc')
             ->all();
         
         return $this->render('home',[

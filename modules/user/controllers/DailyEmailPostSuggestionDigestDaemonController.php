@@ -28,7 +28,7 @@ class DailyEmailPostSuggestionDigestDaemonController extends EmailPostSuggestion
             foreach ($users as $user)
             {
                 $posts  =   $this->getPosts($user->id);
-                if (count($posts) >= 0)
+                if (count($posts) >= 3)
                 {
                     $this->sendDigestMail($user, $posts);
                 }
