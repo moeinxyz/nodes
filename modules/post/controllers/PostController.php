@@ -538,7 +538,7 @@ class PostController extends Controller
         $pages  =   new Pagination(['totalCount' => $count,'defaultPageSize'=>7,'params'=>array_merge($_GET, ['#' => 'details'])]);
         $posts  =   $query->offset($pages->offset)
                     ->limit(7)
-                    ->orderBy('score desc, created_at desc')
+                    ->orderBy('score desc, published_at desc')
                     ->all();
         
         if (strtolower(Yii::$app->request->get('login')) == 'required'){
