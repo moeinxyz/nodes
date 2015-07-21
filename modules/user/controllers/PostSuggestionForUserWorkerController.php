@@ -151,7 +151,7 @@ class PostSuggestionForUserWorkerController extends \yii\console\Controller
                 ->leftJoin(Following::tableName(),  Post::tableName().'.user_id = '. Following::tableName().'.followed_user_id')
                 ->where(Post::tableName().'.status = :status',[':status'=>Post::STATUS_PUBLISH])
                 ->andWhere(Following::tableName().'.user_id = :user_id', [':user_id'=>$userId])
-                ->andWhere(Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 100 DAY)')
+//                ->andWhere(Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 100 DAY)')
                 ->andWhere(Post::tableName().'.id NOT IN (SELECT DISTINCT post_id FROM '.Userread::tableName().' WHERE '.Userread::tableName().'.user_id = :user_id)',[':user_id'=>$userId])
                 ->orderBy(Post::tableName().'.published_at');
         return $query->all();    
@@ -165,7 +165,7 @@ class PostSuggestionForUserWorkerController extends \yii\console\Controller
                 ->leftJoin(Userrecommend::tableName(), Post::tableName().'.id = '.Userrecommend::tableName().'.post_id')
                 ->where(Post::tableName().'.status = :status',[':status'=>Post::STATUS_PUBLISH])
                 ->andWhere(Post::tableName().'.user_id != :user_id', [':user_id'=>$userId])
-                ->andWhere(Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 100 DAY)')
+//                ->andWhere(Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 100 DAY)')
                 ->andWhere(Post::tableName().'.id NOT IN (SELECT DISTINCT post_id FROM '.Userread::tableName().' WHERE '.Userread::tableName().'.user_id = :user_id)',[':user_id'=>$userId])
                 ->andWhere(Userrecommend::tableName().'.user_id IN (SELECT DISTINCT followed_user_id FROM '.Following::tableName().' WHERE '.Following::tableName().'.user_id = :user_id)',[':user_id'=>$userId])
                 ->orderBy(Post::tableName().'.published_at');
@@ -187,7 +187,7 @@ class PostSuggestionForUserWorkerController extends \yii\console\Controller
             . ' FROM '.Post::tableName()
             .       ' WHERE '.Post::tableName().'.status = :status AND '
             .       Post::tableName().'.user_id != :user_id AND '                
-            .       Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 25 DAY) AND '
+//            .       Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 25 DAY) AND '
             .       Post::tableName().'.id NOT IN '                
             .       '(SELECT DISTINCT post_id FROM '.Userread::tableName().' WHERE user_id = :user_id) ';
 
