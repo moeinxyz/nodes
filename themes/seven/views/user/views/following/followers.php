@@ -3,7 +3,7 @@ use app\modules\user\Module;
 use yii\widgets\LinkPager;
 /* @var $this yii\web\View */
 $this->title    =   Module::t('following','followers.head.title',['name'=>$user->getName()]);
-$this->render('meta/_followers');
+$this->render('meta/_followers',['user'=>$user]);
 ?>
 <div class="top-buffer"></div>
 <div class="row">   
