@@ -6,7 +6,9 @@ return [
     'emulatePrepare' => true,    
     'username' => 'root',
     'password' => 'hitler2014',
-    'charset' => 'utf8',
-//    'enableSchemaCache' => true,    
-    'tablePrefix' => 'tbl_',    
+    'charset' => 'utf8',    
+    'tablePrefix' => 'tbl_',  
+    'enableSchemaCache' => true,    
+    'schemaCacheDuration' => 3600,
+    'schemaCache' => 'cache',    
 ];
