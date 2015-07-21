@@ -29,9 +29,10 @@ class PostSuggestionForUserWorkerController extends \yii\console\Controller
             //@todo this algorithm works fine,but need rewrite
             $params     =   Json::decode($message->body);
             $this->generateUnreadedPostsRank($params['userId']);
-            $time   =   $this->updatePostRank($params['userId']);            
+            $this->updatePostRank($params['userId']);            
             $this->generateUnrankedPostsRank($params['userId']);
-            $this->updatePostRank($params['userId'], $time - 60); //@todo so ugly,but works fine
+            $timestamp   =   $this->getMaxUserToReadTimestamp($params['userId']);
+            $this->updatePostRank($params['userId'], $timestamp - 60); //@todo so ugly,but works fine
             Broker::sendAck($message);
         });
     }        
@@ -89,6 +90,16 @@ class PostSuggestionForUserWorkerController extends \yii\console\Controller
             $this->addPostScore($unRankedPosts[$i]['id'], ($score>=0)?$score:0);
         }
     }
+    
+    private function getMaxUserToReadTimestamp($userId)
+    {
+        $timestamp  = UserToRead::find()->where('user_id=:user_id',[':user_id'=>$userId])
+                                        ->max('created_at');
+        if ($timestamp == NULL){
+            return time();
+        }
+        return strtotime($timestamp);
+    }
 
     private function updatePostRank($userId,$time = null)
     {
@@ -118,7 +129,6 @@ class PostSuggestionForUserWorkerController extends \yii\console\Controller
                 ':user_id'      =>  $userId
             ]);
         }
-        return $time;
     }
 
     private function getUnrankedPosts($userId)
