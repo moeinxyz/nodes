@@ -94,7 +94,7 @@ class PostSuggestionForGuestWorkerController extends \yii\console\Controller{
                             ->where('post_id=:post_id',[':post_id'=>$postId])
                             ->andWhere('created_at > :timestamp',[':timestamp'=>$timestamp])
                             ->distinct()
-                            ->all();
+                            ->each();
         foreach ($rows as $row)
         {
             if (isset($visitors[$row['ip']]) && $visitors[$row['ip']] < 3){

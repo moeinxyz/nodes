@@ -1,5 +1,5 @@
 <?php
-namespace app\modules\user\controllers;
+namespace app\modules\post\controllers;
 
 use Yii;
 use app\components\Broker;
@@ -28,15 +28,36 @@ class PostSuggestionForUserWorkerController extends \yii\console\Controller
         Broker::consumeMessage('PostSuggestionForUser', function($message){
             //@todo this algorithm works fine,but need rewrite
             $params     =   Json::decode($message->body);
+            $this->updateRankedReadedPostPriority($params['userId']);
             $this->generateUnreadedPostsRank($params['userId']);
-            $this->updatePostRank($params['userId']);            
+            $this->updatePostRank($params['userId'],1);            
             $this->generateUnrankedPostsRank($params['userId']);
-            $timestamp   =   $this->getMaxUserToReadTimestamp($params['userId']);
-            $this->updatePostRank($params['userId'], $timestamp - 60); //@todo so ugly,but works fine
+            $this->updatePostRank($params['userId'],2);
             Broker::sendAck($message);
         });
     }        
     
+    private function updateRankedReadedPostPriority($userId)
+    {
+        
+        
+        $query  =   (new Query)
+                    ->select(UserToRead::tableName().'.post_id')
+                    ->from(UserToRead::tableName())
+                    ->leftJoin(Userread::tableName(),  Userread::tableName().'.post_id = '.UserToRead::tableName().'.post_id AND '.Userread::tableName().'.user_id = '.UserToRead::tableName().'.user_id')
+                    ->where(UserToRead::tableName().'.priority = :priority AND '.UserToRead::tableName().'.user_id = :user_id',[':user_id'  =>  $userId,':priority' =>  1]);
+        $result =   $query->each();
+        $posts  =   [];
+        foreach ($result  as $row){
+            $posts[]    =   $row['post_id'];
+        }
+        
+        UserToRead::updateAll(['priority'=>2],['AND','user_id = :user_id AND priority =:priority',['in','post_id',$posts]],[
+            ':priority'     =>  1,
+            ':user_id'      =>  $userId
+        ]);        
+    }
+
     private function generateUnreadedPostsRank($userId)
     {
         $this->posts                    =   [];
@@ -85,42 +106,36 @@ class PostSuggestionForUserWorkerController extends \yii\console\Controller
     {
         $this->posts                    =   [];
         $unRankedPosts                  =   $this->getUnrankedPosts($userId);
-        for ($score = 255,$i = 0;$i < count($unRankedPosts);$i++,$score--)
-        {
-            $this->addPostScore($unRankedPosts[$i]['id'], ($score>=0)?$score:0);
+        $score                          =   255;
+        
+        foreach ($unRankedPosts as $post){
+            if ($score-- > 0){
+                $this->addPostScore($post['id'],$score);
+            } else {
+                $this->addPostScore($post['id'],0);
+            }
         }
-    }
-    
-    private function getMaxUserToReadTimestamp($userId)
-    {
-        $timestamp  = UserToRead::find()->where('user_id=:user_id',[':user_id'=>$userId])
-                                        ->max('created_at');
-        if ($timestamp == NULL){
-            return time();
-        }
-        return strtotime($timestamp);
     }
 
-    private function updatePostRank($userId,$time = null)
+    private function updatePostRank($userId,$priority = 1)
     {
         $rows       =   [];
         $posts      =   [];
         
-        $time       =   ($time == NULL)?time():$time;
-        $timestamp  =   date("Y-m-d H:i:s", $time);    
+        $timestamp  =   date("Y-m-d H:i:s", time());    
         
         foreach ($this->posts as $postId => $score){
             $posts[]    =   $postId;
             if ($score < 255){
-                $rows[] =   [$userId,$postId,  round($score),$timestamp];    
+                $rows[] =   [$userId,$postId,  round($score),$priority,$timestamp];    
             } else {
-                $rows[] =   [$userId,$postId,  255,$timestamp];
+                $rows[] =   [$userId,$postId,  255,$priority,$timestamp];
             }
         }
         
         if (count($rows) >= 1){
             \Yii::$app->db->createCommand()
-                ->batchInsert(UserToRead::tableName(), ['user_id','post_id','score','created_at'], $rows)
+                ->batchInsert(UserToRead::tableName(), ['user_id','post_id','score','priority','created_at'], $rows)
                 ->execute();
 
             //@todo fix it,using query
@@ -140,7 +155,7 @@ class PostSuggestionForUserWorkerController extends \yii\console\Controller
                         ->where(Post::tableName().'.status = :status',[':status'   =>  Post::STATUS_PUBLISH])
                         ->andWhere(UserToRead::tableName().'.id IS NULL')
                         ->orderBy(Post::tableName().'.score DESC,'.Post::tableName().'.published_at');
-        return $query->all();
+        return $query->each();
     }
 
     private function getUnreadedFriendsPost($userId)
@@ -151,10 +166,10 @@ class PostSuggestionForUserWorkerController extends \yii\console\Controller
                 ->leftJoin(Following::tableName(),  Post::tableName().'.user_id = '. Following::tableName().'.followed_user_id')
                 ->where(Post::tableName().'.status = :status',[':status'=>Post::STATUS_PUBLISH])
                 ->andWhere(Following::tableName().'.user_id = :user_id', [':user_id'=>$userId])
-//                ->andWhere(Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 100 DAY)')
+                ->andWhere(Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 100 DAY)')
                 ->andWhere(Post::tableName().'.id NOT IN (SELECT DISTINCT post_id FROM '.Userread::tableName().' WHERE '.Userread::tableName().'.user_id = :user_id)',[':user_id'=>$userId])
                 ->orderBy(Post::tableName().'.published_at');
-        return $query->all();    
+        return $query->each();
     }
     
     private function getFriendsRecommendedPost($userId)
@@ -165,37 +180,30 @@ class PostSuggestionForUserWorkerController extends \yii\console\Controller
                 ->leftJoin(Userrecommend::tableName(), Post::tableName().'.id = '.Userrecommend::tableName().'.post_id')
                 ->where(Post::tableName().'.status = :status',[':status'=>Post::STATUS_PUBLISH])
                 ->andWhere(Post::tableName().'.user_id != :user_id', [':user_id'=>$userId])
-//                ->andWhere(Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 100 DAY)')
+                ->andWhere(Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 100 DAY)')
                 ->andWhere(Post::tableName().'.id NOT IN (SELECT DISTINCT post_id FROM '.Userread::tableName().' WHERE '.Userread::tableName().'.user_id = :user_id)',[':user_id'=>$userId])
                 ->andWhere(Userrecommend::tableName().'.user_id IN (SELECT DISTINCT followed_user_id FROM '.Following::tableName().' WHERE '.Following::tableName().'.user_id = :user_id)',[':user_id'=>$userId])
                 ->orderBy(Post::tableName().'.published_at');
-
-        return $query->all();
+        
+        return $query->each();
     }
     
     private function getLastUnreadedPost($userId)
     {
-        $sql    =   'SELECT '.Post::tableName().'.id, comments_count, published_at, pure_text'
-            .' ,( SELECT COUNT(*) '   //correlated subquery
-            . 'FROM '.Userread::tableName()
-            . ' WHERE '.  Post::tableName().'.id = '.Userread::tableName().'.post_id'
-            . ') AS user_read_count '
-            .' ,( SELECT COUNT(*) '   //correlated subquery
-            . 'FROM '.Guestread::tableName()
-            . ' WHERE '.  Post::tableName().'.id = '.Guestread::tableName().'.post_id'
-            . ') AS guest_read_count '                
-            . ' FROM '.Post::tableName()
-            .       ' WHERE '.Post::tableName().'.status = :status AND '
-            .       Post::tableName().'.user_id != :user_id AND '                
-//            .       Post::tableName().'.published_at > DATE_SUB(now(), INTERVAL 25 DAY) AND '
-            .       Post::tableName().'.id NOT IN '                
-            .       '(SELECT DISTINCT post_id FROM '.Userread::tableName().' WHERE user_id = :user_id) ';
-
-        $query =    Yii::$app->db->createCommand($sql)
-                ->bindValue(':status', Post::STATUS_PUBLISH)
-                ->bindValue(':user_id', $userId);
+        $subQuery1  =   '(SELECT COUNT(*) FROM '.Userread::tableName().' WHERE '.Post::tableName().'.id = '.Userread::tableName().'.post_id)';
+        $subQuery2  =   '(SELECT COUNT(*) FROM '.Guestread::tableName().' WHERE '.Post::tableName().'.id = '.Guestread::tableName().'.post_id)';
+        $subQuery3  =   '(SELECT DISTINCT post_id FROM '.Userread::tableName().' WHERE user_id = :user_id)';
         
-        return $query->queryAll();
+        $query  =   (new Query)
+                    ->select('id, comments_count, published_at, pure_text,'.$subQuery1.' AS user_read_count,'.$subQuery2.' AS guest_read_count')
+                    ->select('id, comments_count, published_at, pure_text')
+                    ->from(Post::tableName())
+                    ->where('status=:status',[':status'=>Post::STATUS_PUBLISH])
+                    ->andWhere('user_id=:user_id',[':user_id'=>$userId])
+                    ->andWhere('published_at > DATE_SUB(now(), INTERVAL 100 DAY)')
+                    ->andWhere('id NOT IN '.$subQuery3);
+
+        return $query->each();
     }    
     
     private function addPostScore($postId,$score = 0)

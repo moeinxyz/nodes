@@ -11,6 +11,7 @@ use Yii;
  * @property integer $user_id
  * @property string $post_id
  * @property integer $score
+ * @property integer $priority
  * @property string $created_at
  *
  * @property User $user
@@ -33,7 +34,7 @@ class UserToRead extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'post_id', 'score'], 'required'],
-            [['user_id', 'post_id', 'score'], 'integer'],
+            [['user_id', 'post_id', 'score','priority'], 'integer'],
             [['created_at'], 'safe']
         ];
     }
@@ -48,6 +49,7 @@ class UserToRead extends \yii\db\ActiveRecord
             'user_id' => Yii::t('app', 'User ID'),
             'post_id' => Yii::t('app', 'Post ID'),
             'score' => Yii::t('app', 'Score'),
+            'priority' => Yii::t('app', 'Priority'),
             'created_at' => Yii::t('app', 'Created At'),
         ];
     }

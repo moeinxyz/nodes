@@ -568,7 +568,7 @@ class PostController extends Controller
         $pages = new Pagination(['totalCount' => $count,'defaultPageSize'=>7,'params'=>array_merge($_GET, ['#' => 'details'])]);
         $posts = $query->offset($pages->offset)
             ->limit(7)
-            ->orderBy(UserToRead::tableName().'.created_at desc,'.UserToRead::tableName().'.score desc,'.Post::tableName().'.score desc,'.Post::tableName().'.published_at desc')
+            ->orderBy(UserToRead::tableName().'.priority ASC,'.UserToRead::tableName().'.created_at desc,'.UserToRead::tableName().'.score desc,'.Post::tableName().'.score desc,'.Post::tableName().'.published_at desc')
             ->all();
         
         return $this->render('home',[
