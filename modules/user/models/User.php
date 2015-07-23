@@ -11,6 +11,7 @@ use app\modules\user\models\User;
 use app\modules\user\Module;
 use app\modules\user\controllers\SyncImageWorkerController;
 use app\components\Broker;
+use yii\validators\RegularExpressionValidator;
 
 /**
  * This is the model class for table "user".
@@ -106,12 +107,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             [['created_at'], 'safe'],
             [['type', 'status'], 'string'],
             [['username'], 'string', 'max' => 64],
-            [['username'],'match','pattern' => '/^[A-Za-z0-9_]+$/u'],
+            [['username'],'match','pattern' => '/^[A-Za-z0-9_-]+$/u'],
             [['email', 'name'], 'string', 'max' => 128],
             [['password'], 'string', 'min' => 8],
             [['tagline'], 'string', 'max' => 256],
             [['username','email'], 'unique'],
-            [['pictureUrl','coverUrl'],'safe','on'=>'oauth_signup'],
+            [['pictureUrl','coverUrl'],'safe','on'=>'oauth_signup'],//@todo use it when worker become ready
             [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className(), 'secret' => \Yii::$app->reCaptcha->secret,'on'=>['join_post']],
             [['content_activity','publisher_activity','social_activity'],'in','range'=>[self::ACTIVITY_SETTING_DIGEST,self::ACTIVITY_SETTING_FULL,self::ACTIVITY_SETTING_OFF]],
             [['reading_list'],'in','range'=>[self::READING_LIST_DAILY,self::READING_LIST_OFF,self::READING_LIST_WEEKLY]],
@@ -226,11 +227,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                 $this->reading_list         =   self::READING_LIST_DAILY;
                 if ($this->getScenario() === 'oauth_signup'){
                     // generate username for oauth user
-                    if (User::findOne(['username'=>  $this->username]) !== NULL){
-                        $this->username = $this->email;
-                        while(User::findOne(['username'=>  $this->username]) !== NULL){
-                            $this->username = Yii::$app->security->generateRandomString();
-                        }
+                    $validator  =   new RegularExpressionValidator(['pattern' => '/^[A-Za-z0-9_-]+$/u']);
+                    while($this->username == NULL || $this->username == '' || !$validator->validate($this->username) || User::findOne(['username'=>  $this->username]) !== NULL){
+                        $this->username = Yii::$app->security->generateRandomString();
                     }
                 }
             }
@@ -263,9 +262,10 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                 $model->user_id =   $this->getPrimaryKey();
                 $model->save();
             }
-//            @todo fix it
-//            $this->syncPhotos();
-//            Broker::close();
+            /**
+             * //@todo use it when worker become ready
+             * $this->syncPhotos();
+             */
         } else if ($this->getScenario() === 'join'){
             $this->password = $this->clearPassword;
         }

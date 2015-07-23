@@ -95,7 +95,7 @@ class UserController extends Controller
         if ($user != NULL){
             return Yii::$app->user->login($user, 3600*24*7);
         }
-//        return $this->goBack(Yii::$app->request->referrer);
+        return $this->goBack(Yii::$app->request->referrer);
     }
  
     /**
@@ -422,20 +422,28 @@ class UserController extends Controller
      * @return Attributes 
      */
     protected function googleAuth($attributes){
-        $model              =   new Attributes;
-        
-        $model->name            =   $attributes['displayName'];
+        $model                  =   new Attributes;
         $model->email           =   $attributes['emails'][0]['value'];
-        $model->tagline         =   $attributes['tagline'];
-        $model->profile_pic     =   str_replace("?sz=50", "?sz=200", $attributes['image']['url']);
-        $model->profile_cover   =   $attributes['cover']['coverPhoto']['url'];
         
-        $model->addUrl(Url::TYPE_GOOGLE_PLUS, $attributes['url']);
+        $model->name            =   isset($attributes['displayName'])?$attributes['displayName']:NULL;
+        $model->tagline         =   isset($attributes['tagline'])?$attributes['tagline']:NULL;
         
-        foreach ($attributes['urls'] as $url){
+        if (isset($attributes['url'])){
+            $model->addUrl(Url::TYPE_GOOGLE_PLUS, $attributes['url']);    
+        }
+        
+        $urls   =   isset($attributes['urls'])?$attributes['urls']:[];
+        foreach ($urls as $url){
             $type   = Url::getServiceByUrl($url['value']);
             $model->addUrl($type, $url['value']);
         }
+        
+        /**
+         * @todo use it when worker become ready
+         * $model->profile_pic     =   isset($attributes['image']['url'])?str_replace("?sz=50", "?sz=200", $attributes['image']['url']):NULL;
+         * $model->profile_cover   =   isset($attributes['cover']['coverPhoto']['url'])?$attributes['cover']['coverPhoto']['url']:NULL;
+         */
+                
         return $model;
     }
     
@@ -446,12 +454,8 @@ class UserController extends Controller
      */    
     protected function facebookAuth($attributes){
         $model                  =   new Attributes;
-        
-        $model->name            =   $attributes['name'];
         $model->email           =   $attributes['email'];
-        $model->tagline         =   NULL;
-        $model->profile_pic     =   NULL;
-        $model->profile_cover   =   NULL;
+        $model->name            =   isset($attributes['name'])?$attributes['name']:NULL;
         
         $model->addUrl(Url::TYPE_FACEBOOK, "https://facebook.com/{$attributes['id']}");
         return $model;
@@ -465,10 +469,15 @@ class UserController extends Controller
      */    
     protected function linkedinAuth($attributes){
         $model              =   new Attributes;
-        
-        $model->name        =   $attributes['first-name']." ".$attributes['last-name'];
         $model->email       =   $attributes['email-address'];
-        $model->addUrl(Url::TYPE_LINKEDIN,$attributes['public-profile-url']);
+        
+        if (isset($attributes['first-name']) && $attributes['last-name']){
+            $model->name    =   $attributes['first-name']." ".$attributes['last-name'];
+        }
+        
+        if (isset($attributes['public-profile-url'])){
+            $model->addUrl(Url::TYPE_LINKEDIN,$attributes['public-profile-url']);    
+        }
         
         return $model;        
     }
@@ -480,14 +489,20 @@ class UserController extends Controller
      */    
     protected function githubAuth($attributes){
         $model              =   new Attributes;
-        
-        $model->username    =   $attributes['login'];
-        $model->name        =   $attributes['name'];
         $model->email       =   $attributes['email'];
-        $model->tagline     =   $attributes['bio'];
-        $model->profile_pic =   $attributes['avatar_url'];
-        $model->addUrl(Url::TYPE_GITHUB,$attributes['html_url']);
         
+        $model->name        =   isset($attributes['name'])?$attributes['name']:NULL;
+        $model->username    =   isset($attributes['login'])?$attributes['name']:NULL;
+        $model->tagline     =   isset($attributes['bio'])?$attributes['bio']:NULL;
+        
+        if (isset($attributes['html_url'])){
+            $model->addUrl(Url::TYPE_GITHUB,$attributes['html_url']);    
+        }
+        
+        /**
+         * @todo use it when worker become ready
+         * $model->profile_pic =   $attributes['avatar_url'];
+         */
         return $model;        
     }
 }

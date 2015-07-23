@@ -5,12 +5,12 @@ use yii\base\Model;
 use app\modules\user\models\Url;
 
 class Attributes extends Model{
-    private $username;
     private $email;
-    private $name;
-    private $tagline;
-    private $profile_pic;
-    private $profile_cover;
+    private $name           =   NULL;
+    private $username       =   NULL;
+    private $tagline        =   NULL;
+    private $profile_pic    =   NULL;
+    private $profile_cover  =   NULL;
     private $urls   =   [];
     
     public function __set($name, $value) {
@@ -22,7 +22,7 @@ class Attributes extends Model{
     public function __get($name) {
         if ($name === 'username' && $this->username === NULL){
             $parts  =   explode('@',  $this->email);
-            $this->username =   $parts[0];
+            $this->username =   str_replace('.', '', $parts[0]);
         }
         
         return $this->{$name};
