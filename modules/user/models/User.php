@@ -107,7 +107,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             [['created_at'], 'safe'],
             [['type', 'status'], 'string'],
             [['username'], 'string', 'max' => 64],
-            [['username'],'match','pattern' => '/^[A-Za-z0-9_-]+$/u'],
+            [['username'],'match','pattern' => '/^[A-Za-z0-9_]+$/u'],
             [['email', 'name'], 'string', 'max' => 128],
             [['password'], 'string', 'min' => 8],
             [['tagline'], 'string', 'max' => 256],
@@ -227,9 +227,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
                 $this->reading_list         =   self::READING_LIST_DAILY;
                 if ($this->getScenario() === 'oauth_signup'){
                     // generate username for oauth user
-                    $validator  =   new RegularExpressionValidator(['pattern' => '/^[A-Za-z0-9_-]+$/u']);
+                    $validator  =   new RegularExpressionValidator(['pattern' => '/^[A-Za-z0-9_]+$/u']);
                     while($this->username == NULL || $this->username == '' || !$validator->validate($this->username) || User::findOne(['username'=>  $this->username]) !== NULL){
-                        $this->username = Yii::$app->security->generateRandomString();
+                        $this->username = $this->generateRandomUsername();
                     }
                 }
             }
@@ -408,5 +408,16 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
    public function getActiveUrls()
    {
        return $this->getUrls()->where('status=:status',['status'=>  Url::STATUS_ACTIVE])->all();
+   }
+   
+   private function generateRandomUsername($length  =   16)
+   {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;       
    }
 }
