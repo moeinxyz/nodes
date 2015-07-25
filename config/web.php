@@ -42,7 +42,7 @@ $config = [
                     'clientId'      => '443205670238-vk10ehfmib8q9aljjad6dij0t1goam01.apps.googleusercontent.com',
                     'clientSecret'  => 'bn9q9cUf2IQP_rWpRacBbvJm',
                     'scope'         =>  implode(' ', ['email'])
-                ],
+                ],          
                 'github' => [
                     'class'         => 'yii\authclient\clients\GitHub',
                     'clientId'      => '1a1d4e30eab7d1bf87dd',

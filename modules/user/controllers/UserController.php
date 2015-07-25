@@ -23,7 +23,7 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\filters\AccessControl;
 use yii\bootstrap\ActiveForm;
-
+use yii\helpers\BaseUrl;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -72,6 +72,9 @@ class UserController extends Controller
 
     public function beforeAction($action) {
         parent::beforeAction($action);
+        /**
+         * Github change referrer for unknown reason,so use returnUrl for auth client
+         */
         if ($action->id === 'auth' && Yii::$app->session->get('returnUrl') == NULL){
             Yii::$app->session->set('returnUrl', Yii::$app->request->referrer);    
         }
@@ -102,8 +105,10 @@ class UserController extends Controller
         
         if ($user != NULL){
             Yii::$app->user->login($user, 3600*24*7);
+            return $this->goBack($this->getLoginReturnUrl());
+        } else {
+            return $this->goBack(Yii::$app->request->referrer);
         }
-        return $this->goBack(Yii::$app->session->get('returnUrl'));
     }
  
     /**
@@ -117,13 +122,26 @@ class UserController extends Controller
         } else {
             $model = new LoginForm();    
             if (Yii::$app->request->isPjax && $model->load(Yii::$app->request->post()) && $model->login()) {
-                return $this->goBack(Yii::$app->request->referrer);
+                return $this->goBack($this->getLoginReturnUrl());
             } else {
                 return $this->renderAjax('login',['model'=>$model]);   
             }            
         }
     }
 
+    
+    private function getLoginReturnUrl()
+    {
+        $default    =   Yii::$app->session->get('returnUrl',Yii::$app->request->referrer);
+        $parts      =   parse_url($default);
+        foreach (Yii::$app->params['notValidLoginRedirectPath'] as $path){
+            if (strpos($path, $parts['path']) == 0){
+                return BaseUrl::home();
+            }
+        }        
+        return $default;
+    }
+    
     /**
      * 
      * @return type
@@ -131,14 +149,22 @@ class UserController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-        return $this->goHome();
-        $returnUrl  =   $this->getLogoutReturnUrl();
-        return $this->goBack($returnUrl);
+        return $this->goBack($this->getLogoutReturnUrl());
     }    
-    
+
     private function getLogoutReturnUrl()
     {
-        return Yii::$app->request->referrer;
+        $default    =   strtolower(Yii::$app->request->referrer);
+        $parts      =   parse_url($default);
+        if ($parts['path'] == '/'){
+            return Yii::$app->request->referrer;
+        }
+        foreach (Yii::$app->params['validLogoutRedirectPath'] as $path){
+            if (strpos($path, $parts['path']) == 0){
+                return Yii::$app->request->referrer;        
+            }
+        }
+        return BaseUrl::home();
     }
 
     

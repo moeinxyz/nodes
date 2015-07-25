@@ -43,7 +43,6 @@ return [
                     'user/activation'                                                       =>  'user/user/activation',
                     'user/reset'                                                            =>  'user/user/reset',
                     'user/follow'                                                           =>  'user/following/follow',
-                    'user/import'                                                           =>  'user/following/import',
                     
                     'token/change'                                                          =>  'user/token/change',
                     'token/activation'                                                      =>  'user/token/activation',

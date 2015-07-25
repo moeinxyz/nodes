@@ -19,5 +19,14 @@ return [
         'rss',
         'followers',
         'following',
+    ],
+    'notValidLoginRedirectPath' =>  [
+        '/user/join',
+        '/user/activation',
+        '/user/reset'
+    ],
+    'validLogoutRedirectPath' => [
+        '/@',
+        '/page'
     ]
 ];
