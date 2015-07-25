@@ -31,6 +31,7 @@ return [
                     'post/trash'                                                            =>  'post/post/trash',
                     'post/delete'                                                           =>  'post/post/delete',
                     'post/cover'                                                            =>  'post/post/cover',
+                    'post/pin'                                                              =>  'post/post/pin',
                     
                     // user module
                     'user/login'                                                            =>  'user/user/login',

@@ -94,7 +94,7 @@ $config = [
                 [
                     'class'         => 'yii\log\FileTarget',
                     'logFile'       => '@app/runtime/logs/app.log',                    
-                    'levels'        => 0,//0 means all
+                    'levels' => ['error', 'warning'],
                     'categories'    => [],                    
                 ],
             ],
