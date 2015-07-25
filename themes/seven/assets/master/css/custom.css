@@ -274,3 +274,6 @@ pre.graf--pre {
 #comment-text{
     margin-top: 10px;
 }
+.loadstack{
+    opacity: 0.85;
+}
