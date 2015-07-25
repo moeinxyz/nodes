@@ -4,7 +4,6 @@ use yii\helpers\Html;
 /* @var $content string */
 
 \app\assets\MainAssets::register($this);
-
 $lang   = Yii::$app->language;
 $js     = <<<JS
 var RecaptchaOptions = {
