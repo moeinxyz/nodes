@@ -463,9 +463,12 @@ class UserController extends Controller
      * @return Attributes 
      */
     protected function googleAuth($attributes){
+        if (!isset($attributes['emails'][0]['value'])){
+            throw new \yii\web\HttpException(200,  Module::t('user','user.googleclient.no_email'));
+        }   
         $model                  =   new Attributes;
-        $model->email           =   $attributes['emails'][0]['value'];
         
+        $model->email           =   $attributes['emails'][0]['value'];
         $model->name            =   isset($attributes['displayName'])?$attributes['displayName']:NULL;
         $model->tagline         =   isset($attributes['tagline'])?$attributes['tagline']:NULL;
         
@@ -494,7 +497,11 @@ class UserController extends Controller
      * @return Attributes 
      */    
     protected function facebookAuth($attributes){
+        if (!isset($attributes['email'])){
+            throw new \yii\web\HttpException(200,  Module::t('user','user.facebookclient.no_email'));
+        }                
         $model                  =   new Attributes;
+        
         $model->email           =   $attributes['email'];
         $model->name            =   isset($attributes['name'])?$attributes['name']:NULL;
         
@@ -509,7 +516,11 @@ class UserController extends Controller
      * @return Attributes 
      */    
     protected function linkedinAuth($attributes){
-        $model              =   new Attributes;
+        if (!isset($attributes['email-address'])){
+            throw new \yii\web\HttpException(200,  Module::t('user','user.linkedinclient.no_email'));
+        }        
+        
+        $model              =   new Attributes;        
         $model->email       =   $attributes['email-address'];
         
         if (isset($attributes['first-name']) && $attributes['last-name']){
@@ -529,9 +540,13 @@ class UserController extends Controller
      * @return Attributes 
      */    
     protected function githubAuth($attributes){
-        $model              =   new Attributes;
-        $model->email       =   $attributes['email'];
+        if (!isset($attributes['email'])){
+            throw new \yii\web\HttpException(200,  Module::t('user','user.githubclient.no_email'));
+        }
         
+        $model              =   new Attributes;
+        
+        $model->email       =   $attributes['email'];
         $model->name        =   isset($attributes['name'])?$attributes['name']:NULL;
         $model->username    =   isset($attributes['login'])?$attributes['name']:NULL;
         $model->tagline     =   isset($attributes['bio'])?$attributes['bio']:NULL;
