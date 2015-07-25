@@ -70,6 +70,14 @@ class UserController extends Controller
         ];
     }
 
+    public function beforeAction($action) {
+        parent::beforeAction($action);
+        if ($action->id === 'auth' && Yii::$app->session->get('returnUrl') == NULL){
+            Yii::$app->session->set('returnUrl', Yii::$app->request->referrer);    
+        }
+        return true;
+    }
+
     /**
      * 
      * @param \yii\authclient\BaseClient $client
@@ -93,9 +101,9 @@ class UserController extends Controller
         $user = User::oauthLogin($model);
         
         if ($user != NULL){
-            return Yii::$app->user->login($user, 3600*24*7);
+            Yii::$app->user->login($user, 3600*24*7);
         }
-        return $this->goBack(Yii::$app->request->referrer);
+        return $this->goBack(Yii::$app->session->get('returnUrl'));
     }
  
     /**
@@ -123,8 +131,15 @@ class UserController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-        return $this->goBack(Yii::$app->request->referrer);
+        return $this->goHome();
+        $returnUrl  =   $this->getLogoutReturnUrl();
+        return $this->goBack($returnUrl);
     }    
+    
+    private function getLogoutReturnUrl()
+    {
+        return Yii::$app->request->referrer;
+    }
 
     
     /**
