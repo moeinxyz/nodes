@@ -135,7 +135,7 @@ class UserController extends Controller
         $default    =   Yii::$app->session->get('returnUrl',Yii::$app->request->referrer);
         $parts      =   parse_url($default);
         foreach (Yii::$app->params['notValidLoginRedirectPath'] as $path){
-            if (strpos($path, $parts['path']) == 0){
+            if (strpos($parts['path'],$path) !== FALSE){
                 return BaseUrl::home();
             }
         }        
@@ -160,7 +160,7 @@ class UserController extends Controller
             return Yii::$app->request->referrer;
         }
         foreach (Yii::$app->params['validLogoutRedirectPath'] as $path){
-            if (strpos($path, $parts['path']) == 0){
+            if (strpos($parts['path'],$path) !== FALSE){
                 return Yii::$app->request->referrer;        
             }
         }
