@@ -396,7 +396,7 @@ class PostController extends Controller
                         return $model->title;
                     },
                 'description' => function ($model, $widget) {
-                        return StringHelper::truncateWords(strip_tags($model->content), 50);
+                        return $model->content;
                     },
                 'link' => function ($model, $widget) use ($user) {
                         return Yii::$app->urlManager->createAbsoluteUrl(["@{$user->username}/{$model->url}"]);
