@@ -113,10 +113,23 @@ class DaemonController extends \yii\console\Controller{
                                         $token->getToken(),
                                         $token->getTokenSecret());
         foreach ($posts as $post){
-            //@todo upload cover of post [https://twitteroauth.com]
             $url        =   Yii::$app->urlManager->createAbsoluteUrl(["{$post->user->getUsername()}/{$post->url}",
                             'UTM_SOURCE' =>'twitter','UTM_CAMPAIGN'  =>  'auto-'.md5($twitter->user_id)]);
+            
             $params     =   ['status'=>$post->title.'  '.$url];
+            
+            if ($post->cover === Post::COVER_BYCOVER){
+                $content = @file_get_contents(Post::getCoverUrl($post->id));
+                if ($content !== FALSE){
+                    $stream     =   imagecreatefromstring($content);
+                    $fileName   =   Post::getCoverFileName($postId);
+                    $localFile  =   Yii::getAlias("@postcovers/{$fileName}.jpg");
+                    imagejpeg($stream,$localFile,100);
+                    imagedestroy($stream);
+                    $media = $connection->upload('media/upload', array('media' => $localFile));
+                    $params['media_ids']    =   implode(',',[$media->media_id_string]);
+                }
+            }
             $response   =    $connection->post('statuses/update', $params);
             $this->addSocialContent($twitter, $post, $params,$response);
         }
