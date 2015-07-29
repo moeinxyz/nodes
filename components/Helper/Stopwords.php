@@ -38,7 +38,7 @@ class Stopwords{
         "فقط",
         "بنابرین",
         "تو",
-        "در"
+        "در",
     ];
 
 
@@ -305,7 +305,7 @@ class Stopwords{
      */
     public static function purifierText(array $words){
         $pure = array_diff($words, self::$faStopWordsList);
-        $pure = array_diff($words, self::$enStopWordsList);
+        $pure = array_diff($pure, self::$enStopWordsList);
         return $pure;
     }
     
