@@ -1,2 +1,11 @@
 User-agent: *
 Disallow:
+/user/auth*
+/user/setting*
+/user/profile*
+/social/admin*
+/post/comments*
+/post/admin*
+/post/write*
+/post/edit*
+/post/preview*
