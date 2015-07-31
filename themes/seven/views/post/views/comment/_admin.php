@@ -45,6 +45,9 @@ echo GridView::widget([
         ],
         [
             'attribute'     =>  'text',
+            'content'       =>  function ($model, $key, $index, $column) {
+                return \yii\helpers\HtmlPurifier::process($model->text);
+            }
         ],
         [
             'attribute'     =>  'post_id',
@@ -53,10 +56,10 @@ echo GridView::widget([
                 $post   =   $model->post;
                 if ($post->status === Post::STATUS_PUBLISH){
                     $url = Yii::$app->urlManager->createUrl("{$post->user->getUsername()}/{$post->url}");
-                    return '<a href="'.$url.'">'.$post->title.'</a>';
+                    return '<a href="'.$url.'" target="_blank" data-pjax="0">'.$post->title.'</a>';
                 } else {
                     $url = Yii::$app->urlManager->createUrl(['preview','id'=>  base_convert($post->id, 10, 36)]);
-                    return '<a href="'.$url.'">'.$post->title.'</a>';                    
+                    return '<a href="'.$url.'" target="_blank" data-pjax="0">'.$post->title.'</a>';                    
                 }
             },
         ],
@@ -68,7 +71,7 @@ echo GridView::widget([
                 if ($post->status === Post::STATUS_PUBLISH){
                     $uid    = md5($model->id);
                     $url = Yii::$app->urlManager->createUrl("{$post->user->getUsername()}/{$post->url}#comment-{$uid}");
-                    $content = '<a href="'.$url.'">'.$content.'</a>';
+                    $content = '<a href="'.$url.'" target="_blank" data-pjax="0">'.$content.'</a>';
                 }
                 return $content;
             }            
