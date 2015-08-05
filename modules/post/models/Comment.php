@@ -30,8 +30,8 @@ class Comment extends \yii\db\ActiveRecord
     const STATUS_TRASH                      =   'TRASH';
     const STATUS_USER_DELETE                =   'USER_DELETE';
     
-    const POST_AUTHOR_SEEN_SEEN      =   'SEEN';
-    const POST_AUTHOR_SEEN_NOT_SEEN  =   'NOT_SEEN';
+    const POST_AUTHOR_SEEN_SEEN             =   'SEEN';
+    const POST_AUTHOR_SEEN_NOT_SEEN         =   'NOT_SEEN';
     
     /**
      * @inheritdoc
@@ -51,7 +51,7 @@ class Comment extends \yii\db\ActiveRecord
             [['user_id', 'post_id'], 'integer'],
             [['text', 'pure_text', 'status','post_author_seen'], 'string'],
             [['status'],'in','range'=>[self::STATUS_PUBLISH,self::STATUS_TRASH,self::STATUS_USER_DELETE]],
-            [['post_author_seen'],'in','range'=>[self::POST_AUTHOR_SEEN_NOT_SEEN,self::POST_AUTHOR_SEEN_SEEN]],            
+            [['post_author_seen'],'in','range'=>[self::POST_AUTHOR_SEEN_NOT_SEEN,self::POST_AUTHOR_SEEN_SEEN]],
             [['created_at'], 'safe']
         ];
     }
@@ -79,7 +79,7 @@ class Comment extends \yii\db\ActiveRecord
                 $this->status       =   self::STATUS_PUBLISH;
             }
             if ($this->post_author_seen){
-                $this->status       =   self::POST_AUTHOR_SEEN_NOT_SEEN;
+                $this->post_author_seen       =   self::POST_AUTHOR_SEEN_NOT_SEEN;
             }
             $this->text = HtmlPurifier::process($this->text);
             return TRUE;
@@ -181,3 +181,4 @@ class Comment extends \yii\db\ActiveRecord
         }
     }
 }
+
