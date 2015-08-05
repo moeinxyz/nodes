@@ -277,3 +277,18 @@ pre.graf--pre {
 .loadstack{
     opacity: 0.85;
 }
+.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > p,
+.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > h4{
+   margin: 0 15px 0 0!important;
+}
+.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > h4 > small{
+    right: auto!important;
+    left: auto!important;
+}
+.navbar-nav > .messages-menu > .dropdown-menu > li .menu > li > a > p{
+    width: 200px;
+    padding-right: 15px;
+    margin-right: auto!important;
+    display: block;
+    text-align: right;
+}
