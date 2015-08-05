@@ -86,6 +86,10 @@
     margin-top: 25px;
 }
 
+.top-buffer-light{
+    margin-top: 5px;
+}
+
 .othermedia > a{
     padding-left: 9px;
     font-size: 19px;
