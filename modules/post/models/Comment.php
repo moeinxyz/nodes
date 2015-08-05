@@ -139,7 +139,7 @@ class Comment extends \yii\db\ActiveRecord
                 ->andWhere(Post::tableName().'.status=:postStatus',[':postStatus'=>Post::STATUS_PUBLISH])
                 ->andWhere(self::tableName().'.status=:commentStatus',[':commentStatus'=>self::STATUS_PUBLISH])
                 ->andWhere(self::tableName().'.post_author_seen=:postAuthorSeen',[':postAuthorSeen'=>self::POST_AUTHOR_SEEN_NOT_SEEN])
-//                ->andWhere(self::tableName().'.user_id!=:userId',[':userId'=>Yii::$app->user->getId()])
+                ->andWhere(self::tableName().'.user_id!=:userId',[':userId'=>Yii::$app->user->getId()])
                 ->count();
     }
     
@@ -150,7 +150,7 @@ class Comment extends \yii\db\ActiveRecord
                 ->where(Post::tableName().'.user_id=:userId',[':userId'=>Yii::$app->user->getId()])
                 ->andWhere(Post::tableName().'.status=:postStatus',[':postStatus'=>Post::STATUS_PUBLISH])
                 ->andWhere(self::tableName().'.status=:commentStatus',[':commentStatus'=>self::STATUS_PUBLISH])                
-//                ->andWhere(self::tableName().'.user_id!=:userId',[':userId'=>Yii::$app->user->getId()])
+                ->andWhere(self::tableName().'.user_id!=:userId',[':userId'=>Yii::$app->user->getId()])
                 ->orderBy('CAST(post_author_seen AS CHAR),created_at DESC')
                 ->limit($limit)
                 ->all();
