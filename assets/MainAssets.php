@@ -16,7 +16,7 @@ class MainAssets extends AssetBundle
     ];
     public $js = [
         'js/main.js',
-        'js/app.min.js'        
+        'js/app.js'        
     ];
     public $depends = [
         'app\assets\InitAssets',
