@@ -68,12 +68,13 @@ class CommentController extends Controller
                 'post'          =>  $post
             ]);            
         } else {
-            throw new \yii\web\HttpException;
+            throw new \yii\web\HttpException(500);
         }
     }
     
     public function actionComments($pid = NULL)
     {
+        Comment::setCommentsAsSeen($pid);
         $dataProvider = $this->getDataProvider($pid);
         return $this->render('admin', [
             'dataProvider'  =>  $dataProvider,

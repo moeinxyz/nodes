@@ -140,6 +140,7 @@ class PostController extends Controller
         $user               =   $this->findUser($username);
         $post               =   $this->findPost($user->id, $url);
         $this->addPostRead($post);
+        $this->setCommentsAsSeen($post);
         $newComment         =   new Comment;
         $newComment->post_id=   $post->id;
         $comments           =   Comment::getCommentsOfPost($post->id);
@@ -495,7 +496,6 @@ class PostController extends Controller
         $model->save();
     }
 
-    
     //@todo this is so slow
     private function moveLastDaysReadToUser($hash)
     {
@@ -517,8 +517,17 @@ class PostController extends Controller
             Yii::$app->db->createCommand()->batchInsert(Userread::tableName(), $userRead->attributes(), $rows)->execute();    
         }
     }
-    
-    
+
+    private function setCommentsAsSeen(Post $post)
+    {
+        if (!\Yii::$app->user->isGuest && $post->user_id === Yii::$app->user->getId()){
+            Comment::setCommentsAsSeen($post->id);
+        }
+    }
+
+
+
+
     /*
      * Home Page
      */
