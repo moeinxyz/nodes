@@ -23,7 +23,7 @@ use app\modules\post\Module;
             $uid            =   md5($comment->id);
             $lastComment    =   strtotime($comment->created_at);
         ?>
-        <li id="comment-<?= $uid;?>">
+        <li id="comment<?= $uid;?>">
             <img src="<?= $user->getProfilePicture(60);?>" alt="<?= $user->getName();?>">
             <div>
                 <div>

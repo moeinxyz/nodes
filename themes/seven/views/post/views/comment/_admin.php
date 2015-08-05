@@ -68,9 +68,9 @@ echo GridView::widget([
             'content' => function ($model, $key, $index, $column) {
                 $post   =   $model->post;
                 $content =  '<span class="small-font-size">' . jDateTime::date("l jS F Y h:i A", strtotime($model->created_at)) . '</span>';
-                if ($post->status === Post::STATUS_PUBLISH){
+                if ($post->status === Post::STATUS_PUBLISH && $model->status === Comment::STATUS_PUBLISH){
                     $uid    = md5($model->id);
-                    $url = Yii::$app->urlManager->createUrl("{$post->user->getUsername()}/{$post->url}#comment-{$uid}");
+                    $url = Yii::$app->urlManager->createUrl("{$post->user->getUsername()}/{$post->url}#comment{$uid}");
                     $content = '<a href="'.$url.'" target="_blank" data-pjax="0">'.$content.'</a>';
                 }
                 return $content;

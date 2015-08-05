@@ -13,7 +13,7 @@ use app\modules\post\Module;
         $user           =   $comment->getUser()->one();
         $uid            =   md5($comment->id);
 ?>
-    <li id="comment-<?= $uid;?>">
+    <li id="comment<?= $uid;?>">
         <img src="<?= $user->getProfilePicture(60);?>" alt="<?= $user->getName();?>">
         <div>
             <div>

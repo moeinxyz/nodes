@@ -116,7 +116,7 @@ use yii\helpers\StringHelper;
                             <ul class="menu">
                                 <?php foreach (Comment::getLastComments() as $comment): ?>
                                     <li>
-                                        <a href="<?= Yii::$app->urlManager->createUrl([Yii::$app->user->getIdentity()->getUsername() . "/{$comment->post->url}#comment-" . md5($comment->id)]); ?>">
+                                        <a href="<?= Yii::$app->urlManager->createUrl([Yii::$app->user->getIdentity()->getUsername() . "/{$comment->post->url}#comment" . md5($comment->id)]); ?>">
                                             <div class="pull-right">
                                                 <!-- User Image -->
                                                 <img src="<?= $comment->user->getProfilePicture(); ?>" class="img-circle" alt="<?= $comment->user->getName(); ?>" />
