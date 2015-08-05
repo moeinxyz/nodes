@@ -4,6 +4,9 @@
 use yii\helpers\Html;
 use app\modules\post\Module;
 use app\modules\post\models\Post;
+use app\modules\post\models\Comment;
+use app\components\Helper\Time;
+use yii\helpers\StringHelper;
 ?>
 <header class="main-header">
     <nav class="navbar navbar-fixed-top navbar-default" role="navigation">
@@ -97,6 +100,44 @@ use app\modules\post\models\Post;
                     </ul>            
                 </li>
             </ul>
+            <ul class="nav navbar-nav flaty-nav pull-left">
+                <li class="dropdown messages-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-comment"></i>
+                        <span class="label label-success"><?= Comment::countNotifications(); ?></span>
+                    </a>    
+                    <ul class="dropdown-menu">
+                        <li>
+                            <ul class="menu">
+                                <?php foreach (Comment::getLastComments() as $comment): ?>
+                                    <li>
+                                        <a href="<?= Yii::$app->urlManager->createUrl([Yii::$app->user->getIdentity()->getUsername() . "/{$comment->post->url}#comment-" . md5($comment->id)]); ?>">
+                                            <div class="pull-right">
+                                                <!-- User Image -->
+                                                <img src="<?= $comment->user->getProfilePicture(); ?>" class="img-circle" alt="<?= $comment->user->getName(); ?>" />
+                                            </div>
+                                            <!-- Message title and timestamp -->
+                                            <h4 class="pull-right" dir="rtl">
+                                                <?= StringHelper::truncate($comment->user->getName(), 20); ?>
+                                            </h4>
+                                            <h4>
+                                                <small class="pull-left" dir="rtl">
+                                                    <i class="fa fa-clock-o"></i>
+                                                    <?= Time::humanDiffTime(strtotime($comment->created_at)); ?>
+                                                </small>                                    
+                                            </h4>
+                                            <p class="pull-right" dir="rtl">
+                                                <?= StringHelper::truncate($comment->pure_text, 30); ?>
+                                            </p>
+                                        </a>
+                                    </li>                        
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="<?= Yii::$app->urlManager->createUrl(['/post/comments']) ?>">مشاهده تمام نظرات</a></li>
+                    </ul>          
+                </li>                
+            </ul>            
         </div>    
   </nav>
 </header>    
