@@ -50,6 +50,7 @@ class Comment extends \yii\db\ActiveRecord
             [['user_id', 'post_id', 'text'], 'required'],
             [['user_id', 'post_id'], 'integer'],
             [['text', 'pure_text', 'status','post_author_seen'], 'string'],
+            [['text','pure_text'],'filter','filter'=>'trim'],            
             [['status'],'in','range'=>[self::STATUS_PUBLISH,self::STATUS_TRASH,self::STATUS_USER_DELETE]],
             [['post_author_seen'],'in','range'=>[self::POST_AUTHOR_SEEN_NOT_SEEN,self::POST_AUTHOR_SEEN_SEEN]],
             [['created_at'], 'safe']

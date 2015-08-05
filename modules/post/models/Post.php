@@ -74,7 +74,7 @@ class Post extends \yii\db\ActiveRecord
             [['pin'],'in','range'   =>[self::PIN_ON,self::PIN_OFF]],            
             [['last_update_type'],'in','range'   =>[self::LAST_UPDATE_TYPE_AUTOSAVE,self::LAST_UPDATE_TYPE_MANUAL]],            
             [['url'],'validateUniqueUrl','on'=>'save'],
-            [['title','pure_text'],'trim'],
+            [['title','pure_text'],'filter','filter'=>'trim'],
             [['score'],'number','min'=>0,'max'=>4294967295]
         ];
     }
