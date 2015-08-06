@@ -29,9 +29,9 @@ use app\modules\post\Module;
                 <div>
                     <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}"]) ?>">
                         <h5><?= $user->getName();?></h5>
-                    </a>
+                    </a>                    
                     <span class="time"><i class="fa fa-clock-o"></i>
-                        <a href="<?= Yii::$app->urlManager->createUrl(["{$post->user->getUsername()}/{$post->url}#comment-{$uid}"]) ?>">
+                        <a href="<?= Yii::$app->urlManager->createUrl(["{$post->user->getUsername()}/{$post->url}#comment{$uid}"]) ?>">
                             <?= jDateTime::date("l jS F Y H:i",$lastComment)?>
                         </a>
                     </span>
@@ -39,22 +39,17 @@ use app\modules\post\Module;
                         if ($deleteComment){
                             $form = ActiveForm::begin([
                                 'action'=>Yii::$app->urlManager->createUrl(["{$user->getUsername()}/{$post->url}/comment/delete",'id'=>  base_convert($comment->id,10,36)]),
-                                'id' => 'comment-delete',
                                 'enableClientValidation'=>true,
-                                'options' => ['class'   =>  'form-horizontal trash','data-pjax'=>TRUE],
-                                'fieldConfig' => [
-                                    'template'  =>  ''
-                                ],
-                            ]);
-                            echo Html::a('', '#', [
-                                'class'     =>  'fa fa-trash-o',
-                                'onclick'   =>  'return false;',
-                                'title'     =>  Module::t('post','comment.delete'),
-                                'id'        =>  'delete-'.$uid
+                                'options' => ['class'   =>  'form-horizontal','data-pjax'=>TRUE,'style'=>'display:none;'],
                             ]);
                             ActiveForm::end();
+                            echo Html::a('', '#', [
+                                'class'     =>  'fa fa-trash-o trash',
+                                'onclick'   =>  'return false;',
+                                'title'     =>  Module::t('post','comment.delete'),
+                            ]);                            
                         }
-                    ?>
+                    ?>                    
                 </div>
                 <p>
                     <?= $comment->text;?>
@@ -92,8 +87,8 @@ pjax.on('pjax:send',function(){
 pjax.on('pjax:complete',function(){
     pjax.find('.overlay').remove();
 });
-$("div.pjax form.trash a").on('click',function(){
-    $(this).parent().submit();
+$("div.pjax a.trash").on('click',function(){
+    $(this).parent().find("form").submit();
 });
 JS;
 $this->registerJs($js);

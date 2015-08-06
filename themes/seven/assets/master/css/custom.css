@@ -189,8 +189,8 @@ div.grid-view > .summary{
     float: left;
     font-size: 14px;
 }
-.messages > li > div > .trash, .messages > div > li > div .trash {
-    margin-top: 5px;
+.messages > li > div > .trash, .messages > div > li > div .trash,.messages > li > div > .bell, .messages > div > li > div .bell {
+    margin-top: 12px;
     margin-left: 10px;
     color: #999;
     float: left;

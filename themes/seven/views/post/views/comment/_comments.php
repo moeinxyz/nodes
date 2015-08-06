@@ -22,14 +22,12 @@ use app\modules\post\Module;
                 </a>
                 <span class="time">
                     <i class="fa fa-clock-o"></i>
-                    <a href="<?= Yii::$app->urlManager->createUrl(["@{$username}/{$url}#comment-{$uid}"]) ?>">
+                    <a href="<?= Yii::$app->urlManager->createUrl(["@{$username}/{$url}#comment{$uid}"]) ?>">
                         <?= jDateTime::date("l jS F Y H:i",strtotime($comment->created_at))?>
                     </a>
                 </span>
                 <?php if ($comment->user_id === Yii::$app->user->getId() || $post->user_id === Yii::$app->user->getId()): ?>
-                    <span class="trash">
-                        <i class="fa fa-bell-o" title="<?= Module::t('comment','_comments.delete.confirm'); ?>"></i>
-                    </span>                
+                <i class="fa fa-bell-o bell" title="<?= Module::t('comment','_comments.delete.confirm'); ?>"></i>
                 <?php endif; ?>
             </div>
             <p>
