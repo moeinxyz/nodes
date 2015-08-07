@@ -30,6 +30,7 @@ class SyncPostCoverWorkerController extends \yii\console\Controller{
 
     private function uploadImage($postId,$url)
     {    
+        //@todo if can't get file content
         $stream     =   imagecreatefromstring(file_get_contents($url));
         $fileName   =   Post::getCoverFileName($postId);
         $remoteFile =   Yii::getAlias("@ftpPostCovers/{$fileName}.jpg");
