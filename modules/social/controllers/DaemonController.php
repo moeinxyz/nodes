@@ -123,7 +123,7 @@ class DaemonController extends \yii\console\Controller{
                 if ($content !== FALSE){
                     $stream     =   imagecreatefromstring($content);
                     $fileName   =   Post::getCoverFileName($post->id);
-                    $localFile  =   Yii::getAlias("@postcovers/{$fileName}.jpg");
+                    $localFile  =   Yii::getAlias("@postcovers/{$fileName}-social.jpg");
                     imagejpeg($stream,$localFile,100);
                     imagedestroy($stream);
                     $media = $connection->upload('media/upload', array('media' => $localFile));
