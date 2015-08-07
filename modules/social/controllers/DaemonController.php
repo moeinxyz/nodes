@@ -122,12 +122,13 @@ class DaemonController extends \yii\console\Controller{
                 $content = @file_get_contents(Post::getCoverUrl($post->id));
                 if ($content !== FALSE){
                     $stream     =   imagecreatefromstring($content);
-                    $fileName   =   Post::getCoverFileName($postId);
+                    $fileName   =   Post::getCoverFileName($post->id);
                     $localFile  =   Yii::getAlias("@postcovers/{$fileName}.jpg");
                     imagejpeg($stream,$localFile,100);
                     imagedestroy($stream);
                     $media = $connection->upload('media/upload', array('media' => $localFile));
                     $params['media_ids']    =   implode(',',[$media->media_id_string]);
+                    unlink($localFile);
                 }
             }
             $response   =    $connection->post('statuses/update', $params);
