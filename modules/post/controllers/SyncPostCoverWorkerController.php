@@ -33,7 +33,6 @@ class SyncPostCoverWorkerController extends \yii\console\Controller{
         //@todo if can't get file content
         $stream     =   imagecreatefromstring(file_get_contents($url));
         $fileName   =   Post::getCoverFileName($postId);
-        $remoteFile =   Yii::getAlias("@ftpPostCovers/{$fileName}.jpg");
         
         $localFile  =   Yii::getAlias("@postcovers/{$fileName}.jpg");
         imagejpeg($stream,$localFile,100);
@@ -42,14 +41,20 @@ class SyncPostCoverWorkerController extends \yii\console\Controller{
         // create thumbnail from background picture,don't change code order
         // background
         $this->setStandardImageSize($localFile);
-        $content = file_get_contents($localFile);
-        Yii::$app->ftpFs->put($remoteFile, $content);
+        $content    =   file_get_contents($localFile);
+        
+        if ($content !== FALSE){
+            $remoteFile =   Yii::getAlias("@ftpPostCovers/{$fileName}.jpg");                    
+            Yii::$app->ftpFs->put($remoteFile, $content);    
+        }
         
         //thumbnail
         $this->setStandardImageSize($localFile,true);
         $content    =   file_get_contents($localFile);
-        $remoteFile =   Yii::getAlias("@ftpPostCovers/{$fileName}-thumbnail.jpg");
-        Yii::$app->ftpFs->put($remoteFile, $content);
+        if ($content !== FALSE){
+            $remoteFile =   Yii::getAlias("@ftpPostCovers/{$fileName}-thumbnail.jpg");    
+            Yii::$app->ftpFs->put($remoteFile, $content);
+        }
         
         unlink($localFile);        
     }    
