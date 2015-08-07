@@ -29,7 +29,6 @@ class ResetPasswordForm extends Model
             [['password',   'confirmPassword'], 'required'],            
             [['password'],  'string', 'min' => 8],
             [['confirmPassword'],  'compare','compareAttribute'=>'password']
-            //@todo check for equalenc of password with confirmation
         ];
     }
     public function attributeLabels()
