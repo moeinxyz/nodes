@@ -11,7 +11,6 @@ use yii\filters\AccessControl;
 use app\modules\user\models\User;
 use yii\web\Response;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\StringHelper;
 use app\components\Helper\Extract;
 use app\modules\post\models\Comment;
 use app\modules\post\models\Userrecommend;
