@@ -39,13 +39,12 @@ class PostSuggestionForUserWorkerController extends \yii\console\Controller
     
     private function updateRankedReadedPostPriority($userId)
     {
-        
-        
         $query  =   (new Query)
-                    ->select(UserToRead::tableName().'.post_id')
-                    ->from(UserToRead::tableName())
-                    ->leftJoin(Userread::tableName(),  Userread::tableName().'.post_id = '.UserToRead::tableName().'.post_id AND '.Userread::tableName().'.user_id = '.UserToRead::tableName().'.user_id')
-                    ->where(UserToRead::tableName().'.priority = :priority AND '.UserToRead::tableName().'.user_id = :user_id',[':user_id'  =>  $userId,':priority' =>  1]);
+                    ->select('DISTINCT '.Userread::tableName().'.post_id')
+                    ->from(Userread::tableName())
+                    ->leftJoin(UserToRead::tableName(),Userread::tableName().'.post_id = '.UserToRead::tableName().'.post_id AND '.Userread::tableName().'.user_id = '.UserToRead::tableName().'.user_id')
+                    ->where(UserToRead::tableName().'.priority = :priority AND '.UserToRead::tableName().'.user_id = :user_id',[':user_id'  =>  $userId,':priority' =>  1]);                
+        
         $result =   $query->each();
         $posts  =   [];
         foreach ($result  as $row){
@@ -184,7 +183,6 @@ class PostSuggestionForUserWorkerController extends \yii\console\Controller
                 ->andWhere(Post::tableName().'.id NOT IN (SELECT DISTINCT post_id FROM '.Userread::tableName().' WHERE '.Userread::tableName().'.user_id = :user_id)',[':user_id'=>$userId])
                 ->andWhere(Userrecommend::tableName().'.user_id IN (SELECT DISTINCT followed_user_id FROM '.Following::tableName().' WHERE '.Following::tableName().'.user_id = :user_id)',[':user_id'=>$userId])
                 ->orderBy(Post::tableName().'.published_at');
-        
         return $query->each();
     }
     
@@ -196,13 +194,10 @@ class PostSuggestionForUserWorkerController extends \yii\console\Controller
         
         $query  =   (new Query)
                     ->select('id, comments_count, published_at, pure_text,'.$subQuery1.' AS user_read_count,'.$subQuery2.' AS guest_read_count')
-                    ->select('id, comments_count, published_at, pure_text')
                     ->from(Post::tableName())
                     ->where('status=:status',[':status'=>Post::STATUS_PUBLISH])
-                    ->andWhere('user_id=:user_id',[':user_id'=>$userId])
                     ->andWhere('published_at > DATE_SUB(now(), INTERVAL 100 DAY)')
-                    ->andWhere('id NOT IN '.$subQuery3);
-
+                    ->andWhere('id NOT IN '.$subQuery3,[':user_id'=>$userId]);
         return $query->each();
     }    
     
