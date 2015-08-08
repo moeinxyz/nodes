@@ -31,6 +31,7 @@ class DailyEmailPostSuggestionDigestDaemonController extends EmailPostSuggestion
                 if (count($posts) >= 3)
                 {
                     $this->sendDigestMail($user, $posts);
+                    $this->setPostsAsSent($posts);
                 }
                 $this->updateUserDigestTime($user);
             }

@@ -12,6 +12,7 @@ use Yii;
  * @property string $post_id
  * @property integer $score
  * @property integer $priority
+ * @property string $notification_mail_status
  * @property string $created_at
  *
  * @property User $user
@@ -19,6 +20,8 @@ use Yii;
  */
 class UserToRead extends \yii\db\ActiveRecord
 {
+    const NOTIFICATION_MAIL_STATUS_SENT     =   'SENT';
+    const NOTIFICATION_MAIL_STATUS_NOT_SEND =   'NOT_SEND';
     /**
      * @inheritdoc
      */
@@ -35,6 +38,7 @@ class UserToRead extends \yii\db\ActiveRecord
         return [
             [['user_id', 'post_id', 'score'], 'required'],
             [['user_id', 'post_id', 'score','priority'], 'integer'],
+            [['notification_mail_status'],'in','range'=>[self::NOTIFICATION_MAIL_STATUS_NOT_SEND,self::NOTIFICATION_MAIL_STATUS_SENT]],            
             [['created_at'], 'safe']
         ];
     }
@@ -68,5 +72,17 @@ class UserToRead extends \yii\db\ActiveRecord
     public function getPost()
     {
         return $this->hasOne(Post::className(), ['id' => 'post_id']);
+    }
+    
+    public function beforeValidate() {
+        if (parent::beforeValidate()){
+            if ($this->isNewRecord){
+                if ($this->notification_mail_status === NULL){
+                    $this->notification_mail_status =   self::NOTIFICATION_MAIL_STATUS_NOT_SEND;
+                }            
+            }
+            return true;
+        }
+        return false;
     }
 }

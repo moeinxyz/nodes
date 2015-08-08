@@ -13,17 +13,6 @@ class EmailPostSuggestionBase extends \yii\console\Controller{
         set_time_limit(0);
     }    
     
-    protected function getPosts($userId,$limit = 7)
-    {
-        $posts      =   Post::find()
-                        ->leftJoin(UserToRead::tableName(),Post::tableName().'.id = '.UserToRead::tableName().'.post_id')
-                        ->where(UserToRead::tableName().'.user_id = :user_id AND '.UserToRead::tableName().'.priority=:priority AND '.Post::tableName().'.status = :status',[':user_id' =>  $userId,':status'   =>  Post::STATUS_PUBLISH,':priority'=>1])
-                        ->orderBy(UserToRead::tableName().'.created_at DESC,'.UserToRead::tableName().'.score DESC,'.Post::tableName().'.score DESC,'.Post::tableName().'.published_at DESC')
-                        ->limit($limit)                
-                        ->all();          
-        return $posts;
-    }
-    
     protected function getUsers($timestamp,$period = User::READING_LIST_DAILY,$limit = 10)
     {
         $users  =   User::find()
@@ -35,6 +24,21 @@ class EmailPostSuggestionBase extends \yii\console\Controller{
         
         return $users;
     }
+
+
+    protected function getPosts($userId,$limit = 7)
+    {
+        $posts      =   Post::find()
+                        ->leftJoin(UserToRead::tableName(),Post::tableName().'.id = '.UserToRead::tableName().'.post_id')
+                        ->where(UserToRead::tableName().'.user_id = :userId',[':userId'=>$userId])
+                        ->andWhere(UserToRead::tableName().'.priority = :priority',[':priority'=>1])
+                        ->andWhere(UserToRead::tableName().'.notification_mail_status = :notification_mail_status',['notification_mail_status'=>  UserToRead::NOTIFICATION_MAIL_STATUS_NOT_SEND])
+                        ->andWhere(Post::tableName().'.status = :status',[':status'=>Post::STATUS_PUBLISH])
+                        ->orderBy(UserToRead::tableName().'.created_at DESC,'.UserToRead::tableName().'.score DESC,'.Post::tableName().'.score DESC,'.Post::tableName().'.published_at DESC')
+                        ->limit($limit)                
+                        ->all();          
+        return $posts;
+    }    
     
     protected function sendDigestMail(User $user,array $posts)
     {
@@ -51,5 +55,20 @@ class EmailPostSuggestionBase extends \yii\console\Controller{
     {
         $user->last_digest_mail =   new \yii\db\Expression('NOW()');
         $user->save(false);
+    }
+    
+    protected function setPostsAsSent(array $posts)
+    {
+        $postsId    =   [];
+
+        foreach ($posts as $post)
+        {
+            $postsId[]    =   $post->id;
+        }
+
+        UserToRead::updateAll(['notification_mail_status'=>  UserToRead::NOTIFICATION_MAIL_STATUS_SENT],['AND','notification_mail_status =:notification_mail_status',['in','post_id',$postsId]],[
+            ':notification_mail_status'     =>  UserToRead::NOTIFICATION_MAIL_STATUS_NOT_SEND,
+        ]); 
+        
     }
 }
