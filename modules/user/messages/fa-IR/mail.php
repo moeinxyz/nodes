@@ -45,7 +45,6 @@ return [
     'digest.footer.setting'     =>  'تغییر تنظیمات',
     'digest.footer.nodes'       =>  'ارسال شده توسط نودز',
     'digest.header.title'       =>  'نوشته های برتر',
-    'digest.header.hello'       =>  'سلام {name}',
-    'digest.header.dontmiss'    =>  'برترین نوشته ها را از دست ندهید!',
-    
+    'digest.header.hello_n_miss'=>  'سلام {name}، برترین نوشته ها را از دست ندهید.',
+    'digest.header.customized'  =>  'ترتیب نمایش نوشته ها در نودز بصورت هوشمند برای شما شخصی سازی  می شود.',  
 ];

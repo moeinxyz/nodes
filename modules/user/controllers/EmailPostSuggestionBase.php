@@ -17,9 +17,9 @@ class EmailPostSuggestionBase extends \yii\console\Controller{
     {
         $posts      =   Post::find()
                         ->leftJoin(UserToRead::tableName(),Post::tableName().'.id = '.UserToRead::tableName().'.post_id')
-                        ->where(UserToRead::tableName().'.user_id = :user_id AND '.Post::tableName().'.status = :status',[':user_id' =>  $userId,':status'   =>  Post::STATUS_PUBLISH])
-                        ->limit(7)
-                        ->orderBy('created_at desc,score desc')
+                        ->where(UserToRead::tableName().'.user_id = :user_id AND '.UserToRead::tableName().'.priority=:priority AND '.Post::tableName().'.status = :status',[':user_id' =>  $userId,':status'   =>  Post::STATUS_PUBLISH,':priority'=>1])
+                        ->orderBy(UserToRead::tableName().'.created_at DESC,'.UserToRead::tableName().'.score DESC,'.Post::tableName().'.score DESC,'.Post::tableName().'.published_at DESC')
+                        ->limit($limit)                
                         ->all();          
         return $posts;
     }
