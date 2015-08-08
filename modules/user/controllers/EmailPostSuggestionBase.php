@@ -41,7 +41,7 @@ class EmailPostSuggestionBase extends \yii\console\Controller{
         $top        =   $posts[0];
         return \Yii::$app->mailer
                     ->compose('@mail/digest', ['user' => $user,'posts'=>$posts])
-                    ->setSubject(Module::t('mail','digest.title',['subject'=>$top->subject]))
+                    ->setSubject(Module::t('mail','digest.title',['subject'=>$top->title]))
                     ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.digest.name')])                    
                     ->setTags(['digest',  Yii::$app->name])
                     ->setTo($user->email)
