@@ -24,20 +24,21 @@ $form = ActiveForm::begin([
             <div  class="col-md-12 controls ichecked medium-font-size">
                 <?= $form->field($model,'reading_list')->inline()->radioList(ChangeSettingForm::getReadingListSettingList())->hint(Module::t('user','setting._setting.reading_list.hint'));?>
             </div>
-        </div>                        
-        <?php
-        /**
-         * Comming Soon
+        </div>
         <div class="form-group">
             <div  class="col-md-12 controls ichecked medium-font-size">
                 <?= $form->field($model,'content_activity')->inline()->radioList(ChangeSettingForm::getActivitySettingList())->hint(Module::t('user','setting._setting.content_activity.hint'));?>
             </div>
-        </div>
+        </div>                    
+        <?php
+        /**
+         * Comming Soon
+   
         <div class="form-group">
             <div  class="col-md-12 controls ichecked medium-font-size">
                 <?= $form->field($model,'social_activity')->inline()->radioList(ChangeSettingForm::getActivitySettingList())->hint(Module::t('user','setting._setting.social_activity.hint'));?>
             </div>
-        </div>        
+        </div> 
          * 
          */
         ?>
