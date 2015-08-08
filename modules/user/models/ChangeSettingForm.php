@@ -20,7 +20,8 @@ class ChangeSettingForm extends Model{
         return [
             //@todo add publisher_activity
             [['content_activity','social_activity'],'in','range'=>[User::ACTIVITY_SETTING_DIGEST,User::ACTIVITY_SETTING_FULL,User::ACTIVITY_SETTING_OFF]],
-            [['reading_list'],'in','range'=>[User::READING_LIST_DAILY,User::READING_LIST_OFF,User::READING_LIST_WEEKLY]],        ];
+            [['reading_list'],'in','range'=>[User::READING_LIST_DAILY,User::READING_LIST_OFF,User::READING_LIST_WEEKLY]],        
+        ];
     }
 
     public function attributeLabels()
