@@ -17,7 +17,7 @@ class WeeklyEmailPostSuggestionDigestDaemonController extends EmailPostSuggestio
             $farthestTime   =   strtotime($timestamp);
             $diffTime       =   time()  -   $farthestTime;
             
-            if ($timestamp != NULL && $diffTime < Module::WEEK_SECONDS){
+            if ($timestamp === NULL || $diffTime < Module::WEEK_SECONDS){
                 sleep(Module::WEEK_SECONDS - $diffTime + Module::ADDITIONAL_SLEEP_SECS);
                 continue;
             }
