@@ -38,7 +38,8 @@ return [
     'mail.header'               =>  'نودز، لذت خواندن و خوانده شدن',
     'mail.footer'               =>  'ارسال شده توسط نودز',
     
-    'digest.title'              =>  'در نودز بخوانید',
+    'digest.title'              =>  'در نودز بخوانید : {subject}',
+    'sender.digest.name'        =>  'خلاصه نوشته های برتر نودز',
     'digest.by_cover.written_by'=>  'نوشته شده توسط',
     'digest.no_cover.written_by'=>  'نوشته شده توسط',
     'digest.no_cover.btn'       =>  'ادامه مطلب',

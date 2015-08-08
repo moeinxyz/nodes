@@ -38,10 +38,11 @@ class EmailPostSuggestionBase extends \yii\console\Controller{
     
     protected function sendDigestMail(User $user,array $posts)
     {
+        $top        =   $posts[0];
         return \Yii::$app->mailer
                     ->compose('@mail/digest', ['user' => $user,'posts'=>$posts])
-                    ->setSubject(Module::t('mail','digest.title'))
-                    ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])                    
+                    ->setSubject(Module::t('mail','digest.title',['subject'=>$top->subject]))
+                    ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.digest.name')])                    
                     ->setTags(['digest',  Yii::$app->name])
                     ->setTo($user->email)
                     ->send();
