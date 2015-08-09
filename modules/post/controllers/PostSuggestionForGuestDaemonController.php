@@ -23,13 +23,17 @@ class PostSuggestionForGuestDaemonController extends \yii\console\Controller{
             $timestamp      =   Post::find()->where('status=:status',[':status'=>  Post::STATUS_PUBLISH])
                                     ->min('score_update_requested_at');
             
-            $farthestTime   =   strtotime($timestamp);
-            $diffTime       =   time()  -   $farthestTime;
-            
-            if ($timestamp != NULL && $diffTime < Module::CHECK_INTERVAL){
-                sleep(Module::CHECK_INTERVAL - $diffTime + Module::ADDITIONAL_SLEEP_SECS);
+            if ($timestamp === NULL){
+                sleep(Module::CHECK_INTERVAL);
                 continue;
             }
+
+            $diff   =   time() - strtotime($timestamp);
+            
+            if ($diff < Module::CHECK_INTERVAL){
+                sleep(Module::CHECK_INTERVAL + Module::ADDITIONAL_SLEEP_SECS - $diff);
+                continue;;
+            }   
             
             $posts  =   Post::find()->select('id')->where('status=:status AND score_update_requested_at=:timestamp',[
                 ':status'       =>  Post::STATUS_PUBLISH,

@@ -23,13 +23,19 @@ class DaemonController extends \yii\console\Controller{
         do
         {
             $timestamp      =   Social::find()->where('status=:status',[':status'=>  Social::STATUS_ACTIVE])->min('last_used');
-            $farthestTime   =   strtotime($timestamp);
-            $diffTime       =   time()  -   $farthestTime;
-            
-            if ($timestamp != NULL && $diffTime < Module::CHECK_INTERVAL){
-                sleep(Module::CHECK_INTERVAL - $diffTime + Module::ADDITIONAL_SLEEP_SECS);
+
+            if ($timestamp === NULL){
+                sleep(Module::CHECK_INTERVAL);
                 continue;
             }
+
+            $diff   =   time() - strtotime($timestamp);
+            
+            if ($diff < Module::CHECK_INTERVAL){
+                sleep(Module::CHECK_INTERVAL + Module::ADDITIONAL_SLEEP_SECS - $diff);
+                continue;;
+            }   
+            
             $socials = Social::find()->where('status=:status AND last_used >= :timestamp',[
                 ':status'    =>  Social::STATUS_ACTIVE,
                 ':timestamp' =>  $timestamp

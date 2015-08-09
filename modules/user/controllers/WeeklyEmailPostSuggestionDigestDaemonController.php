@@ -14,13 +14,17 @@ class WeeklyEmailPostSuggestionDigestDaemonController extends EmailPostSuggestio
                                             [':status'=>User::STATUS_ACTIVE,':reading_list'=>User::READING_LIST_WEEKLY])
                                             ->min('last_digest_mail');
             
-            $farthestTime   =   strtotime($timestamp);
-            $diffTime       =   time()  -   $farthestTime;
-            
-            if ($timestamp === NULL || $diffTime < Module::WEEK_SECONDS){
-                sleep(Module::WEEK_SECONDS - $diffTime + Module::ADDITIONAL_SLEEP_SECS);
+            if ($timestamp === NULL){
+                sleep(Module::WEEK_SECONDS);
                 continue;
             }
+
+            $diff   =   time() - strtotime($timestamp);
+            
+            if ($diff < Module::WEEK_SECONDS){
+                sleep(Module::WEEK_SECONDS + Module::ADDITIONAL_SLEEP_SECS - $diff);
+                continue;;
+            }   
             
             $users  = $this->getUsers($timestamp, User::READING_LIST_WEEKLY);
             

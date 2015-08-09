@@ -15,13 +15,17 @@ class DailyEmailPostSuggestionDigestDaemonController extends EmailPostSuggestion
                                             [':status'=>User::STATUS_ACTIVE,':reading_list'=>User::READING_LIST_DAILY])
                                             ->min('last_digest_mail');
             
-            $farthestTime   =   strtotime($timestamp);
-            $diffTime       =   time()  -   $farthestTime;
-            
-            if ($timestamp === NULL || $diffTime < Module::DAY_SECONDS){
-                sleep(Module::DAY_SECONDS - $diffTime + Module::ADDITIONAL_SLEEP_SECS);
+            if ($timestamp === NULL){
+                sleep(Module::DAY_SECONDS);
                 continue;
             }
+
+            $diff   =   time() - strtotime($timestamp);
+            
+            if ($diff < Module::DAY_SECONDS){
+                sleep(Module::DAY_SECONDS + Module::ADDITIONAL_SLEEP_SECS - $diff);
+                continue;;
+            }            
             
             $users  = $this->getUsers($timestamp, User::READING_LIST_DAILY);
             
