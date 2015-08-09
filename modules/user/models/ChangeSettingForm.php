@@ -42,6 +42,7 @@ class ChangeSettingForm extends Model{
             $user->social_activity  = $this->social_activity;
             $user->reading_list     = $this->reading_list;
             //@todo add publisher activity
+            //@todo what is publisher activity?I can't remember:)))
             return $user->save();
         }
         return false;
