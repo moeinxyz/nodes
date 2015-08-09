@@ -1,4 +1,4 @@
-    <?php
+<?php
     return [
         'user.reset.title'          =>  'بازسازی کلمه عبور',
         'user.reset.button'         =>  'بازسازی کلمه عبور',
@@ -48,4 +48,20 @@
         'digest.header.title'       =>  'نوشته های برتر',
         'digest.header.hello_n_miss'=>  'سلام {name}، برترین نوشته ها را از دست ندهید.',
         'digest.header.customized'  =>  'ترتیب نمایش نوشته ها در نودز بصورت هوشمند برای شما شخصی سازی  می شود.',  
+        
+        
+        'comment.sender.name'               =>  'نظرات برای شما - نودز',
+        'comment.header.hint'               =>  'نحوه دریافت نظرات خوانده نشده از طریق تنظیمات قابل تغییر می باشد.',
+        
+        'comment.full.btn'                  =>  'نمایش نظر',
+        'comment.full.header'               =>  'یک نظر خوانده نشده برای نوشته ',
+        'comment.full.title'                =>  '{comment_author} برای نوشته {title} شما نظر داده است.',
+        
+        'comment.digest.header'             =>  '{count} نظر خوانده نشده در ارتباط با نوشته های شما',
+        'comment.digest.btn'                =>  'نمایش کامل نظر',
+        'comment.digest.title.sigle_post_single_author'     =>  '{comment_author} برای نوشته {title} شما نظر داده است.',
+        'comment.digest.title.single_post_multiple_author'  =>  '{comment_author} و {count} نفر دیگر برای نوشته {title} شما نظر داده اند.',
+        'comment.digest.title.multiple_post_single_author'  =>  '{comment_author} برای نوشته های شما چندین نظر داده است..',
+        'comment.digest.title.multiple_post_multiple_author'=>  '{comment_author} و {count} نفر دیگر برای نوشته های شما نظر داده اند.',
+        'comment.digest.for'                                =>  ' برای ',
     ];
