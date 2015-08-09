@@ -3,7 +3,7 @@
 use app\modules\user\Module;
 
 /* @var $this yii\web\View */
-/* @var $user \app\modules\user\models\User */
+/* @var $comment \app\modules\post\models\comment */
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -43,10 +43,13 @@ use app\modules\user\Module;
                                             <tr style="margin: 0;padding: 0; direction: rtl;">
                                                 <td style="margin: 0;padding: 0; direction: rtl;text-align: center">
                                                     <p style="font-family: Arial, Tahoma, Helvetica, sans-serif;font-size: 16px;margin: 0;padding: 0;line-height: 1.1;margin-bottom: 15px;color: #000; direction: rtl;">
-                                                        <?= Module::t('mail', 'digest.header.hello_n_miss', ['name' => $user->getName()]); ?>
+                                                        <?= Module::t('mail', 'comment.full.header'); ?>
+                                                        <a style="text-decoration: none;" href="<?= Yii::getAlias('@homeUrl').'/'.$comment->post->user->getUsername().'/'.$comment->post->url.'?utm_source=notification&utm_medium=header&utm_campaign=full'; ?>">
+                                                            <?= $comment->post->title;?>
+                                                        </a> 
                                                     </p>
                                                     <p style="font-family: Arial, Tahoma, Helvetica, sans-serif;font-size: 13px;margin: 0;padding: 0;line-height: 1.1;margin-bottom: 15px;color: #000; direction: rtl;">
-                                                        <?= Module::t('mail', 'digest.header.customized'); ?>
+                                                        <?= Module::t('mail', 'comment.header.hint'); ?>
                                                     </p>
                                                 </td>
                                             </tr>

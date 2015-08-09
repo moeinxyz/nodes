@@ -1,9 +1,7 @@
-<?php
-
+<?php   
 use app\modules\user\Module;
-
+use app\components\Helper\PersianNumber;
 /* @var $this yii\web\View */
-/* @var $user \app\modules\user\models\User */
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -43,10 +41,10 @@ use app\modules\user\Module;
                                             <tr style="margin: 0;padding: 0; direction: rtl;">
                                                 <td style="margin: 0;padding: 0; direction: rtl;text-align: center">
                                                     <p style="font-family: Arial, Tahoma, Helvetica, sans-serif;font-size: 16px;margin: 0;padding: 0;line-height: 1.1;margin-bottom: 15px;color: #000; direction: rtl;">
-                                                        <?= Module::t('mail', 'digest.header.hello_n_miss', ['name' => $user->getName()]); ?>
+                                                        <?= PersianNumber::convertNumberToPersian(Module::t('mail', 'comment.digest.header',['count'=>$count])); ?> 
                                                     </p>
                                                     <p style="font-family: Arial, Tahoma, Helvetica, sans-serif;font-size: 13px;margin: 0;padding: 0;line-height: 1.1;margin-bottom: 15px;color: #000; direction: rtl;">
-                                                        <?= Module::t('mail', 'digest.header.customized'); ?>
+                                                        <?= Module::t('mail', 'comment.header.hint'); ?>
                                                     </p>
                                                 </td>
                                             </tr>

@@ -2,7 +2,7 @@
 /* @var $this yii\web\View */
 /* @var $user \app\modules\user\models\User */
 
-echo $this->render('digest/header',['user'=>$user]);
+echo $this->render('digest/header',['count'=>$count]);
 
 foreach ($comments as $comment)
 {
