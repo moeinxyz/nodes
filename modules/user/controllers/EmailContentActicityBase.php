@@ -5,6 +5,7 @@ use Yii;
 use app\modules\user\Module;
 use app\modules\user\models\User;
 use app\modules\post\models\Comment;
+use app\components\Helper\PersianNumber;
 
 class EmailContentActicityBase extends \yii\console\Controller{
     public function init() {
@@ -40,8 +41,8 @@ class EmailContentActicityBase extends \yii\console\Controller{
     {
         return \Yii::$app->mailer
                     ->compose('@mail/content_activity/full', ['user' => $user,'comment'=>$comment])
-                    ->setSubject(Module::t('mail','comment.full.title'))
-                    ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])                    
+                    ->setSubject(Module::t('mail','comment.full.title',['comment_author'=>$comment->user->getName(),'title'=>$comment->post->title]))
+                    ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','comment.sender.name')])                    
                     ->setTags(['full','comment',  Yii::$app->name])
                     ->setTo($user->email)
                     ->send();        
@@ -50,9 +51,9 @@ class EmailContentActicityBase extends \yii\console\Controller{
     protected function sendDigestContentActivityEmail(User $user,array $comments)
     {
         return \Yii::$app->mailer
-                    ->compose('@mail/content_activity/digest', ['user' => $user,'comments'=>$comments])
-                    ->setSubject(Module::t('mail','digest.title'))
-                    ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])                    
+                    ->compose('@mail/content_activity/digest', ['user' => $user,'comments'=>$comments,'count'=>count($comments)])
+                    ->setSubject($this->generateDigestSubject($comments))
+                    ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','comment.sender.name')])                    
                     ->setTags(['digest','comment',  Yii::$app->name])
                     ->setTo($user->email)
                     ->send();        
@@ -88,5 +89,68 @@ class EmailContentActicityBase extends \yii\console\Controller{
             return true;
         }
         return FALSE;
+    }
+    
+    private function generateDigestSubject(array $comments)
+    {
+        $comment        =   $comments[0];
+        $singlePost     =   $this->isCommentsOnSinglePost($comments);
+        $authorsCount   =   $this->countCommentsAuthor($comments);
+        
+        if ($singlePost && $authorsCount === 1){
+            // multiple comments from one person on one post
+            $subject    = Module::t('mail','comment.digest.title.sigle_post_single_author',[
+                'comment_author'    =>  $comment->user->getName(),
+                'title'             =>  $comment->post->title
+            ]);
+        } else if ($singlePost && $authorsCount > 1) {
+            // multiple comments from multiple person on one post
+            $subject    =    Module::t('mail','comment.digest.title.single_post_multiple_author',[
+                'count'             =>  ($authorsCount - 1),
+                'comment_author'    =>  $comment->user->getName(),
+                'title'             =>  $comment->post->title
+            ]);            
+        } else if (!$singlePost && $authorsCount === 1) {
+            // multiple comments from one person on multiple post
+            $subject    = Module::t('mail','comment.digest.title.sigle_post_single_author',[
+                'comment_author'    =>  $comment->user->getName(),
+            ]);            
+        } else {
+            // multiple comments from multiple person on multiple post
+            $subject    =    Module::t('mail','comment.digest.title.single_post_multiple_author',[
+                'count'             =>  ($authorsCount - 1),
+                'comment_author'    =>  $comment->user->getName(),
+            ]);                        
+        }
+        
+        return PersianNumber::convertNumberToPersian($subject);
+    }
+
+
+    private function isCommentsOnSinglePost(array $comments)
+    {
+        $oldPostId   =   null;
+        foreach ($comments as $comment)
+        {
+            if ($comment->post_id !== $oldPostId && $oldPostId !== NULL){
+                return FALSE;
+            }
+            $oldPostId  =   $comment->post_id;
+        }
+        return TRUE;
+    }
+    
+    private function countCommentsAuthor(array $comments)
+    {
+        $count  =   0;
+        $authors=   [];
+        foreach ($comments as $comment)
+        {
+            if (!in_array($comment->user_id, $authors)){
+                $authors[]  =   $comment->user_id;
+                $count++;
+            }
+        }
+        return $count;
     }
 }

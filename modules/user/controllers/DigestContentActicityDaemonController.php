@@ -10,17 +10,20 @@ class DigestContentActicityDaemonController extends EmailContentActicityBase
     public function actionIndex()
     {
         do{
-            
             $timestamp      =   User::find()->where('status=:status AND content_activity=:content_activity',
                                             [':status'=>User::STATUS_ACTIVE,':content_activity'=>User::ACTIVITY_SETTING_DIGEST])
                                             ->min('last_content_activity_mail');            
             
-            $farthestTime   =   strtotime($timestamp);
-            $diffTime       =   time()  -   $farthestTime;
-            
-            if ($timestamp === NULL || $diffTime < Module::HOUR_SECONDS){
-                sleep(Module::HOUR_SECONDS - $diffTime + Module::ADDITIONAL_SLEEP_SECS);
+            if ($timestamp === NULL){
+                sleep(Module::HOUR_SECONDS);
                 continue;
+            }
+
+            $diff   =   time() - strtotime($timestamp);
+            
+            if ($diff < Module::HOUR_SECONDS){
+                sleep(Module::HOUR_SECONDS + Module::ADDITIONAL_SLEEP_SECS - $diff);
+                continue;;
             }
             
             $users  = $this->getUsers($timestamp, User::ACTIVITY_SETTING_DIGEST);
@@ -33,7 +36,7 @@ class DigestContentActicityDaemonController extends EmailContentActicityBase
                     if (count($comments) === 1){
                         $this->sendFullContentActivityEmail($user, $comments[0]);
                         $this->setCommentsAsSent($comments);
-                    } else {
+                    } else if (count($comments) > 1) {
                         $this->sendDigestContentActivityEmail($user, $comments);
                         $this->setCommentsAsSent($comments);
                     }
