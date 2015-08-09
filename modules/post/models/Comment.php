@@ -18,6 +18,7 @@ use yii\helpers\HtmlPurifier;
  * @property strint $pure_text
  * @property string $status
  * @property string $post_author_seen
+ * @property string $notification_mail_status
  * @property string $created_at
  *
  * @property Post $post
@@ -32,6 +33,9 @@ class Comment extends \yii\db\ActiveRecord
     
     const POST_AUTHOR_SEEN_SEEN             =   'SEEN';
     const POST_AUTHOR_SEEN_NOT_SEEN         =   'NOT_SEEN';
+    
+    const NOTIFICATION_MAIL_STATUS_SENT     =   'SENT';
+    const NOTIFICATION_MAIL_STATUS_NOT_SEND =   'NOT_SEND';
     
     /**
      * @inheritdoc
@@ -52,6 +56,7 @@ class Comment extends \yii\db\ActiveRecord
             [['text', 'pure_text', 'status','post_author_seen'], 'string'],
             [['text','pure_text'],'filter','filter'=>'trim'],            
             [['status'],'in','range'=>[self::STATUS_PUBLISH,self::STATUS_TRASH,self::STATUS_USER_DELETE]],
+            [['notification_mail_status'],'in','range'=>[self::NOTIFICATION_MAIL_STATUS_NOT_SEND,self::NOTIFICATION_MAIL_STATUS_SENT]],
             [['post_author_seen'],'in','range'=>[self::POST_AUTHOR_SEEN_NOT_SEEN,self::POST_AUTHOR_SEEN_SEEN]],
             [['created_at'], 'safe']
         ];
@@ -76,12 +81,19 @@ class Comment extends \yii\db\ActiveRecord
                 $this->created_at   =   new \yii\db\Expression('NOW()');    
                 $this->pure_text    =   HtmlPurifier::process(strip_tags($this->text));
             }
+            
             if ($this->status === NULL){
                 $this->status       =   self::STATUS_PUBLISH;
             }
+            
             if ($this->post_author_seen){
                 $this->post_author_seen       =   self::POST_AUTHOR_SEEN_NOT_SEEN;
             }
+
+            if ($this->notification_mail_status === NULL){
+                $this->notification_mail_status =   self::NOTIFICATION_MAIL_STATUS_NOT_SEND;
+            }            
+            
             $this->text = HtmlPurifier::process($this->text);
             return TRUE;
         }
@@ -180,6 +192,21 @@ class Comment extends \yii\db\ActiveRecord
         } else {
             Comment::updateAll(['post_author_seen'=>self::POST_AUTHOR_SEEN_SEEN],'post_id=:postId',[':postId'=>$pid]);
         }
+    }
+
+    public static function getLastUnsentComments($userId,$limit = 8)
+    {
+        return self::find()
+                ->leftJoin(Post::tableName(), Post::tableName().'.id = '.self::tableName().'.post_id')
+                ->where(Post::tableName().'.user_id=:userId',[':userId'=>$userId])
+                ->andWhere(Post::tableName().'.status=:postStatus',[':postStatus'=>Post::STATUS_PUBLISH])
+                ->andWhere(self::tableName().'.status=:commentStatus',[':commentStatus'=>self::STATUS_PUBLISH])
+                ->andWhere(self::tableName().'.post_author_seen=:post_author_seen',[':post_author_seen'=>self::POST_AUTHOR_SEEN_NOT_SEEN])
+                ->andWhere(self::tableName().'.notification_mail_status=:notification_mail_status',[':notification_mail_status'=>self::NOTIFICATION_MAIL_STATUS_NOT_SEND])
+                ->andWhere(self::tableName().'.user_id!=:userId',[':userId'=>$userId])
+                ->orderBy('created_at DESC')
+                ->limit($limit)
+                ->all();
     }
 }
 

@@ -6,7 +6,11 @@ use Yii;
 class Module extends \yii\base\Module
 {
     const ADDITIONAL_SLEEP_SECS =   5;
+    
     const CHECK_INTERVAL        =   43200;
+    
+    const MINUTE_SECONDS        =   60;
+    const HOUR_SECONDS          =   3600;
     const DAY_SECONDS           =   86400;
     const WEEK_SECONDS          =   604800;
     

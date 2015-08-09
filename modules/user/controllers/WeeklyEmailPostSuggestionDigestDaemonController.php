@@ -17,7 +17,7 @@ class WeeklyEmailPostSuggestionDigestDaemonController extends EmailPostSuggestio
             $farthestTime   =   strtotime($timestamp);
             $diffTime       =   time()  -   $farthestTime;
             
-            if ($timestamp != NULL && $diffTime < Module::WEEK_SECONDS){
+            if ($timestamp === NULL || $diffTime < Module::WEEK_SECONDS){
                 sleep(Module::WEEK_SECONDS - $diffTime + Module::ADDITIONAL_SLEEP_SECS);
                 continue;
             }
@@ -30,6 +30,7 @@ class WeeklyEmailPostSuggestionDigestDaemonController extends EmailPostSuggestio
                 if (count($posts) >= 3)
                 {
                     $this->sendDigestMail($user, $posts);
+                    $this->setPostsAsSent($posts);
                 }
                 $this->updateUserDigestTime($user);
             }

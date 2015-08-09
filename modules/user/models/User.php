@@ -41,6 +41,7 @@ use yii\validators\RegularExpressionValidator;
  * @property Integer $notifications_count
  * @property string  $last_post_suggestion
  * @property string  $last_digest_mail
+ * @property string $last_content_activity_mail
  * 
  * @property string $reCaptcha
  * @property mixed $links
@@ -216,15 +217,16 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function beforeValidate() {
         if (parent::beforeValidate()) {
             if ($this->isNewRecord) {
-                $this->auth_key             =   Yii::$app->getSecurity()->generateRandomString();
-                $this->created_at           =   new Expression('NOW()');
-                $this->last_post_suggestion =   new Expression('NOW()');
-                $this->last_digest_mail     =   new Expression('NOW()');
-                $this->type                 =   self::TYPE_USER;
-                $this->content_activity     =   self::ACTIVITY_SETTING_DIGEST;
-                $this->publisher_activity   =   self::ACTIVITY_SETTING_DIGEST;
-                $this->social_activity      =   self::ACTIVITY_SETTING_DIGEST;
-                $this->reading_list         =   self::READING_LIST_DAILY;
+                $this->auth_key                     =   Yii::$app->getSecurity()->generateRandomString();
+                $this->created_at                   =   new Expression('NOW()');
+                $this->last_post_suggestion         =   new Expression('NOW()');
+                $this->last_digest_mail             =   new Expression('NOW()');
+                $this->last_content_activity_mail   =   new Expression('NOW()');
+                $this->type                         =   self::TYPE_USER;
+                $this->content_activity             =   self::ACTIVITY_SETTING_DIGEST;
+                $this->publisher_activity           =   self::ACTIVITY_SETTING_DIGEST;
+                $this->social_activity              =   self::ACTIVITY_SETTING_DIGEST;
+                $this->reading_list                 =   self::READING_LIST_DAILY;
                 if ($this->getScenario() === 'oauth_signup'){
                     // generate username for oauth user
                     $validator  =   new RegularExpressionValidator(['pattern' => '/^[A-Za-z0-9_]+$/u']);
