@@ -296,6 +296,6 @@ pre.graf--pre {
     display: block;
     text-align: right;
 }
-ul.messages > div > li > div > p{
+ul.messages > li > div > p{
     margin: 10px 0!important;
 } 
