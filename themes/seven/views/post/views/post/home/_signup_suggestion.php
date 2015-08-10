@@ -14,14 +14,14 @@
                         </a>
                     </div>                    
                     <div class="col-sm-6 col-xs-12">
-                        <a href="#" class="btn btn-flat btn-primary btn-block" id="home-login-button">
+                        <a href="#" class="btn btn-flat btn-primary btn-block" id="home-login-button-small">
                             <?= Module::t('post', 'home._signup_suggestion.btn.login'); ?>
                         </a>
                     </div>
                 </div>
                 <div class="row hidden-lg hidden-md hidden-sm">
                     <div class="col-xs-12">
-                        <a href="#" class="btn btn-flat btn-primary btn-block" id="home-login-button">
+                        <a href="#" class="btn btn-flat btn-primary btn-block" id="home-login-button-big">
                             <?= Module::t('post', 'home._signup_suggestion.btn.login'); ?>
                         </a>
                     </div>                    
@@ -37,7 +37,10 @@
 </div>
 <?php
 $js=<<<JS
-$("#home-login-button").on('click',function(){
+$("#home-login-button-big").on('click',function(){
+    $("#loginmodal").modal();
+});        
+$("#home-login-button-small").on('click',function(){
     $("#loginmodal").modal();
 });
 JS;
