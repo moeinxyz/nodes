@@ -249,6 +249,16 @@ class Post extends \yii\db\ActiveRecord
             $this->user->updateCounters(['posts_count'=>-1]);
             $this->updateUsersRecommendedCounts($this->id, -1);
         }
+        
+        // add my post to my reading list
+        if ($this->getScenario() === 'publish' && UserToRead::findOne(['user_id'=>  \Yii::$app->user->getId(),'post_id'=>$this->id]) === NULL){
+            $model          =   new UserToRead();
+            $model->user_id = \Yii::$app->user->getId();
+            $model->post_id = $this->id;
+            $model->priority=   2;
+            $model->score   =   256;
+            $model->save();
+        }
     }
     
     private function updateUsersRecommendedCounts($postId,$count)
