@@ -34,7 +34,7 @@ $pjax       =   Pjax::begin(['enablePushState'=>false]);
                         </div>
                     <?php endif; ?>                  <?php
                     if ($cover->coverStatus === Post::COVER_BYCOVER){
-                        $imageSrc   =   Post::getCoverUrl($cover->postId, true);
+                        $imageSrc   =   Post::getCoverUrl($cover->postId, true).'?='.  time();
                     } else {
                         $imageSrc   =   Yii::getAlias("@placeHold/300x169/EFEEEF/AAAAAA&text=No+Post+Cover");
                     }
@@ -106,14 +106,14 @@ $pjax       =   Pjax::begin(['enablePushState'=>false]);
 
 <?php
 Pjax::end();
+//@todo fix it,don't select div like this!
 $js=<<<JS
-$('.fileinput').fileinput()     
-var pjaxDiv =   $("#{$pjax->getId()}");
-pjaxDiv.on('pjax:send',function(){
-    pjaxDiv.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+$('.fileinput').fileinput();
+$("#{$pjax->getId()}").on('pjax:send',function(){
+    $("#{$pjax->getId()}").append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
 });
-pjaxDiv.on('pjax:complete',function(){
-    pjaxDiv.find('.overlay').remove();
+$("#{$pjax->getId()}").on('pjax:complete',function(){
+    $("#{$pjax->getId()}").find('.overlay').remove();
 });        
 JS;
 $this->registerJs($js);

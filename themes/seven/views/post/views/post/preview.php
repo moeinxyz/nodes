@@ -18,7 +18,7 @@ if ($title  == ''){
 }
 
 if ($post->cover === Post::COVER_BYCOVER){
-    echo $this->render('post/_by_cover',['title'=>$title,'post'=>$post]);
+    echo $this->render('post/_by_cover',['title'=>$title,'post'=>$post,'preview'=>true]);
 } else {
     echo $this->render('post/_no_cover',['title'=>$title,'post'=>$post]);
 }

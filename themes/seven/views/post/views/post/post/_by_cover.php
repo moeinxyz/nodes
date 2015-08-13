@@ -10,7 +10,7 @@ if ($timestamp <= 0){
     $timestamp  = strtotime($post->created_at);
 }
 ?>
-<section id="start" class="herofade hero cover element-img" style="opacity: 1; height: 302px; background-image: url(<?= Post::getCoverUrl($post->id); ?>);">
+<section id="start" class="herofade hero cover element-img" style="opacity: 1; height: 302px; background-image: url(<?= Post::getCoverUrl($post->id).(isset($preview)?'?='.time():NULL); ?>);">
     <div class="tagline">
         <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}"]) ?>">
             <img src="<?= $user->getProfilePicture();?>" class="img-circle wow fadeInUp animated" alt="<?= $user->getName();?>" data-wow-delay="0.3s" style="visibility: visible; -webkit-animation-delay: 0.3s;">                        

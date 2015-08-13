@@ -27,12 +27,11 @@ if(Yii::$app->user->id != $user->id){
     ActiveForm::end();
     Pjax::end();
 $js         =   <<<JS
-var pjaxDiv =   $("#{$pjax->getId()}");
-pjaxDiv.on('pjax:send',function(){
-    pjaxDiv.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+$("#{$pjax->getId()}").on('pjax:send',function(){
+    $("#{$pjax->getId()}").append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
 });
-pjaxDiv.on('pjax:complete',function(){
-    pjaxDiv.find('.overlay').remove();
+$("#{$pjax->getId()}").on('pjax:complete',function(){
+    $("#{$pjax->getId()}").find('.overlay').remove();
 });
 JS;
 $this->registerJs($js);    
