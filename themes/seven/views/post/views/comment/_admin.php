@@ -36,7 +36,7 @@ echo GridView::widget([
             'attribute' =>  'user_id',
             'content'   =>  function ($model, $key, $index, $column) {
                 $user       =   $model->user;
-                $content    =   '<a href="'.Yii::$app->urlManager->createUrl("{$user->getUsername()}").'">';   
+                $content    =   '<a href="'.Yii::$app->urlManager->createUrl("{$user->getUsername()}").'" data-pjax="0">';   
                 $content    .=  '<img src="'.$user->getProfilePicture(60).'" alt="'.$user->getName().'" class="img-circle" style="width: 60px;height: 60px;margin-top: auto;">';
                 $content    .=  '<span title="'.$user->tagline.'" style="padding-right:5px;">'.$model->user->getName().'</span></a>';
                 return $content;
