@@ -208,7 +208,7 @@ class PostController extends Controller
             $model->save();
             return ActiveForm::validate($model);
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('yii','Page not found.'));
         }
     }   
     
@@ -232,7 +232,7 @@ class PostController extends Controller
                 throw new \yii\web\HttpException(406);
             }
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('yii','Page not found.'));
         }        
     }
 
@@ -354,7 +354,7 @@ class PostController extends Controller
             }
             return $result;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('yii','Page not found.'));
         }
     }
 
@@ -599,7 +599,7 @@ class PostController extends Controller
         if ($model !== null && $model->status != Post::STATUS_DELETE && $model->user_id === Yii::$app->user->getId()) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('yii','Page not found.'));
         }
     }
     
@@ -615,7 +615,7 @@ class PostController extends Controller
         if (($user = User::findOne(['username'=>$username])) != NULL && $user->status != User::STATUS_BLOCK){
             return $user;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('yii','Page not found.'));
         }
     }
     
@@ -624,7 +624,7 @@ class PostController extends Controller
         if (($post = Post::findOne(['user_id'=>$userId,'url'=> urlencode($url)])) != NULL && $post->status === Post::STATUS_PUBLISH){
             return $post;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('yii','Page not found.'));
         }        
     }        
 }

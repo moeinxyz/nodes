@@ -207,7 +207,7 @@ class SocialController extends Controller
         if (($model = Social::findOne($id)) !== null && $model->user_id === Yii::$app->user->getId()) {
             return $model;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('yii','Page not found.'));
         }
     }
 }

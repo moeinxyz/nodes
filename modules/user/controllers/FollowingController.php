@@ -124,11 +124,11 @@ class FollowingController extends Controller
     protected function findUser($username)
     {
         if ($username == NULL){
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('yii','Page not found.'));
         } else if (($user = User::findOne(['username'=>$username])) != NULL && $user->status != User::STATUS_BLOCK){
             return $user;
         } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException(Yii::t('yii','Page not found.'));
         }
     }    
 }
