@@ -77,7 +77,7 @@ return [
     'cover.add_or_change.successful'        =>  'کاور با موفقیت تغییر یافت،نمایش این تغییر ممکن است تا چند دقیقه زمان ببرد.',
     
     'home._signup_suggestion.title'         =>  'خوش آمدید',
-    'home._signup_suggestion.text'          =>  'برای استفاده بهتر از امکانات سایت بهتر است  وارد و یا عضو شوید.',
+    'home._signup_suggestion.text'          =>  'برای انتشار نوشته های خود و استفاده بهتر از امکانات، عضو و یا وارد شوید.',
     'home._signup_suggestion.btn.register'  =>  'عضویت',
     'home._signup_suggestion.btn.login'     =>  'ورود',
     
