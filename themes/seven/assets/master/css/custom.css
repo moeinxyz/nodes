@@ -154,7 +154,7 @@ div.grid-view > .summary{
 .messages > li,.messages > div > li {
     margin-bottom: 15px;
 }
-.messages > li > img,.messages> div > li > img {
+.messages > li > img,.messages > div > li > img,.messages > li > a > img, .messages > div > li > a > img{
     float: right;
     width: 60px;
     height: 60px;

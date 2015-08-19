@@ -14,10 +14,12 @@ use app\modules\post\Module;
         $uid            =   md5($comment->id);
 ?>
     <li id="comment<?= $uid;?>">
-        <img src="<?= $user->getProfilePicture(60);?>" alt="<?= $user->getName();?>">
+        <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}"]) ?>" data-pjax="0">
+            <img src="<?= $user->getProfilePicture(60);?>" alt="<?= $user->getName();?>">                        
+        </a>
         <div>
             <div>
-                <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}"]) ?>">
+                <a href="<?= Yii::$app->urlManager->createUrl(["@{$user->username}"]) ?>" data-pjax="0">
                     <h5><?= $user->getName();?></h5>
                 </a>
                 <span class="time">
