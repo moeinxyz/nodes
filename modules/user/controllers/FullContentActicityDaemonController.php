@@ -2,6 +2,7 @@
 
 namespace app\modules\user\controllers;
 
+use Yii;
 use app\modules\user\Module;
 use app\modules\user\models\User;
 
@@ -16,6 +17,8 @@ class FullContentActicityDaemonController extends EmailContentActicityBase
             
             if ($timestamp === NULL){
                 sleep(Module::MINUTE_SECONDS);
+                Yii::$app->db->close();
+                Yii::$app->db->open();                                
                 continue;
             }
 
@@ -23,6 +26,8 @@ class FullContentActicityDaemonController extends EmailContentActicityBase
             
             if ($diff < Module::MINUTE_SECONDS){
                 sleep(Module::MINUTE_SECONDS + Module::ADDITIONAL_SLEEP_SECS - $diff);
+                Yii::$app->db->close();
+                Yii::$app->db->open();                                
                 continue;;
             }
             

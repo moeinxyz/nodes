@@ -25,6 +25,8 @@ class PostSuggestionForGuestDaemonController extends \yii\console\Controller{
             
             if ($timestamp === NULL){
                 sleep(Module::CHECK_INTERVAL);
+                Yii::$app->db->close();
+                Yii::$app->db->open();                  
                 continue;
             }
 
@@ -32,6 +34,8 @@ class PostSuggestionForGuestDaemonController extends \yii\console\Controller{
             
             if ($diff < Module::CHECK_INTERVAL){
                 sleep(Module::CHECK_INTERVAL + Module::ADDITIONAL_SLEEP_SECS - $diff);
+                Yii::$app->db->close();
+                Yii::$app->db->open();                  
                 continue;
             }   
             

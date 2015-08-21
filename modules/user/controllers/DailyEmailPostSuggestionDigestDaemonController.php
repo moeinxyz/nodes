@@ -1,6 +1,7 @@
 <?php
 namespace app\modules\user\controllers;
 
+use Yii;
 use app\modules\user\Module;
 use app\modules\user\models\User;
 use app\modules\post\models\Post;
@@ -17,6 +18,8 @@ class DailyEmailPostSuggestionDigestDaemonController extends EmailPostSuggestion
             
             if ($timestamp === NULL){
                 sleep(Module::DAY_SECONDS);
+                Yii::$app->db->close();
+                Yii::$app->db->open();                
                 continue;
             }
 
@@ -24,7 +27,9 @@ class DailyEmailPostSuggestionDigestDaemonController extends EmailPostSuggestion
             
             if ($diff < Module::DAY_SECONDS){
                 sleep(Module::DAY_SECONDS + Module::ADDITIONAL_SLEEP_SECS - $diff);
-                continue;;
+                Yii::$app->db->close();
+                Yii::$app->db->open();
+                continue;
             }            
             
             $users  = $this->getUsers($timestamp, User::READING_LIST_DAILY);

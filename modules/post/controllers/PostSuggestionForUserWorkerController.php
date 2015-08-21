@@ -54,7 +54,7 @@ class PostSuggestionForUserWorkerController extends \yii\console\Controller
         UserToRead::updateAll(['priority'=>2],['AND','user_id = :user_id AND priority =:priority',['in','post_id',$posts]],[
             ':priority'     =>  1,
             ':user_id'      =>  $userId
-        ]);        
+        ]);
     }
 
     private function generateUnreadedPostsRank($userId)

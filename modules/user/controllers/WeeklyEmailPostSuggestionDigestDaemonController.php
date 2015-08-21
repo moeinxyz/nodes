@@ -1,6 +1,7 @@
 <?php
 namespace app\modules\user\controllers;
 
+use Yii;
 use app\modules\user\Module;
 use app\modules\user\models\User;
 
@@ -16,6 +17,8 @@ class WeeklyEmailPostSuggestionDigestDaemonController extends EmailPostSuggestio
             
             if ($timestamp === NULL){
                 sleep(Module::WEEK_SECONDS);
+                Yii::$app->db->close();
+                Yii::$app->db->open();                
                 continue;
             }
 
@@ -23,6 +26,8 @@ class WeeklyEmailPostSuggestionDigestDaemonController extends EmailPostSuggestio
             
             if ($diff < Module::WEEK_SECONDS){
                 sleep(Module::WEEK_SECONDS + Module::ADDITIONAL_SLEEP_SECS - $diff);
+                Yii::$app->db->close();
+                Yii::$app->db->open();                
                 continue;;
             }   
             

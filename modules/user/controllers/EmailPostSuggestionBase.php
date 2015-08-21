@@ -58,7 +58,7 @@ class EmailPostSuggestionBase extends \yii\console\Controller{
         $user->save(false);
     }
     
-    protected function setPostsAsSent(array $posts)
+    protected function setPostsAsSent(array $posts,User $user)
     {
         $postsId    =   [];
 
@@ -66,10 +66,9 @@ class EmailPostSuggestionBase extends \yii\console\Controller{
         {
             $postsId[]    =   $post->id;
         }
-
-        UserToRead::updateAll(['notification_mail_status'=>  UserToRead::NOTIFICATION_MAIL_STATUS_SENT],['AND','notification_mail_status =:notification_mail_status',['in','post_id',$postsId]],[
-            ':notification_mail_status'     =>  UserToRead::NOTIFICATION_MAIL_STATUS_NOT_SEND,
-        ]); 
         
+        UserToRead::updateAll(['notification_mail_status'=>  UserToRead::NOTIFICATION_MAIL_STATUS_SENT],['AND','user_id =:user_id',['in','post_id',$postsId]],[
+            ':user_id'  =>  $user->id
+        ]); 
     }
 }
