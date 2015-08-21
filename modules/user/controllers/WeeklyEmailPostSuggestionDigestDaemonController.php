@@ -39,7 +39,7 @@ class WeeklyEmailPostSuggestionDigestDaemonController extends EmailPostSuggestio
                 if (count($posts) >= 3)
                 {
                     $this->sendDigestMail($user, $posts);
-                    $this->setPostsAsSent($posts);
+                    $this->setPostsAsSent($posts,$user);
                 }
                 $this->updateUserDigestTime($user);
             }
