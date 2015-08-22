@@ -58,7 +58,7 @@ class EmailPostSuggestionBase extends \yii\console\Controller{
         $user->save(false);
     }
     
-    protected function setPostsAsSent(array $posts,User $user)
+    protected function setPostsAsSent(User $user,array $posts)
     {
         $postsId    =   [];
 
@@ -67,8 +67,13 @@ class EmailPostSuggestionBase extends \yii\console\Controller{
             $postsId[]    =   $post->id;
         }
         
-        UserToRead::updateAll(['notification_mail_status'=>  UserToRead::NOTIFICATION_MAIL_STATUS_SENT],['AND','user_id =:user_id',['in','post_id',$postsId]],[
+        // dummy,for unknown reason some rows wouldn't update
+        Yii::$app->db->close();
+        Yii::$app->db->open();                        
+        
+        $rows = UserToRead::updateAll(['notification_mail_status'=>  UserToRead::NOTIFICATION_MAIL_STATUS_SENT],['AND','user_id =:user_id',['in','post_id',$postsId]],[
             ':user_id'  =>  $user->id
         ]); 
+        echo "User ID : {$user->id}, Affected Rows : {$rows}\n";
     }
 }
