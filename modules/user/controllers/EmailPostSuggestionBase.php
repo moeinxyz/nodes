@@ -74,6 +74,9 @@ class EmailPostSuggestionBase extends \yii\console\Controller{
         $rows = UserToRead::updateAll(['notification_mail_status'=>  UserToRead::NOTIFICATION_MAIL_STATUS_SENT],['AND','user_id =:user_id',['in','post_id',$postsId]],[
             ':user_id'  =>  $user->id
         ]); 
+        
+        // dummy,for unknown reason some rows wouldn't update
         echo "User ID : {$user->id}, Affected Rows : {$rows}\n";
+        sleep(1);
     }
 }
