@@ -6,7 +6,7 @@ use yii\web\AssetBundle;
 
 class ShowPostAssets extends AssetBundle
 {
-    public $sourcePath =   '@bower/dante/dist';
+    public $sourcePath =   '@app/themes/seven/assets/editor';
     public $css = [
         'css/dante-editor.css'
     ];

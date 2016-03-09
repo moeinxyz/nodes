@@ -7,9 +7,7 @@ use yii\web\AssetBundle;
 class DanteAssets extends AssetBundle
 {
     public $sourcePath =   '@bower/dante/dist';
-    public $css = [
-        'css/dante-editor.css'
-    ];
+    public $css = [];
     public $js = [
         'js/dante-editor.js'
     ];
