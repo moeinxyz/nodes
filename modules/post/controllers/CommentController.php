@@ -21,7 +21,7 @@ class CommentController extends Controller
         return [
             'access'    =>  [
                 'class' =>  AccessControl::className(),
-                'only'  =>  ['write','trash','abuse','comments','delte'],
+                'only'  =>  ['write','trash','abuse','comments','delete'],
                 'rules' =>  [
                     [
                         'actions'   =>  ['write','trash','abuse','delete'],
