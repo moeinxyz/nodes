@@ -1,7 +1,7 @@
 Nodes
 ================================
 
-Nodes is a mixture of blogging platform and social media which make reading and writing enjoyable.
+Nodes is a mixture of blogging platform and social media which makes reading and writing enjoyable.
 
 
 REQUIREMENTS
