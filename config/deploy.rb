@@ -5,8 +5,7 @@ set :application, 'nodes'
 set :repo_url, 'git@gitlab.com:nodes.ir/nodes.git'
 
 # Default branch is :master
-#ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
-set :branch, 'production'
+ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/var/www/nodes'
@@ -28,7 +27,7 @@ set :scm, :git
 set :linked_files, fetch(:linked_files, []).push('config/.env')
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('runtime', 'vendor', 'web/assets', 'web/userassets')
+set :linked_dirs, fetch(:linked_dirs, []).push('runtime', 'vendor', 'web/userassets')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
