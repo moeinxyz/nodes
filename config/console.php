@@ -1,9 +1,9 @@
 <?php
+$dotenv =   new \Dotenv\Dotenv(__DIR__);
+$dotenv->load();
 
 Yii::setAlias('@tests', dirname(__DIR__) . '/tests');
 Yii::setAlias('tests', __DIR__ . '/../tests');
-$params = require(__DIR__ . '/params.php');
-$db = require(__DIR__ . '/db.php');
 
 return [
     'id' => 'basic-console',
@@ -51,7 +51,7 @@ return [
             ],
         ],
         'socialClientCollection'    =>  require(__DIR__ . '/social.php'),
-        'db' => $db,                      
+        'db' => require(__DIR__ . '/db.php'),
     ],
     'controllerMap' => [
         'fixture' => [
@@ -76,5 +76,5 @@ return [
         '@placeHold'        =>  'http://www.placehold.it',
         '@homeUrl'          =>  'http://nodes.ir',
     ], 
-    'params' => $params,
+    'params' => require(__DIR__ . '/params.php'),
 ];

@@ -49,6 +49,7 @@ namespace :deploy do
   task :composer do
     on roles(:web) do
       within release_path do
+        execute "cd #{release_path} && composer global require \"fxp/composer-asset-plugin:1.1.4\""
         execute "cd #{release_path} && composer install"
       end
     end
