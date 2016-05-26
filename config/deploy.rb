@@ -73,7 +73,27 @@ namespace :deploy do
       end
     end
   end
+
+  task :chmod do
+    on roles(:web) do
+      within release_path do
+        execute "cd #{release_path} && chmod -R 777 web/assets"
+      end
+    end
+  end
+
+  task :set_env do
+    on roles(:web) do
+      within release_path do
+        execute "cd #{release_path} && sed -i \"s/defined('YII_DEBUG') or define('YII_DEBUG', true);/defined('YII_DEBUG') or define('YII_DEBUG', false);/\" web/index.php"
+        execute "cd #{release_path} && sed -i \"s/defined('YII_ENV') or define('YII_ENV', 'dev');/defined('YII_ENV') or define('YII_ENV', 'prod');/\" web/index.php"
+      end
+    end
+  end
+
   after :updated, "deploy:composer"
   after :updated, "deploy:migrate"
   after :updated, "deploy:compile"
+  after :updated, "deploy:chmod"
+  after :updated, "deploy:set_env"
 end
