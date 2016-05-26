@@ -1,6 +1,7 @@
 <?php
+$dotenv =   new \Dotenv\Dotenv(__DIR__);
+$dotenv->load();
 
-$params = require(__DIR__ . '/params.php');
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
@@ -146,7 +147,7 @@ $config = [
         '@covers'       =>  '@temp/covers',        
 
     ],    
-    'params' => $params,
+    'params' => require(__DIR__ . '/params.php'),
 ];
 
 if (YII_ENV_DEV) {

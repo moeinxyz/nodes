@@ -24,7 +24,7 @@ at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
 
 You need following commands to install project dependencies.
 ~~~
-composer global require "fxp/composer-asset-plugin:1.0.4"
+composer global require "fxp/composer-asset-plugin:1.1.4"
 composer install
 ~~~
 
