@@ -24,7 +24,6 @@
         "himiklab/yii2-recaptcha-widget": "*",        
         "nickcv/yii2-mandrill": "*",
         "bower-asset/slimScroll":"*",
-        "filsh/yii2-gearman":"dev-master",
         "creocoder/yii2-flysystem": "dev-master",
         "league/flysystem-sftp": "~1.0@dev",
         "bower-asset/iCheck": "*",
