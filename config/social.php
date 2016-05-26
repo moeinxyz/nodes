@@ -4,19 +4,19 @@ return [
             'clients'   =>  [
                 'linkedin' => [
                     'class'         => 'yii\authclient\clients\LinkedIn',
-                    'clientId'      => '78wy3unfyzmzd3',
-                    'clientSecret'  => 'JUCwxoA39IygIk4L',
+                    'clientId'      => $_ENV['SOCIAL_LINKEDIN_KEY'],
+                    'clientSecret'  => $_ENV['SOCIAL_LINKEDIN_SECRET'],
                     'scope'         =>  implode(' ', ['w_share'])
                 ],                  
                 'twitter' => [
                     'class'         => 'yii\authclient\clients\Twitter',
-                    'consumerKey'   => 'yev9zPwjVEXZEr6t5hXAnTmsT',
-                    'consumerSecret'=> 'ZPfzJJMDbj104KYy80ikoAjqOLIm41ECLogLvY9PfKjej4NLDg',
+                    'consumerKey'   => $_ENV['SOCIAL_TWITTER_KEY'],
+                    'consumerSecret'=> $_ENV['SOCIAL_TWITTER_SECRET'],
                 ],
 //                'facebook' => [
 //                    'class'         => 'yii\authclient\clients\Facebook',
-//                    'clientId'      => '512347738932737',
-//                    'clientSecret'  => '6592c07e5de56bc3c9b4e5458b414581',
+//                    'clientId'      => $_ENV['SOCIAL_FACEBOOK_KEY'],
+//                    'clientSecret'  => $_ENV['SOCIAL_FACEBOOK_SECRET'],
 //                    'scope'         =>  implode(' ',['publish_actions'])
 //                ],                
             ] 

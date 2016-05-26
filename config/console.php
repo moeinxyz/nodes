@@ -35,10 +35,7 @@ return [
             'showScriptName'    => false,
             'enablePrettyUrl'   => true,
         ],        
-        'mailer'    => [
-            'class'     =>  'nickcv\mandrill\Mailer',
-            'apikey'    =>  '6mEUoQyuhDN4itn_O1UlCg',
-        ],
+        'mailer'    => require(__DIR__ . '/' . 'mailer.php'),
         'cache'     => [
             'class' => 'yii\caching\FileCache',
         ],
