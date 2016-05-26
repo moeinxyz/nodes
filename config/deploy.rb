@@ -2,10 +2,11 @@
 lock '3.5.0'
 
 set :application, 'nodes'
-set :repo_url, 'git@gitlab.com:moein7tl/nodes.git'
+set :repo_url, 'git@gitlab.com:nodes.ir/nodes.git'
 
 # Default branch is :master
-ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+#ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+set :branch, 'production'
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/var/www/nodes'

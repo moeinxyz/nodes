@@ -29,3 +29,6 @@ phpunit.phar
 
 # environment variables
 /config/.env
+
+# capistrano log
+/log/capistrano.log
