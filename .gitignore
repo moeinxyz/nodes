@@ -24,11 +24,16 @@ composer.lock
 
 # phpunit itself is not needed
 phpunit.phar
+
 # local phpunit config
 /phpunit.xml
 
-# environment variables
+# Environment variables
 /config/.env
 
-# capistrano log
+# Capistrano log
 /log/capistrano.log
+
+# Assets
+/web/assets
+/web/min
