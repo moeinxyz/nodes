@@ -1,17 +1,17 @@
 <?php
 
 return [
-    'adminEmail'            =>  'moein7tl@gmail.com',
-    'embedlyKeys'           =>  ['a06a9e786a354857962ab68ca89a2406'],
-    'linkedinCallbackUrl'   =>  'http://nodes.ir/medium/web/social/auth?authclient=linkedin',
+    'adminEmail'            =>  $_ENV['ADMIN_EMAIL'],
+    'embedlyKeys'           =>  [$_ENV['EMBEDLY_APIKEY']],
+    'linkedinCallbackUrl'   =>  'http://nodes.ir/social/auth?authclient=linkedin',
     'noreply-email'         =>  'noreply@nodes.ir',
     'twitterHandler'        =>  '@nodesdotir',
     'rabbitmq'              =>  [
-        'server'                =>  'localhost',
-        'port'                  =>  5672,
-        'username'              =>  'guest',
-        'password'              =>  'guest',
-        'vhost'                 =>  '/',
+        'server'                =>  $_ENV['RABBITMQ_HOST'],
+        'port'                  =>  $_ENV['RABBITMQ_PORT'],
+        'username'              =>  $_ENV['RABBITMQ_USERNAME'],
+        'password'              =>  $_ENV['RABBITMQ_PASSWORD'],
+        'vhost'                 =>  $_ENV['RABBITMQ_VHOST'],
     ],
     'wildcat_urls'  =>  [
         'posts',

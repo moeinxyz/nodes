@@ -1,4 +1,3 @@
-/temp
 # phpstorm project files
 .idea
 
@@ -26,3 +25,6 @@ composer.phar
 phpunit.phar
 # local phpunit config
 /phpunit.xml
+
+# environment variables
+/config/.env

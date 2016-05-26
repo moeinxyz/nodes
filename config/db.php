@@ -2,12 +2,12 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=medium',
+    'dsn' => $_ENV['DB_DNS'],
     'emulatePrepare' => true,    
-    'username' => 'root',
-    'password' => 'hitler2014',
+    'username' => $_ENV['DB_USERNAME'],
+    'password' => $_ENV['DB_PASSWORD'],
     'charset' => 'utf8',    
-    'tablePrefix' => 'tbl_',  
+    'tablePrefix' => $_ENV['DB_PREFIX'],
     'enableSchemaCache' => true,    
     'schemaCacheDuration' => 3600,
     'schemaCache' => 'cache',    

@@ -16,13 +16,12 @@
     "prefer-stable": true,
     "require": {
         "php": ">=5.4.0",        
-        "yiisoft/yii2": "*",
+        "yiisoft/yii2": "2.0.8",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
         "yiisoft/yii2-authclient": "*",
         "yiisoft/yii2-redis": "*",
         "himiklab/yii2-recaptcha-widget": "*",        
-        "nickcv/yii2-mandrill": "*",
         "bower-asset/slimScroll":"*",
         "creocoder/yii2-flysystem": "dev-master",
         "league/flysystem-sftp": "~1.0@dev",
@@ -45,7 +44,8 @@
         "yiisoft/yii2-imagine": "~2.0.0",
         "miladr/jalali": "dev-master",
 	    "abraham/twitteroauth": "*",
-        "webtoucher/yii2-amqp": "*"
+        "webtoucher/yii2-amqp": "*",
+        "vlucas/phpdotenv":"*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

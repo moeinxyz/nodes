@@ -59,3 +59,14 @@
 #     auth_methods: %w(publickey password)
 #     # password: 'please use keys'
 #   }
+
+server '46.101.250.30',
+  user: 'deploy',
+  port: 8569,
+  roles: %w{web db},
+  ssh_options: {
+     user: 'deploy',
+     forward_agent: false,
+     auth_methods: %w(publickey),
+     port: 8569
+  }

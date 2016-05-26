@@ -12,7 +12,7 @@ $config = [
         'ftpFs' => require(__DIR__ . '/' . 'ftp.php'),        
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey'       => 'N9H_hIWERpGoYxMcgZnvFgmwsSVOck8j',
+            'cookieValidationKey'       => $_ENV['COOKIE_VALIDATION_KEY'],
             'enableCsrfValidation'      =>  true,
             'enableCookieValidation'    =>  true,
         ],
@@ -36,30 +36,7 @@ $config = [
         'socialClientCollection'    =>  require(__DIR__ . '/social.php'),
         'authClientCollection'      => [
             'class' => 'yii\authclient\Collection',
-            'clients' => [
-                'google' => [
-                    'class'         => 'yii\authclient\clients\GoogleOAuth',
-                    'clientId'      => '443205670238-vk10ehfmib8q9aljjad6dij0t1goam01.apps.googleusercontent.com',
-                    'clientSecret'  => 'bn9q9cUf2IQP_rWpRacBbvJm',
-                    'scope'         =>  implode(' ', ['email'])
-                ],          
-                'github' => [
-                    'class'         => 'yii\authclient\clients\GitHub',
-                    'clientId'      => '1a1d4e30eab7d1bf87dd',
-                    'clientSecret'  => 'e1dd76c0937a358ad51c55203360b222ea8c040a',
-                    'scope'         =>  implode(' ', ['user:email'])
-                ],                
-                'linkedin' => [
-                    'class'         => 'yii\authclient\clients\LinkedIn',
-                    'clientId'      => '78pbzg810si8wb',
-                    'clientSecret'  => 'TfZ4uwfiBgrb5V9w',
-                ],                
-                'facebook' => [
-                    'class'         => 'yii\authclient\clients\Facebook',
-                    'clientId'      => '865054846839734',
-                    'clientSecret'  => '737f7715218838239a00a06aed234c13',
-                ],
-            ],
+            'clients' => require(__DIR__ . '/auth-client.php'),
         ],        
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -99,18 +76,17 @@ $config = [
                 ],
             ],
         ],
-        'mailer'    => [
-            'class'     =>  'nickcv\mandrill\Mailer',
-            'apikey'    =>  '6mEUoQyuhDN4itn_O1UlCg',
-            'htmlLayout'=>  '@app/themes/seven/views/user/views/mail/layout.php',
-        ],
+        'mailer'        =>  array_merge(
+                                        require(__DIR__ . '/' . 'mailer.php'),
+                                        ['htmlLayout'=>  '@app/themes/seven/views/user/views/mail/layout.php']
+                            ),
         'db'            => require(__DIR__ . '/db.php'),
         'urlManager'    => require(__DIR__ . '/url.php'),      
         'reCaptcha' => [
             'name'      =>  'reCaptcha',
             'class'     =>  'himiklab\yii2\recaptcha\ReCaptcha',
-            'siteKey'   =>  '6LfK_gITAAAAAPC21IX_amSnxcR7d7be1aB9so48',
-            'secret'    =>  '6LfK_gITAAAAAIqY0FMR1xbk990u2fVJ-BwCZuBn',
+            'siteKey'   =>  $_ENV['RECAPTCHA_KEY'],
+            'secret'    =>  $_ENV['RECAPTCHA_SECRET'],
         ],
         'assetManager' => [
             'linkAssets'        => true,
