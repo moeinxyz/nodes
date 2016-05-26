@@ -29,5 +29,3 @@ phpunit.phar
 
 # environment variables
 /config/.env
-/web/assets
-/web/min
