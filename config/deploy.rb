@@ -2,7 +2,7 @@
 lock '3.5.0'
 
 set :application, 'nodes'
-set :repo_url, 'git@gitlab.com:nodes.ir/nodes.git'
+set :repo_url, 'git@gitlab.com:moein7tl/nodes.git'
 
 # Default branch is :master
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
