@@ -27,7 +27,7 @@ set :scm, :git
 set :linked_files, fetch(:linked_files, []).push('config/.env')
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('runtime', 'vendor', 'web/userassets')
+set :linked_dirs, fetch(:linked_dirs, []).push('runtime', 'vendor', 'web/userassets', 'log')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
