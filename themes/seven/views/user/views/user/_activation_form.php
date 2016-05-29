@@ -19,8 +19,8 @@ $form = ActiveForm::begin([
         <div class="form-group has-feedback">
             <div class="controls">
                 <div class="col-md-12 controls">
-                    <?= $form->field($model,'email')
-                            ->textInput(['placeholder'=> Module::t('user', 'activation.attr.email'),'style'=>'direction: ltr;']); ?>  
+                    <?= $form->field($model,'username_or_email')
+                            ->textInput(['placeholder'=> Module::t('user', 'activation.attr.username_or_email'),'style'=>'direction: ltr;']); ?>
                     <span class="glyphicon glyphicon-user form-control-feedback" style="right: 5px;"></span>                        
                 </div>
             </div>

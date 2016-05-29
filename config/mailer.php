@@ -7,6 +7,7 @@
  */
 
 return [
-    'class'     =>  'nickcv\mandrill\Mailer',
-    'apikey'    =>  $_ENV['MAILER_APIKEY'],
+    'class'     =>  'boundstate\mailgun\Mailer',
+    'key'       =>  $_ENV['MAILER_APIKEY'],
+    'domain'    =>  $_ENV['MAILER_DOMAIN'],
 ];

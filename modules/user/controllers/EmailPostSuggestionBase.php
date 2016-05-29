@@ -47,7 +47,7 @@ class EmailPostSuggestionBase extends \yii\console\Controller{
                     ->compose('@mail/digest', ['user' => $user,'posts'=>$posts])
                     ->setSubject(Module::t('mail','digest.title',['subject'=>$top->title]))
                     ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.digest.name')])                    
-                    ->setTags(['digest',  Yii::$app->name])
+                    // ->setTags(['digest',  Yii::$app->name])  // Mailgun doesn't support tags
                     ->setTo($user->email)
                     ->send();
     }

@@ -145,7 +145,7 @@ class TokenController extends Controller
                 ->compose('@mail/confirmEmailChangeStep2',['email'=>$email,'url'=>$url])
                 ->setSubject(Module::t('mail','token.emailchange2.title'))
                 ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])                    
-                ->setTags(['emailchange','step2',  Yii::$app->name])
+                // ->setTags(['emailchange','step2',  Yii::$app->name])  // Mailgun doesn't support tags
                 ->setTo($email)
                 ->send();                             
             return true;
