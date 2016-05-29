@@ -54,7 +54,7 @@ return [
     
     
     // reset
-    'reset.attr.email'                  =>  'ایمیل/نام کاربری',
+    'reset.attr.username_or_email'      =>  'ایمیل/نام کاربری',
     
     'reset.vld.error'                   =>  'ایمیل/نام کاربری اشتباه می باشد و یا این حساب غیر فعال می باشد.',
     'reset.expired_token.header'        =>  'لینک منقضی شده است',
