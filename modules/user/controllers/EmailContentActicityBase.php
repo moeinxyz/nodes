@@ -43,7 +43,7 @@ class EmailContentActicityBase extends \yii\console\Controller{
                     ->compose('@mail/content_activity/full', ['user' => $user,'comment'=>$comment])
                     ->setSubject(Module::t('mail','comment.full.title',['comment_author'=>$comment->user->getName(),'title'=>$comment->post->title]))
                     ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','comment.sender.name')])                    
-                    ->setTags(['full','comment',  Yii::$app->name])
+                    //->setTags(['full','comment',  Yii::$app->name]) // Mailgun doesn't support tags
                     ->setTo($user->email)
                     ->send();        
     }
@@ -54,7 +54,7 @@ class EmailContentActicityBase extends \yii\console\Controller{
                     ->compose('@mail/content_activity/digest', ['user' => $user,'comments'=>$comments,'count'=>count($comments)])
                     ->setSubject($this->generateDigestSubject($comments))
                     ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','comment.sender.name')])                    
-                    ->setTags(['digest','comment',  Yii::$app->name])
+                    // ->setTags(['digest','comment',  Yii::$app->name])  // Mailgun doesn't support tags
                     ->setTo($user->email)
                     ->send();        
     }

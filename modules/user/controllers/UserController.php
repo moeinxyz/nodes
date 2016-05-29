@@ -188,7 +188,7 @@ class UserController extends Controller
                 ->compose('@mail/join', ['url' => $url,'email'=>$model->email])
                 ->setSubject(Module::t('mail','user.join.title'))
                 ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])                    
-                ->setTags(['activation',  Yii::$app->name])
+                // ->setTags(['activation',  Yii::$app->name])  // Mailgun doesn't support tags
                 ->setTo($model->email)
                 ->send();
                 Yii::$app->session->setFlash('user.join.successful');            
@@ -213,7 +213,7 @@ class UserController extends Controller
                 ->compose('@mail/reset', ['url' => $url,'email'=>$model->email])
                 ->setSubject(Module::t('mail','user.reset.title'))
                 ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])
-                ->setTags(['reset',  Yii::$app->name])
+                // ->setTags(['reset',  Yii::$app->name]) // Mailgun doesn't support tags
                 ->setTo($model->email)
                 ->send();                
             Yii::$app->session->setFlash('reset_sent');
@@ -238,7 +238,7 @@ class UserController extends Controller
                 ->compose('@mail/activation', ['url' => $url,'email'=>$model->email])
                 ->setSubject(Module::t('mail','user.activation.title'))
                 ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])                    
-                ->setTags(['activation',  Yii::$app->name])
+                // ->setTags(['activation',  Yii::$app->name])  // Mailgun doesn't support tags
                 ->setTo($model->email)
                 ->send();                
             Yii::$app->session->setFlash('user.activation.successful');
@@ -415,7 +415,7 @@ class UserController extends Controller
             ->compose('@mail/passwordChanged')
             ->setSubject(Module::t('mail','user.pass_changed.title'))
             ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])                
-            ->setTags(['passwordChanged',  Yii::$app->name])
+            // ->setTags(['passwordChanged',  Yii::$app->name])  // Mailgun doesn't support tags
             ->setTo($email)
             ->send();                                
             Yii::$app->session->setFlash('user.setting.password.successful');        
@@ -434,7 +434,7 @@ class UserController extends Controller
             ->compose('@mail/confirmEmailChangeStep1',['email'=>$email,'url'=>$url])
             ->setSubject(Module::t('mail','user.emailchange1.title'))
             ->setFrom([Yii::$app->params['noreply-email']  =>  Module::t('mail','sender.name')])                
-            ->setTags(['emailchange','step1',  Yii::$app->name])
+            // ->setTags(['emailchange','step1',  Yii::$app->name])  // Mailgun doesn't support tags
             ->setTo($email)
             ->send();                                
             Yii::$app->session->setFlash('user.setting.email.successful');                

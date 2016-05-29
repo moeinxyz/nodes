@@ -42,7 +42,7 @@ return [
     
     
     //activation
-    'activation.attr.email'             =>  'ایمیل/نام کاربری',
+    'activation.attr.username_or_email' =>  'ایمیل/نام کاربری',
     'activation.vld.error'              =>  'ایمیل/نام کاربری اشتباه می باشد و یا این حساب فعال می باشد.',
     
     'activation.header'           =>  'دریافت مجدد لینک فعال سازی',    
