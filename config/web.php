@@ -90,7 +90,7 @@ $config = [
             'secret'    =>  $_ENV['RECAPTCHA_SECRET'],
         ],
         'assetManager' => [
-            'linkAssets'        => true,
+            'linkAssets'        => YII_ENV_PROD ? true : false,
             'appendTimestamp'   => true,
             'bundles'           => require(__DIR__ . '/' . (YII_ENV_PROD ? 'assets-prod.php' : 'assets-dev.php')),
         ],        
