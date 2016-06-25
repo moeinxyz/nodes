@@ -1,5 +1,4 @@
 <?php
-use Yii;
 use app\modules\post\Module;
 /* @var $this yii\web\View */
 ?>
