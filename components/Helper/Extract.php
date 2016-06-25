@@ -3,8 +3,8 @@ namespace app\components\Helper;
 
 use DOMDocument;
 use DOMXPath;
+use Symfony\Component\CssSelector\CssSelectorConverter;
 use Symfony\Component\DomCrawler\Crawler;
-use Symfony\Component\CssSelector\CssSelector;
 
 class Extract {
     public static function extractTitle($html){
@@ -27,7 +27,8 @@ class Extract {
         $dom->preserveWhiteSpace    =   TRUE;
         @$dom->loadHTML($encode);
         libxml_clear_errors();
-        $expression                 =   (new CssSelector())->toXPath('.graf--first');
+        $expression                 =   (new CssSelectorConverter())->toXPath('.graf--first');
+
         $xpath                      =   new DOMXPath($dom);
         $node                       =   $xpath->query($expression)->item(0);
         if ($node){
@@ -52,7 +53,7 @@ class Extract {
         @$dom->loadHTML($encode);
         libxml_clear_errors();
         
-        $expression                 =   (new CssSelector())->toXPath('.graf--p');
+        $expression                 =   (new CssSelectorConverter())->toXPath('.graf--p');
         $xpath                      =   new DOMXPath($dom);
         $nodes                      =   $xpath->query($expression);
         $length                     =   $nodes->length;

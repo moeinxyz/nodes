@@ -255,7 +255,7 @@ class PostController extends Controller
         if (Yii::$app->request->isAjax){
             $model          =   $this->findModel(base_convert($id, 36, 10));
             $cover          =   new CoverPhotoForm([
-                'coverStatus'   =>  $model->status,
+                'coverStatus'   =>  $model->cover,
                 'postId'        =>  $model->id
             ]);
             $cover->coverImage  =   UploadedFile::getInstance($cover, 'coverImage');
@@ -263,7 +263,7 @@ class PostController extends Controller
                 $name   =   Post::getCoverFileName(base_convert($id, 36, 10));
                 $file   =   Yii::getAlias("@webTempPostCover/{$name}.{$cover->coverImage->getExtension()}");
                 $cover->coverImage->saveAs($file);
-                
+
                 if ($cover->update()){
                     Yii::$app->session->setFlash('post.cover.add_or_change.successful');    
                 } else if ($cover->getFirstError('coverImage') == null) {
