@@ -3,6 +3,7 @@
 namespace app\modules\post\controllers;
 use Yii;
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use app\modules\post\models\Image;
 use yii\web\UploadedFile;
@@ -44,7 +45,7 @@ class ImageController extends \yii\web\Controller
             unlink($file);
             return Yii::getAlias("@upBaseUrl/{$model->url}");
         } else {
-            throw new \yii\web\NotFoundHttpException;
+            throw new NotFoundHttpException;
         }
     }
     
