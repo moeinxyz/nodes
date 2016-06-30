@@ -60,8 +60,9 @@
 #     # password: 'please use keys'
 #   }
 
-server '128.199.73.147',
-       user: 'root',
+
+server '176.31.142.216',
+       user: 'ubuntu',
        port: 22,
        roles: %w{web db},
        ssh_options: {

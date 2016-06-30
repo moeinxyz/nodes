@@ -68,10 +68,12 @@ return [
         '@ftpCovers'    =>  '/user/covers',
         '@ftpPostCovers'=>  '/post/covers',
         
-        '@ppicBaseUrl'      =>  'http://cdn.nodes.ir/user/pictures',
-        '@cpicBaseUrl'      =>  'http://cdn.nodes.ir/user/covers',
-        '@upBaseUrl'        =>  'http://cdn.nodes.ir/post/images',
-        '@postCoverBaseUrl' =>  'http://cdn.nodes.ir/post/covers',
+        '@cdn'              =>  $_ENV['CDN_URL'],
+        
+        '@ppicBaseUrl'      =>  '@cdn/user/pictures',
+        '@cpicBaseUrl'      =>  '@cdn/user/covers',
+        '@upBaseUrl'        =>  '@cdn/post/images',
+        '@postCoverBaseUrl' =>  '@cdn/post/covers',
         '@gravatar'         =>  'http://www.gravatar.com/avatar',
         '@placeHold'        =>  'http://www.placehold.it',
         '@homeUrl'          =>  'http://nodes.ir',
