@@ -130,15 +130,16 @@ $config = [
         '@webTempPicturesFolder'    =>  '@webTempFolder/user/pictures',
         '@webTempPostCoverFolder'   =>  '@webTempFolder/post/covers',
         '@ftpImages'                =>  '/post/images',
+
+        '@profile'                  =>  $_ENV['PROFILE_URL'],
+        '@cdn'                      =>  $_ENV['CDN_URL'],
         
-        '@ppicBaseUrl'      =>  'https://cdn.nodes.ir/user/pictures',
-        '@cpicBaseUrl'      =>  'https://cdn.nodes.ir/user/covers',
-        '@upBaseUrl'        =>  'https://cdn.nodes.ir/post/images',
-        '@postCoverBaseUrl' =>  'https://cdn.nodes.ir/post/covers',
-        '@gravatar'         =>  'https://www.gravatar.com/avatar',
-        '@placeHold'        =>  'https://www.placehold.it',
-        '@profile'          =>  'https://nodes.ir',
-        
+        '@ppicBaseUrl'              =>  '@cdn/user/pictures',
+        '@cpicBaseUrl'              =>  '@cdn/user/covers',
+        '@upBaseUrl'                =>  '@cdn/post/images',
+        '@postCoverBaseUrl'         =>  '@cdn/post/covers',
+        '@gravatar'                 =>  'https://www.gravatar.com/avatar',
+        '@placeHold'                =>  'https://www.placehold.it',
         
         '@uploaded'     =>  '@app/runtime/temp/images',
         '@temp'         =>  '@app/web/t',

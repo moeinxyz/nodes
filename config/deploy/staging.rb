@@ -59,3 +59,14 @@
 #     auth_methods: %w(publickey password)
 #     # password: 'please use keys'
 #   }
+
+server '176.31.142.216',
+       user: 'ubuntu',
+       port: 22,
+       roles: %w{web db},
+       ssh_options: {
+           user: 'deploy',
+           forward_agent: false,
+           auth_methods: %w(publickey),
+           port: 22
+       }

@@ -1,2 +1,7 @@
 *
 !.gitignore
+!temp
+!temp/covers
+!temp/images
+!temp/pictures
+!temp/postcovers
