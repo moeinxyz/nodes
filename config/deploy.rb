@@ -27,7 +27,9 @@ set :scm, :git
 set :linked_files, fetch(:linked_files, []).push('config/.env')
 
 # Default value for linked_dirs is []
-set :linked_dirs, fetch(:linked_dirs, []).push('runtime', 'vendor', 'web/userassets', 'log')
+# Dont share vendor directory, Composer has problem with down grading
+# set :linked_dirs, fetch(:linked_dirs, []).push('runtime', 'vendor', 'web/userassets', 'log')
+set :linked_dirs, fetch(:linked_dirs, []).push('runtime', 'web/userassets', 'log')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -74,10 +76,19 @@ namespace :deploy do
     end
   end
 
-  task :chmod do
+  task :dir_config do
     on roles(:web) do
       within release_path do
         execute "cd #{release_path} && chmod -R 777 web/assets"
+        execute "cd #{release_path}/web/userassets && mkdir -p post user && chmod 777 *"
+        execute "cd #{release_path}/web/userassets/user && mkdir -p covers pictures && chmod 777 *"
+        execute "cd #{release_path}/web/userassets/post && mkdir -p covers && chmod 777 *"
+
+        execute "cd #{release_path} && chmod 777 runtime"
+        execute "cd #{release_path}/runtime && mkdir -p temp/covers && chmod 777 temp/covers"
+        execute "cd #{release_path}/runtime && mkdir -p temp/images && chmod 777 temp/images"
+        execute "cd #{release_path}/runtime && mkdir -p temp/pictures && chmod 777 temp/pictures"
+        execute "cd #{release_path}/runtime && mkdir -p temp/postcovers && chmod 777 temp/postcovers"
       end
     end
   end
@@ -91,9 +102,18 @@ namespace :deploy do
     end
   end
 
+  task :flush_cache do
+    on roles(:web) do
+      within release_path do
+        execute "./yii cache/flush-all"
+        execute "./yii cache/flush-schema --interactive=0"
+      end
+    end
+  end
+
   after :updated, "deploy:composer"
   after :updated, "deploy:migrate"
   after :updated, "deploy:compile"
-  after :updated, "deploy:chmod"
+  after :updated, "deploy:dir_config"
   after :updated, "deploy:set_env"
 end
