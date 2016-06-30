@@ -85,10 +85,12 @@ namespace :deploy do
         execute "cd #{release_path}/web/userassets/post && mkdir -p covers && chmod 777 *"
 
         execute "cd #{release_path} && chmod 777 runtime"
+        execute "cd #{release_path} && rm -rf Twig/cache"
         execute "cd #{release_path}/runtime && mkdir -p temp/covers && chmod 777 temp/covers"
         execute "cd #{release_path}/runtime && mkdir -p temp/images && chmod 777 temp/images"
         execute "cd #{release_path}/runtime && mkdir -p temp/pictures && chmod 777 temp/pictures"
         execute "cd #{release_path}/runtime && mkdir -p temp/postcovers && chmod 777 temp/postcovers"
+        execute "cd #{release_path}/runtime && mkdir -p Twig/cache && chmod 777 Twig/cache"
       end
     end
   end

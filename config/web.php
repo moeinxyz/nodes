@@ -56,7 +56,7 @@ $config = [
             'renderers' => [
                 'twig' => [
                     'class' => 'yii\twig\ViewRenderer',
-                    'cachePath' => '@runtime/Twig/cache',
+                    'cachePath' => '@app/runtime/Twig/cache',
                     // Array of twig options:
                     'options' => [
                         'auto_reload' => true,
