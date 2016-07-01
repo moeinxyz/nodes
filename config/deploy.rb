@@ -107,8 +107,14 @@ namespace :deploy do
   task :flush_cache do
     on roles(:web) do
       within release_path do
-        execute "./yii cache/flush-all"
-        execute "./yii cache/flush-schema --interactive=0"
+        execute "cd #{release_path}  && ./yii cache/flush-all"
+        execute "cd #{release_path}  && ./yii cache/flush-schema --interactive=0"
+        execute "cd #{release_path}  && ./yii cache/flush-schema --interactive=0"
+        execute "cd #{release_path}  && curl -sO http://gordalina.github.io/cachetool/downloads/cachetool.phar"
+        execute "cd #{release_path}  && chmod +x cachetool.phar"
+        execute "cd #{release_path}  && php cachetool.phar opcache:reset --fcgi=/var/run/php5-fpm.sock"
+        execute "cd #{release_path}  && php cachetool.phar stat:clear --fcgi=/var/run/php5-fpm.sock"
+        execute "cd #{release_path}  && rm -f cachetool.phar"
       end
     end
   end
@@ -118,4 +124,5 @@ namespace :deploy do
   after :updated, "deploy:compile"
   after :updated, "deploy:dir_config"
   after :updated, "deploy:set_env"
+  after :updated, "deploy:flush_cache"
 end
