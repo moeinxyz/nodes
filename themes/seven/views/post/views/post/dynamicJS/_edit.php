@@ -16,7 +16,6 @@ $extractPlaceholder =   Module::t('post','write.extract.placeholder');
 $errorTitle         =   Module::t('post','write.save.error.title');
 $js=<<<JS
 var status      =   $("i#status");
-var setting     =   $("#setting");
 var editorElm   =   $("#editor");
         
 var editor=new Dante.Editor({
@@ -32,10 +31,7 @@ var editor=new Dante.Editor({
     extract_placeholder:        "{$extractPlaceholder}"
 });
 editor.start();
-    
-$("#editor").bind("DOMSubtreeModified",function(){
-  $("input#post-content").val(editor.getContent());
-});
+
 $(document).ajaxStart(function(){
     status.attr('class','glyphicon glyphicon-repeat glyphicon-refresh-animate');
     editorElm.find('.fa-warning').remove();
@@ -50,35 +46,9 @@ $(document).ajaxError(function(data){
     editorElm.append('<i class="fa fa-warning" title="{$errorTitle}"></i>');
 }); 
     
-$("a#save").on('click',function(){
-    editorElm.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
-    var store = editor.checkforStore();
-    if ((typeof store) === "number"){
-        save(false);
-    } else if ((typeof store) === "object"){
-        store.success(function(){
-            save(false);
-        });
-    }
-    return false;
-});
-    
-// edit this dummy coding
-$("a#publish").on('click',function(){
-    editorElm.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
-    var store = editor.checkforStore();
-    if ((typeof store) === "number"){
-        save(true);
-    } else if ((typeof store) === "object"){
-        store.success(function(){
-            save(true);
-        });
-    }            
-    return false;
-});
-function save(publish){
+var afterSave   =   function (redirect){
     jQuery.post("{$saveUrl}",function(){
-        if (publish === true){
+        if (redirect === true){
             jQuery.post("{$publishUrl}",function(data){
                 if (data.url){
                     window.location = data.url;
@@ -90,5 +60,40 @@ function save(publish){
         }
     });        
 }      
+    
+$("a#save").on('click',function(){
+    editorElm.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+    var store = editor.checkforStore();
+    if ((typeof store) === "number"){
+        afterSave(false);
+    } else if ((typeof store) === "object"){
+        store.success(function(){
+            afterSave(false);
+        });
+    }
+    return false;
+});
+    
+$("a#publish").on('click',function(){
+    editorElm.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+    var store = editor.checkforStore();
+    if ((typeof store) === "number"){
+        afterSave(true);
+    } else if ((typeof store) === "object"){
+        store.success(function(){
+            afterSave(true);
+        });
+    }            
+    return false;
+});
+
+$("#tags").tagsinput({
+  trimValue: true
+});
+
+$("#tags").on('itemAdded itemRemoved', function() {
+  console.log($("#tags").val());
+})
+
 JS;
 $this->registerJs($js);

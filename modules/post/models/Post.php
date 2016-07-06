@@ -30,6 +30,7 @@ use app\components\Helper\Stopwords;
  * @property string $score_update_requested_at
  *
  * @property User $user
+ * @property Posttags[] $posttags
  */
 class Post extends \yii\db\ActiveRecord
 {
@@ -286,5 +287,10 @@ class Post extends \yii\db\ActiveRecord
             return Yii::getAlias("@postCoverBaseUrl/{$name}-thumbnail.jpg");
         }
         return Yii::getAlias("@postCoverBaseUrl/{$name}.jpg");
-    }    
+    }
+    
+    public function getPosttags()
+    {
+        return $this->hasMany(Posttags::className(), ['post_id' => 'id']);
+    }
 }
