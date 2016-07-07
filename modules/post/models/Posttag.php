@@ -5,25 +5,24 @@ namespace app\modules\post\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%posttags}}".
+ * This is the model class for table "{{%posttag}}".
  *
- * @property string $id
  * @property string $post_id
  * @property string $tag_id
  * @property string $created_at
  * @property string $updated_at
  *
+ * @property Tag $tag
  * @property Post $post
- * @property Tag $post0
  */
-class Posttags extends \yii\db\ActiveRecord
+class Posttag extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%posttags}}';
+        return '{{%posttag}}';
     }
 
     /**
@@ -35,8 +34,8 @@ class Posttags extends \yii\db\ActiveRecord
             [['post_id', 'tag_id'], 'required'],
             [['post_id', 'tag_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
+            [['tag_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tag::className(), 'targetAttribute' => ['tag_id' => 'id']],
             [['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => Post::className(), 'targetAttribute' => ['post_id' => 'id']],
-            [['post_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tag::className(), 'targetAttribute' => ['post_id' => 'id']],
         ];
     }
 
@@ -46,7 +45,6 @@ class Posttags extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
             'post_id' => Yii::t('app', 'Post ID'),
             'tag_id' => Yii::t('app', 'Tag ID'),
             'created_at' => Yii::t('app', 'Created At'),
@@ -57,16 +55,16 @@ class Posttags extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPost()
+    public function getTag()
     {
-        return $this->hasOne(Post::className(), ['id' => 'post_id']);
+        return $this->hasOne(Tag::className(), ['id' => 'tag_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPost0()
+    public function getPost()
     {
-        return $this->hasOne(Tag::className(), ['id' => 'post_id']);
+        return $this->hasOne(Post::className(), ['id' => 'post_id']);
     }
 }

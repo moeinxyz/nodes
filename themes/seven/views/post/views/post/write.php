@@ -10,6 +10,6 @@ if ($model->title == ''){
 <?= $this->render('header/_write',['model'=>$model,'type'=>$type]) ?>   
 <div id="wrapper" class="page-content">
     <?= $this->render('_edit',['model'=>$model,'type'=>$type]) ?>
-    <?= $this->render('_tags_input',['model'=>$model]); ?>
+    <?= $this->render('_tags_input',['model'=>$model, 'tags'=>$tags]); ?>
     <?= $this->render('_post_cover',['cover'=>$cover]); ?>
 </div>

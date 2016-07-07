@@ -75,6 +75,9 @@ return [
     'post.cover.remove'                     =>  'حذف کاور',
     'cover.remove.successful'               =>  'کاور پست با موفقیت حذف گردید،این پست بدون کاور نمایش داده می شود.',
     'cover.add_or_change.successful'        =>  'کاور با موفقیت تغییر یافت،نمایش این تغییر ممکن است تا چند دقیقه زمان ببرد.',
+
+    'write.tags.title'                      =>  'برچسب‌ها',
+
     
     'home._signup_suggestion.title'         =>  'خوش آمدید',
     'home._signup_suggestion.text'          =>  'برای انتشار نوشته های خود و استفاده بهتر از امکانات، عضو و یا وارد شوید.',

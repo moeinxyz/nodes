@@ -9,6 +9,7 @@ $autoSave           =   Yii::$app->urlManager->createUrl(["post/autosave/{$id}"]
 $uploadUrl          =   Yii::$app->urlManager->createUrl(["post/upload","id"=>$id]);   
 $oembedUrl          =   Yii::$app->urlManager->createUrl(["embed",'type'=>'oembed']).'&url=';
 $extractUrl         =   Yii::$app->urlManager->createUrl(["embed",'type'=>'extract']).'&url=';
+$tagsUrl            =   Yii::$app->urlManager->createUrl(["post/tags", "id"=>$id]);
 $titlePlaceholder   =   Module::t('post','write.title.placeholder');
 $bodyPlaceholder    =   Module::t('post','write.body.placeholder');
 $embedPlaceholder   =   Module::t('post','write.embed.placeholder');
@@ -30,6 +31,11 @@ var editor=new Dante.Editor({
     embed_placeholder:          "{$embedPlaceholder}",
     extract_placeholder:        "{$extractPlaceholder}"
 });
+
+$("#tags").tagsinput({
+  trimValue: true
+});
+
 editor.start();
 
 $(document).ajaxStart(function(){
@@ -46,54 +52,48 @@ $(document).ajaxError(function(data){
     editorElm.append('<i class="fa fa-warning" title="{$errorTitle}"></i>');
 }); 
     
-var afterSave   =   function (redirect){
-    jQuery.post("{$saveUrl}",function(){
-        if (redirect === true){
-            jQuery.post("{$publishUrl}",function(data){
-                if (data.url){
-                    window.location = data.url;
-                }
-                editorElm.find('.overlay').remove(); 
-            });    
-        } else {
-            editorElm.find('.overlay').remove();        
-        }
-    });        
-}      
-    
-$("a#save").on('click',function(){
-    editorElm.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+var saveTags    =   function(){
+    return $.post("{$tagsUrl}", {tags: $("#tags").tagsinput('items')});
+}    
+
+var savePost    =   function(){
+    var def =   $.Deferred();
     var store = editor.checkforStore();
-    if ((typeof store) === "number"){
-        afterSave(false);
-    } else if ((typeof store) === "object"){
-        store.success(function(){
-            afterSave(false);
+    if ((typeof store) === "number") {
+        def.resolve();
+    } else if ((typeof store) === "object") {
+        store.success(function() {
+            def.resolve();  
         });
     }
+    return def;
+}
+
+var save      =   function(redirect) {
+    editorElm.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+    $.when(savePost() , saveTags()).done(function() {
+        jQuery.post("{$saveUrl}").done(function() {
+          if (redirect === true) {
+            jQuery.post("{$publishUrl}").done(function(data) {
+                editorElm.find('.overlay').remove(); 
+                if (data.url)   window.location = data.url;
+            });
+          } else {
+            editorElm.find('.overlay').remove();
+          }
+        });  
+    });
+}
+    
+$("a#save").on('click',function(){
+    save(false);
     return false;
 });
     
 $("a#publish").on('click',function(){
-    editorElm.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
-    var store = editor.checkforStore();
-    if ((typeof store) === "number"){
-        afterSave(true);
-    } else if ((typeof store) === "object"){
-        store.success(function(){
-            afterSave(true);
-        });
-    }            
+    save(true);            
     return false;
 });
-
-$("#tags").tagsinput({
-  trimValue: true
-});
-
-$("#tags").on('itemAdded itemRemoved', function() {
-  console.log($("#tags").val());
-})
 
 JS;
 $this->registerJs($js);

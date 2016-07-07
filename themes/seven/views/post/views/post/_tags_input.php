@@ -14,7 +14,7 @@ use app\modules\post\Module;
                 </div>
                 <?php
                     echo Html::beginForm(['post/tag','id'=>  base_convert($model->id, 10, 36)],'post',['id'=>'posttags-form']);
-                    echo Html::textInput('tags','asdasd,asdasd,asdasdqwe,asd', ['width'=>'100%', 'id'=>'tags']);
+                    echo Html::textInput('tags',$tags, ['width'=>'100%', 'id'=>'tags']);
                     echo Html::endForm();
                 ?>
             </div>

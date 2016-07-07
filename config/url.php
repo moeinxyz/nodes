@@ -30,7 +30,7 @@ return [
                     'post/delete'                                                           =>  'post/post/delete',
                     'post/cover'                                                            =>  'post/post/cover',
                     'post/pin'                                                              =>  'post/post/pin',
-                    'post/tags'                                                             =>  'post/posttags/tags',
+                    'post/tags'                                                             =>  'post/posttag/tags',
                     
                     // user module
                     'user/login'                                                            =>  'user/user/login',

@@ -30,7 +30,7 @@ use app\components\Helper\Stopwords;
  * @property string $score_update_requested_at
  *
  * @property User $user
- * @property Posttags[] $posttags
+ * @property Posttag[] $posttags
  */
 class Post extends \yii\db\ActiveRecord
 {
@@ -291,6 +291,6 @@ class Post extends \yii\db\ActiveRecord
     
     public function getPosttags()
     {
-        return $this->hasMany(Posttags::className(), ['post_id' => 'id']);
+        return $this->hasMany(Posttag::className(), ['post_id' => 'id']);
     }
 }
