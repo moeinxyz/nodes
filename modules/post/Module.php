@@ -18,6 +18,8 @@ class Module extends \yii\base\Module
     public $userReadTable       =   '{{%userread}}';
     public $guestReadTable      =   '{{%guestread}}';
     public $userToReadTable     =   '{{%usertoread}}';
+    public $tagTable            =   '{{%tag}}';
+    public $postTagTable        =   '{{%posttag}}';
 
     public function init()
     {

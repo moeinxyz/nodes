@@ -34,6 +34,8 @@
         "bower-asset/jQuery-One-Page-Nav": "3.0.0",
         "bower-asset/jquery.nicescroll": "3.6.8",
         "bower-asset/animate.css": "3.5.1",
+        "bower-asset/jquery": "~2.1.1",
+        "bower-asset/bootstrap-tagsinput": "~0.8",
         "embedly/embedly-php": "dev-master",
         "zelenin/yii2-rss": "~0.1",
         "symfony/dom-crawler": "3.1.0",

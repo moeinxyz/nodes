@@ -36,4 +36,7 @@ return [
     'app\\assets\\JasnyBootstrapAssets'   =>  [
         'class'         =>  'app\assets\JasnyBootstrapAssets',
     ],
+    'app\\assets\\TagsAssets'   =>  [
+        'class'         =>  'app\assets\TagsAssets'
+    ]
 ];

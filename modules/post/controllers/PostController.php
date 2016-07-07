@@ -171,8 +171,9 @@ class PostController extends Controller
     
     public function actionEdit($id,$type='content')
     {
-        $id     = base_convert($id, 36, 10);
-        $model  = $this->findModel($id);
+        $id     =   base_convert($id, 36, 10);
+        $model  =   $this->findModel($id);
+        $tags   =   '';
         $cover  = new CoverPhotoForm([
             'coverStatus'   =>  $model->cover,
             'postId'        =>  $model->id
@@ -181,6 +182,11 @@ class PostController extends Controller
         if ($type != 'content'){
             $type = 'autosave';
         }
+        
+        foreach ($model->posttags as $post_tag){
+            $tags .= $post_tag->tag->tag.',';
+        }
+        
         if (Yii::$app->request->isAjax){
             //@todo HtmlPurifier should use in model
             Yii::$app->response->format =   Response::FORMAT_JSON;
@@ -193,7 +199,8 @@ class PostController extends Controller
         return $this->render('write', [
             'model' => $model,
             'cover' => $cover,
-            'type'  =>  $type
+            'type'  =>  $type,
+            'tags'  =>  $tags
         ]);        
     }
     
@@ -602,7 +609,6 @@ class PostController extends Controller
             throw new NotFoundHttpException(Yii::t('yii','Page not found.'));
         }
     }
-    
     
     /**
      * 

@@ -6,8 +6,7 @@ return [
                     // special rules
                     '@<username:[\w\-\.]+>/followers'                                       =>  'user/following/followers',
                     '@<username:[\w\-\.]+>/following'                                       =>  'user/following/following',
-                    
-                    
+
                     // post module
                     '@<username:[\w\-\.]+>/rss'                                             =>  'post/post/rss',      
                     '@<username:[\w\-\.]+>/posts'                                           =>  'post/post/posts',    
@@ -17,8 +16,7 @@ return [
                     '@<username:[\w\-\.]+>/<url:[\w\-]+>/comment/delete'                    =>  'post/comment/delete',
                     '@<username:[\w\-\.]+>/<url:[\w\-]+>/recommend'                         =>  'post/post/recommend',
                     '@<username:[\w\-\.]+>'                                                 =>  'post/post/user',
-                    
-                    
+
                     'post/write'                                                            =>  'post/post/write',
                     'post/autosave/<id:\w+>'                                                =>  'post/post/autosave',
                     'post/edit'                                                             =>  'post/post/edit',
@@ -32,6 +30,7 @@ return [
                     'post/delete'                                                           =>  'post/post/delete',
                     'post/cover'                                                            =>  'post/post/cover',
                     'post/pin'                                                              =>  'post/post/pin',
+                    'post/tags'                                                             =>  'post/posttag/tags',
                     
                     // user module
                     'user/login'                                                            =>  'user/user/login',

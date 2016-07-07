@@ -33,8 +33,8 @@ class ImageController extends \yii\web\Controller
     {
         Yii::$app->response->format =   Response::FORMAT_JSON;
         $model                      =   new Image;
-        $model->file    =   UploadedFile::getInstanceByName('file');
-        $model->post_id =   base_convert($id, 36, 10);
+        $model->file                =   UploadedFile::getInstanceByName('file');
+        $model->post_id             =   base_convert($id, 36, 10);
         if ($model->save()){
             $file = Yii::getAlias("@runtimeTemp/{$model->url}");
             @$model->file->saveAs($file);
