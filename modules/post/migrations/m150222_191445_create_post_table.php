@@ -29,7 +29,7 @@ class m150222_191445_create_post_table extends Migration
     public function down()
     {
         $table      =   Yii::$app->getModule('post')->postTable;
-        $this->dropForeignKey($table, 'post_fk_user');
+        $this->dropForeignKey('post_fk_user', $table);
         $this->dropTable($table);
     }
 }
