@@ -51,13 +51,16 @@ return [
             ],
         ],
         'socialClientCollection'    =>  require(__DIR__ . '/social.php'),
-        'db' => require(__DIR__ . '/db.php'),
+        'db' => require(__DIR__ . '/db.php')
     ],
     'controllerMap' => [
         'fixture' => [
             'class'             => 'yii\faker\FixtureController',
             'templatePath'      => 'tests/unit/fixtures',
         ],
+        'auto-migrate'      =>  [
+            'class'     =>  moein7tl\autoMigrate\AutoMigrateController::className()
+        ]
     ],    
     'aliases' => [
         '@temp'         =>  '@app/runtime/temp',

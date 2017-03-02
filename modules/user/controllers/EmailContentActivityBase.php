@@ -7,7 +7,7 @@ use app\modules\user\models\User;
 use app\modules\post\models\Comment;
 use app\components\Helper\PersianNumber;
 
-class EmailContentActicityBase extends \yii\console\Controller{
+class EmailContentActivityBase extends \yii\console\Controller{
     public function init() {
         parent::init();
         set_time_limit(0);

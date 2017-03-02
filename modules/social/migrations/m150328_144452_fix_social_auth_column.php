@@ -14,6 +14,6 @@ class m150328_144452_fix_social_auth_column extends Migration
     public function down()
     {
         $table      =   Yii::$app->getModule('social')->socialTable;
-        $this->addColumn($table, 'auth', 'ENUM("AUTH", "DEAUTH","DELTED") NOT NULL DEFAULT "AUTH"');
+        $this->alterColumn($table, 'auth', 'ENUM("AUTH", "DEAUTH","DELTED") NOT NULL DEFAULT "AUTH"');
     }
 }

@@ -6,6 +6,7 @@ use app\modules\user\Module;
 use app\modules\user\models\User;
 use app\modules\post\models\Post;
 use app\modules\post\models\UserToRead;
+use yii\db\Expression;
 
 class EmailPostSuggestionBase extends \yii\console\Controller{
     public function init() {
@@ -54,7 +55,7 @@ class EmailPostSuggestionBase extends \yii\console\Controller{
 
     protected function updateUserDigestTime(User $user)
     {
-        $user->last_digest_mail =   new \yii\db\Expression('NOW()');
+        $user->last_digest_mail =   new Expression('NOW()');
         $user->save(false);
     }
     

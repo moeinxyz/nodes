@@ -13,6 +13,7 @@ class m150218_143901_change_type_token_table extends Migration
 
     public function down()
     {
+        $table      =   Yii::$app->getModule('user')->tokenTable;
         $this->alterColumn($table, 'type', "ENUM('ACCOUNT_ACTIVATION','RESET_PASSWORD','CHANGE_EMAIL') NOT NULL DEFAULT 'ACCOUNT_ACTIVATION'");
     }
 }

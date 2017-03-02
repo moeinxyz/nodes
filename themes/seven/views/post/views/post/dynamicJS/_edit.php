@@ -19,7 +19,7 @@ $js=<<<JS
 var status      =   $("i#status");
 var editorElm   =   $("#editor");
         
-var editor=new Dante.Editor({
+editor=new Dante.Editor({
     el: "#editor",
     upload_url:                 "{$uploadUrl}",
     store_url:                  "{$autoSave}",
@@ -32,9 +32,9 @@ var editor=new Dante.Editor({
     extract_placeholder:        "{$extractPlaceholder}"
 });
 
-$("#tags").tagsinput({
-  trimValue: true
-});
+// $("#tags").tagsinput({
+//   trimValue: true
+// });
 
 editor.start();
 
@@ -52,9 +52,9 @@ $(document).ajaxError(function(data){
     editorElm.append('<i class="fa fa-warning" title="{$errorTitle}"></i>');
 }); 
     
-var saveTags    =   function(){
-    return $.post("{$tagsUrl}", {tags: $("#tags").tagsinput('items')});
-}    
+//var saveTags    =   function(){
+//    return $.post("{$tagsUrl}", {tags: $("#tags").tagsinput('items')});
+//}    
 
 var savePost    =   function(){
     var def =   $.Deferred();
@@ -71,18 +71,19 @@ var savePost    =   function(){
 
 var save      =   function(redirect) {
     editorElm.append('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
-    $.when(savePost() , saveTags()).done(function() {
-        jQuery.post("{$saveUrl}").done(function() {
-          if (redirect === true) {
-            jQuery.post("{$publishUrl}").done(function(data) {
-                editorElm.find('.overlay').remove(); 
-                if (data.url)   window.location = data.url;
-            });
-          } else {
-            editorElm.find('.overlay').remove();
-          }
-        });  
-    });
+    jQuery.post("{$saveUrl}").done(function() {
+      if (redirect === true) {
+        jQuery.post("{$publishUrl}").done(function(data) {
+            editorElm.find('.overlay').remove(); 
+            if (data.url)   window.location = data.url;
+        });
+      } else {
+        editorElm.find('.overlay').remove();
+      }
+    });  
+    // $.when(savePost() , saveTags()).done(function() {
+    //
+    // });
 }
     
 $("a#save").on('click',function(){

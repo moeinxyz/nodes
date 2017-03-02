@@ -24,8 +24,8 @@ class m150220_194305_create_following_table extends Migration
     public function down()
     {
         $table  =   Yii::$app->getModule('user')->followingTable;
-        $this->dropForeignKey($table, 'following_fk2_user');
-        $this->dropForeignKey($table, 'following_fk1_user');
+        $this->dropForeignKey('following_fk2_user', $table);
+        $this->dropForeignKey('following_fk1_user', $table);
         $this->dropTable($table);
     }
 }

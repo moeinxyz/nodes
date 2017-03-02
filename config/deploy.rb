@@ -60,10 +60,7 @@ namespace :deploy do
   task :migrate do
     on roles(:db) do
       within release_path do
-        execute "cd #{release_path} && ./yii migrate --migrationPath=@app/modules/user/migrations --interactive=0"
-        execute "cd #{release_path} && ./yii migrate --migrationPath=@app/modules/post/migrations --interactive=0"
-        execute "cd #{release_path} && ./yii migrate --migrationPath=@app/modules/embed/migrations --interactive=0"
-        execute "cd #{release_path} && ./yii migrate --migrationPath=@app/modules/social/migrations --interactive=0"
+        execute "cd #{release_path} && ./yii auto-migrate"
       end
     end
   end
@@ -112,8 +109,8 @@ namespace :deploy do
         execute "cd #{release_path}  && ./yii cache/flush-schema --interactive=0"
         execute "cd #{release_path}  && curl -sO http://gordalina.github.io/cachetool/downloads/cachetool.phar"
         execute "cd #{release_path}  && chmod +x cachetool.phar"
-        execute "cd #{release_path}  && php cachetool.phar opcache:reset --fcgi=/var/run/php5-fpm.sock"
-        execute "cd #{release_path}  && php cachetool.phar stat:clear --fcgi=/var/run/php5-fpm.sock"
+        execute "cd #{release_path}  && php cachetool.phar opcache:reset --fcgi=/var/run/php/php7.0-fpm.sock"
+        execute "cd #{release_path}  && php cachetool.phar stat:clear --fcgi=/var/run/php/php7.0-fpm.sock"
         execute "cd #{release_path}  && rm -f cachetool.phar"
       end
     end
