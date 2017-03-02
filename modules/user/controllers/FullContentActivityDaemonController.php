@@ -6,7 +6,7 @@ use Yii;
 use app\modules\user\Module;
 use app\modules\user\models\User;
 
-class FullContentActicityDaemonController extends EmailContentActicityBase
+class FullContentActivityDaemonController extends EmailContentActivityBase
 {
     public function actionIndex()
     {
