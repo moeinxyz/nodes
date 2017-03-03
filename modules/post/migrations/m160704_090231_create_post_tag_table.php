@@ -17,7 +17,7 @@ class m160704_090231_create_post_tag_table extends Migration
             'post_id'           =>  'BIGINT UNSIGNED NOT NULL',
             'tag_id'            =>  'BIGINT UNSIGNED NOT NULL',
             'created_at'        =>  'timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP',
-            'updated_at'        =>  'timestamp NOT NULL',
+            'updated_at'        =>  'timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP',
             'PRIMARY KEY(`post_id`,`tag_id`)'
         ], 'ENGINE=InnoDB  DEFAULT CHARSET=utf8');
 
