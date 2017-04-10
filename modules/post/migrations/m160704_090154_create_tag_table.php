@@ -18,7 +18,7 @@ class m160704_090154_create_tag_table extends Migration
             'tag'               =>  'VARCHAR(255) NOT NULL',
             'frequency'         =>  'BIGINT UNSIGNED NOT NULL DEFAULT 0',
             'created_at'        =>  'timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP',
-            'updated_at'        =>  'timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP',
+            'updated_at'        =>  'timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP',
             'PRIMARY KEY(`id`)'
         ], 'ENGINE=InnoDB  DEFAULT CHARSET=utf8');
     }
