@@ -20,7 +20,7 @@ body {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Nodes', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Behdad', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
   overflow-x: hidden;
   overflow-y: auto;
@@ -152,7 +152,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: 'Nodes', sans-serif;
+  font-family: 'Behdad', sans-serif;
 }
 /* General Links */
 a {
@@ -288,7 +288,7 @@ a:focus {
   line-height: 50px;
   text-align: center;
   width: 230px;
-  font-family: 'Nodes', Helvetica, Arial, sans-serif;
+  font-family: 'Behdad', Helvetica, Arial, sans-serif;
   padding: 0 15px;
   font-weight: 300;
 }

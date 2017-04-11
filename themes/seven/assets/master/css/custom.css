@@ -8,9 +8,9 @@
 
 /* Begin custom styles */
 @font-face {
-    font-family: 'Nodes';
-    src: url('./../fonts/bkoodak.eot');
-    src: url('./../fonts/bkoodak.woff') format('woff'), url('./../fonts/bkoodak.ttf') format('truetype'), url('./../fonts/bkoodak.svg') format('svg');
+    font-family: 'Behdad';
+    src: url('./../fonts/behdad/Behdad-Regular.otf');
+    src: url('./../fonts/behdad/Behdad-Regular.woff') format('woff'), url('./../fonts/behdad/Behdad-Regular.woff2') format('woff2'), url('./../fonts/behdad/Behdad-Regular.ttf') format('truetype');
     font-weight: bolder;
     font-style: normal;
 }
@@ -98,7 +98,7 @@
 .graf--blockquote{
     border-right: 3px solid rgba(0, 0, 0, 0.8);
     border-left: 0px !important;
-    font-family: "Nodes", "jaf-bernino-sans", "Open Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif !important;
+    font-family: "Behdad", "jaf-bernino-sans", "Open Sans", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif !important;
 }
 .graf--p{
     

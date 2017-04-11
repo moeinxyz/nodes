@@ -39,3 +39,4 @@ phpunit.phar
 /web/min
 /config/deploy/production.rb
 /config/deploy/staging.rb
+/nodes.iml
