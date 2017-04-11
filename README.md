@@ -43,13 +43,10 @@ DB_PREFIX="tbl_"
 
 ### Run Migrations
 
-cd to project root and follow below commands to run migrations
+I've developed auto migrate module for Yii2, use following command to run all migrations
 
 ~~~
-./yii migrate --migrationPath=@app/modules/user/migrations
-./yii migrate --migrationPath=@app/modules/post/migrations
-./yii migrate --migrationPath=@app/modules/embed/migrations
-./yii migrate --migrationPath=@app/modules/social/migrations
+./yii auto-migrate
 ~~~
 
 ### Minify Assets
@@ -65,3 +62,7 @@ In production you need to minify assets, So run following command.
 There are many options to change, e.g: ftp configuration, urls, queues and ...
 
 All of them can be found in `config` directory
+
+### Deployment
+
+[Capistrano](http://capistranorb.com/) is used for deployment. You can edit its files to deploy some where else.

@@ -37,3 +37,5 @@ phpunit.phar
 # Assets
 /web/assets
 /web/min
+/config/deploy/production.rb
+/config/deploy/staging.rb

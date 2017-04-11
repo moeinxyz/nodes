@@ -104,9 +104,9 @@ class Post extends \yii\db\ActiveRecord
                 $this->last_update_type             =   self::LAST_UPDATE_TYPE_MANUAL;
                 $this->cover                        =   self::COVER_NOCOVER;
                 $this->created_at                   =   new \yii\db\Expression('NOW()');
-                $this->published_at                 =   '0000-00-00 00:00:00';
-                $this->score_updated_at             =   '0000-00-00 00:00:00';
-                $this->score_update_requested_at    =   '0000-00-00 00:00:00';
+                $this->published_at                 =   Yii::$app->params['zeroTime'];
+                $this->score_updated_at             =   Yii::$app->params['zeroTime'];
+                $this->score_update_requested_at    =   Yii::$app->params['zeroTime'];
                 $this->score                        =   0;
             }
             if ($this->title != NULL)

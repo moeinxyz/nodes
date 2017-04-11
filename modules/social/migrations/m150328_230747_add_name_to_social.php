@@ -18,15 +18,4 @@ class m150328_230747_add_name_to_social extends Migration
         $this->dropColumn($table, 'url');
         $this->dropColumn($table, 'name');
     }
-    
-    /*
-    // Use safeUp/safeDown to run migration code within a transaction
-    public function safeUp()
-    {
-    }
-    
-    public function safeDown()
-    {
-    }
-    */
 }

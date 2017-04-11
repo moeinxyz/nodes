@@ -229,7 +229,7 @@ class PostController extends Controller
             if ($model->url === NULL){
                 $model->url = Post::suggestUniqueUrl($model->title, $model->id);
             }
-            if ($model->published_at === '0000-00-00 00:00:00'){
+            if ($model->published_at === Yii::$app->params['zeroTime']){
                 $model->published_at    =   new \yii\db\Expression('NOW()');
             }
             if ($model->save()){
