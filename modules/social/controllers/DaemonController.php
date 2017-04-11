@@ -32,7 +32,7 @@ class DaemonController extends \yii\console\Controller{
             }
 
             $diff   =   time() - strtotime($timestamp);
-            
+
             if ($diff < Module::CHECK_INTERVAL){
                 sleep(Module::CHECK_INTERVAL + Module::ADDITIONAL_SLEEP_SECS - $diff);
                 Yii::$app->db->close();
@@ -54,7 +54,7 @@ class DaemonController extends \yii\console\Controller{
     {
         $posts = $this->getUnsharedPosts($social);
         if ($social->type === Social::TYPE_FACEBOOK){
-            
+            // Oops, we don't support facebook right now! it seems that is useless in Iran
         } else if ($social->type === Social::TYPE_TWITTER){
             $this->twitter($social, $posts);
         } else if ($social->type === Social::TYPE_LINKEDIN){
