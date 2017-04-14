@@ -298,4 +298,8 @@ pre.graf--pre {
 }
 ul.messages > li > div > p,ul.messages > div > li > div > p{
     margin: 10px!important;
-} 
+}
+
+div.postContent, div > .graf--h1, div > .graf--h2, div > .graf--h3, div > .graf--h4, div >.graf--h5 {
+    font-family: 'Behdad',"freight-text-pro", "Merriweather", Georgia, Cambria, "Times New Roman", Times, serif;
+}
