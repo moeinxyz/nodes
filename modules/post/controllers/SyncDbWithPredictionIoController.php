@@ -13,6 +13,7 @@ use app\modules\post\models\Guestread;
 use app\modules\post\models\Post;
 use app\modules\post\models\Userread;
 use app\modules\post\models\Userrecommend;
+use DateTime;
 use predictionio\EventClient;
 use Yii;
 use yii\console\Controller;
@@ -20,7 +21,6 @@ use yii\console\Controller;
 class SyncDbWithPredictionIoController extends Controller
 {
     private $client;
-
 
     public function init()
     {
@@ -36,31 +36,44 @@ class SyncDbWithPredictionIoController extends Controller
         /**
          * @var $model \yii\db\ActiveRecord
          */
-        $time_field = 'created_at';
+        $postIdField = 'post_id';
+        $userIdField = 'user_id';
+        $timeField   = 'created_at';
+
+        $condition = 'predictionio_status=:event_status';
+        $params    =  [':event_status' => Post::PREDICTION_STATUS_NEW];
         if ($type == 'user-read') {
-            $model = Userread::class;
-            $event = 'read';
+            $model          = Userread::class;
+            $event          = 'read';
         } else if ($type == 'guest-read') {
-            $model = Guestread::class;
-            $event = 'read';
+            $model          = Guestread::class;
+            $event          = 'read';
+            $userIdField    = 'uuid';
         } else if ($type == 'post') {
-            $model = Post::class;
-            $event = 'write';
-            $time_field = 'published_at';
+            $model          = Post::class;
+            $event          = 'write';
+            $timeField      = 'published_at';
+            $postIdField    = 'id';
+            $condition     .= ' AND status=:status';
+            $params[':status']= Post::STATUS_PUBLISH;
         } else {
             $model = Userrecommend::class;
-            $event = 'recommend';
+            $event          = 'recommend';
         }
 
         $query = $model::find()
             ->select('*')
-            ->where('predictionio_status=:status',[':status'=>Post::PREDICTION_STATUS_NEW])
+            ->where($condition,$params)
             ->limit(50);
 
+        echo "Before Count"."\n";
         if ($query->count() > 0) {
+            echo "After Count: ".$query->count()."\n";
             $all = $query->all();
             foreach ($all as $item){
-                if ($this->sendEvent($item->user_id, $item->post_id, $item->{$time_field}, $event)){
+                $time = (new DateTime($item->{$timeField}))->format(EventClient::DATE_TIME_FORMAT);
+
+                if ($this->sendEvent($item->{$userIdField}, $item->{$postIdField}, $time, $event)){
                     $item->predictionio_status = Post::PREDICTION_STATUS_SENT;
                     $item->save();
                 }
