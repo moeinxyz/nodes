@@ -48,8 +48,9 @@
 	    "abraham/twitteroauth": "0.6.4",
         "webtoucher/yii2-amqp": "1.0.0",
         "vlucas/phpdotenv":"2.2.1",
-        "boundstate/yii2-mailgun": "0.0.3",
-        "moein7tl/yii2-automigrate": "dev-master"
+        "moein7tl/yii2-automigrate": "dev-master",
+        "predictionio/predictionio": "~0.9.0",
+        "moein7tl/yii2-mailgun": "~0.0.4"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

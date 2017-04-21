@@ -11,12 +11,15 @@ use Yii;
  * @property string $post_id
  * @property integer $ip
  * @property string $created_at
+ * @property string $predictionio_status
  *
  * @property Post $post
  * @property User $user
  */
 class Userread extends \yii\db\ActiveRecord
 {
+    const PREDICTION_STATUS_NEW  = "NEW";
+    const PREDICTION_STATUS_SENT = "SENT";
     /**
      * @inheritdoc
      */
@@ -33,7 +36,8 @@ class Userread extends \yii\db\ActiveRecord
         return [
             [['user_id', 'post_id', 'ip'], 'required'],
             [['id','user_id', 'post_id', 'ip'], 'integer'],
-            [['created_at'], 'safe']
+            [['created_at', 'predictionio_status'], 'safe'],
+            ['predictionio_status', 'in' => [self::PREDICTION_STATUS_NEW, self::PREDICTION_STATUS_SENT]]
         ];
     }
 
@@ -64,6 +68,7 @@ class Userread extends \yii\db\ActiveRecord
     public function beforeValidate() {
         if (parent::beforeValidate()){
             if ($this->isNewRecord && $this->created_at == ''){//sometimes we moves from guest to user
+                $this->predictionio_status          =   self::PREDICTION_STATUS_NEW;
                 $this->created_at   =   new \yii\db\Expression('NOW()');
                 if (in_array($this->ip, ['127.0.0.1', '::1'])) {
                     return FALSE;
