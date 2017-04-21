@@ -37,7 +37,7 @@ class Userread extends \yii\db\ActiveRecord
             [['user_id', 'post_id', 'ip'], 'required'],
             [['id','user_id', 'post_id', 'ip'], 'integer'],
             [['created_at', 'predictionio_status'], 'safe'],
-            ['predictionio_status', 'in' => [self::PREDICTION_STATUS_NEW, self::PREDICTION_STATUS_SENT]]
+            [['predictionio_status'], 'in', 'range'=>[self::PREDICTION_STATUS_NEW, self::PREDICTION_STATUS_SENT]]
         ];
     }
 

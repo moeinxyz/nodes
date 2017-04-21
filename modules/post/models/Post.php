@@ -81,7 +81,7 @@ class Post extends \yii\db\ActiveRecord
             [['url'],'validateUniqueUrl','on'=>'save'],
             [['title','pure_text'],'filter','filter'=>'trim'],
             [['score'],'number','min'=>0,'max'=>4294967295],
-            ['predictionio_status', 'in' => [self::PREDICTION_STATUS_NEW, self::PREDICTION_STATUS_SENT]]
+            [['predictionio_status'], 'in', 'range'=>[self::PREDICTION_STATUS_NEW, self::PREDICTION_STATUS_SENT]]
         ];
     }
 

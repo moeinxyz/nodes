@@ -39,7 +39,7 @@ class Guestread extends \yii\db\ActiveRecord
             [['id','post_id', 'ip'], 'integer'],
             [['created_at', 'predictionio_status'], 'safe'],
             [['uuid', 'useragent'], 'string', 'max' => 32],
-            ['predictionio_status', 'in' => [self::PREDICTION_STATUS_NEW, self::PREDICTION_STATUS_SENT]]
+            [['predictionio_status'], 'in', 'range'=>[self::PREDICTION_STATUS_NEW, self::PREDICTION_STATUS_SENT]]
         ];
     }
 
