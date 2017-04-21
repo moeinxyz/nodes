@@ -55,12 +55,10 @@ class PostSuggestionForGuestWorkerController extends \yii\console\Controller{
     
     private function getLastUpdateTimestamp(Post $post)
     {
-        $timestamp  =   strtotime($post->score_updated_at);
-        if ($timestamp <= 0){
-            $timestamp  = strtotime($post->published_at);
+        if ($post->score_updated_at === null){
+            return strtotime($post->published_at);
         }
-        
-        return $timestamp;
+        return strtotime($post->score_updated_at);
     }
     
     private function getCoverScore(Post $post)

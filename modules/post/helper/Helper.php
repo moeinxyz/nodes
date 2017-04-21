@@ -13,15 +13,10 @@ use Yii;
 
 class Helper {
     public static function getPostPublishTime(Post $post){
-        $t1 =   strtotime($post->published_at);
-        $t2 =   strtotime(Yii::$app->params['zeroTime']);
-        $diff = abs($t1 - $t2);
-
-        // To solve daylight in every server configuration!
-        if ($diff <= 3600 * 24){
+        if ($post->published_at === NULL) {
             return time();
         }
 
-        return $t1;
+        return strtotime($post->published_at);
     }
 }
