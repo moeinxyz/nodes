@@ -28,7 +28,6 @@ use app\components\Helper\Stopwords;
  * @property Integer $score
  * @property string $score_updated_at
  * @property string $score_update_requested_at
- * @property string $predictionio_status
  *
  * @property User $user
  * @property Posttag[] $posttags
@@ -49,9 +48,6 @@ class Post extends \yii\db\ActiveRecord
     
     const LAST_UPDATE_TYPE_MANUAL   =   'MANUAL';
     const LAST_UPDATE_TYPE_AUTOSAVE =   'AUTOSAVE';
-
-    const PREDICTION_STATUS_NEW  = "NEW";
-    const PREDICTION_STATUS_SENT = "SENT";
 
     private $oldStatus      =   NULL;
 
@@ -80,8 +76,7 @@ class Post extends \yii\db\ActiveRecord
             [['last_update_type'],'in','range'   =>[self::LAST_UPDATE_TYPE_AUTOSAVE,self::LAST_UPDATE_TYPE_MANUAL]],            
             [['url'],'validateUniqueUrl','on'=>'save'],
             [['title','pure_text'],'filter','filter'=>'trim'],
-            [['score'],'number','min'=>0,'max'=>4294967295],
-            [['predictionio_status'], 'in', 'range'=>[self::PREDICTION_STATUS_NEW, self::PREDICTION_STATUS_SENT]]
+            [['score'],'number','min'=>0,'max'=>4294967295]
         ];
     }
 
@@ -113,7 +108,6 @@ class Post extends \yii\db\ActiveRecord
                 $this->score_updated_at             =   null;
                 $this->score_update_requested_at    =   Yii::$app->params['zeroTime'];
                 $this->score                        =   0;
-                $this->predictionio_status          =   self::PREDICTION_STATUS_NEW;
             }
             if ($this->title != NULL)
             {

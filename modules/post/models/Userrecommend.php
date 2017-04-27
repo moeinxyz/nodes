@@ -10,7 +10,6 @@ use app\modules\user\models\User;
  * @property integer $user_id
  * @property string $post_id
  * @property string $created_at
- * @property string $predictionio_status
  *
  * @property Post $post
  * @property User $user
@@ -35,8 +34,7 @@ class Userrecommend extends \yii\db\ActiveRecord
         return [
             [['user_id', 'post_id'], 'required'],
             [['user_id', 'post_id'], 'integer'],
-            [['created_at', 'predictionio_status'], 'safe'],
-            [['predictionio_status'], 'in', 'range'=>[self::PREDICTION_STATUS_NEW, self::PREDICTION_STATUS_SENT]]
+            [['created_at'], 'safe'],
         ];
     }
 
@@ -73,7 +71,6 @@ class Userrecommend extends \yii\db\ActiveRecord
             if ($this->isNewRecord){
                 $this->user_id      =   Yii::$app->user->getId();
                 $this->created_at   =   new \yii\db\Expression('NOW()');
-                $this->predictionio_status          =   self::PREDICTION_STATUS_NEW;
             }
             return TRUE;
         }
