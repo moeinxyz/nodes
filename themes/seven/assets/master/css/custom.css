@@ -128,6 +128,21 @@ h1.post-header{
 h2.post-header{
     font-size: 35px;
 }
+
+.cover > .tagline > h1.post-header {
+    background: rgb(240, 240, 240);
+    background: rgba(240, 240, 240, 0.5);
+    padding: 10px;
+}
+
+.cover > .tagline > a.post-header {
+    background: rgb(240, 240, 240);
+    background: rgba(240, 240, 240, 0.5);
+    padding: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
 .imageCaption{
     text-align: justify;
     /*word-break:break-all;*/
