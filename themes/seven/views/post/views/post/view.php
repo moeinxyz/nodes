@@ -61,10 +61,23 @@ echo $this->render('dynamicJS/_view',['model'=>$post]);
         </div>
     </div>
 </div>
-<?php 
+<?php
+//var_dump($post->id);die;
+//$id = $model->id;
+$uniqeId = md5(md5($post->id).$post->id);
 $js=<<<JS
 $("#editor a[href^='http://']").attr("target","_blank");
 $("#editor a[href^='https://']").attr("target","_blank");
+
+(function() {
+    Bibblio.initRelatedContent({
+        targetElementId: 'bib_related-content',
+        recommendationKey: '13e42d76-6cd8-4059-89f6-ceedb3f1e775',
+        customUniqueIdentifier: "$uniqeId",
+        autoIngestion: true, 
+        styleClasses: "bib--hover bib--row-3"
+    });
+})();
 JS;
 $this->registerJs($js);
 

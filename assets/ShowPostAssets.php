@@ -13,5 +13,6 @@ class ShowPostAssets extends AssetBundle
     public $js = [];
     public $depends = [
         'app\assets\MainAssets',
+        'app\assets\BibblioAssets'
     ];
 }
