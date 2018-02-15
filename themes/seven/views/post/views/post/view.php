@@ -55,6 +55,7 @@ echo $this->render('dynamicJS/_view',['model'=>$post]);
                             </div>
                         </div>
                     </article>
+                    <div id="bib_related-content" class="bib--box-5 bib--hover bib--wide"></div>
                     <?= $this->render('post/_comments',['post'=>$post,'newComment'=>$newComment,'comments'=>$comments]);?>
                 </div>
             </div>
@@ -62,8 +63,6 @@ echo $this->render('dynamicJS/_view',['model'=>$post]);
     </div>
 </div>
 <?php
-//var_dump($post->id);die;
-//$id = $model->id;
 $uniqeId = md5(md5($post->id).$post->id);
 $js=<<<JS
 $("#editor a[href^='http://']").attr("target","_blank");
@@ -75,7 +74,7 @@ $("#editor a[href^='https://']").attr("target","_blank");
         recommendationKey: '13e42d76-6cd8-4059-89f6-ceedb3f1e775',
         customUniqueIdentifier: "$uniqeId",
         autoIngestion: true, 
-        styleClasses: "bib--hover bib--row-3"
+        styleClasses: "bib--box-5 bib--hover bib--wide"
     });
 })();
 JS;
