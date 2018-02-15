@@ -61,7 +61,8 @@ return [
             'js'        =>  'c{hash}.js',
             'css'       =>  'c{hash}.css',
             'depends'   =>  [
-                'app\assets\ShowPostAssets'
+                'app\assets\ShowPostAssets',
+                'app\assets\BibblioAssets'
             ]                        
         ],
         'icheck'=>  [
