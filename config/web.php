@@ -144,7 +144,10 @@ $config = [
         '@temp'         =>  '@app/web/t',
         '@tempFolder'   =>  't',
         '@pictures'     =>  '@temp/pictures',
-        '@covers'       =>  '@temp/covers',        
+        '@covers'       =>  '@temp/covers',
+
+        '@bower' => '@vendor/bower-asset',
+        '@npm'   => '@vendor/npm-asset'
 
     ],    
     'params' => require(__DIR__ . '/params.php'),

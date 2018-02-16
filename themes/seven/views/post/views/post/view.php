@@ -30,12 +30,6 @@ echo $this->render('dynamicJS/_view',['model'=>$post]);
         }
     ?>
     <br>
-    <div class="row">
-        <a href="http://gholak.net/blog" target="_blank" class="col-md-6 col-md-offset-3 alert alert-success alert-dismissible text-center" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        قلک را دنبال کنید تا از آخرین آموزش‌ها و اخبار دنیای ارزهای دیجیتال آگاه شوید.
-        </a>
-    </div>
     <div class="row" id="content">
         <div class="col-md-8 col-md-offset-2">    
             <div class="row">
