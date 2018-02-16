@@ -1,7 +1,6 @@
 <?php
 $dotenv =   new \Dotenv\Dotenv(__DIR__);
 $dotenv->load();
-
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),

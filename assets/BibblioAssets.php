@@ -13,7 +13,7 @@ use yii\web\AssetBundle;
 
 class BibblioAssets extends AssetBundle
 {
-    public $sourcePath =   '@bower/bibblio-related-content-module';
+    public $sourcePath =   '@app/themes/seven/assets/bibblio-related-content-module';
     public $css = [
         'css/bib-related-content.css',
     ];

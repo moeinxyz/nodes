@@ -11,7 +11,6 @@ class InitAssets extends AssetBundle
         'animate.css/animate.min.css',
     ];
     public $js = [
-        'jQuery-One-Page-Nav/jquery.nav.js',
         'jquery.nicescroll/dist/jquery.nicescroll.min.js',
         'slimscroll/jquery.slimscroll.min.js'        
     ];

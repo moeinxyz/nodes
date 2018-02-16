@@ -1,0 +1,27 @@
+{
+  "name": "bibblio-related-content-module",
+  "version": "3.0.2",
+  "description": "Bibblio HTML modules (CSS+JS) for displaying related content.",
+  "main": "js/bib-related-content.js",
+  "files": [
+    "css",
+    "js",
+    "package.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bibblio/related-content-module.git"
+  },
+  "keywords": [
+    "related",
+    "recommendations",
+    "content",
+    "bibblio"
+  ],
+  "author": "Bibblio.org",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bibblio/related-content-module/issues"
+  },
+  "homepage": "https://github.com/bibblio/related-content-module#readme"
+}

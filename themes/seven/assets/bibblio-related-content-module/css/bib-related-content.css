@@ -1,0 +1,595 @@
+.bib__module, .bib__module *, .bib__module *::before, .bib__module *::after {
+    box-sizing: border-box;
+}
+
+.bib__module {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    outline: 0 !important;
+    -moz-box-shadow: 0 0 0 !important;
+    -webkit-box-shadow: 0 0 0 !important;
+    box-shadow: 0 0 0 !important;
+    height: auto;
+    max-height: initial;
+    min-height: initial;
+    width: 100%;
+    overflow: hidden;
+    line-height: normal !important;
+    list-style-type: none;
+    font-family: Arial, sans-serif;
+}
+
+.bib__origin {
+    background-image: url("//images.bibblio.org/logos/bibblio/positive-w90.png");
+    background-position: right top;
+    background-repeat: no-repeat;
+    background-size: 45px auto;
+    color: #888888 !important;
+    display: inline-block;
+    float: right;
+    font-size: 12px !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    border: 0 !important;
+    outline: 0 !important;
+    -moz-box-shadow: 0 0 0 !important;
+    -webkit-box-shadow: 0 0 0 !important;
+    box-shadow: 0 0 0 !important;
+    max-height: initial;
+    min-height: initial;
+    height: 25px;
+    margin: 5px 5px 0 0;
+    padding: 0 50px 0 0;
+    text-align: right;
+    line-height: 1.25 !important;
+    opacity: 0.5;
+    text-decoration: none;
+    text-transform: none !important;
+    -webkit-transition: opacity 0.5s ease-in-out;
+    -moz-transition: opacity 0.5s ease-in-out;
+    -ms-transition: opacity 0.5s ease-in-out;
+    -o-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.bib__origin:hover {
+    opacity: 1;
+    text-decoration: none;
+}
+
+.bib__origin:active,
+.bib__origin:focus {
+    outline: 0;
+}
+
+.bib--invert .bib__origin {
+    background-image: url("//images.bibblio.org/logos/bibblio/reverse-w90.png");
+    color: #FFFFFF !important;
+}
+
+.bib--white-label .bib__origin {
+    display: none;
+}
+
+.bib_pending-recs {
+    display: block;
+    width: 100%;
+    padding-top: 250px;
+    position: relative;
+    border: 0;
+}
+
+.bib_pending-recs-text {
+    background-color: rgba(0,0,0,0.05);
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    text-align: center;
+    padding: 95px 15px 0;
+}
+
+.bib_pending-recs-header {
+    font-family: Arial, sans-serif;
+    color: rgba(0,0,0,0.35);
+    font-size: 18px;
+    font-weight: bold;
+    font-style: normal;
+    padding: 0 0 12px;
+    margin: 0;
+}
+
+.bib_pending-recs-subheader {
+    font-family: Arial, sans-serif;
+    color: rgba(0,0,0,0.35);
+    font-size: 15px;
+    font-weight: normal;
+    font-style: normal;
+    padding: 0;
+    margin: 0;
+}
+
+
+.bib__tile {
+    float: left;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    line-height: normal;
+    margin: 0 !important;
+    border: 0 !important;
+    outline: 0 !important;
+    padding: 0 !important;
+    -moz-box-shadow: 0 0 0 !important;
+    -webkit-box-shadow: 0 0 0 !important;
+    box-shadow: 0 0 0 !important;
+    height: auto;
+    max-height: initial;
+    min-height: initial;
+}
+
+.bib--col-1 .bib__tile--2, .bib--col-1 .bib__tile--3, .bib--col-1 .bib__tile--4, .bib--col-1 .bib__tile--5, .bib--col-1 .bib__tile--6,
+.bib--col-2 .bib__tile--3, .bib--col-2 .bib__tile--4, .bib--col-2 .bib__tile--5, .bib--col-2 .bib__tile--6,
+.bib--col-3 .bib__tile--4, .bib--col-3 .bib__tile--5, .bib--col-3 .bib__tile--6,
+.bib--col-4 .bib__tile--5, .bib--col-4 .bib__tile--6,
+.bib--col-5 .bib__tile--6,
+.bib--row-2 .bib__tile--3, .bib--row-2 .bib__tile--4, .bib--row-2 .bib__tile--5, .bib--row-2 .bib__tile--6,
+.bib--row-3 .bib__tile--4, .bib--row-3 .bib__tile--5, .bib--row-3 .bib__tile--6,
+.bib--box-3 .bib__tile--4, .bib--box-3 .bib__tile--5, .bib--box-3 .bib__tile--6,
+.bib--row-4 .bib__tile--5, .bib--row-4 .bib__tile--6,
+.bib--box-4 .bib__tile--5, .bib--box-4 .bib__tile--6,
+.bib--grd-4 .bib__tile--5, .bib--grd-4 .bib__tile--6,
+.bib--box-5 .bib__tile--6
+{
+    display: none;
+}
+
+/* Col-* Standard ratio 4:3 */
+[class*="bib--col"] .bib__tile { width: 100%; padding-bottom: 75% !important; }
+
+/* Col-* Widescreen ratio 16:9 */
+[class*="bib--col"].bib--wide .bib__tile { padding-bottom: 56% !important; }
+
+/* Col-* Square ratio 1:1 */
+[class*="bib--col"].bib--square .bib__tile { padding-bottom: 100% !important; }
+
+
+/* Box-3 in Widescreen ratio 16:9 only */
+.bib--box-3 .bib__tile { width: 40%; padding-bottom: 16.7% !important; }
+.bib--box-3 .bib__tile--1 { width: 60%; padding-bottom: 33.4% !important; }
+
+
+/* Box-4 in Widescreen ratio 16:9 only */
+.bib--box-4 .bib__tile { width: 40%; padding-bottom: 11.1% !important; }
+.bib--box-4 .bib__tile--1 { width: 60%; padding-bottom: 33.3% !important; }
+
+
+/* Box-5 Standard ratio 4:3 */
+.bib--box-5 .bib__tile { width: 33.33%; padding-bottom: 25% !important; }
+.bib--box-5 .bib__tile--1,
+.bib--box-5 .bib__tile--2 { width: 50%; padding-bottom: 37.5% !important; }
+
+/* Box-5 Widescreen ratio 16:9 */
+.bib--box-5.bib--wide .bib__tile { padding-bottom: 18.5% !important; }
+.bib--box-5.bib--wide .bib__tile--1,
+.bib--box-5.bib--wide .bib__tile--2 { padding-bottom: 28% !important; }
+
+/* Box-5 Square ratio 1:1 */
+.bib--box-5.bib--square .bib__tile { padding-bottom: 33.3% !important; }
+.bib--box-5.bib--square .bib__tile--1,
+.bib--box-5.bib--square .bib__tile--2 { padding-bottom: 50% !important; }
+
+
+/* Box-6 in Widescreen ratio 16:9 only */
+.bib--box-6 .bib__tile { width: 33.33%; padding-bottom: 18.5% !important; }
+.bib--box-6 .bib__tile--1 { width: 66.66%; padding-bottom: 37% !important; }
+.bib--box-6 .bib__tile--4 { clear: left; }
+
+
+/* Row-2 Standard ratio 4:3 */
+.bib--row-2 .bib__tile { width: 50%; padding-bottom: 37.5% !important; }
+
+/* Row-2 Widescreen ratio 16:9 */
+.bib--row-2.bib--wide .bib__tile { padding-bottom: 28% !important; }
+
+/* Row-2 Square ratio 1:1 */
+.bib--row-2.bib--square .bib__tile { padding-bottom: 50% !important; }
+
+
+/* Row-3 Standard ratio 4:3 */
+.bib--row-3 .bib__tile { width: 33.3%; padding-bottom: 25% !important; }
+
+/* Row-3 Widescreen ratio 16:9 */
+.bib--row-3.bib--wide .bib__tile { padding-bottom: 18.5% !important; }
+
+/* Row-3 Square ratio 1:1 */
+.bib--row-3.bib--square .bib__tile { padding-bottom: 33.3% !important; }
+
+
+/* Row-4 Standard ratio 4:3 */
+.bib--row-4 .bib__tile { width: 25%; padding-bottom: 18.75% !important; }
+
+/* Row-4 Widescreen ratio 16:9 */
+.bib--row-4.bib--wide .bib__tile { padding-bottom: 14% !important; }
+
+/* Row-4 Square ratio 1:1 */
+.bib--row-4.bib--square .bib__tile { padding-bottom: 25% !important; }
+
+
+
+/* Grd-4 Standard ratio 4:3 */
+.bib--grd-4 .bib__tile { width: 50%; padding-bottom: 37.5% !important; }
+
+/* Grd-4 Widescreen ratio 16:9 */
+.bib--grd-4.bib--wide .bib__tile { padding-bottom: 28% !important; }
+
+/* Grd-4 Square ratio 1:1 */
+.bib--grd-4.bib--square .bib__tile { padding-bottom: 50% !important; }
+
+
+/* Grd-6 Standard ratio 4:3 */
+.bib--grd-6 .bib__tile { width: 33.3%; padding-bottom: 25% !important; }
+
+/* Grd-6 Widescreen ratio 16:9 */
+.bib--grd-6.bib--wide .bib__tile { padding-bottom: 18.5% !important; }
+
+/* Grd-6 Square ratio 1:1 */
+.bib--grd-6.bib--square .bib__tile { padding-bottom: 33.3% !important; }
+
+
+.bib__link {
+    overflow: hidden;
+    position: absolute;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    outline: 0 !important;
+    -moz-box-shadow: 0 0 0 !important;
+    -webkit-box-shadow: 0 0 0 !important;
+    box-shadow: 0 0 0 !important;
+    height: auto;
+    max-height: initial;
+    min-height: initial;
+    line-height: normal;
+    text-decoration: none;
+    background-size: auto 102%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url('//images.bibblio.org/bkgds/holders/incas-positive.png');
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+}
+
+.bib--split .bib__link,
+.bib--portrait .bib__link {
+    background-position: top center;
+}
+
+.bib--box-3 .bib__link,
+.bib--box-4 .bib__link,
+.bib--box-6 .bib__link,
+.bib--wide .bib__link,
+.bib--portrait .bib__link {
+    background-size: 102% auto;
+}
+
+
+/* Retina Quality Images */
+.bib--retina .bib__link,
+.bib--retina.bib--box-4 .bib__tile--1 .bib__link {
+    background-size: auto 51%;
+}
+.bib--retina.bib--wide .bib__link {
+    background-size: 51% auto;
+}
+
+.bib__container {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    position: absolute;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.bib__tile:hover,
+.bib__link:hover {
+    box-shadow: 0 0 0 !important;
+    border: 0 !important;
+    margin: 0 !important;
+    outline: 0 !important;
+}
+
+.bib__link:hover .bib__container {
+    background-color: rgba(0,0,0,0.25);
+}
+
+
+.bib__info {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: #FFFFFF;
+    position: absolute;
+    padding: 60px 15px 10px;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
+    background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#00000080',GradientType=0 );
+}
+
+.bib__link.bib__link--image .bib__info {
+    background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+    background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%);
+    background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 );
+}
+
+
+/* Tile Metadata */
+.bib__link .bib__preview,
+.bib--hover .bib__link:hover .bib__preview {
+    display: block;
+    max-height: 10em;
+    margin: 5px 0 5px;
+    padding: 5px 0 0;
+    border-top: 1px solid rgba(255,255,255,0.4);
+}
+
+.bib--hover.bib--title-only .bib__link:hover .bib__attributes {
+    display: block;
+    max-height: 10em;
+    margin: 5px 0 5px;
+    padding: 0 0;
+}
+
+.bib--hover .bib__preview,
+.bib--title-only .bib__attributes,
+.bib--title-only .bib__preview {
+    margin: 0;
+    padding: 0;
+    border-top: 0 solid rgba(255,255,255,0);
+    max-height: 0;
+    display: block;
+    overflow: hidden;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.bib__title {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.bib--shine .bib__link .bib__container:after {
+    background: -moz-linear-gradient(-25deg,  rgba(255,255,255,0) 0%, rgba(255,255,255,0) 35%, rgba(255,255,255,0.65) 49%, rgba(255,255,255,0.5) 51%, rgba(255,255,255,0) 65%, rgba(255,255,255,0) 100%);
+    background: -webkit-linear-gradient(-25deg,  rgba(255,255,255,0) 0%,rgba(255,255,255,0) 35%,rgba(255,255,255,0.65) 49%,rgba(255,255,255,0.5) 51%,rgba(255,255,255,0) 65%,rgba(255,255,255,0) 100%);
+    background: linear-gradient(115deg,  rgba(255,255,255,0) 0%,rgba(255,255,255,0) 65%,rgba(255,255,255,0.65) 79%,rgba(255,255,255,0.5) 81%,rgba(255,255,255,0) 95%,rgba(255,255,255,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#00ffffff',GradientType=1 );
+    z-index: 1;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    bottom: 0;
+    content: "";
+    right: 0;
+    position: absolute;
+    left: 90%;
+    top: 0;
+    opacity: 0;
+}
+
+.bib--shine .bib__link:hover .bib__container:after {
+    opacity: 0.6;
+    left: 0%;
+}
+
+
+/* Larger Titles in Bigger Tiles */
+    .bib--box-4 .bib__tile--1 .bib__title span, .bib--box-5 .bib__tile--1 .bib__title span, .bib--box-5 .bib__tile--2 .bib__title span, .bib--box-6 .bib__tile--1 .bib__title span { font-size: larger; line-height: 1.1em; }
+
+
+/* Split Layout */
+    .bib--split .bib__tile {
+        padding-top: 5% !important;
+    }
+
+    .bib--box-6.bib--split .bib__tile,
+    .bib--box-4.bib--split .bib__tile,
+    .bib--box-3.bib--split .bib__tile {
+        padding-top: 0% !important;
+    }
+
+    .bib--split .bib__info,
+    .bib--split .bib__link.bib__link--image .bib__info  {
+        background: #FFFFFF;
+        padding: 0 10px 5px;
+        color: #000000;
+    }
+
+    .bib--split.bib--hover .bib__link:hover .bib__preview {
+        border-top: 1px solid rgba(0,0,0,0.2);
+    }
+
+
+/* Responsiveness */
+
+@media (max-width: 1024px) {
+    .bib--row-4.bib--wide .bib__title span { font-size: smaller !important; line-height: 1em !important; }
+}
+@media (max-width: 767px) {
+    .bib__tile { width: 50% !important; }
+    .bib__link .bib__attributes,
+    .bib__link:hover .bib__attributes { display: block; margin: 5px 0; max-height: 10em; padding: 0; }
+    .bib--title-only .bib__link .bib__attributes,
+    .bib__link .bib__preview,
+    .bib__link:hover .bib__preview { display: none !important; }
+    .bib__title span { font-size: medium !important; line-height: 1.1em !important; }
+
+    .bib__tile,
+    [class*="bib--box"] .bib__tile,
+    [class*="bib--grd"] .bib__tile,
+    [class*="bib--row"] .bib__tile { 
+        padding-bottom: 37.5% !important; }
+
+    .bib--wide .bib__tile,
+    [class*="bib--box"].bib--wide .bib__tile,
+    [class*="bib--grd"].bib--wide .bib__tile,
+    [class*="bib--row"].bib--wide .bib__tile { 
+        padding-bottom: 28% !important; }
+
+    .bib--square .bib__tile,
+    [class*="bib--box"].bib--square .bib__tile, 
+    [class*="bib--grd"].bib--square .bib__tile, 
+    [class*="bib--row"].bib--square .bib__tile { 
+        padding-bottom: 50% !important; }
+
+    /* Edge cases */
+    [class*="bib--col"] .bib__tile,
+    .bib--box-5 .bib__tile.bib__tile--1, 
+    .bib--box-3 .bib__tile.bib__tile--1, 
+    .bib--row-3 .bib__tile.bib__tile--1 {
+        width: 100% !important; }
+
+    .bib--box-5 .bib__tile.bib__tile--1, 
+    .bib--box-3 .bib__tile.bib__tile--1, 
+    .bib--row-3 .bib__tile.bib__tile--1 {
+        padding-bottom: 75% !important; }
+
+    .bib--box-5.bib--wide .bib__tile.bib__tile--1, 
+    .bib--box-3.bib--wide .bib__tile.bib__tile--1, 
+    .bib--row-3.bib--wide .bib__tile.bib__tile--1 {
+        padding-bottom: 56% !important; }
+
+    .bib--box-5.bib--square .bib__tile.bib__tile--1, 
+    .bib--box-3.bib--square .bib__tile.bib__tile--1, 
+    .bib--row-3.bib--square .bib__tile.bib__tile--1 {
+        padding-bottom: 100% !important; }
+    
+    .bib--split .bib__tile {
+        padding-top: 5% !important;
+    }
+
+    .bib--box-3 .bib__link, .bib--box-4 .bib__link, .bib--box-6 .bib__link, .bib--square.bib--split .bib__link { background-size: auto 102%; }
+    .bib--wide .bib__link, .bib--portrait .bib__link, .bib--portrait.bib--square.bib--split .bib__link { background-size: 102% auto; }
+    .bib--retina.bib--box-4 .bib__link, .bib--retina.bib--square.bib--row-3 .bib__tile.bib__tile--1 .bib__link, .bib--retina.bib--square.bib--box-5 .bib__tile.bib__tile--1 .bib__link { background-size: auto 51%; }
+    .bib--box-6 .bib__tile--4 { clear: none; }
+
+}
+@media (max-width: 568px) {
+    .bib__info { padding: 30px 15px 10px; }
+    .bib__attributes, .bib__title span { font-size: smaller !important; line-height: 1em !important; }
+}
+@media (max-width: 414px) {
+
+    .bib__tile,
+    [class*="bib--box"] .bib__tile,
+    [class*="bib--grd"] .bib__tile,
+    [class*="bib--row"] .bib__tile {
+        width: 100% !important;  
+        padding-bottom: 75% !important; }
+
+    .bib--wide .bib__tile,
+    [class*="bib--box"].bib--wide .bib__tile,
+    [class*="bib--grd"].bib--wide .bib__tile,
+    [class*="bib--row"].bib--wide .bib__tile { 
+        padding-bottom: 56% !important; }
+
+    .bib--square .bib__tile,
+    [class*="bib--box"].bib--square .bib__tile, 
+    [class*="bib--grd"].bib--square .bib__tile, 
+    [class*="bib--row"].bib--square .bib__tile, 
+    .bib--square.bib--split .bib__tile { 
+        padding-bottom: 100% !important; }
+
+    .bib--retina .bib__link { background-size: auto 51%; }
+}
+
+@media (max-width: 320px) {
+    /*.bib--wide .bib__tile { padding-bottom: 56% !important; }*/
+    .bib--wide.bib--split .bib__tile { padding-bottom: 62% !important; } 
+    .bib_pending-recs-text { padding: 75px 20px 0; }
+
+}
+
+/* Visual Styles */
+
+.bib__link { /* Tile spacing */
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+}
+
+.bib__title {
+    font-size: 18px;
+    line-height: 1.1em;
+}
+
+.bib__info {
+    font-size: 14px;
+}
+
+.bib__author,
+.bib__recency,
+.bib__duration,
+.bib__preview {
+    display: inline-block;
+    opacity: 0.8;
+}
+
+.bib__author {
+    margin-right: 5px;
+}
+
+.bib__recency {
+    font-style: italic;
+    opacity: 0.6;
+}
+
+.bib__duration {
+    float: right;
+    margin-left: 5px;
+}
+
+.bib__tile--1 .bib__link {
+    background-color: #27AAE1; }
+
+.bib__tile--2 .bib__link {
+    background-color: #F7941E; }
+
+.bib__tile--3 .bib__link {
+    background-color: #BE1E2D; }
+
+.bib__tile--4 .bib__link {
+    background-color: #644E96; }
+
+.bib__tile--5 .bib__link {
+    background-color: #B3972A; }
+
+.bib__tile--6 .bib__link {
+    background-color: #39B54A; }
+
+.bib__link.bib__link--image {
+    background-color: #EEEEEE !important;
+}
