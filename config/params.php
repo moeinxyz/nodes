@@ -42,5 +42,6 @@ return [
     'predictionIO'  =>  [
         'access-key'    =>  $_ENV['PIO_ACCESS_KEY'],
         'url'           =>  $_ENV['PIO_URL'],
-    ]
+    ],
+    'bibblioRecommendationKey' => $_ENV['BIBBLIO_RECOMMENDATION_KEY']
 ];

@@ -58,6 +58,7 @@ echo $this->render('dynamicJS/_view',['model'=>$post]);
 </div>
 <?php
 $uniqeId = md5(md5($post->id).$post->id);
+$key = Yii::$app->params['bibblioRecommendationKey'];
 $js=<<<JS
 $("#editor a[href^='http://']").attr("target","_blank");
 $("#editor a[href^='https://']").attr("target","_blank");
