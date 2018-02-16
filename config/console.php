@@ -80,6 +80,9 @@ return [
         '@gravatar'         =>  'http://www.gravatar.com/avatar',
         '@placeHold'        =>  'http://www.placehold.it',
         '@homeUrl'          =>  'http://nodes.ir',
+
+        '@bower' => '@vendor/bower-asset',
+        '@npm'   => '@vendor/npm-asset'
     ], 
     'params' => require(__DIR__ . '/params.php'),
 ];
