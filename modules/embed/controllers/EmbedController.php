@@ -112,11 +112,11 @@ class EmbedController extends \yii\web\Controller
         $videoHash              =   $params[2];
         $result->url            =   $url;
         $result->type           =   'video';
-        $result->width          =   640;
-        $result->height         =   360;
+        $result->width          =   "responsive";
+        $result->height         =   "responsive";
         $result->author_url     =   '';
         $result->author_name    =   '';
-        $result->html           =   "<iframe src=\"http://www.aparat.com/video/video/embed/videohash/{$videoHash}/vt/frame\" allowFullScreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" height=\"360\" width=\"640\" ></iframe>";        
+        $result->html           =   "<style>.h_iframe-aparat_embed_frame{position:relative;} .h_iframe-aparat_embed_frame .ratio {display:block;width:100%;height:auto;} .h_iframe-aparat_embed_frame iframe {position:absolute;top:0;left:0;width:100%; height:100%;}</style><div class=\"h_iframe-aparat_embed_frame\"> <span style=\"display: block;padding-top: 57%\"></span><iframe src=\"https://www.aparat.com/video/video/embed/{$videoHash}/b9fPs/vt/frame\" allowFullScreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" ></iframe></div>";
         return $result;
     }
 
