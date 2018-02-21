@@ -108,7 +108,7 @@ class EmbedController extends \yii\web\Controller
     {
         $result = new \stdClass();
         $parse                  =   parse_url($url);
-        $params                 =   split("/", $parse['path']);
+        $params                 =   explode("/", $parse['path']);
         $videoHash              =   $params[2];
         $result->url            =   $url;
         $result->type           =   'video';
